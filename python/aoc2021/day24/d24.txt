@@ -1,0 +1,288 @@
+This is a heuristic solution to the problem.
+We need to simplily the input program first:
+This input|  tranalates to     |  which can be simplified to
+==========|====================|=================================
+          |  x = y = z = w = 0 | z0 = 0
+inp w     |  w = d[0]          |
+mul x 0   |                    |
+add x z   |  x = z % 26 + 10   |
+mod x 26  |                    |
+div z 1   |  z //= 1           |
+add x 10  |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   | # x is always 1
+mul y 0   |                    |
+add y 25  |                    |
+mul y x   |                    |
+add y 1   |  y = 25 * x + 1    |
+mul z y   |  z *= y            |
+mul y 0   |                    |
+add y w   |                    |
+add y 10  |                    |
+mul y x   |  y = (w + 10) * x  | # z1 is less than 26
+add z y   |  z += y            | z1 = d[0] + 10
+
+inp w     |  w = d[1]          |
+mul x 0   |                    |
+add x z   |  x = z % 26 + 13   |
+mod x 26  |                    |
+div z 1   |  z //= 1           |
+add x 13  |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   | # they cannot be equal, x is 1
+mul y 0   |                    |
+add y 25  |                    |
+mul y x   |                    |
+add y 1   |  y = 25 * x + 1    |
+mul z y   |  z *= y            |
+mul y 0   |                    |
+add y w   |                    |
+add y 5   |                    |
+mul y x   |  y = (w + 5) * x   | # z2 has 1st power of 26
+add z y   |  z += y            | z2 = z1 * 26 + d[1] + 5
+
+inp w     |  w = d[2]          |
+mul x 0   |                    |
+add x z   |  x = z % 26 + 15   |
+mod x 26  |                    |
+div z 1   |  z //= 1           |
+add x 15  |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   | # they cannot be equal, x is 1
+mul y 0   |                    |
+add y 25  |                    |
+mul y x   |                    |
+add y 1   |  y = 25 * x + 1    |
+mul z y   |                    |
+mul y 0   |                    |
+add y w   |                    |
+add y 12  |                    |
+mul y x   |  y = (w + 12) * x  | # z3 has 2nd power of 26
+add z y   |  z += y            | z3 = z2 * 26 + d[2] + 12
+
+inp w     |  w = d[3]          |
+mul x 0   |                    |
+add x z   |  x = z % 26 - 12   | x = z3 % 26 - 12 = d[2]
+mod x 26  |                    |
+div z 26  |  z //= 26          | z = z3 // 26 = z2
+add x -12 |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   | x = int(d[2]!=d[3])
+mul y 0   |                    |
+add y 25  |                    |
+mul y x   |                    | # If d[2] != d[3] then x is 1 and z4 will
+add y 1   |  y = 25 * x + 1    | # have higher powers of 26. If so, the
+mul z y   |  z *= y            | # final z value cannot be zero, then we
+mul y 0   |                    | # assume d[2] == d[3] to prevent this.
+add y w   |                    | # Then: z4 = z3//26 = z2
+add y 12  |                    |
+mul y x   |  y = (w + 12) * x  | # z4 has 1st power of 26
+add z y   |  z += y            | z4 = z2
+
+inp w     |  w = d[4]          |
+mul x 0   |                    |
+add x z   |  x = z % 26 + 14   |
+mod x 26  |                    |
+div z 1   |  z //= 1           |
+add x 14  |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   |
+mul y 0   |                    |
+add y 25  |                    |
+mul y x   |                    |
+add y 1   |  y = 25 * x + 1    |
+mul z y   |                    |
+mul y 0   |                    |
+add y w   |                    |
+add y 6   |                    |
+mul y x   |  y = (w + 6) * x   | # z5 has 2nd power of 26
+add z y   |  z += y            | z5 = z4 * 26 + d[4] + 6
+
+inp w     |  w = d[5]          |
+mul x 0   |                    |
+add x z   |  x = z % 26 - 2    | x = z5 % 26 - 2 = d[4] + 4
+mod x 26  |                    |
+div z 26  |  z //= 26          |
+add x -2  |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   | x = int(d[4]+4 != d[5])
+mul y 0   |                    |
+add y 25  |                    |
+mul y x   |                    | # Similarly, we need to minimize the powers
+add y 1   |  y = 25 * x + 1    | # of 26 here, so assume d[5]==d[4]+4, and:
+mul z y   |  z *= y            |
+mul y 0   |                    |
+add y w   |                    |
+add y 4   |                    | z6 = z5//26
+mul y x   |  y = (w + 4) * x   | z6 = z4
+add z y   |  z += y            | z6 = z2
+
+inp w     |  w = d[6]          |
+mul x 0   |                    |
+add x z   |  x = z % 26 + 13   |
+mod x 26  |                    |
+div z 1   |  z //= 1           |
+add x 13  |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   |
+mul y 0   |                    |
+add y 25  |                    |
+mul y x   |                    |
+add y 1   |  y = 25 * x + 1    |
+mul z y   |                    |
+mul y 0   |                    |
+add y w   |                    |
+add y 15  |                    |
+mul y x   |  y = (w + 15) * x  | z7 = z6 * 26 + d[6] + 15
+add z y   |  z += y            | z7 = z2 * 26 + d[6] + 15
+
+inp w     |  w = d[7]          |
+mul x 0   |                    |
+add x z   |  x = z % 26 - 12   |
+mod x 26  |                    |
+div z 26  |  z //= 26          |
+add x -12 |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   |
+mul y 0   |                    |
+add y 25  |                    |
+mul y x   |                    |
+add y 1   |  y = 25 * x + 1    |
+mul z y   |  z *= y            |
+mul y 0   |                    | # Similarly, if we assume d[7] == d[6] + 3
+add y w   |                    | # the we can minimize the 26 powers of z8
+add y 3   |                    |
+mul y x   |  y = (w + 3) * x   | z8 = z7 // 26
+add z y   |  z += y            | z8 = z2
+
+inp w     |  w = d[8]          |
+mul x 0   |                    |
+add x z   |  x = z % 26 + 15   |
+mod x 26  |                    |
+div z 1   |  z //= 1           |
+add x 15  |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   |
+mul y 0   |                    |
+add y 25  |                    |
+mul y x   |                    |
+add y 1   |  y = 25 * x + 1    |
+mul z y   |                    |
+mul y 0   |                    |
+add y w   |                    |
+add y 7   |                    |
+mul y x   |  y = (w + 7) * x   | z9 = z8 * 26 + d[8] + 7
+add z y   |  z += y            | z9 = z2 * 26 + d[8] + 7
+
+inp w     |  w = d[9]          |
+mul x 0   |                    |
+add x z   |  x = z % 26 + 11   |
+mod x 26  |                    |
+div z 1   |  z //= 1           |
+add x 11  |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   |
+mul y 0   |                    |
+add y 25  |                    |
+mul y x   |                    |
+add y 1   |  y = 25 * x + 1    |
+mul z y   |  z *= y            |
+mul y 0   |                    |
+add y w   |                    |
+add y 11  |                    |
+mul y x   |  y = (w + 12) * x  |
+add z y   |  z += y            | z10 = z9 * 26 + d[9] + 11
+
+inp w     |  w = d[10]         |
+mul x 0   |                    |
+add x z   |  x = z % 26 - 3    |
+mod x 26  |                    |
+div z 26  |  z //= 26          |
+add x -3  |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   |
+mul y 0   |                    |
+add y 25  |                    | # again to minimize the powers of 26, we
+mul y x   |                    | # assume d[10] == d[9] + 8:
+add y 1   |  y = 25 * x + 1    |
+mul z y   |                    |
+mul y 0   |                    |
+add y w   |                    |
+add y 2   |                    | z11 = z10 // 26
+mul y x   |  y = (w + 2) * x   | z11 = z9
+add z y   |  z += y            | z11 = z2 * 26 + d[8] + 7
+
+inp w     |  w = d[11]         |
+mul x 0   |                    |
+add x z   |  x = z % 26 - 13   | x = d[8] - 6
+mod x 26  |                    |
+div z 26  |  z //= 26          | z = z11 // 26 = z2
+add x -13 |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   | x = int(d[8] - 6 == d[11])
+mul y 0   |                    |
+add y 25  |                    |
+mul y x   |                    |
+add y 1   |  y = 25 * x + 1    |
+mul z y   |  z *= y            |
+mul y 0   |                    |
+add y w   |                    |
+add y 12  |                    |
+mul y x   |  y = (w + 12) * x  | z12 = z2
+add z y   |  z += y            | z12 = z1 * 26 + d[1] + 5
+
+inp w     |  w = d[12]         |
+mul x 0   |                    |
+add x z   |  x = z % 26 - 12   | x = d[1] - 7
+mod x 26  |                    |
+div z 26  |  z //= 26          | z = z12 // 26 = z1
+add x -12 |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   |
+mul y 0   |                    |
+add y 25  |                    | # similary, to minimize the powers of 26
+mul y x   |                    | # we assume d[12] == d[1] - 7
+add y 1   |  y = 25 * x + 1    |
+mul z y   |                    |
+mul y 0   |                    |
+add y w   |                    |
+add y 4   |                    |
+mul y x   |  y = (w + 4) * x   | z13 = z1
+add z y   |  z += y            | z13 = d[0] + 10
+
+inp w     |  w = d[13]         |
+mul x 0   |                    |
+add x z   |  x = z % 26 - 13   | x = z13 % 26 - 13 = d[0] - 3
+mod x 26  |                    |
+div z 26  |  z //= 26          | z = z1 // 26 = (d[0]+10) // 26 = 0
+add x -13 |                    |
+eql x w   |                    |
+eql x 0   |  x = int(x != w)   | x = int(d[0] - 3 != d[13])
+mul y 0   |                    |
+add y 25  |                    | # Here to have z14==0, we need both above z
+mul y x   |                    | # and x be zero, then all the previous
+add y 1   |  y = 25 * x + 1    | # equality assumptions plus this new one
+mul z y   |  z *= y            | # are mandatory: d[13] == d[0] - 3
+mul y 0   |                    |
+add y w   |                    |
+add y 11  |                    |
+mul y x   |  y = (w + 11) * x  |
+add z y   |  z += y            | z14 = 0
+#############################################################################
+
+Alright, let's put these together:
+All we need to have the final z == 0 are:
+d[3] == d[2]
+d[5] == d[4] + 4
+d[7] == d[6] + 3
+d[10] == d[9] + 8
+d[11] == d[8] - 6
+d[12] == d[1] - 7
+d[13] == d[0] - 3
+So, the largest and smallest 14 digit number (of 1-9 digits) which holds all
+of these conditions will be:
+                     1111
+digits:    01234567890123
+------     --------------
+largest:   99995969919326
+smallets:  48111514719111
