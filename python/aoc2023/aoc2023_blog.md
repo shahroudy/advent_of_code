@@ -46,7 +46,12 @@ Part two was the challenge, running the mappings on all the input ranges was imp
 * This was very slow (13 minutes on my computer), so I'm still thinking there should be a better way to do this in range level! [TODO]
 
 ## Day 6: [Wait For It](https://adventofcode.com/2023/day/6)
-Nothing challenging here, just reading the puzzle statement, parsing inputs and calculating the different ways!
+Nothing challenging here, just reading the puzzle statement, parsing inputs and calculating the different ways!\
+Well, the title "Wait For It" may suggest we will see this puzzle again in the future!\
+So, let's optimize it further.
+### Optimizations:
+  Finding waiting times which meet `(time - t) * t > distance` are actually the integers between the two roots of the equation: `time*t - t^2 - distance = 0`.\
+  So we can solve this quadratic equation and find the roots, then find the integers between them.
 
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
