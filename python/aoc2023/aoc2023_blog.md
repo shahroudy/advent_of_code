@@ -45,6 +45,8 @@ Part two was the challenge, running the mappings on all the input ranges was imp
 * My current implementation was to iterate over the locations from 0 (since we need to find the minimum) and apply the reverse mappings to check if the initial seed was in the list or not.
 * This was very slow (13 minutes on my computer), so I'm still thinking there should be a better way to do this in range level! [TODO]
 
+## Day 6: [Wait For It](https://adventofcode.com/2023/day/6)
+Nothing challenging here, just reading the puzzle statement, parsing inputs and calculating the different ways!
 
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
