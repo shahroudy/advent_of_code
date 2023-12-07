@@ -40,10 +40,10 @@ Again the only challenge here was to understand the puzzle statement and properl
 First real challenge of 2023!\
 We have 7 layers of one-to-one mappings, and we need to find the final state of the seed (location) after applying all the mappings.
 Part one was very easy, just to parse the input properly and apply the mappings one by one.\
-Part two was the challenge, running the mappings on all the input ranges was impossible.
+Part two was the challenge, running the mappings on all the input numbers was too complex to run.
 ### Optimizations:
-* My current implementation was to iterate over the locations from 0 (since we need to find the minimum) and apply the reverse mappings to check if the initial seed was in the list or not.
-* This was very slow (13 minutes on my computer), so I'm still thinking there should be a better way to do this in range level! [TODO]
+* My first implementation was to iterate over the locations from 0 (since we need to find the minimum) and apply the reverse mappings to check if the initial seed was in the list or not.
+* The much faster implementation is to process the ranges instead of numbers.
 
 ## Day 6: [Wait For It](https://adventofcode.com/2023/day/6)
 Nothing challenging here, just reading the puzzle statement, parsing inputs and calculating the different ways!\

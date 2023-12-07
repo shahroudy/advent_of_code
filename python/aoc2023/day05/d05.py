@@ -28,7 +28,7 @@ class IfYouGiveASeedAFertilizer:
             locations.append(i)
         return min(locations)
 
-    def min_location_for_input_seed_ranges(self):
+    def min_location_for_input_seed_ranges_loop(self):
         location_counter = 0
         seed_ranges = [
             range(self.seeds[i], self.seeds[i] + self.seeds[i + 1])
@@ -46,6 +46,31 @@ class IfYouGiveASeedAFertilizer:
                 if i in seed_range:
                     return location_counter
             location_counter += 1
+
+    def min_location_for_input_seed_ranges(self):
+        current = set(zip(self.seeds[::2], self.seeds[1::2]))
+        for mapping_group in self.mapping_groups:
+            next = set()
+            while current:
+                start, length = current.pop()
+                for map_dest, map_src, map_len in mapping_group:
+                    if start >= map_src + map_len or start + length <= map_src:
+                        continue  # no overlap
+                    if start < map_src:  # cut the starting non-overlapping part
+                        delta = map_src - start
+                        current.add((start, delta))
+                        start += delta
+                        length -= delta
+                    if start + length > map_src + map_len:  # cut the ending non-overlapping part
+                        delta = start + length - map_src - map_len
+                        current.add((map_src + map_len, delta))
+                        length -= delta
+                    next.add((start + map_dest - map_src, length))
+                    break
+                else:
+                    next.add((start, length))
+            current = next
+        return min([c[0] for c in current])
 
 
 def test_samples(filename, answer1, answer2):
