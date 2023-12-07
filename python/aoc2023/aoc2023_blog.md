@@ -53,6 +53,12 @@ So, let's optimize it further.
   Finding waiting times which meet `(time - t) * t > distance` are actually the integers between the two roots of the equation: `time*t - t^2 - distance = 0`.\
   So we can solve this quadratic equation and find the roots, then find the integers between them.
 
+## Day 7: [Camel Cards](https://adventofcode.com/2023/day/7)
+Alright! Ranking poker hands! This one was my favorite!\
+But where are the suits? :spades: :hearts: :clubs: :diamonds:\
+Anyways, using `collections.Counter` was the key here.\
+Using `functools.cache` could also help to speed up the running time.
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:
