@@ -1,0 +1,14 @@
+black
+click
+exceptiongroup
+iniconfig
+mpmath
+mypy-extensions
+packaging
+pathspec
+platformdirs
+pluggy
+pycodestyle
+pytest
+sympy
+tomli
