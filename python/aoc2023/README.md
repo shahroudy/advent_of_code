@@ -59,6 +59,13 @@ But where are the suits? :spades: :hearts: :clubs: :diamonds:\
 Anyways, using `collections.Counter` was the key here.\
 Using `functools.cache` could also help to speed up the running time.
 
+## Day 8: [Haunted Wasteland](https://adventofcode.com/2023/day/8)
+Another easy part1 and a little tricky part2.\
+Brute force search will take a very long time to complete.
+### Optimizations:
+* Find needed steps for each starting node, and find `math.lcm` (least-common-multiplier) of all.
+* It's the same trick for 2022 Day 11 Part2: [Monkey In The Middle](https://adventofcode.com/2022/day/11)
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:
