@@ -12,3 +12,4 @@ pycodestyle
 pytest
 sympy
 tomli
+numpy
