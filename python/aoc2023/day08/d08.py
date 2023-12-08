@@ -41,6 +41,7 @@ def test_samples(filename, answer1, answer2):
 if __name__ == "__main__":
     test_samples("sample1.txt", 2, None)
     test_samples("sample2.txt", 6, None)
+    test_samples("sample3.txt", None, 6)
 
     print("Tests passed, starting with the puzzle")
 
