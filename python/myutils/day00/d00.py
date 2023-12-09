@@ -11,7 +11,7 @@ from myutils.file_reader import *
 
 class Puzzle:
     def __init__(self, filename):
-        self.lines = Path(filename).read_text().strip().split("\n")
+        self.lines = Path(filename).read_text().strip().splitlines()
         # self.inp = read_int_lines(filename)
         # self.inp = read_line_groups(filename)
         # self.inp = read_int_line_groups(filename)
@@ -41,18 +41,18 @@ class Puzzle:
         self.rows = row
 
     def process_int_list(self):
-        self.inp = [list(map(int, re.findall(r"\d+", line))) for line in self.lines]
+        self.inp = [list(map(int, re.findall(r"-?\d+", line))) for line in self.lines]
 
     def process_int_int_dict(self):
         self.inp = {}
         for line in self.lines:
-            parts = list(map(int, re.findall(r"\d+", line)))
+            parts = list(map(int, re.findall(r"-?\d+", line)))
             self.inp[parts[0]] = parts[1]
 
     def process_int_list_dict(self):
         self.inp = {}
         for line in self.lines:
-            parts = list(map(int, re.findall(r"\d+", line)))
+            parts = list(map(int, re.findall(r"-?\d+", line)))
             self.inp[parts[0]] = parts[1:]
 
     def process(self):
