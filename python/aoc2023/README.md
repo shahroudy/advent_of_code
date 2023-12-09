@@ -66,6 +66,32 @@ Brute force search will take a very long time to complete.
 * Find needed steps for each starting node, and find `math.lcm` (least-common-multiplier) of all.
 * It's the same trick for 2022 Day 11 Part2: [Monkey In The Middle](https://adventofcode.com/2022/day/11)
 
+## Day 9: [Mirage Maintenance](https://adventofcode.com/2023/day/9)
+Simple numeric implementation of extrapolation of a sequence of numbers in an unknown degree polynomials .\
+Very long description of the statement, was there to skip reading :laughing:.\
+My first quick yet working implementation was to build and keep all the difference steps and build the needed numbers based on the first and last items of difference values.\
+
+### Optimizations:
+* First step to improve the memory usage is to keep only the last and the first values of each difference step.
+* It turns out that you can simply build the needed numbers by adding and subtracting the difference values along the way and avoid storing data in memory.
+### Bugs and issues:
+* My new integer reading template function was not catching negative signs :sweat_smile:. It took me a while to figure that out! so I had to fix it.
+* How to calculate the fist number was a bit tricky, based on the number of the steps (being even or odd), we need to add or subtract the first difference value. So I added a sign variable and switched its sign after each step. Now the final implementation is much shorter and much more efficient:
+```python 
+    self.sum_firsts = self.sum_lasts = 0
+    for history in self.histories:
+        dif = history
+        first = last = 0
+        sign = -1
+        while any(dif):
+            last += dif[-1]
+            first = dif[0] - first
+            sign *= -1
+            dif = [dif[i + 1] - dif[i] for i in range(len(dif) - 1)]
+        self.sum_lasts += last
+        self.sum_firsts += first * sign
+```
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:
