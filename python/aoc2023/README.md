@@ -92,6 +92,19 @@ My first quick yet working implementation was to build and keep all the differen
         self.sum_firsts += first * sign
 ```
 
+## Day 10: [Pipe Maze](https://adventofcode.com/2023/day/10)
+I got really stuck on this one!\
+I had obvious wrong assumptions about the starting point.\
+So I implemented a BFS search to find the farthest point from the starting point.\
+It eventually turned out to be a single and simple loop which was very easy to find.\
+For part two, my trick was to upsample the map by a factor of 2 and then apply a region growing to detect all the outer points.\
+Then finding the inner ones is obvious.
+
+### Bugs and issues:
+ Missing the point about the start point `S` is actually a simple connection that you should guess based on its neighbors.\
+  My first implementation was assuming all the neigbors of `S` are connected to it!\
+  It took me about an hour to figure this out! :sweat_smile:
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:

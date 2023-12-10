@@ -8,6 +8,8 @@ from aoc2023.day05.d05 import IfYouGiveASeedAFertilizer
 from aoc2023.day06.d06 import WaitForIt
 from aoc2023.day07.d07 import CamelCards
 from aoc2023.day08.d08 import HauntedWasteland
+from aoc2023.day09.d09 import MirageMaintenance
+from aoc2023.day10.d10 import PipeMaze
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -110,3 +112,36 @@ def test_day08():
     test = HauntedWasteland(f"{input_folder}/aoc2023_day08.txt")
     assert test.navigate_human() == 20569
     assert test.navigate_ghost() == 21366921060721
+
+
+def test_day09_samples():
+    test = MirageMaintenance("./python/aoc2023/day09/sample1.txt")
+    assert test.sum_lasts == 114
+    assert test.sum_firsts == 2
+
+
+def test_day09():
+    test = MirageMaintenance(f"{input_folder}/aoc2023_day09.txt")
+    assert test.sum_lasts == 1974232246
+    assert test.sum_firsts == 928
+
+
+def test_day10_samples():
+    test = PipeMaze("./python/aoc2023/day10/sample1.txt")
+    assert test.loop_length() == 4
+    assert test.count_inner_points() == 1
+    test = PipeMaze("./python/aoc2023/day10/sample2.txt")
+    assert test.loop_length() == 8
+    assert test.count_inner_points() == 1
+    test = PipeMaze("./python/aoc2023/day10/sample3.txt")
+    assert test.count_inner_points() == 4
+    test = PipeMaze("./python/aoc2023/day10/sample4.txt")
+    assert test.count_inner_points() == 8
+    test = PipeMaze("./python/aoc2023/day10/sample5.txt")
+    assert test.count_inner_points() == 10
+
+
+def test_day10():
+    test = PipeMaze(f"{input_folder}/aoc2023_day10.txt")
+    assert test.loop_length() == 6725
+    assert test.count_inner_points() == 383
