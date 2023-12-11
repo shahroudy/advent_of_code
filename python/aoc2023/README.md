@@ -97,13 +97,17 @@ I got really stuck on this one!\
 I had obvious wrong assumptions about the starting point.\
 So I implemented a BFS search to find the farthest point from the starting point.\
 It eventually turned out to be a single and simple loop which was very easy to find.\
-For part two, my trick was to upsample the map by a factor of 2 and then apply a region growing to detect all the outer points.\
+For part two, my trick was to up-sample the map by a factor of 2 and then apply a region growing to detect all the outer points.\
 Then finding the inner ones is obvious.
-
 ### Bugs and issues:
  Missing the point about the start point `S` is actually a simple connection that you should guess based on its neighbors.\
   My first implementation was assuming all the neigbors of `S` are connected to it!\
   It took me about an hour to figure this out! :sweat_smile:
+
+## Day 11: [Cosmic Expansion](https://adventofcode.com/2023/day/11)
+This ones was easy; the efficient implementation was actually easier than the brute force one!\
+Keeping track of missing rows and columns and derive a mapping of indices according to the expansion factor was the key here.\
+After some cleanup, my whole solution is ~30 lines of code yet very efficient in Python!
 
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc

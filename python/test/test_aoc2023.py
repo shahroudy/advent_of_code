@@ -10,6 +10,7 @@ from aoc2023.day07.d07 import CamelCards
 from aoc2023.day08.d08 import HauntedWasteland
 from aoc2023.day09.d09 import MirageMaintenance
 from aoc2023.day10.d10 import PipeMaze
+from aoc2023.day11.d11 import CosmicExpansion
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -145,3 +146,16 @@ def test_day10():
     test = PipeMaze(f"{input_folder}/aoc2023_day10.txt")
     assert test.loop_length() == 6725
     assert test.count_inner_points() == 383
+
+
+def test_day11_samples():
+    test = CosmicExpansion("./python/aoc2023/day11/sample1.txt")
+    assert test.sum_distance_between_expanded_galaxies(2) == 374
+    assert test.sum_distance_between_expanded_galaxies(10) == 1030
+    assert test.sum_distance_between_expanded_galaxies(100) == 8410
+
+
+def test_day11():
+    test = CosmicExpansion(f"{input_folder}/aoc2023_day11.txt")
+    assert test.sum_distance_between_expanded_galaxies() == 9214785
+    assert test.sum_distance_between_expanded_galaxies(1000000) == 613686987427
