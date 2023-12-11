@@ -7,7 +7,7 @@ At this moment the solutions are only in Python, but in near future I may try ot
 To be able to run the scripts, you may need to install the provided code as a package:
 
 ```
-cd Advent-Of-Code/python
+cd advent_of_code/python
 python3 -m pip install -e .
 ```
 Then you need to `cd` to each folder and run the scripts from there, e.g.
