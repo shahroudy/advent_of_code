@@ -109,6 +109,25 @@ This ones was easy; the efficient implementation was actually easier than the br
 Keeping track of missing rows and columns and derive a mapping of indices according to the expansion factor was the key here.\
 After some cleanup, my whole solution is ~30 lines of code yet very efficient in Python!
 
+## Day 12: [Hot Springs](https://adventofcode.com/2023/day/12)
+Now a really challenging puzzle!\
+We need to find all the possible ways of matching an input string to a given pattern of consecutive damaged springs.\
+The input string has 3 possible characters: `.` (operational), `#` (damaged), `?` (unknown).\
+The pattern to match is a list of consecutive damaged springs.\
+For part one, I felt an easy brute-force search will do the job, but I was sure it will not work for part two, so I spent few minutes on it and got the answer quickly.\
+For part two, I was not sure how to optimize it. The puzzle was looking very much doable by dynamic programming, but I didn't manage to model it accordingly.\
+So, after spending some time thinking, I decided to start with a sub-optimal solution: finding groups of patterns (groups of `#`s and `?`s) that can be matched and then find the number of ways of matching mutual groups.\
+So I started by building a stack of states that can match the pattern with the numbers from beginning and move forward in a DFS manner.\
+Unfortunately, this approach failed badly! Running time was too long and I was not sure if it will ever finish!\
+
+### Optimizations:
+After some analysis of the inputs, I found out a lot of "remaining" patterns are identical and can be calculated only once.\
+So I used a recursive function to find all the possible ways of matching the input string to the pattern; with `@cache` to remember the counted ways.
+
+**So, I think this can be a clue for other puzzles: whenever dynamic programming sounds like a possible solution, try to use a recursive function with `@cache` and see if it works!**
+
+[TODO] I need to refine my implementation and clean it up later.
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:

@@ -11,6 +11,7 @@ from aoc2023.day08.d08 import HauntedWasteland
 from aoc2023.day09.d09 import MirageMaintenance
 from aoc2023.day10.d10 import PipeMaze
 from aoc2023.day11.d11 import CosmicExpansion
+from aoc2023.day12.d12 import HotSprings
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -159,3 +160,30 @@ def test_day11():
     test = CosmicExpansion(f"{input_folder}/aoc2023_day11.txt")
     assert test.sum_distance_between_expanded_galaxies() == 9214785
     assert test.sum_distance_between_expanded_galaxies(1000000) == 613686987427
+
+
+def test_day12_samples():
+    test = HotSprings("./python/aoc2023/day12/sample1.txt")
+    assert test.sum_of_different_arrangements() == 1
+    assert test.sum_of_different_arrangements(rep=5) == 1
+    test = HotSprings("./python/aoc2023/day12/sample2.txt")
+    assert test.sum_of_different_arrangements() == 4
+    assert test.sum_of_different_arrangements(rep=5) == 16384
+    test = HotSprings("./python/aoc2023/day12/sample3.txt")
+    assert test.sum_of_different_arrangements() == 1
+    assert test.sum_of_different_arrangements(rep=5) == 1
+    test = HotSprings("./python/aoc2023/day12/sample4.txt")
+    assert test.sum_of_different_arrangements() == 1
+    assert test.sum_of_different_arrangements(rep=5) == 16
+    test = HotSprings("./python/aoc2023/day12/sample5.txt")
+    assert test.sum_of_different_arrangements() == 4
+    assert test.sum_of_different_arrangements(rep=5) == 2500
+    test = HotSprings("./python/aoc2023/day12/sample6.txt")
+    assert test.sum_of_different_arrangements() == 10
+    assert test.sum_of_different_arrangements(rep=5) == 506250
+
+
+def test_day12():
+    test = HotSprings(f"{input_folder}/aoc2023_day12.txt")
+    assert test.sum_of_different_arrangements() == 7350
+    assert test.sum_of_different_arrangements(rep=5) == 200097286528151
