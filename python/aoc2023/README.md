@@ -128,6 +128,14 @@ So I used a recursive function to find all the possible ways of matching the inp
 
 [TODO] I need to refine my implementation and clean it up later.
 
+## Day 13: [Point of Incidence](https://adventofcode.com/2023/day/13)
+A rather easy puzzle.\
+The only trick is to do the looping correctly.
+
+### Optimizations:
+* Counting the differences between the lines was the repetitive pattern that can be simply `@cache`d. My yesterday's experience helped me to find this optimization quickly.
+* For finding the reflections across columns, I rotated the mirrors by 90 degrees and then applied the same logic as the rows: `list(zip(*mirror))`. This makes the `@cache`d function to be used on both rows and columns.
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:

@@ -12,6 +12,7 @@ from aoc2023.day09.d09 import MirageMaintenance
 from aoc2023.day10.d10 import PipeMaze
 from aoc2023.day11.d11 import CosmicExpansion
 from aoc2023.day12.d12 import HotSprings
+from aoc2023.day13.d13 import PointOfIncidence
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -187,3 +188,15 @@ def test_day12():
     test = HotSprings(f"{input_folder}/aoc2023_day12.txt")
     assert test.sum_of_different_arrangements() == 7350
     assert test.sum_of_different_arrangements(rep=5) == 200097286528151
+
+
+def test_day13_samples():
+    test = PointOfIncidence("./python/aoc2023/day13/sample1.txt")
+    assert test.sum_of_reflections() == 405
+    assert test.sum_of_reflections(smudge_count=1) == 400
+
+
+def test_day13():
+    test = PointOfIncidence(f"{input_folder}/aoc2023_day13.txt")
+    assert test.sum_of_reflections() == 36448
+    assert test.sum_of_reflections(smudge_count=1) == 35799
