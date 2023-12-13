@@ -1,112 +1,90 @@
 import os
+import re
 from functools import cache
 from pathlib import Path
 
 
 class HotSprings:
     def __init__(self, filename):
-        self.lines = Path(filename).read_text().strip().splitlines()
-        self.inp = []
-        for line in self.lines:
+        self.condition_records = []
+        for line in Path(filename).read_text().strip().splitlines():
             parts = line.split()
-            ns = list(map(int, parts[1].strip().split(",")))
-            self.inp.append([parts[0], ns])
+            self.condition_records.append([parts[0], list(map(int, parts[1].strip().split(",")))])
 
     @cache
-    def how_many_ways(self, numbers, groups):
-        if len(numbers) == 0:
-            for g in groups:
-                if "#" in g:
-                    break
+    def how_many_ways(self, numbers, records):
+        if len(numbers) == 0:  # the only way to match is to have no #s and set all ?s as dots
+            if any(["#" in record for record in records]):
+                return 0
             else:
                 return 1
-            return 0
-        if len(groups) == 0:
+        if len(records) == 0:  # no more records to match, but we still have numbers
             return 0
 
-        if "#" not in groups[0]:  # all ?s
-            ways = self.how_many_ways(numbers, groups[1:])  # consider it as all dots
-            if len(groups[0]) < numbers[0]:
-                return ways
-            elif len(groups[0]) == numbers[0]:  # match it
-                ways += self.how_many_ways(
-                    numbers[1:],
-                    groups[1:],
-                )
-                return ways
-            else:
-                ways += self.how_many_ways(numbers[1:], groups[1:]) * 2
-                for i in range(len(groups[0]) - numbers[0] - 1, 0, -1):
-                    rem_group_0 = groups[0][-i:]
-                    ways += self.how_many_ways(numbers[1:], (rem_group_0,) + groups[1:])
+        record, rest_records = records[0], records[1:]
+        number, rest_numbers = numbers[0], numbers[1:]
+
+        if "#" not in record:  # all ?s
+            ways = self.how_many_ways(numbers, rest_records)  # consider it as all dots
+            if len(record) == number:  # match it
+                ways += self.how_many_ways(rest_numbers, rest_records)
+            elif len(record) > number:
+                ways += self.how_many_ways(rest_numbers, rest_records) * 2
+                for i in range(len(record) - number - 1, 0, -1):
+                    rem_group_0 = record[-i:]
+                    ways += self.how_many_ways(rest_numbers, (rem_group_0,) + rest_records)
             return ways
 
         ways = 0
-        if groups[0][0] == "?":
-            if len(groups[0]) == 1:
-                ways += self.how_many_ways(numbers, groups[1:])
+        if record[0] == "?":
+            if len(record) == 1:
+                ways += self.how_many_ways(numbers, rest_records)
             else:
-                ways += self.how_many_ways(numbers, (groups[0][1:],) + groups[1:])
+                ways += self.how_many_ways(numbers, (record[1:],) + rest_records)
 
-        first_question_mark_index = groups[0].find("?")
+        first_question_mark_index = record.find("?")
 
         if first_question_mark_index < 0:  # not question marks in this group
-            if numbers[0] == len(groups[0]):
-                ways += self.how_many_ways(numbers[1:], groups[1:])
+            if number == len(record):
+                ways += self.how_many_ways(rest_numbers, rest_records)
             return ways
 
-        if first_question_mark_index > numbers[0]:  # we cannot match anymore
+        if first_question_mark_index > number:  # we cannot match anymore
             return ways
 
-        if first_question_mark_index == numbers[0]:
-            rem_group_0 = groups[0][first_question_mark_index + 1 :]
+        if first_question_mark_index == number:
+            rem_group_0 = record[first_question_mark_index + 1 :]
             if len(rem_group_0) > 0:
-                ways += self.how_many_ways(numbers[1:], (rem_group_0,) + groups[1:])
+                ways += self.how_many_ways(rest_numbers, (rem_group_0,) + rest_records)
             else:
-                ways += self.how_many_ways(numbers[1:], groups[1:])
+                ways += self.how_many_ways(rest_numbers, rest_records)
             return ways
 
-        if first_question_mark_index < numbers[0]:
-            if len(groups[0]) == numbers[0]:
-                ways += self.how_many_ways(numbers[1:], groups[1:])
+        if first_question_mark_index < number:
+            if len(record) == number:
+                ways += self.how_many_ways(rest_numbers, rest_records)
                 return ways
-            if len(groups[0]) > numbers[0]:
-                if groups[0][numbers[0]] == "#":
+            if len(record) > number:
+                if record[number] == "#":
                     return ways
                 # it's ?
-                rem_group_0 = groups[0][numbers[0] + 1 :]
+                rem_group_0 = record[number + 1 :]
                 if len(rem_group_0) > 0:
-                    ways += self.how_many_ways(numbers[1:], (rem_group_0,) + groups[1:])
+                    ways += self.how_many_ways(rest_numbers, (rem_group_0,) + rest_records)
                 else:
-                    ways += self.how_many_ways(numbers[1:], groups[1:])
+                    ways += self.how_many_ways(rest_numbers, rest_records)
         return ways
 
     def sum_of_different_arrangements(self, rep=1):
-        result = 0
-        for code, numbers in self.inp:
-            if rep > 1:
-                ccc = list(code)
-                ccc.append("?")
-                ccc = ccc * (rep - 1)
-                ccc.extend(code)
-                code = "".join(ccc)
-                numbers = numbers * rep
-
-            groups = []
-            history = ""
-            for ch in code:
-                if ch == ".":
-                    if len(history) > 0:
-                        groups.append(history)
-                        history = ""
-                else:
-                    history += ch
-            else:
-                if len(history) > 0:
-                    groups.append(history)
-
-            result += self.how_many_ways(tuple(numbers), tuple(groups))
-        return result
+        return sum(
+            [
+                self.how_many_ways(
+                    tuple(numbers * rep),
+                    tuple(re.findall(r"[#,?]+", (code + "?") * (rep - 1) + code)),
+                )
+                for code, numbers in self.condition_records
+            ]
+        )
 
 
 def test_samples(filename, answer1, answer2):
