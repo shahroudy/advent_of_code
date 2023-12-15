@@ -143,10 +143,10 @@ Simulating the rolling of balls towards a direction and finding the final locati
 ### Optimizations:
 * Part 2 needs a history keeping trick to find the period of repetition of ball patterns and fast-forwarding accordingly.
 
-## Day X: [Title](https://adventofcode.com/2023/day/X)
-Desc
-### Optimizations:
-### Bugs and issues:
+## Day 15: [Lens Library](https://adventofcode.com/2023/day/15)
+Not my favorite type of puzzle!\
+I had to read the puzzle statement several times (part 2) to understand what is going on!\
+Beyond that there was nothing challenging here.
 
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc

@@ -14,6 +14,7 @@ from aoc2023.day11.d11 import CosmicExpansion
 from aoc2023.day12.d12 import HotSprings
 from aoc2023.day13.d13 import PointOfIncidence
 from aoc2023.day14.d14 import ParabolicReflectorDish
+from aoc2023.day15.d15 import LensLibrary
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -213,3 +214,17 @@ def test_day14():
     test = ParabolicReflectorDish(f"{input_folder}/aoc2023_day14.txt")
     assert test.load_after_single_tilt() == 109661
     assert test.load_after_a_billion_cycles() == 90176
+
+
+def test_day15_samples():
+    test = LensLibrary("./python/aoc2023/day15/sample1.txt")
+    assert test.input_hash() == 52
+    test = LensLibrary("./python/aoc2023/day15/sample2.txt")
+    assert test.input_hash() == 1320
+    assert test.focusing_power_after_HASHMAP_lens_configuration() == 145
+
+
+def test_day15():
+    test = LensLibrary(f"{input_folder}/aoc2023_day15.txt")
+    assert test.input_hash() == 519603
+    assert test.focusing_power_after_HASHMAP_lens_configuration() == 244342
