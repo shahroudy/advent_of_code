@@ -20,25 +20,18 @@ class Puzzle:
         # self.process_int_list()
         # self.process_int_int_dict()
         # self.process_int_list_dict()
-        # self.process_num_map()
+        # self.process_map()
 
         self.mask4 = [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]]
         self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
         self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]
 
-    def process_num_map(self):
+    def process_map(self):
         self.map = dict()
-        row = 0
-        for line in self.lines:
-            col = 0
-            for ch in line:
-                self.map[(col, row)] = int(ch)
-                col += 1
-            if row == 0:
-                self.cols = col
-            col = 0
-            row += 1
-        self.rows = row
+        for row, line in enumerate(self.lines):
+            for col, ch in enumerate(line):
+                self.map[(col, row)] = ch
+        self.rows, self.cols = row + 1, col + 1
 
     def process_int_list(self):
         self.inp = [list(map(int, re.findall(r"-?\d+", line))) for line in self.lines]
