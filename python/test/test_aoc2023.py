@@ -13,6 +13,7 @@ from aoc2023.day10.d10 import PipeMaze
 from aoc2023.day11.d11 import CosmicExpansion
 from aoc2023.day12.d12 import HotSprings
 from aoc2023.day13.d13 import PointOfIncidence
+from aoc2023.day14.d14 import ParabolicReflectorDish
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -200,3 +201,15 @@ def test_day13():
     test = PointOfIncidence(f"{input_folder}/aoc2023_day13.txt")
     assert test.sum_of_reflections() == 36448
     assert test.sum_of_reflections(smudge_count=1) == 35799
+
+
+def test_day14_samples():
+    test = ParabolicReflectorDish("./python/aoc2023/day14/sample1.txt")
+    assert test.load_after_single_tilt() == 136
+    assert test.load_after_a_billion_cycles() == 64
+
+
+def test_day14():
+    test = ParabolicReflectorDish(f"{input_folder}/aoc2023_day14.txt")
+    assert test.load_after_single_tilt() == 109661
+    assert test.load_after_a_billion_cycles() == 90176

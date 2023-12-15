@@ -136,6 +136,18 @@ The only trick is to do the looping correctly.
 * Counting the differences between the lines was the repetitive pattern that can be simply `@cache`d. My yesterday's experience helped me to find this optimization quickly.
 * For finding the reflections across columns, I rotated the mirrors by 90 degrees and then applied the same logic as the rows: `list(zip(*mirror))`. This makes the `@cache`d function to be used on both rows and columns.
 
+## Day 14: [Parabolic Reflector Dish](https://adventofcode.com/2023/day/14)
+Simulating the rolling of balls towards a direction and finding the final location of the balls.
+[TODO] I need to refine my implementation and clean it up later.
+
+### Optimizations:
+* Part 2 needs a history keeping trick to find the period of repetition of ball patterns and fast-forwarding accordingly.
+
+## Day X: [Title](https://adventofcode.com/2023/day/X)
+Desc
+### Optimizations:
+### Bugs and issues:
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:
