@@ -15,6 +15,7 @@ from aoc2023.day12.d12 import HotSprings
 from aoc2023.day13.d13 import PointOfIncidence
 from aoc2023.day14.d14 import ParabolicReflectorDish
 from aoc2023.day15.d15 import LensLibrary
+from aoc2023.day16.d16 import TheFloorWillBeLava
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -228,3 +229,15 @@ def test_day15():
     test = LensLibrary(f"{input_folder}/aoc2023_day15.txt")
     assert test.input_hash() == 519603
     assert test.focusing_power_after_HASHMAP_lens_configuration() == 244342
+
+
+def test_day16_samples():
+    test = TheFloorWillBeLava("./python/aoc2023/day16/sample1.txt")
+    assert test.top_left_beam_energized_count() == 46
+    assert test.max_beam_energized_count() == 51
+
+
+def test_day16():
+    test = TheFloorWillBeLava(f"{input_folder}/aoc2023_day16.txt")
+    assert test.top_left_beam_energized_count() == 8034
+    assert test.max_beam_energized_count() == 8225

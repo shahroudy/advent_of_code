@@ -148,6 +148,15 @@ Not my favorite type of puzzle!\
 I had to read the puzzle statement several times (part 2) to understand what is going on!\
 Beyond that there was nothing challenging here.
 
+## Day 16: [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)
+Interesting puzzle!\
+It highly depends how you optimize the solution.\
+My initial implementation was to keep the history of current full state and stop if it repeats.
+
+### Optimizations:
+* Keep the history of each beam `(x, y, direction)` and eliminate the seen ones instead of keeping the history of all the beams at the same time.
+* `@cache` the next state function to speed up the search.
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:
