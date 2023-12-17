@@ -22,6 +22,7 @@ class Puzzle:
         # self.process_int_list_dict()
         # self.process_map()
 
+        self.directions = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
         self.mask4 = [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]]
         self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
         self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]

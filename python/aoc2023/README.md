@@ -157,6 +157,19 @@ My initial implementation was to keep the history of current full state and stop
 * Keep the history of each beam `(x, y, direction)` and eliminate the seen ones instead of keeping the history of all the beams at the same time.
 * `@cache` the next state function to speed up the search.
 
+## Day 17: [Clumsy Crucible](https://adventofcode.com/2023/day/17)
+This was a typical puzzle to be solved by Dijkstra's algorithm.\
+The only important trick was to avoid repetitive states by keeping the history of the visited states.\
+Using a minimum heap was also a good trick to speed up the search.
+Warming up on:
+* `heapq`
+
+### Optimizations:
+* Simply using a `set` of visited states, since the first time you see a state (in Dijsktra's algorithm) is the shortest path to that state.
+
+### Bugs and issues:
+* I misunderstood the termination condition for the second part. The minimum straight steps was needed on the terminal state as well.
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:

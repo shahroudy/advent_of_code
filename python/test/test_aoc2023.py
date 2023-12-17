@@ -16,6 +16,7 @@ from aoc2023.day13.d13 import PointOfIncidence
 from aoc2023.day14.d14 import ParabolicReflectorDish
 from aoc2023.day15.d15 import LensLibrary
 from aoc2023.day16.d16 import TheFloorWillBeLava
+from aoc2023.day17.d17 import ClumsyCrucible
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -241,3 +242,17 @@ def test_day16():
     test = TheFloorWillBeLava(f"{input_folder}/aoc2023_day16.txt")
     assert test.top_left_beam_energized_count() == 8034
     assert test.max_beam_energized_count() == 8225
+
+
+def test_day17_samples():
+    test = ClumsyCrucible("./python/aoc2023/day17/sample1.txt")
+    assert test.minimum_heat_loss() == 102
+    assert test.minimum_heat_loss(4, 10) == 94
+    test = ClumsyCrucible("./python/aoc2023/day17/sample2.txt")
+    assert test.minimum_heat_loss(4, 10) == 71
+
+
+def test_day17():
+    test = ClumsyCrucible(f"{input_folder}/aoc2023_day17.txt")
+    assert test.minimum_heat_loss() == 797
+    assert test.minimum_heat_loss(4, 10) == 914
