@@ -97,12 +97,18 @@ I got really stuck on this one!\
 I had obvious wrong assumptions about the starting point.\
 So I implemented a BFS search to find the farthest point from the starting point.\
 It eventually turned out to be a single and simple loop which was very easy to find.\
-For part two, my trick was to up-sample the map by a factor of 2 and then apply a region growing to detect all the outer points.\
+For part two, my trick was to up-sample the map by a factor of 2 and then flood-fill to detect all the outer points.\
 Then finding the inner ones is obvious.
 ### Bugs and issues:
- Missing the point about the start point `S` is actually a simple connection that you should guess based on its neighbors.\
-  My first implementation was assuming all the neigbors of `S` are connected to it!\
-  It took me about an hour to figure this out! :sweat_smile:
+Missing the point about the start point `S` is actually a simple connection that you should guess based on its neighbors.\
+My first implementation was assuming all the neighbors of `S` are connected to it!\
+It took me about an hour to figure this out! :sweat_smile:
+### Optimizations:
+Using flood-fill did the job today, but is not the most efficient way to solve this puzzle.\
+The exact same problem came back in Day 18: [Lavaduct Lagoon](https://adventofcode.com/2023/day/18) :sweat_smile: and it took me hours to find a better solution.\
+[TODO] So, I need to revisit this puzzle and fix it here.\
+The more efficient solution is to process each row and count the inner tiles.\
+Along the row, you need to check if you're in or out of the contour and count the inner tiles accordingly.
 
 ## Day 11: [Cosmic Expansion](https://adventofcode.com/2023/day/11)
 This ones was easy; the efficient implementation was actually easier than the brute force one!\
@@ -169,6 +175,21 @@ Warming up on:
 
 ### Bugs and issues:
 * I misunderstood the termination condition for the second part. The minimum straight steps was needed on the terminal state as well.
+
+## Day 18: [Lavaduct Lagoon](https://adventofcode.com/2023/day/18)
+Weakest day for me so far in AoC 2023!\
+It took me a long while to find efficient solutions for today's puzzles.\
+It was a very simple problem statement, counting edge and inner points of a 2D contour which can be drastically large!\
+Anyways, is the hexadecimal color representation a hint for some future puzzles? :thinking: Let's prepare some util functions for it!
+### Optimizations:
+This was a very similar puzzle to Day 10: [Pipe Maze](https://adventofcode.com/2023/day/10).\
+Using flood-fill did the job on day 10, but is not feasible for this puzzle.\
+* The more efficient solution is to process each row and count the inner tiles.\
+Along the row, you need to check if you're in or out of the contour and count the inner tiles accordingly.\
+* And you need to avoid calculating the same pattern for similar rows (huge numbers of consecutive rows with exact same vertical lines).
+
+### Bugs and issues:
+* Using `-1` as the default value for last observed line/corner point was an issue which took me a couple of hours to fix! :sweat_smile: I was considering `value < 0` as not-yet-set, but in the actual input, we have plenty of negative values!
 
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc

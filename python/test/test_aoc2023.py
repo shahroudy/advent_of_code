@@ -17,6 +17,7 @@ from aoc2023.day14.d14 import ParabolicReflectorDish
 from aoc2023.day15.d15 import LensLibrary
 from aoc2023.day16.d16 import TheFloorWillBeLava
 from aoc2023.day17.d17 import ClumsyCrucible
+from aoc2023.day18.d18 import LavaductLagoon
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -256,3 +257,15 @@ def test_day17():
     test = ClumsyCrucible(f"{input_folder}/aoc2023_day17.txt")
     assert test.minimum_heat_loss() == 797
     assert test.minimum_heat_loss(4, 10) == 914
+
+
+def test_day18_samples():
+    test = LavaductLagoon("./python/aoc2023/day18/sample1.txt")
+    assert test.digged_area() == 62
+    assert test.digged_area(swapped=True) == 952408144115
+
+
+def test_day18():
+    test = LavaductLagoon(f"{input_folder}/aoc2023_day18.txt")
+    assert test.digged_area() == 70026
+    assert test.digged_area(swapped=True) == 68548301037382
