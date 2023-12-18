@@ -27,6 +27,14 @@ class Puzzle:
         self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
         self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]
 
+    def print_with_color(self, text, text_color="#FFFFFF", back_color="#000000", end="\n"):
+        from colored import attr, bg, fg
+
+        color = fg(text_color)
+        back = bg(back_color)
+        reset = attr("reset")
+        print(f"{color+ back}" + text + f"{reset}", end=end)
+
     def process_map(self):
         self.map = dict()
         for row, line in enumerate(self.lines):
