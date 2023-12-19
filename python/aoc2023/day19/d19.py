@@ -21,21 +21,21 @@ class Aplenty:
     def sum_rating_accepted_parts(self):
         rating_sum = 0
         for part in self.parts:
-            state = "in"
-            while state not in "AR":
-                for condition, new_state in self.workflows[state]:
+            current_workflow = "in"
+            while current_workflow not in "AR":
+                for condition, workflow in self.workflows[current_workflow]:
                     if eval(condition, None, part):
-                        state = new_state
+                        current_workflow = workflow
                         break
-            if state == "A":
+            if current_workflow == "A":
                 rating_sum += sum(part.values())
         return rating_sum
 
     def apply_workflow(self, part_range, name):
         new_part_ranges = []
-        for condition, new_state in self.workflows[name]:
+        for condition, new_workflow in self.workflows[name]:
             if condition == "True":
-                new_part_ranges.append((part_range, new_state))
+                new_part_ranges.append((part_range, new_workflow))
                 return new_part_ranges
             cat, operator, value = condition[0], condition[1], int(condition[2:])
             start, end = part_range[cat]
@@ -43,18 +43,18 @@ class Aplenty:
                 new_range = part_range.copy()
                 part_range[cat] = (value, end) if operator == "<" else (start, value)
                 new_range[cat] = (start, value - 1) if operator == "<" else (value + 1, end)
-                new_part_ranges.append((new_range, new_state))
+                new_part_ranges.append((new_range, new_workflow))
 
     def count_accepted_distinct_combinations(self):
         cnt = 0
         full_range = (1, 4000)
         part_ranges = [({cat: full_range for cat in "xmas"}, "in")]
         while part_ranges:
-            for p_rng, name in self.apply_workflow(*part_ranges.pop()):
-                if name == "A":
+            for p_rng, workflow in self.apply_workflow(*part_ranges.pop()):
+                if workflow == "A":
                     cnt += reduce(lambda x, y: x * y, [e - b + 1 for b, e in p_rng.values()])
-                elif name != "R":
-                    part_ranges.append((p_rng, name))
+                elif workflow != "R":
+                    part_ranges.append((p_rng, workflow))
         return cnt
 
 
