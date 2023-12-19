@@ -191,6 +191,22 @@ Along the row, you need to check if you're in or out of the contour and count th
 ### Bugs and issues:
 * Using `-1` as the default value for last observed line/corner point was an issue which took me a couple of hours to fix! :sweat_smile: I was considering `value < 0` as not-yet-set, but in the actual input, we have plenty of negative values!
 
+## Day 19: [Aplenty](https://adventofcode.com/2023/day/19)
+Nice puzzle!\
+It provides a list of items each with its values for 4 categories `x,m,a,s`!\
+To solve part one, you need to feed each item to the set of workflows (each consists of a set of rules, based on category values) and find the finally accepted items.\
+Part one makes you think about brute-forcing for part two which is apparently not feasible.\
+Range operations will do the job for part two.\
+After solving this puzzle, I now feel a util class of handling ranges will be handy for future puzzles.
+[TODO]
+
+### Optimizations:
+* For part one, using `eval` function to evaluate the conditions was handy.
+* For part two, all you need to do is to elevate the calculations to range level instead of item level.
+### Bugs and issues:
+* I had a bug of starting the full ranges from 0 instead of 1! :sweat_smile:
+
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:

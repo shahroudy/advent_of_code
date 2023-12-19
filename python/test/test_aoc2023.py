@@ -18,6 +18,7 @@ from aoc2023.day15.d15 import LensLibrary
 from aoc2023.day16.d16 import TheFloorWillBeLava
 from aoc2023.day17.d17 import ClumsyCrucible
 from aoc2023.day18.d18 import LavaductLagoon
+from aoc2023.day19.d19 import Aplenty
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -269,3 +270,15 @@ def test_day18():
     test = LavaductLagoon(f"{input_folder}/aoc2023_day18.txt")
     assert test.digged_area() == 70026
     assert test.digged_area(swapped=True) == 68548301037382
+
+
+def test_day19_samples():
+    test = Aplenty("./python/aoc2023/day19/sample1.txt")
+    assert test.sum_rating_accepted_parts() == 19114
+    assert test.count_accepted_distinct_combinations() == 167409079868000
+
+
+def test_day19():
+    test = Aplenty(f"{input_folder}/aoc2023_day19.txt")
+    assert test.sum_rating_accepted_parts() == 350678
+    assert test.count_accepted_distinct_combinations() == 124831893423809
