@@ -19,6 +19,7 @@ from aoc2023.day16.d16 import TheFloorWillBeLava
 from aoc2023.day17.d17 import ClumsyCrucible
 from aoc2023.day18.d18 import LavaductLagoon
 from aoc2023.day19.d19 import Aplenty
+from aoc2023.day20.d20 import PulsePropagation
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -282,3 +283,16 @@ def test_day19():
     test = Aplenty(f"{input_folder}/aoc2023_day19.txt")
     assert test.sum_rating_accepted_parts() == 350678
     assert test.count_accepted_distinct_combinations() == 124831893423809
+
+
+def test_day20_samples():
+    test = PulsePropagation("./python/aoc2023/day20/sample1.txt")
+    assert test.lmh == 32000000
+    test = PulsePropagation("./python/aoc2023/day20/sample2.txt")
+    assert test.lmh == 11687500
+
+
+def test_day20():
+    test = PulsePropagation(f"{input_folder}/aoc2023_day20.txt")
+    assert test.lmh == 949764474
+    assert test.rx_activated == 243221023462303

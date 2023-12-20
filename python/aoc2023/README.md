@@ -207,6 +207,18 @@ After solving this puzzle, I now feel a util class of handling ranges will be ha
 * I had a bug of starting the full ranges from 0 instead of 1! :sweat_smile:
 
 
+## Day 20: [Pulse Propagation](https://adventofcode.com/2023/day/20)
+Simulating the propagation of pulses in a network of flip-flops and conjunction modules.\
+They all work in negative logic, so it was a bit tricky to implement.\
+Anyways, part one was mainly about implementing the mechanics of the molules and simulating the propagation of pulses.\
+But the main challenge was in part two, for which (again) brute-force search was not feasible.\
+It seems `rx` is only receiving signals from a conjunction module (layer-1), which also receives signals from a set of other conjunction modules (layer-2), which all in turn receive signals from a set of other conjunction modules (layer-3).\
+Good news is that all the layer-3 conjunction modules are getting activated in a regular pattern, so we can simulate the whole thing and find the activation time for rx.\
+To do so, we need to find the activation time for all the layer-3 conjunction modules and find the least common multiple of those times.
+
+### Optimizations:
+* Similar to Day 8: [Haunted Wasteland](https://adventofcode.com/2023/day/8), we need to find the least-common-multiplier of all the cycles.\
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:
