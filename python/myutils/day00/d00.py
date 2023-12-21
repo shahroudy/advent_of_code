@@ -7,6 +7,8 @@ from itertools import *
 from pathlib import Path
 
 from myutils.file_reader import *
+from sympy import Symbol
+from sympy.solvers import solve
 
 
 class Puzzle:
@@ -75,6 +77,11 @@ class Puzzle:
 
     def calc2(self):
         return 0
+
+    def solve_some_equation(self):
+        x = Symbol("x")
+        y = Symbol("y")
+        s = solve(x**2 - 1, x)
 
 
 def test_samples(filename, answer1, answer2):
