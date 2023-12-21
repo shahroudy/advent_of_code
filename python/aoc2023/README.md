@@ -219,6 +219,18 @@ To do so, we need to find the activation time for all the layer-3 conjunction mo
 ### Optimizations:
 * Similar to Day 8: [Haunted Wasteland](https://adventofcode.com/2023/day/8), we need to find the least-common-multiplier of all the cycles.\
 
+## Day 21: [Step Counter](https://adventofcode.com/2023/day/21)
+Alright! Today's was a very tricky puzzle!\
+The sample input is a normal example which is not feasible to solve at all with millions of steps!\
+The provided input is a very specific map: the starting point is in the very center of the map, and its row and column are all `.`s.\
+The first and last row and column are also all `.`s.\
+So, when we calculate the distance to the starting point, the center tile in the first/last row/col is the first tile to be visited.\
+And, the number of requested steps in the problem statement `26501365` is an integer multiple of the number of tiles away from the starting point: `26501365 = 65 + 131*202300`.\
+This makes the solution very very specific to the input: after this number of steps, we will reach a diamond of tiles, `26501365` tiles to the top, bottom, left and right of the starting point.\
+Which will be exactil `202300` full tiles to top, bottom, left and right of the starting tiles.\
+One last trick is to handle even and odd tiles separately, like a chessboard!\
+These assumptions, makes my solution very specific to the input, but it works efficiently with my input! :sweat_smile:
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:

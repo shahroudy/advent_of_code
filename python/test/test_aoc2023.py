@@ -20,6 +20,7 @@ from aoc2023.day17.d17 import ClumsyCrucible
 from aoc2023.day18.d18 import LavaductLagoon
 from aoc2023.day19.d19 import Aplenty
 from aoc2023.day20.d20 import PulsePropagation
+from aoc2023.day21.d21 import StepCounter
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -296,3 +297,14 @@ def test_day20():
     test = PulsePropagation(f"{input_folder}/aoc2023_day20.txt")
     assert test.lmh == 949764474
     assert test.rx_activated == 243221023462303
+
+
+def test_day21_samples():
+    test = StepCounter("./python/aoc2023/day21/sample1.txt")
+    assert test.simple_garden_plots_count(steps=6) == 16
+
+
+def test_day21():
+    test = StepCounter(f"{input_folder}/aoc2023_day21.txt")
+    assert test.simple_garden_plots_count(steps=64) == 3770
+    assert test.garden_plots_in_indefinite_map(iterations=26501365) == 628206330073385
