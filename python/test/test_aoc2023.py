@@ -21,6 +21,7 @@ from aoc2023.day18.d18 import LavaductLagoon
 from aoc2023.day19.d19 import Aplenty
 from aoc2023.day20.d20 import PulsePropagation
 from aoc2023.day21.d21 import StepCounter
+from aoc2023.day22.d22 import SandSlabs
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -308,3 +309,15 @@ def test_day21():
     test = StepCounter(f"{input_folder}/aoc2023_day21.txt")
     assert test.simple_garden_plots_count(steps=64) == 3770
     assert test.garden_plots_in_indefinite_map(iterations=26501365) == 628206330073385
+
+
+def test_day22_samples():
+    test = SandSlabs("./python/aoc2023/day22/sample1.txt")
+    assert test.disintegrated_count == 5
+    assert test.sum_falling_removing_other_bricks == 7
+
+
+def test_day22():
+    test = SandSlabs(f"{input_folder}/aoc2023_day22.txt")
+    assert test.disintegrated_count == 463
+    assert test.sum_falling_removing_other_bricks == 89727

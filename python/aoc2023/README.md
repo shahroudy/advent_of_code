@@ -231,6 +231,11 @@ Which will be exactil `202300` full tiles to top, bottom, left and right of the 
 One last trick is to handle even and odd tiles separately, like a chessboard!\
 These assumptions, makes my solution very specific to the input, but it works efficiently with my input! :sweat_smile:
 
+## Day 22: [Sand Slabs](https://adventofcode.com/2023/day/22)
+Sand Slabs was rather an easy puzzle, in comparison to the previous ones.\
+It way mainly about properly understand the puzzle statement (Jenga like mechanics) and implement it accordingly.\
+My current implementation is not very efficient and needs to be optimized later. [TODO]
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:
