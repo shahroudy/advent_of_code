@@ -236,6 +236,34 @@ Sand Slabs was rather an easy puzzle, in comparison to the previous ones.\
 It way mainly about properly understand the puzzle statement (Jenga like mechanics) and implement it accordingly.\
 My current implementation is not very efficient and needs to be optimized later. [TODO]
 
+## Day 24: [Never Tell Me The Odds](https://adventofcode.com/2023/day/24)
+First challenge was to read and understand the puzzle statement!\
+In part one, for each pair of hailstones, we need to find the 2D intersection the two linear trajectories:
+* `x = x1 + dx1 * t1 = x2 + dx2 * t2`
+* `y = y1 + dy1 * t1 = y2 + dy2 * t2`
+  
+Using `sympy` to find `t1` and `t2` (and the `x`, `y` accordingly) made the implementation very easy, yet not very efficient.\
+The rest will be to check the values of `x, y, t1, t2` to be in the expected ranges.
+For part two, we need to find `6` parameters (`x, y, z, dx, dy, dz`), and a `t[i]` for each hailstone, which is a system of linear equations, and can be solved again using `sympy`.
+
+### Optimizations:
+* For part one, we can solve analytically for a way more efficient solution:
+$$
+  x_1+t_1dx_1 = x_2+t_2dx_2 \Rightarrow t_1 = \frac{x_2-x_1+t_2dx_2}{dx_1}\\
+  y_1+t_1dy_1 = y_2+t_2dy_2 \Rightarrow t_2 = \frac{y_1-y_2+t_1dy_1}{dy_2}\\
+  \therefore\\
+  t_1 = \frac{\frac{x_2}{dx_1} - \frac{x_1}{dx_1} + \frac{(y_1 - y_2) dx_2}{dx_1 dy_2}}{\frac{1 - dy_1 dx_2}{dy_2 dx_1}}\\
+  t_2 = \frac{y_1 - y_2 + t_1 dy_1}{dy_2}\\
+  x = x_1 + t_1 dx_1\\
+  y = y_1 + t_1 dy_1\\
+$$
+* For part two, instead of solving all the equations for all the hailstones (which takes forever), we can check if we can find a unique solution using first 3 hailstones.\
+We have `6+n` unknowns and `3n` equations, considering `n` hailstones.\
+So in a well-defined system we should be able to solve with only `3` hailstones.\
+And if not well-defined, we can try with more hailstones!
+
+### Bugs and issues:
+
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc
 ### Optimizations:

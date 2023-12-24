@@ -22,6 +22,7 @@ from aoc2023.day19.d19 import Aplenty
 from aoc2023.day20.d20 import PulsePropagation
 from aoc2023.day21.d21 import StepCounter
 from aoc2023.day22.d22 import SandSlabs
+from aoc2023.day24.d24 import NeverTellMeTheOdds
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -321,3 +322,15 @@ def test_day22():
     test = SandSlabs(f"{input_folder}/aoc2023_day22.txt")
     assert test.disintegrated_count == 463
     assert test.sum_falling_removing_other_bricks == 89727
+
+
+def test_day24_samples():
+    test = NeverTellMeTheOdds("./python/aoc2023/day24/sample1.txt")
+    assert test.colliding_hailstone_pairs() == 2
+    assert test.find_the_rock_which_smashes_all_hailstone() == 47
+
+
+def test_day24():
+    test = NeverTellMeTheOdds(f"{input_folder}/aoc2023_day24.txt")
+    assert test.colliding_hailstone_pairs(low=200000000000000, high=400000000000000) == 12015
+    assert test.find_the_rock_which_smashes_all_hailstone() == 1016365642179116
