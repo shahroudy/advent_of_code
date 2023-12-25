@@ -13,3 +13,4 @@ pytest
 sympy
 tomli
 numpy
+networkx

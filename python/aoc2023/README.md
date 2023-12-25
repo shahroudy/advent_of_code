@@ -262,7 +262,11 @@ We have `6+n` unknowns and `3n` equations, considering `n` hailstones.\
 So in a well-defined system we should be able to solve with only `3` hailstones.\
 And if not well-defined, we can try with more hailstones!
 
-### Bugs and issues:
+## Day 25: [Title](https://adventofcode.com/2023/day/25)
+Alright, after trying some brute-force search, I realized the solution is nothing but a classic minimum-cut algorithm!\
+So, let's try some library functions to solve it!\
+I tried `minimum_cut` function from `networkx` library and it did the job.
+Should I try to implement it myself? :thinking:\ [TODO]
 
 ## Day X: [Title](https://adventofcode.com/2023/day/X)
 Desc

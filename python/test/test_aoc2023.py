@@ -23,6 +23,7 @@ from aoc2023.day20.d20 import PulsePropagation
 from aoc2023.day21.d21 import StepCounter
 from aoc2023.day22.d22 import SandSlabs
 from aoc2023.day24.d24 import NeverTellMeTheOdds
+from aoc2023.day25.d25 import Snowverload
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -334,3 +335,13 @@ def test_day24():
     test = NeverTellMeTheOdds(f"{input_folder}/aoc2023_day24.txt")
     assert test.colliding_hailstone_pairs(low=200000000000000, high=400000000000000) == 12015
     assert test.find_the_rock_which_smashes_all_hailstone() == 1016365642179116
+
+
+def test_day25_samples():
+    test = Snowverload("./python/aoc2023/day25/sample1.txt")
+    assert test.cut_three_wires() == 54
+
+
+def test_day25():
+    test = Snowverload(f"{input_folder}/aoc2023_day25.txt")
+    assert test.cut_three_wires() == 545528
