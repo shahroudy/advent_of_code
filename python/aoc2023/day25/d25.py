@@ -8,23 +8,19 @@ import networkx as nx
 
 class Snowverload:
     def __init__(self, filename):
-        self.lines = Path(filename).read_text().strip().splitlines()
-        self.conn = set()
-        self.nodes = set()
-        for line in self.lines:
-            left, right = re.split(r":", line)
-            self.nodes.add(left)
-            for r in [r.strip() for r in right.strip().split(" ")]:
-                self.conn.add((left, r))
-                self.nodes.add(r)
+        self.edges = set()
+        for line in Path(filename).read_text().strip().splitlines():
+            nodes = re.findall(r"(\w+)", line)
+            for r in nodes[1:]:
+                self.edges.add((nodes[0], r))
 
     def cut_three_wires(self):
-        G = nx.DiGraph()
-        for a, b in self.conn:
-            G.add_edge(a, b, capacity=1)
-            G.add_edge(b, a, capacity=1)
-        for a, b in combinations(self.nodes, 2):
-            cut_value, partition = nx.minimum_cut(G, a, b)
+        graph = nx.Graph()
+        for edge in self.edges:
+            graph.add_edge(*edge, capacity=1)
+        for s, t in combinations(graph.nodes, 2):
+            nx.minimum_edge_cut(graph, s, t)
+            cut_value, partition = nx.minimum_cut(graph, s, t)
             if cut_value == 3 and len(partition) == 2:
                 return len(partition[0]) * len(partition[1])
 
@@ -38,4 +34,3 @@ if __name__ == "__main__":
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day25.txt'
     puzzle = Snowverload(input_file)
     print(puzzle.cut_three_wires())
-    # print(puzzle.calc2())
