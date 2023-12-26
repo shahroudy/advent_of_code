@@ -19,7 +19,6 @@ class Snowverload:
         for edge in self.edges:
             graph.add_edge(*edge, capacity=1)
         for s, t in combinations(graph.nodes, 2):
-            nx.minimum_edge_cut(graph, s, t)
             cut_value, partition = nx.minimum_cut(graph, s, t)
             if cut_value == 3 and len(partition) == 2:
                 return len(partition[0]) * len(partition[1])
