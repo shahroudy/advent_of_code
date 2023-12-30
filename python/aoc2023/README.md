@@ -233,8 +233,10 @@ These assumptions, makes my solution very specific to the input, but it works ef
 
 ## Day 22: [Sand Slabs](https://adventofcode.com/2023/day/22)
 Sand Slabs was rather an easy puzzle, in comparison to the previous ones.\
-It way mainly about properly understand the puzzle statement (Jenga like mechanics) and implement it accordingly.\
-My current implementation is not very efficient and needs to be optimized later. [TODO]
+It way mainly about properly understand the puzzle statement (Jenga like mechanics) and implement it accordingly.
+
+### Optimizations:
+* A simple sort of the bricks based on their minimum `z` value made my implementation ~12 times faster!
 
 ## Day 23: [A Long Walk](https://adventofcode.com/2023/day/23)
 This one took a very long time from me to optimize (part two).\

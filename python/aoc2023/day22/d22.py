@@ -6,14 +6,15 @@ from pathlib import Path
 
 class SandSlabs:
     def __init__(self, filename):
-        self.bricks = {}
         lines = Path(filename).read_text().strip().splitlines()
-        for id, nums in enumerate([list(map(int, re.findall(r"-?\d+", line))) for line in lines]):
+        br = []
+        for nums in [list(map(int, re.findall(r"-?\d+", line))) for line in lines]:
             mM = [sorted([nums[i], nums[i + 3]]) for i in range(3)]
-            self.bricks[id] = list(product(*[range(mM[i][0], mM[i][1] + 1) for i in range(3)]))
+            br.append(list(product(*[range(mM[i][0], mM[i][1] + 1) for i in range(3)])))
+        self.bricks = {i: b for i, b in enumerate(sorted(br, key=lambda x: min(b[2] for b in x)))}
         self.simulate()
 
-    def sitting(self, bricks, falling, occupied):
+    def find_fixed_bricks(self, bricks, falling, occupied):
         sitting = set()
         while falling:
             no_more_sitting = True
@@ -32,25 +33,23 @@ class SandSlabs:
 
     def simulate(self):
         falling = set(range(len(self.bricks)))
-        cur_pos = self.bricks.copy()
         occupied = set()
         while falling:
-            sitting = self.sitting(cur_pos, falling, occupied)
+            fixed = self.find_fixed_bricks(self.bricks, falling, occupied)
             for f in falling:
-                cur_pos[f] = [(x, y, z - 1) for x, y, z in cur_pos[f]]
+                self.bricks[f] = [(x, y, z - 1) for x, y, z in self.bricks[f]]
 
         # check what will fall
-        new_pos = cur_pos.copy()
         self.disintegrated_count = len(self.bricks)
         self.sum_falling_removing_other_bricks = 0
         for n in self.bricks.keys():
             falling = set(range(len(self.bricks))) - {n}
-            cur_pos = {k: v.copy() for k, v in new_pos.items() if k != n}
+            cur_bricks = {k: v.copy() for k, v in self.bricks.items() if k != n}
             occupied = set()
             fell = False
             while falling and not fell:
-                sitting = self.sitting(cur_pos, falling, occupied)
-                if len(sitting) == 0 and len(falling) > 0:
+                fixed = self.find_fixed_bricks(cur_bricks, falling, occupied)
+                if len(fixed) == 0 and len(falling) > 0:
                     fell = True
                     self.disintegrated_count -= 1
                     self.sum_falling_removing_other_bricks += len(falling)
