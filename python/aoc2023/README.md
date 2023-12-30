@@ -236,6 +236,23 @@ Sand Slabs was rather an easy puzzle, in comparison to the previous ones.\
 It way mainly about properly understand the puzzle statement (Jenga like mechanics) and implement it accordingly.\
 My current implementation is not very efficient and needs to be optimized later. [TODO]
 
+## Day 23: [A Long Walk](https://adventofcode.com/2023/day/23)
+This one took a very long time from me to optimize (part two).\
+The problem is simply finding the longest path (with no revisiting nodes) between two nodes in a graph with cycles.\
+The time I submitted my solution, my code was still running trying to find longer paths!\
+The naive way to solve this is to start from the staring point and find all the possible neighbors to move to and search in a DFS way with backtracking to find the longest path.
+
+### Optimizations:
+* The first and most important optimization is to avoid the corridor nodes (nodes with only two neighbors).\
+When we have `a <-> b <-> c`, we can simply remove `b` and consider `a <-> c` with distance `2`.\
+This was the main trick to solve part two.
+* The second optimization is to check if there's a single final path to the end point, and consider that one instead as the end point.\
+This avoids the paths with this final node in their early steps and makes the search faster.
+### Bugs and issues:
+* I spent a very long time thinking about a dynamic programming solution, but I couldn't find one.\
+It seems impossible to find the longest path in a graph with cycles using dynamic programming.\
+Brute-force is the only possible way!?
+
 ## Day 24: [Never Tell Me The Odds](https://adventofcode.com/2023/day/24)
 First challenge was to read and understand the puzzle statement!\
 In part one, for each pair of hailstones, we need to find the 2D intersection the two linear trajectories:
@@ -267,8 +284,3 @@ Alright, after trying some brute-force search, I realized the solution is nothin
 So, let's try some library functions to solve it!\
 I tried `minimum_cut` function from `networkx` library and it did the job.
 Should I try to implement it myself? :thinking:\ [TODO]
-
-## Day X: [Title](https://adventofcode.com/2023/day/X)
-Desc
-### Optimizations:
-### Bugs and issues:

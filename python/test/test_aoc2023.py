@@ -22,6 +22,7 @@ from aoc2023.day19.d19 import Aplenty
 from aoc2023.day20.d20 import PulsePropagation
 from aoc2023.day21.d21 import StepCounter
 from aoc2023.day22.d22 import SandSlabs
+from aoc2023.day23.d23 import ALongWalk
 from aoc2023.day24.d24 import NeverTellMeTheOdds
 from aoc2023.day25.d25 import Snowverload
 
@@ -323,6 +324,18 @@ def test_day22():
     test = SandSlabs(f"{input_folder}/aoc2023_day22.txt")
     assert test.disintegrated_count == 463
     assert test.sum_falling_removing_other_bricks == 89727
+
+
+def test_day23_samples():
+    test = ALongWalk("./python/aoc2023/day23/sample1.txt")
+    assert test.longest_hike() == 94
+    assert test.longest_hike(slopes=False) == 154
+
+
+def test_day23():
+    test = ALongWalk(f"{input_folder}/aoc2023_day23.txt")
+    assert test.longest_hike() == 1998
+    assert test.longest_hike(slopes=False) == 6434
 
 
 def test_day24_samples():
