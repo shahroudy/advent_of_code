@@ -106,9 +106,9 @@ It took me about an hour to figure this out! :sweat_smile:
 ### Optimizations:
 Using flood-fill did the job today, but is not the most efficient way to solve this puzzle.\
 The exact same problem came back in Day 18: [Lavaduct Lagoon](https://adventofcode.com/2023/day/18) :sweat_smile: and it took me hours to find a better solution.\
-[TODO] So, I need to revisit this puzzle and fix it here.\
 The more efficient solution is to process each row and count the inner tiles.\
-Along the row, you need to check if you're in or out of the contour and count the inner tiles accordingly.
+Along the row, you need to check if you're in or out of the contour and count the inner tiles accordingly.\
+It's actually implemented in Day 18: [Lavaduct Lagoon](https://adventofcode.com/2023/day/18).
 
 ## Day 11: [Cosmic Expansion](https://adventofcode.com/2023/day/11)
 This ones was easy; the efficient implementation was actually easier than the brute force one!\
@@ -132,8 +132,6 @@ So I used a recursive function to find all the possible ways of matching the inp
 
 **So, I think this can be a clue for other puzzles: whenever dynamic programming sounds like a possible solution, try to use a recursive function with `@cache` and see if it works!**
 
-[TODO] I need to refine my implementation and clean it up later.
-
 ## Day 13: [Point of Incidence](https://adventofcode.com/2023/day/13)
 A rather easy puzzle.\
 The only trick is to do the looping correctly.
@@ -144,7 +142,6 @@ The only trick is to do the looping correctly.
 
 ## Day 14: [Parabolic Reflector Dish](https://adventofcode.com/2023/day/14)
 Simulating the rolling of balls towards a direction and finding the final location of the balls.
-[TODO] I need to refine my implementation and clean it up later.
 
 ### Optimizations:
 * Part 2 needs a history keeping trick to find the period of repetition of ball patterns and fast-forwarding accordingly.
@@ -285,4 +282,4 @@ And if not well-defined, we can try with more hailstones!
 Alright, after trying some brute-force search, I realized the solution is nothing but a classic minimum-cut algorithm!\
 So, let's try some library functions to solve it!\
 I tried `minimum_cut` function from `networkx` library and it did the job.
-Should I try to implement it myself? :thinking:\ [TODO]
+Should I try to implement it myself? :thinking:
