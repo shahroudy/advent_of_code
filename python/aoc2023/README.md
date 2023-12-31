@@ -278,8 +278,12 @@ We have `6+n` unknowns and `3n` equations, considering `n` hailstones.\
 So in a well-defined system we should be able to solve with only `3` hailstones.\
 And if not well-defined, we can try with more hailstones!
 
-## Day 25: [Title](https://adventofcode.com/2023/day/25)
+## Day 25: [Snowverload](https://adventofcode.com/2023/day/25)
 Alright, after trying some brute-force search, I realized the solution is nothing but a classic minimum-cut algorithm!\
 So, let's try some library functions to solve it!\
 I tried `minimum_cut` function from `networkx` library and it did the job.
-Should I try to implement it myself? :thinking:
+Should I try to implement it myself? :thinking:\
+Alright, I also tried a heuristic (yet working for the inputs) method to find the two clusters.\
+Picking a node, and find two clusters of nodes which are:
+* connected to the picked node with exactly 3 paths (other cluster)
+* otherwise (same cluster)

@@ -1,9 +1,11 @@
 import os
 import re
+from collections import defaultdict
 from itertools import combinations
 from pathlib import Path
 
 import networkx as nx
+from myutils.graph_funcs import path_counter
 
 
 class Snowverload:
@@ -22,6 +24,26 @@ class Snowverload:
             cut_value, partition = nx.minimum_cut(graph, s, t)
             if cut_value == 3 and len(partition) == 2:
                 return len(partition[0]) * len(partition[1])
+
+    def cut_three_wires_2(self):
+        graph = defaultdict(set)
+        for a, b in self.edges:
+            graph[a].add(b)
+            graph[b].add(a)
+        nodes = sorted(graph.keys(), key=lambda n: len(graph[n]), reverse=True)
+        s1 = set([nodes[0]])
+        s2 = set()
+
+        for n in nodes[1:]:
+            if sum(nn in s1 for nn in graph[n]) > 2:
+                s1.add(n)
+            elif sum(nn in s2 for nn in graph[n]) > 2:
+                s2.add(n)
+            elif path_counter(nodes[0], n, graph, max_counter=4) == 3:
+                s2.add(n)
+            else:
+                s1.add(n)
+        return len(s1) * len(s2)
 
 
 if __name__ == "__main__":
