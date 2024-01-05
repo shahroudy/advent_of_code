@@ -287,3 +287,5 @@ Alright, I also tried a heuristic (yet working for the inputs) method to find th
 Picking a node, and find two clusters of nodes which are:
 * connected to the picked node with exactly 3 paths (other cluster)
 * otherwise (same cluster)
+
+**Anyways, for future years, knowing libraries like `networkx` will be very handy!**
