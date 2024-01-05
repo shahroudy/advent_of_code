@@ -2,6 +2,7 @@ import cProfile
 import os
 import re
 from collections import *
+from copy import deepcopy
 from functools import cache, cmp_to_key, reduce
 from itertools import *
 from pathlib import Path
@@ -13,7 +14,7 @@ from sympy.solvers import solve
 
 class Puzzle:
     def __init__(self, filename):
-        self.lines = Path(filename).read_text().strip().splitlines()
+        self.lines = Path(filename).read_text().splitlines()
         # self.inp = read_int_lines(filename)
         # self.inp = read_line_groups(filename)
         # self.inp = read_int_line_groups(filename)
