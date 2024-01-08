@@ -12,6 +12,26 @@ Fortunately the shortest path didn't go that deep.
 ### Bugs and issues:
 * Reading the portal labels was not so trivial. It took me a while to figure out all the labels are right-to-left or top-to-bottom.
 
+## Day 21: [Springdroid Adventure](https://adventofcode.com/2019/day/21)
+A simplifiled "Flappy Bird" game done in the Intcode computer.\
+We only can jump from the ground, observing 4 (9 in part two) steps ahead of us.\
+We have 4 (9 in part two) boolean registers (named `A, B, ..., I`) giving us the inputs, and one output register (`J`) to report the jump command to.\
+In addition, we have one extra temporary register (`T`) for calculations.\
+And we only have 3 commands: `AND`, `OR`, and `NOT`.\
+The important point to jump is to ensure where you land is ground, which is 4 steps ahead.\
+So if you see `A` is a hole and you want to jump, `D` must be ground.\
+If not, it's too late to jump, and you need to look ahead to avoid such situation.\
+My solution for part one was: 
+$$
+\bar A + D\bar B + D\bar C
+$$ 
+
+My solution for part one was: 
+$$
+\bar A + D \bar B (E+H) + D\bar C(E+H)
+$$ 
+Both needed to be implemented accordingly in springscript.
+
 ## Day X: [Title](https://adventofcode.com/2019/day/X)
 desc
 ### Optimizations:
