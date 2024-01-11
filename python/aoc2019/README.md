@@ -32,6 +32,22 @@ $$
 $$ 
 Both needed to be implemented accordingly in springscript.
 
+## Day 22: [Slam Shuffle](https://adventofcode.com/2019/day/22)
+Simulating 3 different ways of shuffling cards.\
+Part one was easy, just follow the instructions.\
+Part two was a real challenge and maybe the beast of 2019; since the number of cards and the iterations are both very large.\
+These made any brute force approach impossible.\
+I had to find the pattern of the shuffling, and then calculate the final position of the card I was interested in.\
+After some analysis I found all three shuffling operations and all of their possible combinations are actually a combination of `modular multiplication` and `modular addition`.\
+This makes the operations requested in part two reduced to a single modular multiplication and a single modular addition.\
+It's also good to know, `pow(n, p, m)` is a fast way to calculate `n^p % m`, and if you set `p=-1` it calculates the modular inverse of `n` with respect to `m` (with a condition of `n` and `m` being co-prime).\
+
+**I believe this puzzle deserves a review each year, since "Modular Arithmatic" can be a good topic for future years' puzzles.**
+
+### Optimizations:
+### Bugs and issues:
+
+
 ## Day X: [Title](https://adventofcode.com/2019/day/X)
 desc
 ### Optimizations:
