@@ -40,13 +40,15 @@ These made any brute force approach impossible.\
 I had to find the pattern of the shuffling, and then calculate the final position of the card I was interested in.\
 After some analysis I found all three shuffling operations and all of their possible combinations are actually a combination of `modular multiplication` and `modular addition`.\
 This makes the operations requested in part two reduced to a single modular multiplication and a single modular addition.\
-It's also good to know, `pow(n, p, m)` is a fast way to calculate `n^p % m`, and if you set `p=-1` it calculates the modular inverse of `n` with respect to `m` (with a condition of `n` and `m` being co-prime).\
+It's also good to know, `pow(n, p, m)` is a fast way to calculate `n^p % m`, and if you set `p=-1` it calculates the modular inverse of `n` with respect to `m` (with a condition of `n` and `m` being co-prime).
 
-**I believe this puzzle deserves a review each year, since "Modular Arithmatic" can be a good topic for future years' puzzles.**
+**One very important point to note in all AoC challenges is that there is always a super efficient way to solve all. This hint will help to avoid brute-force long-running solutions and think about a way to simplify or relax the problem; it's always either the input which can be simplified, or the algorithm that can be optimized.**\
+**I believe this puzzle deserves to be recalled each year, since "Modular Arithmatic" can be a good topic for future years' puzzles.**
 
-### Optimizations:
-### Bugs and issues:
-
+## Day 23: [Category Six](https://adventofcode.com/2019/day/23)
+Another Intcode computer puzzle.\
+This time 50 Intcode computers are communicating to each other via a network.\
+Nothing challenging here, just simulating the network and adding a new running mode to Intcode computer implementation to operate when input is fed.
 
 ## Day X: [Title](https://adventofcode.com/2019/day/X)
 desc

@@ -1,6 +1,7 @@
 import os
-from myutils.file_reader import read_int_list
 from collections import defaultdict, deque
+
+from myutils.file_reader import read_int_list
 
 
 class IntcodeComputer:
@@ -45,19 +46,10 @@ class IntcodeComputer:
 
     def read_operands(self, command):
         args = []
-        arg_count = {99: 0,
-                     1: 2,
-                     2: 2,
-                     3: 0,
-                     4: 1,
-                     5: 2,
-                     6: 2,
-                     7: 2,
-                     8: 2,
-                     9: 1}
+        arg_count = {99: 0, 1: 2, 2: 2, 3: 0, 4: 1, 5: 2, 6: 2, 7: 2, 8: 2, 9: 1}
         no_args = arg_count[command[0]]
         for i in range(no_args):
-            args.append(self.read_one_operand(command[i+1]))
+            args.append(self.read_one_operand(command[i + 1]))
         return args
 
     def write(self, address, value):
@@ -81,7 +73,7 @@ class IntcodeComputer:
             elif op == 3:
                 value = self.input.popleft()
             address = self.read_one_operand(1)
-            if command[1+len(args)] == 2:
+            if command[1 + len(args)] == 2:
                 address += self.relbase
             self.write(address, value)
         elif op == 4:
@@ -100,6 +92,14 @@ class IntcodeComputer:
         self.reset(input)
         while not self.halted:
             command = self.read_op_code()
+            self.execute_command(command)
+        return self.output
+
+    def compute_while_input(self):
+        while not self.halted:
+            command = self.read_op_code()
+            if (command[0] == 3) and (len(self.input) == 0):
+                return self.output
             self.execute_command(command)
         return self.output
 
@@ -127,17 +127,17 @@ class IntcodeComputer:
         return out
 
 
-if __name__ == '__main__':
-    test1 = read_int_list('test1.txt')
+if __name__ == "__main__":
+    test1 = read_int_list("test1.txt")
     computer_test1 = IntcodeComputer(test1)
     assert computer_test1.compute(deque()) == deque(test1)
 
-    test2 = read_int_list('test2.txt')
+    test2 = read_int_list("test2.txt")
     computer_test2 = IntcodeComputer(test2)
     test_output = computer_test2.compute(deque())
     assert len(str(test_output.pop())) == 16
 
-    test3 = read_int_list('test3.txt')
+    test3 = read_int_list("test3.txt")
     computer_test3 = IntcodeComputer(test3)
     assert computer_test3.compute(deque()).pop() == 1125899906842624
 
