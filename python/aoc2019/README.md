@@ -50,6 +50,20 @@ Another Intcode computer puzzle.\
 This time 50 Intcode computers are communicating to each other via a network.\
 Nothing challenging here, just simulating the network and adding a new running mode to Intcode computer implementation to operate when input is fed.
 
+## Day 24: [Planet of Discord](https://adventofcode.com/2019/day/24)
+A cellular automaton puzzle.\
+The state of each cell (in a 5x5 grid) is a function of its neighbors at the previous step.\
+Not much of a challenge, just simulating the automaton and:
+* finding the first repeated state in part one,
+* extend the automaton to a recursive 3D space and run for some iterations in part two.
+### Optimizations:
+* Using a `set` to store the bugged cells can make it more efficient.
+
+## Day X: [Title](https://adventofcode.com/2019/day/X)
+desc
+### Optimizations:
+### Bugs and issues:
+
 ## Day X: [Title](https://adventofcode.com/2019/day/X)
 desc
 ### Optimizations:
