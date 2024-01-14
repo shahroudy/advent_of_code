@@ -59,12 +59,14 @@ Not much of a challenge, just simulating the automaton and:
 ### Optimizations:
 * Using a `set` to store the bugged cells can make it more efficient.
 
-## Day X: [Title](https://adventofcode.com/2019/day/X)
-desc
-### Optimizations:
-### Bugs and issues:
+## Day 25: [Cryostasis](https://adventofcode.com/2019/day/25)
+And the final puzzle of 2019, a text based game running on our IntCode computer.\
+The game is a maze with some items to collect and some doors to open.\
+Here I tried to implement a simple algorithm to explore the map, collect the items, and open the doors.\
+And when done exploring and collecting, go to the security checkpoint and try to find the proper set of items to pass the security check.\
+This year's advent of code finishes with a message from Santa:
 
-## Day X: [Title](https://adventofcode.com/2019/day/X)
-desc
-### Optimizations:
-### Bugs and issues:
+```A loud, robotic voice says "Analysis complete! You may proceed." and you enter the cockpit.
+Santa notices your small droid, looks puzzled for a moment, realizes what has happened, and radios your ship directly.
+"Oh, hello! You should be able to get in by typing xxxxxx on the keypad at the main airlock."
+```

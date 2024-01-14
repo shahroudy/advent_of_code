@@ -99,9 +99,13 @@ class IntcodeComputer:
         while not self.halted:
             command = self.read_op_code()
             if (command[0] == 3) and (len(self.input) == 0):
-                return self.output
+                output = self.output
+                self.output = deque()
+                return output
             self.execute_command(command)
-        return self.output
+        output = self.output
+        self.output = deque()
+        return output
 
     # below code is added for day 7 usage
     def set_phase(self, phase):
