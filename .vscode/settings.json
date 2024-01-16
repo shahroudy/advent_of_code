@@ -1,14 +1,14 @@
 {
     "workbench.iconTheme": "vscode-icons",
     "editor.insertSpaces": true,
-    "editor.fontFamily": "Fira Code",
-    "editor.fontLigatures": true,
     "editor.codeActionsOnSave": {
         "source.fixAll": "always",
         "source.organizeImports": "always"
     },
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file",
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
     "C_Cpp.formatting": "clangFormat",
     "C_Cpp.clang_format_path": "src/.clang-format",
     "json.format.enable": true,
@@ -20,13 +20,12 @@
         120
     ],
     "editor.renderWhitespace": "all",
-    "workbench.colorCustomizations": {
-        "editorRuler.foreground": "#fff2405d",
-        "editorWhitespace.foreground": "#99dee02d"
-    },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true,
+    },
+    "[plaintext]": {
+        "editor.fontLigatures": false,
     },
     "cSpell.words": [
         "myutils",
