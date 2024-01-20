@@ -12,6 +12,13 @@ This changes the results.
 ### Bugs and issues:
 * Stripping the input ruined the first line of the input; I need to remember to avoid stripping the input for map inputs like this.
 
+## Day 14: [Chocolate Charts](https://adventofcode.com/2018/day/14)
+Expanding a list of numbers till a certain number of digits is reached.\
+Nothing special here, just a simple loop.\
+My implementation is brute-force and slow, but it works fine for the input (taking ~16 seconds).\
+Using type casts between `int` and `str` was making the implementation simple here.
+
+
 ## Day X: [Title](https://adventofcode.com/2018/day/X)
 desc
 ### Optimizations:
