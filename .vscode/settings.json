@@ -37,6 +37,10 @@
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "flake8.args": [
-        "--ignore=E203"
+        "--ignore=E203",
+        "--max-line-length=100",
+    ],
+    "black-formatter.args": [
+        "--line-length=100",
     ],
 }
