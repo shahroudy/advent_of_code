@@ -18,6 +18,23 @@ Nothing special here, just a simple loop.\
 My implementation is brute-force and slow, but it works fine for the input (taking ~16 seconds).\
 Using type casts between `int` and `str` was making the implementation simple here.
 
+## Day 15: [Beverage Bandits](https://adventofcode.com/2018/day/15)
+Simulating a battle between elves and goblins.\
+The battle is turn-based, and the units can move and attack.\
+The main challenge in this problem was to read and understand the problem statement.\
+There were some details to consider.\
+The implementation of the operations in the "reading order" was easily done by always considering the adjacent cells in the order of "up, left, right, down".\
+Even the concept of finding the in-range cells was simply applied if you find the shortest path to the closest enemy to take the first step towards it.
+
+### Bugs and issues:
+* Figuring out how to find the proper round number for the last round was a bit tricky.\
+  Especially if you try to break the loop when the combat is over!\
+  The proper way was to calculate the "outcome of the combat" right inside the loop and return it there.
+* I had a disturbing bug in my implementation:\
+  I was building the list of locations of the units, sorted in reading order, to handle the turns.\
+  There were cases (only happening for the input, and not in samples) that the dead units' location were later occupied by other units, and when it was their turn I was further moving the new unit instead of skipping the dead one.\
+  This literally took me days to fix! :sweat_smile:
+
 
 ## Day X: [Title](https://adventofcode.com/2018/day/X)
 desc

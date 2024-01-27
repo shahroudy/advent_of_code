@@ -2,6 +2,7 @@ import os
 
 from aoc2018.day13.d13 import MineCartMadness
 from aoc2018.day14.d14 import ChocolateCharts
+from aoc2018.day15.d15 import BeverageBandits
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -35,3 +36,29 @@ def test_day14():
     puzzle = ChocolateCharts()
     assert puzzle.calc1(165061) == "5992684592"
     assert puzzle.calc2("165061") == 20181148
+
+
+def test_day15_samples():
+    test = BeverageBandits("./python/aoc2018/day15/sample1.txt")
+    assert test.run_battle() == 27730
+    assert test.run_flawless_battle_with_minimum_attack_power() == 4988
+    test = BeverageBandits("./python/aoc2018/day15/sample2.txt")
+    assert test.run_battle() == 36334
+    test = BeverageBandits("./python/aoc2018/day15/sample3.txt")
+    assert test.run_battle() == 39514
+    assert test.run_flawless_battle_with_minimum_attack_power() == 31284
+    test = BeverageBandits("./python/aoc2018/day15/sample4.txt")
+    assert test.run_battle() == 27755
+    assert test.run_flawless_battle_with_minimum_attack_power() == 3478
+    test = BeverageBandits("./python/aoc2018/day15/sample5.txt")
+    assert test.run_battle() == 28944
+    assert test.run_flawless_battle_with_minimum_attack_power() == 6474
+    test = BeverageBandits("./python/aoc2018/day15/sample6.txt")
+    assert test.run_battle() == 18740
+    assert test.run_flawless_battle_with_minimum_attack_power() == 1140
+
+
+def test_day15():
+    puzzle = BeverageBandits(f"{input_folder}/aoc2018_day15.txt")
+    assert puzzle.run_battle() == 228730
+    assert puzzle.run_flawless_battle_with_minimum_attack_power() == 33621
