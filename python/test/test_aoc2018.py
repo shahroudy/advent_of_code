@@ -3,6 +3,7 @@ import os
 from aoc2018.day13.d13 import MineCartMadness
 from aoc2018.day14.d14 import ChocolateCharts
 from aoc2018.day15.d15 import BeverageBandits
+from aoc2018.day16.d16 import ChronalClassification
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -62,3 +63,9 @@ def test_day15():
     puzzle = BeverageBandits(f"{input_folder}/aoc2018_day15.txt")
     assert puzzle.run_battle() == 228730
     assert puzzle.run_flawless_battle_with_minimum_attack_power() == 33621
+
+
+def test_day16():
+    puzzle = ChronalClassification(f"{input_folder}/aoc2018_day16.txt")
+    assert puzzle.find_matches() == 500
+    assert puzzle.run_opcode_program() == 533

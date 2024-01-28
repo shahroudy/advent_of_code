@@ -35,6 +35,10 @@ Even the concept of finding the in-range cells was simply applied if you find th
   There were cases (only happening for the input, and not in samples) that the dead units' location were later occupied by other units, and when it was their turn I was further moving the new unit instead of skipping the dead one.\
   This literally took me days to fix! :sweat_smile:
 
+## Day 16: [Chronal Classification](https://adventofcode.com/2018/day/16)
+Simulating a computer with some simple instructions to read and write from/to registers.\
+Nothing challenging here, just a simple simulation and matching the instructions to the opcodes.
+
 
 ## Day X: [Title](https://adventofcode.com/2018/day/X)
 desc
