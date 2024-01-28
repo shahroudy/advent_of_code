@@ -1,5 +1,13 @@
 {
     "workbench.iconTheme": "vscode-icons",
+    "json.format.enable": true,
+    "files.associations": {
+        "string": "cpp"
+    },
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#fff24060",
+        "editorWhitespace.foreground": "#99dee02d"
+    },
     "editor.insertSpaces": true,
     "editor.codeActionsOnSave": {
         "source.fixAll": "always",
@@ -11,13 +19,8 @@
     "editor.fontLigatures": true,
     "C_Cpp.formatting": "clangFormat",
     "C_Cpp.clang_format_path": "src/.clang-format",
-    "json.format.enable": true,
-    "files.associations": {
-        "string": "cpp"
-    },
     "editor.rulers": [
-        100,
-        120
+        100
     ],
     "editor.renderWhitespace": "all",
     "[python]": {
