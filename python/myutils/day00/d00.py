@@ -76,10 +76,10 @@ class Puzzle:
             self.inp.append(parts)
 
     def calc1(self):
-        return 0
+        return None
 
     def calc2(self):
-        return 0
+        return None
 
     def solve_some_equation(self):
         x = Symbol("x")
