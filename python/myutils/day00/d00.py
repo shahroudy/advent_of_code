@@ -8,6 +8,7 @@ from itertools import *
 from pathlib import Path
 
 from myutils.file_reader import *
+from myutils.io_handler import get_input_data, submit_answer
 from sympy import Symbol
 from sympy.solvers import solve
 
@@ -95,6 +96,8 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
+
     test_samples("sample1.txt", None, None)
     test_samples("sample2.txt", None, None)
     test_samples("sample3.txt", None, None)
@@ -103,10 +106,13 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day00.txt'
-    puzzle = Puzzle(input_file)
-    print(puzzle.calc1())
-    print(puzzle.calc2())
-
-    # cProfile.run("puzzle.calc1()")
-    # cProfile.run("puzzle.calc2()")
+    submit_answers = True
+    puzzle = Puzzle(data.input_file)
+    # cProfile.run("print(answer1 := puzzle.calc1())")
+    print(answer1 := puzzle.calc1())
+    if submit_answers and answer1 is not None:
+        submit_answer(answer1, "a", data)
+    # cProfile.run("print(answer2 := puzzle.calc2())")
+    print(answer2 := puzzle.calc2())
+    if submit_answers and answer2 is not None:
+        submit_answer(answer2, "b", data)
