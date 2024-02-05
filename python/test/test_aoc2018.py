@@ -4,6 +4,7 @@ from aoc2018.day13.d13 import MineCartMadness
 from aoc2018.day14.d14 import ChocolateCharts
 from aoc2018.day15.d15 import BeverageBandits
 from aoc2018.day16.d16 import ChronalClassification
+from aoc2018.day17.d17 import ReservoirResearch
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -69,3 +70,18 @@ def test_day16():
     puzzle = ChronalClassification(f"{input_folder}/aoc2018_day16.txt")
     assert puzzle.find_matches() == 500
     assert puzzle.run_opcode_program() == 533
+
+
+def test_day17_samples():
+    test = ReservoirResearch("./python/aoc2018/day17/sample1.txt")
+    assert test.water_reached_count() == 57
+    assert test.remaining_water_count() == 29
+    test = ReservoirResearch("./python/aoc2018/day17/sample2.txt")
+    assert test.water_reached_count() == 96
+    assert test.remaining_water_count() == 65
+
+
+def test_day17():
+    puzzle = ReservoirResearch(f"{input_folder}/aoc2018_day17.txt")
+    assert puzzle.water_reached_count() == 34541
+    assert puzzle.remaining_water_count() == 28000

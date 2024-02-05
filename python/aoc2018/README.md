@@ -40,6 +40,17 @@ Simulating a computer with some simple instructions to read and write from/to re
 Nothing challenging here, just a simple simulation and matching the instructions to the opcodes.
 
 
+## Day 17: [Reservoir Research](https://adventofcode.com/2018/day/17)
+Simulating water flow in a grid of open and clay blocks.\
+Though it took me a long while to solve this puzzle, the solution was simple eventually.\
+The keys to solve this puzzle were:
+* To quickly visualize the state and check the possible mistakes in the implementation.\
+Since the input spans a large area, I had to save the state of the grid to a file and keep the file open in an editor to visualize the state, step by step.
+* To create extra samples to cover the corner cases easier.\
+The provided sample was too simple and did not cover corner cases happening in the input file.
+  
+
+
 ## Day X: [Title](https://adventofcode.com/2018/day/X)
 desc
 ### Optimizations:
