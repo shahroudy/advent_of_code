@@ -49,7 +49,15 @@ Since the input spans a large area, I had to save the state of the grid to a fil
 * To create extra samples to cover the corner cases easier.\
 The provided sample was too simple and did not cover corner cases happening in the input file.
   
+## Day 18: [Settlers of The North Pole](https://adventofcode.com/2018/day/18)
+A cellular automaton problem.\
+Each acre (cell) changes its state based on the states of its neighbors.\
+Not much of a challenge here, just a simulation, with one optimization trick.
 
+### Optimizations:
+* In part 2, the simulation runs for a billion steps, which makes the simple brute-force approach too slow.\
+  The trick is to find the cycle in the state of the grid and fast-forward to the final state.
+* For easier handling of cells and their neighbors, I used a string to represent the grid, and I used a dictionary to store the indices of neighbors for each cell.
 
 ## Day X: [Title](https://adventofcode.com/2018/day/X)
 desc

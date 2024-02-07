@@ -5,6 +5,7 @@ from aoc2018.day14.d14 import ChocolateCharts
 from aoc2018.day15.d15 import BeverageBandits
 from aoc2018.day16.d16 import ChronalClassification
 from aoc2018.day17.d17 import ReservoirResearch
+from aoc2018.day18.d18 import SettlersOfTheNorthPole
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -85,3 +86,14 @@ def test_day17():
     puzzle = ReservoirResearch(f"{input_folder}/aoc2018_day17.txt")
     assert puzzle.water_reached_count() == 34541
     assert puzzle.remaining_water_count() == 28000
+
+
+def test_day18_samples():
+    test = SettlersOfTheNorthPole("./python/aoc2018/day18/sample1.txt")
+    assert test.simulate() == 1147
+
+
+def test_day18():
+    puzzle = SettlersOfTheNorthPole(f"{input_folder}/aoc2018_day18.txt")
+    assert puzzle.simulate() == 531417
+    assert puzzle.simulate(minutes=1000000000) == 205296
