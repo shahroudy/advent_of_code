@@ -8,6 +8,13 @@ Warming up on:
 * Reading input from file
 * For loop?!
 
+## Day 2: [I Was Told There Would Be No Math](https://adventofcode.com/2015/day/2)
+Another simple puzzle.\
+Calculating the area and the volume of a box and summing them up.\
+Warming up on:
+* List comprehension
+* Sort operation
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:
