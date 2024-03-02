@@ -15,6 +15,14 @@ Warming up on:
 * List comprehension
 * Sort operation
 
+## Day 3: [Perfectly Spherical Houses in a Vacuum](https://adventofcode.com/2015/day/3)
+Another simple puzzle.\
+Reading the input directions and count the number of unique houses visited.\
+Second part needs to unzip the input moves to two sets and count the unique houses visited together.\
+Warming up on:
+* `set`
+* `list` slicing
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

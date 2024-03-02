@@ -20,17 +20,18 @@ class Puzzle:
         # self.inp = read_line_groups(filename)
         # self.inp = read_int_line_groups(filename)
 
+        self.directions = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
+        self.dir_chars = {">": (1, 0), "<": (-1, 0), "^": (0, -1), "v": (0, 1)}
+        self.mask4 = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+        self.mask5 = [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]]
+        self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
+        self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]
+
         self.process()
         # self.process_int_list()
         # self.process_int_int_dict()
         # self.process_int_list_dict()
         # self.process_map()
-
-        self.directions = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
-        self.mask4 = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-        self.mask5 = [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]]
-        self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
-        self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]
 
     def print_with_color(self, text, text_color="#FFFFFF", back_color="#000000", end="\n"):
         from colored import attr, bg, fg
