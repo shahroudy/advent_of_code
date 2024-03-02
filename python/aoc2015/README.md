@@ -1,5 +1,13 @@
 # Advent of Code 2015
 
+## Day 1: [Not Quite Lisp](https://adventofcode.com/2015/day/1)
+The very first challenge in AoC history was not something challenging.\
+You need to simply read the input and count the number of `(` and `)` and return the difference.\
+The second part is to find the position where the first time the current floor becomes negative.
+Warming up on:
+* Reading input from file
+* For loop?!
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:
