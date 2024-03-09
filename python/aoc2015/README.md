@@ -23,6 +23,13 @@ Warming up on:
 * `set`
 * `list` slicing
 
+## Day 4: [The Ideal Stocking Stuffer](https://adventofcode.com/2015/day/4)
+Mining the MD5 hash codes to find the first hash starting with 5 (6 in part 2) zeros.\
+Using `hashlib` to calculate the MD5 hash simplifies the solution drastically.
+### Possible Optimizations (not implemented):
+* One can think of implementing the actual MD5 algorithm to optimize the solution, by caching the states of the four words for the repeated input patterns.
+* Multiprocessing can be used to calculate the hashes in parallel.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

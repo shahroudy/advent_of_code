@@ -3,6 +3,7 @@ import os
 from aoc2015.day01.d01 import NotQuiteLisp
 from aoc2015.day02.d02 import IWasToldThereWouldBeNoMath
 from aoc2015.day03.d03 import PerfectlySphericalHousesInAVacuum
+from aoc2015.day04.d04 import TheIdealStockingStuffer
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -58,3 +59,16 @@ def test_day03():
     puzzle = PerfectlySphericalHousesInAVacuum(f"{input_folder}/aoc2015_day03.txt")
     assert puzzle.visited_houses_santa_alone() == 2081
     assert puzzle.visited_houses_santa_and_robosanta() == 2341
+
+
+def test_day04_samples():
+    test = TheIdealStockingStuffer("./python/aoc2015/day04/sample1.txt")
+    assert test.mine() == 609043
+    test = TheIdealStockingStuffer("./python/aoc2015/day04/sample2.txt")
+    assert test.mine() == 1048970
+
+
+def test_day04():
+    puzzle = TheIdealStockingStuffer(f"{input_folder}/aoc2015_day04.txt")
+    assert puzzle.mine() == 282749
+    assert puzzle.mine(zeroes=6) == 9962624
