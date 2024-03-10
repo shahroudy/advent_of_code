@@ -53,6 +53,13 @@ A perfect example for using regular expressions:
     re.search(r"(.).\1", s)
 ```
 
+## Day 6: [Probably a Fire Hazard](https://adventofcode.com/2015/day/6)
+An easy yet fun-to-optimize puzzle, to turn on/off and toggle the lights on a grid.\
+The brute-force solution is to use `defaultdict` for keeping the values of the lights (both parts) and loop over the grid and apply the instructions.
+### Optimizations:
+* Using `numpy` to represent the grid and apply the instructions in a vectorized way.
+* Considering 2-dimensional ranges with their areas will definitely improve the performance, but the implementation will be more complex and seems to be an overkill for this simple puzzle.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

@@ -5,6 +5,7 @@ from aoc2015.day02.d02 import IWasToldThereWouldBeNoMath
 from aoc2015.day03.d03 import PerfectlySphericalHousesInAVacuum
 from aoc2015.day04.d04 import TheIdealStockingStuffer
 from aoc2015.day05.d05 import DoesntHeHaveInternElvesForThis
+from aoc2015.day06.d06 import ProbablyAFireHazard
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -86,3 +87,22 @@ def test_day05():
     puzzle = DoesntHeHaveInternElvesForThis(f"{input_folder}/aoc2015_day05.txt")
     assert sum(puzzle.nice_a) == 258
     assert sum(puzzle.nice_b) == 53
+
+
+def test_day06_samples():
+    test = ProbablyAFireHazard("./python/aoc2015/day06/sample1.txt")
+    assert test.lit_lights() == 1000000
+    test = ProbablyAFireHazard("./python/aoc2015/day06/sample2.txt")
+    assert test.lit_lights() == 1000
+    test = ProbablyAFireHazard("./python/aoc2015/day06/sample3.txt")
+    assert test.lit_lights() == 0
+    test = ProbablyAFireHazard("./python/aoc2015/day06/sample4.txt")
+    assert test.brightness_sum() == 1
+    test = ProbablyAFireHazard("./python/aoc2015/day06/sample5.txt")
+    assert test.brightness_sum() == 2000000
+
+
+def test_day06():
+    puzzle = ProbablyAFireHazard(f"{input_folder}/aoc2015_day06.txt")
+    assert puzzle.lit_lights() == 543903
+    assert puzzle.brightness_sum() == 14687245
