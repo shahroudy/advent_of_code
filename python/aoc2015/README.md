@@ -30,6 +30,29 @@ Using `hashlib` to calculate the MD5 hash simplifies the solution drastically.
 * One can think of implementing the actual MD5 algorithm to optimize the solution, by caching the states of the four words for the repeated input patterns.
 * Multiprocessing can be used to calculate the hashes in parallel.
 
+## Day 5: [Doesn't He Have Intern-Elves For This?](https://adventofcode.com/2015/day/5)
+Checking the input strings for different patterns and decide if they are "nice" or "naughty".\
+A perfect example for using regular expressions:
+  ```python 
+    import re
+
+    re.search(r"(.)\1", s)
+    # Contains at least three vowels (`aeiou` only): 
+    len(re.findall(r"[aeiou]", s)) >= 3
+    
+    # Contains at least one letter that appears twice in a row: 
+    re.search(r"(.)\1", s)
+
+    # Does not contain the strings `ab`, `cd`, `pq`, or `xy`:
+    not re.search(r"ab|cd|pq|xy", s)
+
+    # Contains a pair of any two letters that appears at least twice in the string without overlapping: 
+    re.search(r"(..).*\1", s) 
+
+    # Contains at least one letter which repeats with exactly one letter between them, like `xyx`, `efe`, or even `aaa`: 
+    re.search(r"(.).\1", s)
+```
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

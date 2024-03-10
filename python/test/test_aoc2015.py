@@ -4,6 +4,7 @@ from aoc2015.day01.d01 import NotQuiteLisp
 from aoc2015.day02.d02 import IWasToldThereWouldBeNoMath
 from aoc2015.day03.d03 import PerfectlySphericalHousesInAVacuum
 from aoc2015.day04.d04 import TheIdealStockingStuffer
+from aoc2015.day05.d05 import DoesntHeHaveInternElvesForThis
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -72,3 +73,16 @@ def test_day04():
     puzzle = TheIdealStockingStuffer(f"{input_folder}/aoc2015_day04.txt")
     assert puzzle.mine() == 282749
     assert puzzle.mine(zeroes=6) == 9962624
+
+
+def test_day05_samples():
+    test = DoesntHeHaveInternElvesForThis("./python/aoc2015/day05/sample1.txt")
+    assert test.nice_a == [True, True, False, False, False]
+    test = DoesntHeHaveInternElvesForThis("./python/aoc2015/day05/sample2.txt")
+    assert test.nice_b == [True, True, False, False]
+
+
+def test_day05():
+    puzzle = DoesntHeHaveInternElvesForThis(f"{input_folder}/aoc2015_day05.txt")
+    assert sum(puzzle.nice_a) == 258
+    assert sum(puzzle.nice_b) == 53

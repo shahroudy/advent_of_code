@@ -107,8 +107,9 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    submit_answers = True
     puzzle = Puzzle(data.input_file)
+
+    submit_answers = True
     # cProfile.run("print(answer1 := puzzle.calc1())")
     print(answer1 := puzzle.calc1())
     if submit_answers and answer1 is not None:
@@ -117,3 +118,7 @@ if __name__ == "__main__":
     print(answer2 := puzzle.calc2())
     if submit_answers and answer2 is not None:
         submit_answer(answer2, "b", data)
+    exit()
+
+    print(puzzle.calc1())
+    print(puzzle.calc2())
