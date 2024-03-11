@@ -60,6 +60,15 @@ The brute-force solution is to use `defaultdict` for keeping the values of the l
 * Using `numpy` to represent the grid and apply the instructions in a vectorized way.
 * Considering 2-dimensional ranges with their areas will definitely improve the performance, but the implementation will be more complex and seems to be an overkill for this simple puzzle.
 
+## Day 7: [Some Assembly Required](https://adventofcode.com/2015/day/7)
+Simulation of a network of wires and gates.\
+Values on the wires are 16-bit unsigned integers.\
+The first part is to simulate the network and find the value on the wire `a`.\
+In python one can simply use `~, &, |, <<, >>` operators to simulate not, and, or, left shift, and right shift gates respectively.\
+The only tricky part was to implement the `NOT` gate, sine `~` operator in python turns positive numbers to negative and vice versa.\
+The solution was to use `&0xff` to mask the result to 16-bit unsigned integer.\
+The input was not sorted and some operations had to wait till the values of its input wires are calculated.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

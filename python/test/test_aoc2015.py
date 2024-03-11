@@ -6,6 +6,7 @@ from aoc2015.day03.d03 import PerfectlySphericalHousesInAVacuum
 from aoc2015.day04.d04 import TheIdealStockingStuffer
 from aoc2015.day05.d05 import DoesntHeHaveInternElvesForThis
 from aoc2015.day06.d06 import ProbablyAFireHazard
+from aoc2015.day07.d07 import SomeAssemblyRequired
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -106,3 +107,14 @@ def test_day06():
     puzzle = ProbablyAFireHazard(f"{input_folder}/aoc2015_day06.txt")
     assert puzzle.lit_lights() == 543903
     assert puzzle.brightness_sum() == 14687245
+
+
+def test_day07_samples():
+    test = SomeAssemblyRequired("./python/aoc2015/day07/sample1.txt")
+    assert test.first_execution() == 65079
+
+
+def test_day07():
+    puzzle = SomeAssemblyRequired(f"{input_folder}/aoc2015_day07.txt")
+    assert puzzle.first_execution() == 46065
+    assert puzzle.second_execution() == 14134
