@@ -83,6 +83,12 @@ def extra_chars_from_encoding(self):
     return sum(2 + text.count("\\") + text.count('"') for text in self.input)
 ```
 
+## day 9: [All in a Single Night](https://adventofcode.com/2015/day/9)
+The puzzle was about finding the shortest (part one) and the longest (part two) path between a set of cities, passing all of them.\
+The ad-hoc solution was to use the `itertools.permutations` to generate all the possible paths and calculate the distances.\
+Regarding the size of the input file, this solution was efficient enough and I have not spent time to find a more efficient algorithm.
+
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

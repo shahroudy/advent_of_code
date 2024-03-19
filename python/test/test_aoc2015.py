@@ -8,6 +8,7 @@ from aoc2015.day05.d05 import DoesntHeHaveInternElvesForThis
 from aoc2015.day06.d06 import ProbablyAFireHazard
 from aoc2015.day07.d07 import SomeAssemblyRequired
 from aoc2015.day08.d08 import Matchsticks
+from aoc2015.day09.d09 import AllInASingleNight
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -131,3 +132,15 @@ def test_day08():
     puzzle = Matchsticks(f"{input_folder}/aoc2015_day08.txt")
     assert puzzle.extra_chars_from_string_literals() == 1333
     assert puzzle.extra_chars_from_encoding() == 2046
+
+
+def test_day09_samples():
+    test = AllInASingleNight("./python/aoc2015/day09/sample1.txt")
+    assert test.min_distance == 605
+    assert test.max_distance == 982
+
+
+def test_day09():
+    puzzle = AllInASingleNight(f"{input_folder}/aoc2015_day09.txt")
+    assert puzzle.min_distance == 117
+    assert puzzle.max_distance == 909
