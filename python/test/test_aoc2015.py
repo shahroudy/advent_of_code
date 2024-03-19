@@ -7,6 +7,7 @@ from aoc2015.day04.d04 import TheIdealStockingStuffer
 from aoc2015.day05.d05 import DoesntHeHaveInternElvesForThis
 from aoc2015.day06.d06 import ProbablyAFireHazard
 from aoc2015.day07.d07 import SomeAssemblyRequired
+from aoc2015.day08.d08 import Matchsticks
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -118,3 +119,15 @@ def test_day07():
     puzzle = SomeAssemblyRequired(f"{input_folder}/aoc2015_day07.txt")
     assert puzzle.first_execution() == 46065
     assert puzzle.second_execution() == 14134
+
+
+def test_day08_samples():
+    test = Matchsticks("./python/aoc2015/day08/sample1.txt")
+    assert test.extra_chars_from_string_literals() == 12
+    assert test.extra_chars_from_encoding() == 19
+
+
+def test_day08():
+    puzzle = Matchsticks(f"{input_folder}/aoc2015_day08.txt")
+    assert puzzle.extra_chars_from_string_literals() == 1333
+    assert puzzle.extra_chars_from_encoding() == 2046

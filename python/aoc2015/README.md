@@ -69,6 +69,20 @@ The only tricky part was to implement the `NOT` gate, sine `~` operator in pytho
 The solution was to use `&0xff` to mask the result to 16-bit unsigned integer.\
 The input was not sorted and some operations had to wait till the values of its input wires are calculated.
 
+## Day 8: [Matchsticks](https://adventofcode.com/2015/day/8)
+This puzzle was mainly about understanding the functionality of escape characters in a string.\
+In the first part we need to count the difference between the lengths of the input strings (with escape characters) and the actual strings.\
+For this, using the `eval` function was very handy.\
+In the second part, we need to count the difference between the lengths of the strings before and after escaping the special characters in the original strings.\
+My implementation were one-liners in python for each section:\
+```python
+def extra_chars_from_string_literals(self):
+    return sum(len(text) - len(eval(f"'{text[1:-1]}'")) for text in self.input)
+
+def extra_chars_from_encoding(self):
+    return sum(2 + text.count("\\") + text.count('"') for text in self.input)
+```
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:
