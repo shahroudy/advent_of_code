@@ -88,6 +88,13 @@ The puzzle was about finding the shortest (part one) and the longest (part two) 
 The ad-hoc solution was to use the `itertools.permutations` to generate all the possible paths and calculate the distances.\
 Regarding the size of the input file, this solution was efficient enough and I have not spent time to find a more efficient algorithm.
 
+## Day 10: [Elves Look, Elves Say](https://adventofcode.com/2015/day/10)
+Iterative conversion of a sequence of numbers based on the repetition of the numbers in a row.\
+The ad-hoc solution that is not efficient is to build the sequence as a string at each step.
+
+### Optimizations:
+* Operate over `list` of `int` instead of `str` to avoid the overhead of string operations!.\
+  I was looking for more sophisticated optimizations and did not think of this simple one for a long time.
 
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc

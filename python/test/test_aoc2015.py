@@ -9,6 +9,7 @@ from aoc2015.day06.d06 import ProbablyAFireHazard
 from aoc2015.day07.d07 import SomeAssemblyRequired
 from aoc2015.day08.d08 import Matchsticks
 from aoc2015.day09.d09 import AllInASingleNight
+from aoc2015.day10.d10 import ElvesLookElvesSay
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -144,3 +145,20 @@ def test_day09():
     puzzle = AllInASingleNight(f"{input_folder}/aoc2015_day09.txt")
     assert puzzle.min_distance == 117
     assert puzzle.max_distance == 909
+
+
+def test_day10_samples():
+    def test(input):
+        return "".join(map(str, ElvesLookElvesSay().look_and_say(input)))
+
+    assert test("1") == "11"
+    assert test("11") == "21"
+    assert test("21") == "1211"
+    assert test("1211") == "111221"
+    assert test("111221") == "312211"
+
+
+def test_day10():
+    puzzle = ElvesLookElvesSay(f"{input_folder}/aoc2015_day10.txt")
+    assert puzzle.length_of_result(40) == 360154
+    assert puzzle.length_of_result(50) == 5103798

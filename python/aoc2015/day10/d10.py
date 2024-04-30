@@ -1,73 +1,53 @@
-import cProfile
-import os
-import re
-from collections import *
-from copy import deepcopy
-from functools import cache, cmp_to_key, reduce
-from itertools import *
 from pathlib import Path
 
-from myutils.file_reader import *
-from myutils.io_handler import get_input_data, submit_answer
-from sympy import Symbol
-from sympy.solvers import solve
+from myutils.io_handler import get_input_data
 
 
-class Puzzle:
-    def __init__(self, filename):
-        self.input = Path(filename).read_text().strip()
+class ElvesLookElvesSay:
+    def __init__(self, filename=None):
+        if filename:
+            self.input = Path(filename).read_text().strip()
 
-    def look_and_say(self, s=""):
-        if s == "":
+    def look_and_say(self, s=None):
+        if not s:
             s = self.input
-        result = ""
-        cnt = 1
-        pre = ""
-        for ch in s:
-            if ch == pre:
+        if isinstance(s, str):
+            s = list(map(int, s))
+        result, cnt, pre = [], 1, 0
+        for i in s:
+            if i == pre:
                 cnt += 1
             else:
-                if pre != "":
-                    result = f"{result}{cnt}{pre}"
-                pre = ch
+                if pre != 0:
+                    result.extend([cnt, pre])
+                pre = i
                 cnt = 1
-        result = f"{result}{cnt}{pre}"
+        result.extend([cnt, pre])
         return result
 
-    def calc1(self, n=40):
+    def length_of_result(self, iterations=40):
         s = self.input
-        from time import time
-
-        for i in range(n):
-            t = time()
+        for _ in range(iterations):
             s = self.look_and_say(s)
-            print(i + 1, len(s), time() - t)
-        return len(s)
-
-    def calc2(self):
-        return self.calc1(50)
+        return sum(len(str(i)) for i in s)
 
 
-def test_samples(filename, answer1, answer2):
-    if answer1 is None and answer2 is None:
-        return
-    test = Puzzle(filename)
-    assert answer1 is None or test.look_and_say() == answer1
-    assert answer2 is None or test.calc2() == answer2
+def test_samples(input, answer):
+    assert "".join(map(str, ElvesLookElvesSay().look_and_say(input))) == answer
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
 
-    test_samples("sample1.txt", "11", None)
-    test_samples("sample2.txt", "21", None)
-    test_samples("sample3.txt", "1211", None)
-    test_samples("sample4.txt", "111221", None)
-    test_samples("sample5.txt", "312211", None)
+    test_samples("1", "11")
+    test_samples("11", "21")
+    test_samples("21", "1211")
+    test_samples("1211", "111221")
+    test_samples("111221", "312211")
 
     print("Tests passed, starting with the puzzle")
 
-    puzzle = Puzzle(data.input_file)
+    puzzle = ElvesLookElvesSay(data.input_file)
 
-    # print(puzzle.calc1())
-    print(puzzle.calc2())
+    print(puzzle.length_of_result(40))
+    print(puzzle.length_of_result(50))
