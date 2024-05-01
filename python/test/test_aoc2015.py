@@ -10,6 +10,7 @@ from aoc2015.day07.d07 import SomeAssemblyRequired
 from aoc2015.day08.d08 import Matchsticks
 from aoc2015.day09.d09 import AllInASingleNight
 from aoc2015.day10.d10 import ElvesLookElvesSay
+from aoc2015.day11.d11 import CorporatePolicy
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -162,3 +163,24 @@ def test_day10():
     puzzle = ElvesLookElvesSay(f"{input_folder}/aoc2015_day10.txt")
     assert puzzle.length_of_result(40) == 360154
     assert puzzle.length_of_result(50) == 5103798
+
+
+def test_day11_samples():
+    test = CorporatePolicy(pwd="hijklmmn")
+    assert test.has_increasing_straight()
+    assert test.has_invalid_letters()
+
+    test = CorporatePolicy(pwd="abbceffg")
+    assert test.has_two_pairs()
+    assert not test.has_increasing_straight()
+
+    assert not CorporatePolicy(pwd="abbcegjk").has_two_pairs()
+
+    assert CorporatePolicy(pwd="abcdefgh").find_next_valid_password() == "abcdffaa"
+    assert CorporatePolicy(pwd="ghijklmn").find_next_valid_password() == "ghjaabcc"
+
+
+def test_day11():
+    puzzle = CorporatePolicy(f"{input_folder}/aoc2015_day11.txt")
+    assert puzzle.find_next_valid_password() == "hepxxyzz"
+    assert puzzle.find_next_valid_password() == "heqaabcc"

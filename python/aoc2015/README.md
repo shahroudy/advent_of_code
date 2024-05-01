@@ -96,6 +96,10 @@ The ad-hoc solution that is not efficient is to build the sequence as a string a
 * Operate over `list` of `int` instead of `str` to avoid the overhead of string operations!.\
   I was looking for more sophisticated optimizations and did not think of this simple one for a long time.
 
+## Day 11: [Corporate Policy](https://adventofcode.com/2015/day/11)
+Applying some conditions to a string, counting on the string characters and finding the next valid password.\
+Nothing very challenging, the ad-hoc solution is still efficient enough.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:
