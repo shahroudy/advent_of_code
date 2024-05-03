@@ -11,6 +11,7 @@ from aoc2015.day08.d08 import Matchsticks
 from aoc2015.day09.d09 import AllInASingleNight
 from aoc2015.day10.d10 import ElvesLookElvesSay
 from aoc2015.day11.d11 import CorporatePolicy
+from aoc2015.day12.d12 import JSAbacusFrameworkIO
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -184,3 +185,35 @@ def test_day11():
     puzzle = CorporatePolicy(f"{input_folder}/aoc2015_day11.txt")
     assert puzzle.find_next_valid_password() == "hepxxyzz"
     assert puzzle.find_next_valid_password() == "heqaabcc"
+
+
+def test_day12_samples():
+    test = JSAbacusFrameworkIO("./python/aoc2015/day12/sample1.txt")
+    assert test.sum_all_ints() == 6
+    assert test.sum_no_red_ints() == 6
+    test = JSAbacusFrameworkIO("./python/aoc2015/day12/sample2.txt")
+    assert test.sum_all_ints() == 6
+    test = JSAbacusFrameworkIO("./python/aoc2015/day12/sample3.txt")
+    assert test.sum_all_ints() == 3
+    test = JSAbacusFrameworkIO("./python/aoc2015/day12/sample4.txt")
+    assert test.sum_all_ints() == 3
+    test = JSAbacusFrameworkIO("./python/aoc2015/day12/sample5.txt")
+    assert test.sum_all_ints() == 0
+    test = JSAbacusFrameworkIO("./python/aoc2015/day12/sample6.txt")
+    assert test.sum_all_ints() == 0
+    test = JSAbacusFrameworkIO("./python/aoc2015/day12/sample7.txt")
+    assert test.sum_all_ints() == 0
+    test = JSAbacusFrameworkIO("./python/aoc2015/day12/sample8.txt")
+    assert test.sum_all_ints() == 0
+    test = JSAbacusFrameworkIO("./python/aoc2015/day12/sample9.txt")
+    assert test.sum_no_red_ints() == 4
+    test = JSAbacusFrameworkIO("./python/aoc2015/day12/sample10.txt")
+    assert test.sum_no_red_ints() == 0
+    test = JSAbacusFrameworkIO("./python/aoc2015/day12/sample11.txt")
+    assert test.sum_no_red_ints() == 6
+
+
+def test_day12():
+    puzzle = JSAbacusFrameworkIO(f"{input_folder}/aoc2015_day12.txt")
+    assert puzzle.sum_all_ints() == 119433
+    assert puzzle.sum_no_red_ints() == 68466

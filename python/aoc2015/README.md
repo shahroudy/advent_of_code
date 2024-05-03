@@ -100,6 +100,11 @@ The ad-hoc solution that is not efficient is to build the sequence as a string a
 Applying some conditions to a string, counting on the string characters and finding the next valid password.\
 Nothing very challenging, the ad-hoc solution is still efficient enough.
 
+## Day 12: [JSAbacusFramework.io](https://adventofcode.com/2015/day/12)
+Warm-up on:
+* Usage of `re` to find all numbers (positive and negative) by using the pattern `r"-?\d+"` 
+* Parsing JSON input using `json.loads` 
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:
