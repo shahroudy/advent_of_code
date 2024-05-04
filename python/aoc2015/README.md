@@ -105,6 +105,17 @@ Warm-up on:
 * Usage of `re` to find all numbers (positive and negative) by using the pattern `r"-?\d+"` 
 * Parsing JSON input using `json.loads` 
 
+## Day 13: [Knights of the Dinner Table](https://adventofcode.com/2015/day/13)
+Finding the optimum seating arrangement for a group of people based on their happiness with regards to their neighbors.\
+Since the number of guests are few in both the sample and the puzzle input, the brute-force solution is efficient enough.\
+Warmp-up on:
+* Reading inputs with `re`
+* `collections.defaultdict` for storing the happiness
+* `itertools.permutations` to generate all the possible seating arrangements
+
+### Optimizations:
+* Fixing the first seat and loop over the permutations of the rest of the guests; since the seating arrangement is circular.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

@@ -12,6 +12,7 @@ from aoc2015.day09.d09 import AllInASingleNight
 from aoc2015.day10.d10 import ElvesLookElvesSay
 from aoc2015.day11.d11 import CorporatePolicy
 from aoc2015.day12.d12 import JSAbacusFrameworkIO
+from aoc2015.day13.d13 import KnightsOfTheDinnerTable
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -217,3 +218,14 @@ def test_day12():
     puzzle = JSAbacusFrameworkIO(f"{input_folder}/aoc2015_day12.txt")
     assert puzzle.sum_all_ints() == 119433
     assert puzzle.sum_no_red_ints() == 68466
+
+
+def test_day13_samples():
+    test = KnightsOfTheDinnerTable("./python/aoc2015/day13/sample1.txt")
+    assert test.optimal_happiness() == 330
+
+
+def test_day13():
+    puzzle = KnightsOfTheDinnerTable(f"{input_folder}/aoc2015_day13.txt")
+    assert puzzle.optimal_happiness() == 618
+    assert puzzle.optimal_happiness_with_me() == 601
