@@ -116,6 +116,12 @@ Warmp-up on:
 ### Optimizations:
 * Fixing the first seat and loop over the permutations of the rest of the guests; since the seating arrangement is circular.
 
+## Day 14: [Reindeer Olympics](https://adventofcode.com/2015/day)
+Comparing the distances a group of reindeers fly after a certain time.\
+Each raindeer has a speed and a time for which it can fly at that speed, and a rest time.\
+In part two we need to simulate each second and calculate the distance of each reindeer to find the winner for each second.\
+Still not a challenging puzzle, the ad-hoc looping is efficient enough.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

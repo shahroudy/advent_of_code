@@ -13,6 +13,7 @@ from aoc2015.day10.d10 import ElvesLookElvesSay
 from aoc2015.day11.d11 import CorporatePolicy
 from aoc2015.day12.d12 import JSAbacusFrameworkIO
 from aoc2015.day13.d13 import KnightsOfTheDinnerTable
+from aoc2015.day14.d14 import ReindeerOlympics
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -229,3 +230,15 @@ def test_day13():
     puzzle = KnightsOfTheDinnerTable(f"{input_folder}/aoc2015_day13.txt")
     assert puzzle.optimal_happiness() == 618
     assert puzzle.optimal_happiness_with_me() == 601
+
+
+def test_day14_samples():
+    test = ReindeerOlympics("./python/aoc2015/day14/sample1.txt")
+    assert test.max_distance_of_reindeers_after() == 1120
+    assert test.max_score_reindeer_for_all_seconds() == 689
+
+
+def test_day14():
+    puzzle = ReindeerOlympics(f"{input_folder}/aoc2015_day14.txt")
+    assert puzzle.max_distance_of_reindeers_after(2503) == 2696
+    assert puzzle.max_score_reindeer_for_all_seconds(2503) == 1084
