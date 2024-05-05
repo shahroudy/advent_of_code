@@ -127,6 +127,10 @@ Yet another puzzle with efficient enough brute-force solution.\
 I honestly believe brute-force is preferred when the input size is small enough, since the implementation is simpler.\
 The only challenge here was to dynamically loop over possible values of the ingredients and calculate the score; since the number of ingredients were not equal between the sample and the puzzle input.
 
+## Day 16: [Aunt Sue](https://adventofcode.com/2015/day/16)
+Finding the aunt Sue that matches the given criteria, in the input list of aunt Sue's.\
+Nothing challenging again.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

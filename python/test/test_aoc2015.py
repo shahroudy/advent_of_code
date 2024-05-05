@@ -15,6 +15,7 @@ from aoc2015.day12.d12 import JSAbacusFrameworkIO
 from aoc2015.day13.d13 import KnightsOfTheDinnerTable
 from aoc2015.day14.d14 import ReindeerOlympics
 from aoc2015.day15.d15 import ScienceForHungryPeople
+from aoc2015.day16.d16 import AuntSue
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -255,3 +256,9 @@ def test_day15():
     puzzle = ScienceForHungryPeople(f"{input_folder}/aoc2015_day15.txt")
     assert puzzle.find_highest_score_recipe() == 13882464
     assert puzzle.find_highest_score_recipe(calories_goal=500) == 11171160
+
+
+def test_day16():
+    puzzle = AuntSue(f"{input_folder}/aoc2015_day16.txt")
+    assert puzzle.find_aunt_sue_1() == 40
+    assert puzzle.find_aunt_sue_2() == 241
