@@ -17,6 +17,7 @@ from aoc2015.day14.d14 import ReindeerOlympics
 from aoc2015.day15.d15 import ScienceForHungryPeople
 from aoc2015.day16.d16 import AuntSue
 from aoc2015.day17.d17 import NoSuchThingAsTooMuch
+from aoc2015.day18.d18 import LikeAGifForYourYard
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -275,3 +276,15 @@ def test_day17():
     puzzle = NoSuchThingAsTooMuch(f"{input_folder}/aoc2015_day17.txt")
     assert puzzle.total_number_of_ways(150) == 1304
     assert puzzle.number_of_ways_with_min_containers(150) == 18
+
+
+def test_day18_samples():
+    test = LikeAGifForYourYard("./python/aoc2015/day18/sample1.txt")
+    assert test.animate_grid(steps=4) == 4
+    assert test.animate_grid(steps=5, set_corners=True) == 17
+
+
+def test_day18():
+    puzzle = LikeAGifForYourYard(f"{input_folder}/aoc2015_day18.txt")
+    assert puzzle.animate_grid(steps=100) == 768
+    assert puzzle.animate_grid(steps=100, set_corners=True) == 781

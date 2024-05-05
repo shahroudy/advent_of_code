@@ -136,6 +136,12 @@ Finding the number of combinations in the input list that sum up to a certain va
 Warm-up on:
 * `itertools.combinations` to generate all the possible combinations of a list
 
+## Day 18: [Like a GIF For Your Yard](https://adventofcode.com/2015/day/18)
+A simple cell-automaton puzzle, to simulate the lights on a grid.\
+Warm-up on:
+* Map reading and parsing
+* `collections.defaultdict` for storing the grid
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:
