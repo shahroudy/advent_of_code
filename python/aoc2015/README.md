@@ -108,7 +108,7 @@ Warm-up on:
 ## Day 13: [Knights of the Dinner Table](https://adventofcode.com/2015/day/13)
 Finding the optimum seating arrangement for a group of people based on their happiness with regards to their neighbors.\
 Since the number of guests are few in both the sample and the puzzle input, the brute-force solution is efficient enough.\
-Warmp-up on:
+Warm-up on:
 * Reading inputs with `re`
 * `collections.defaultdict` for storing the happiness
 * `itertools.permutations` to generate all the possible seating arrangements
@@ -130,6 +130,11 @@ The only challenge here was to dynamically loop over possible values of the ingr
 ## Day 16: [Aunt Sue](https://adventofcode.com/2015/day/16)
 Finding the aunt Sue that matches the given criteria, in the input list of aunt Sue's.\
 Nothing challenging again.
+
+## Day 17: [No Such Thing as Too Much](https://adventofcode.com/2015/day/17)
+Finding the number of combinations in the input list that sum up to a certain value.\
+Warm-up on:
+* `itertools.combinations` to generate all the possible combinations of a list
 
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
