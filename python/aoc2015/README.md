@@ -122,6 +122,11 @@ Each raindeer has a speed and a time for which it can fly at that speed, and a r
 In part two we need to simulate each second and calculate the distance of each reindeer to find the winner for each second.\
 Still not a challenging puzzle, the ad-hoc looping is efficient enough.
 
+## Day 15: [Science for Hungry People](https://adventofcode.com/2015/day/15)
+Yet another puzzle with efficient enough brute-force solution.\
+I honestly believe brute-force is preferred when the input size is small enough, since the implementation is simpler.\
+The only challenge here was to dynamically loop over possible values of the ingredients and calculate the score; since the number of ingredients were not equal between the sample and the puzzle input.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:
