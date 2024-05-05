@@ -142,6 +142,14 @@ Warm-up on:
 * Map reading and parsing
 * `collections.defaultdict` for storing the grid
 
+## Day 19: [Medicine for Rudolph](https://adventofcode.com/2015/day/19)
+We are provided with a set of replacement rules and a string (medicine molecule).\
+In the first part, we need to find the number of unique molecules derivable from the medicine molecule by applying single replacement rules.\
+The only trick here is to keep a set of derivable molecules to avoid counting the same molecule multiple times.\
+In the second part, we need to find the minimum number of steps to reach the medicine molecule from the starting molecule (`e`).\
+The solution is to apply the replacement rules in reverse order and count the steps.\
+We also need to have the replacement rules sorted by the length of the replacement string.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

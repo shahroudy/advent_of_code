@@ -18,6 +18,7 @@ from aoc2015.day15.d15 import ScienceForHungryPeople
 from aoc2015.day16.d16 import AuntSue
 from aoc2015.day17.d17 import NoSuchThingAsTooMuch
 from aoc2015.day18.d18 import LikeAGifForYourYard
+from aoc2015.day19.d19 import MedicineForRudolph
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -288,3 +289,20 @@ def test_day18():
     puzzle = LikeAGifForYourYard(f"{input_folder}/aoc2015_day18.txt")
     assert puzzle.animate_grid(steps=100) == 768
     assert puzzle.animate_grid(steps=100, set_corners=True) == 781
+
+
+def test_day19_samples():
+    test = MedicineForRudolph("./python/aoc2015/day19/sample1.txt")
+    assert test.distinct_derivable_molecules() == 4
+    test = MedicineForRudolph("./python/aoc2015/day19/sample2.txt")
+    assert test.distinct_derivable_molecules() == 7
+    test = MedicineForRudolph("./python/aoc2015/day19/sample3.txt")
+    assert test.min_steps_to_derive_the_medicine() == 3
+    test = MedicineForRudolph("./python/aoc2015/day19/sample4.txt")
+    assert test.min_steps_to_derive_the_medicine() == 6
+
+
+def test_day19():
+    puzzle = MedicineForRudolph(f"{input_folder}/aoc2015_day19.txt")
+    assert puzzle.distinct_derivable_molecules() == 518
+    assert puzzle.min_steps_to_derive_the_medicine() == 200
