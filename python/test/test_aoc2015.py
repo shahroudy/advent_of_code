@@ -19,6 +19,7 @@ from aoc2015.day16.d16 import AuntSue
 from aoc2015.day17.d17 import NoSuchThingAsTooMuch
 from aoc2015.day18.d18 import LikeAGifForYourYard
 from aoc2015.day19.d19 import MedicineForRudolph
+from aoc2015.day20.d20 import InfiniteElvesAndInfiniteHouses
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -306,3 +307,18 @@ def test_day19():
     puzzle = MedicineForRudolph(f"{input_folder}/aoc2015_day19.txt")
     assert puzzle.distinct_derivable_molecules() == 518
     assert puzzle.min_steps_to_derive_the_medicine() == 200
+
+
+def test_day20_samples():
+    test = InfiniteElvesAndInfiniteHouses(120)
+    assert test.lowest_house_number(deliver=10, infinite=True) == 6
+    test = InfiniteElvesAndInfiniteHouses(150)
+    assert test.lowest_house_number(deliver=10, infinite=True) == 8
+    test = InfiniteElvesAndInfiniteHouses(130)
+    assert test.lowest_house_number(deliver=10, infinite=True) == 8
+
+
+def test_day20():
+    puzzle = InfiniteElvesAndInfiniteHouses(f"{input_folder}/aoc2015_day20.txt")
+    assert puzzle.lowest_house_number(deliver=10, infinite=True) == 665280
+    assert puzzle.lowest_house_number(deliver=11, infinite=False) == 705600

@@ -150,6 +150,16 @@ In the second part, we need to find the minimum number of steps to reach the med
 The solution is to apply the replacement rules in reverse order and count the steps.\
 We also need to have the replacement rules sorted by the length of the replacement string.
 
+## Day 20: [Infinite Elves and Infinite Houses](https://adventofcode.com/2015/day/20)
+Alright, it took 20 days to see a puzzle that needs some optimization.\
+We have infinite houses and infinite elves delivering presents to them.\
+The puzzle is about finding the first house that receives at least a certain number of presents.\
+In the first part, we need to find an efficient way of finding all the factors of a number and sum them up.\
+It took me a while to figure out you can find all the factors of a number by iterating over the numbers up to the square root of the number and find the remaining factor by dividing the number by the current factor.\
+In the second part, we need to find the first house that receives at least a certain number of presents, but this time each house can receive presents from 50 houses.\
+My solution was to count till 50 and consider the quotient for summation.\
+And of course, for both parts, we can divide the minimum present number by the number of presents each elf can deliver to reduce the search space.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:
