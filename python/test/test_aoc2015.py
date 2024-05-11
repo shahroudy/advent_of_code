@@ -20,6 +20,7 @@ from aoc2015.day17.d17 import NoSuchThingAsTooMuch
 from aoc2015.day18.d18 import LikeAGifForYourYard
 from aoc2015.day19.d19 import MedicineForRudolph
 from aoc2015.day20.d20 import InfiniteElvesAndInfiniteHouses
+from aoc2015.day21.d21 import RPGSimulator20XX
 
 input_folder = os.environ.get("aoc_inputs")
 
@@ -322,3 +323,14 @@ def test_day20():
     puzzle = InfiniteElvesAndInfiniteHouses(f"{input_folder}/aoc2015_day20.txt")
     assert puzzle.lowest_house_number(deliver=10, infinite=True) == 665280
     assert puzzle.lowest_house_number(deliver=11, infinite=False) == 705600
+
+
+def test_day21_samples():
+    test = RPGSimulator20XX()
+    assert test.fight(8, 5, 5, 12, 7, 2)
+
+
+def test_day21():
+    puzzle = RPGSimulator20XX(f"{input_folder}/aoc2015_day21.txt")
+    assert puzzle.min_winning_cost == 91
+    assert puzzle.max_losing_cost == 158

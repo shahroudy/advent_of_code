@@ -160,6 +160,16 @@ In the second part, we need to find the first house that receives at least a cer
 My solution was to count till 50 and consider the quotient for summation.\
 And of course, for both parts, we can divide the minimum present number by the number of presents each elf can deliver to reduce the search space.
 
+## Day 21: [RPG Simulator 20XX](https://adventofcode.com/2015/day/21)
+Simulating a fight between a player and a boss.\
+There are various possible weapons, armors, and rings to equip with.\
+Only and only one weapon, at most one armor, and at most two rings can be bought, each for a predefined cost.\
+The question is to find the minimum cost to win the fight, and the maximum cost to lose it.\
+My solution was to find possible combinations for each type and then iterate over all the possible combinations to find the minimum and maximum costs.\
+Warm-up on:
+* `itertools.combination`
+* `itertools.product`
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:
