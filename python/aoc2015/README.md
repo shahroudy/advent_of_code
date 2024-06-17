@@ -170,6 +170,13 @@ Warm-up on:
 * `itertools.combination`
 * `itertools.product`
 
+## Day 22: [Wizard Simulator 20XX](https://adventofcode.com/2015/day/22)
+First puzzle which demands an efficient search algorithm.\
+At each step of the game the player has five spells to choose from and the goal is to find the minimum cost to win the game.\
+I solve this by searching the state space with a least-cost first search algorithm.\
+To keep track of the minimum cost state, I used `heapq` as a priority queue.\
+I also moved the general search algorithm to a separate class to be able to reuse it in future.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:
