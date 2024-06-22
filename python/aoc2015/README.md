@@ -177,6 +177,14 @@ I solve this by searching the state space with a least-cost first search algorit
 To keep track of the minimum cost state, I used `heapq` as a priority queue.\
 I also moved the general search algorithm to a separate class to be able to reuse it in future.
 
+## Day 23: [Opening the Turing Lock](https://adventofcode.com/2015/day/23)
+A very simple simulation puzzle of a basic computer.\
+The ad-hoc implementation of the commands was efficient enough.
+
+### Optimization:
+* One can simplify the input program by combining the register-manipulation commands to a single command and restructure the code with loops instead of jumps.\
+This will be input-dependent and not a general optimization.
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

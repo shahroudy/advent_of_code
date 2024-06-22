@@ -410,3 +410,11 @@ def test_day22():
 
     assert WizardSimulator20XX(f"{input_folder}/aoc2015_day22.txt").search() == 953
     assert WizardSimulator20XX(f"{input_folder}/aoc2015_day22.txt", hard_mode=True).search() == 1289
+
+
+def test_day23():
+    from aoc2015.day23.d23 import OpeningTheTuringLock
+
+    puzzle = OpeningTheTuringLock(f"{input_folder}/aoc2015_day23.txt")
+    assert puzzle.run(a_value=0) == 170
+    assert puzzle.run(a_value=1) == 247
