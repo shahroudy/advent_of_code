@@ -7,7 +7,6 @@ from functools import cache, cmp_to_key, reduce
 from itertools import *
 from pathlib import Path
 
-from myutils.file_reader import *
 from myutils.io_handler import get_input_data, submit_answer
 from sympy import Symbol
 from sympy.solvers import solve
@@ -15,11 +14,6 @@ from sympy.solvers import solve
 
 class Puzzle:
     def __init__(self, filename):
-        self.lines = Path(filename).read_text().splitlines()
-        # self.inp = read_int_lines(filename)
-        # self.inp = read_line_groups(filename)
-        # self.inp = read_int_line_groups(filename)
-
         self.directions = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
         self.dir_chars = {">": (1, 0), "<": (-1, 0), "^": (0, -1), "v": (0, 1)}
         self.mask4 = [[-1, 0], [1, 0], [0, -1], [0, 1]]
@@ -27,11 +21,14 @@ class Puzzle:
         self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
         self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]
 
-        self.process()
-        # self.process_int_list()
-        # self.process_int_int_dict()
-        # self.process_int_list_dict()
-        # self.process_map()
+        # self.process(filename)
+        # self.read_ints(filename)
+        # self.read_line_groups(filename)
+        # self.read_int_line_groups(filename)
+        # self.process_int_list(filename)
+        # self.process_int_int_dict(filename)
+        # self.process_int_list_dict(filename)
+        # self.process_map(filename)
 
     def print_with_color(self, text, text_color="#FFFFFF", back_color="#000000", end="\n"):
         from colored import attr, bg, fg
@@ -41,51 +38,68 @@ class Puzzle:
         reset = attr("reset")
         print(f"{color+ back}" + text + f"{reset}", end=end)
 
-    def process_map(self):
+    def process_map(self, filename):
+        lines = Path(filename).read_text().splitlines()
         self.map = dict()
-        for row, line in enumerate(self.lines):
+        for row, line in enumerate(lines):
             for col, ch in enumerate(line):
                 self.map[(col, row)] = ch
         self.rows, self.cols = row + 1, col + 1
 
-    def process_int_list(self):
-        self.inp = [list(map(int, re.findall(r"-?\d+", line))) for line in self.lines]
+    def read_ints(self, filename):
+        self.inp = [int(n) for n in re.findall(r"[+-]?\d+", Path(filename).read_text())]
 
-    def process_int_int_dict(self):
+    def read_line_groups(self, filename):
+        self.inp = [re.split("\n", g) for g in re.split("\n\n", Path(filename).read_text().strip())]
+
+    def read_int_line_groups(self, filename):
+        self.inp = [
+            [int(n) for n in re.split("\n", g)]
+            for g in re.split("\n\n", Path(filename).read_text().strip())
+        ]
+
+    def process_int_list(self, filename):
+        lines = Path(filename).read_text().splitlines()
+        self.inp = [list(map(int, re.findall(r"-?\d+", line))) for line in lines]
+
+    def process_int_int_dict(self, filename):
+        lines = Path(filename).read_text().splitlines()
         self.inp = {}
-        for line in self.lines:
+        for line in lines:
             parts = list(map(int, re.findall(r"-?\d+", line)))
             self.inp[parts[0]] = parts[1]
 
-    def process_int_list_dict(self):
+    def process_int_list_dict(self, filename):
+        lines = Path(filename).read_text().splitlines()
         self.inp = {}
-        for line in self.lines:
+        for line in lines:
             parts = list(map(int, re.findall(r"-?\d+", line)))
             self.inp[parts[0]] = parts[1:]
 
-    def process(self):
+    def process(self, filename):
+        lines = Path(filename).read_text().splitlines()
         self.inp = []
 
         # self.inp = [tuple(map(int, re.split(r"\D", line))) for line in self.lines]
 
         # line_re = re.compile(r"(\d+)\s*(\d+):(\d+).*")
-        for line in self.lines:
+        for line in lines:
             # parts = line_re.match(line).groups()
             parts = re.split(r"-, ", line)
             # a = parts[0].strip().split(" ")
             # a = list(map(int, re.findall(r"\d+", parts[0])))
             self.inp.append(parts)
 
+    def solve_some_equation(self):
+        x = Symbol("x")
+        y = Symbol("y")
+        s = solve(x**2 - 1, x)
+
     def calc1(self):
         return None
 
     def calc2(self):
         return None
-
-    def solve_some_equation(self):
-        x = Symbol("x")
-        y = Symbol("y")
-        s = solve(x**2 - 1, x)
 
 
 def test_samples(filename, answer1, answer2):
