@@ -185,6 +185,13 @@ The ad-hoc implementation of the commands was efficient enough.
 * One can simplify the input program by combining the register-manipulation commands to a single command and restructure the code with loops instead of jumps.\
 This will be input-dependent and not a general optimization.
 
+## Day 24: [It Hangs in the Balance](https://adventofcode.com/2015/day/24)
+Finding the minimum product of smallest group of numbers that sum up to a third (a fourth in part two) of the total sum.\
+Warming up on:
+* `itertools.combinations` to generate all the possible combinations of a list
+* `itertools.count` to generate an infinite sequence of numbers
+* `math.prod` to calculate the product of a list of numbers
+
 ## Day X: [Title](https://adventofcode.com/2015/day/X)
 desc
 ### Optimizations:

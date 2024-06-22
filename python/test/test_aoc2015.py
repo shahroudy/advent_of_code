@@ -418,3 +418,19 @@ def test_day23():
     puzzle = OpeningTheTuringLock(f"{input_folder}/aoc2015_day23.txt")
     assert puzzle.run(a_value=0) == 170
     assert puzzle.run(a_value=1) == 247
+
+
+def test_day24_samples():
+    from aoc2015.day24.d24 import ItHangsInTheBalance
+
+    test = ItHangsInTheBalance("./python/aoc2015/day24/sample1.txt")
+    assert test.smallest_quantum_entanglement(3) == 99
+    assert test.smallest_quantum_entanglement(4) == 44
+
+
+def test_day24():
+    from aoc2015.day24.d24 import ItHangsInTheBalance
+
+    puzzle = ItHangsInTheBalance(f"{input_folder}/aoc2015_day24.txt")
+    assert puzzle.smallest_quantum_entanglement(3) == 10439961859
+    assert puzzle.smallest_quantum_entanglement(4) == 72050269
