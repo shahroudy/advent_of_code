@@ -434,3 +434,20 @@ def test_day24():
     puzzle = ItHangsInTheBalance(f"{input_folder}/aoc2015_day24.txt")
     assert puzzle.smallest_quantum_entanglement(3) == 10439961859
     assert puzzle.smallest_quantum_entanglement(4) == 72050269
+
+
+def test_day25_samples():
+    from aoc2015.day25.d25 import LetItSnow
+
+    test = LetItSnow()
+    assert test.find_code([2, 1]) == 31916031
+    assert test.find_code([1, 2]) == 18749137
+    assert test.find_code([5, 5]) == 9250759
+    assert test.find_code([6, 6]) == 27995004
+
+
+def test_day25():
+    from aoc2015.day25.d25 import LetItSnow
+
+    puzzle = LetItSnow(f"{input_folder}/aoc2015_day25.txt")
+    assert puzzle.find_code() == 9132360

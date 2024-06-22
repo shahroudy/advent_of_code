@@ -192,7 +192,11 @@ Warming up on:
 * `itertools.count` to generate an infinite sequence of numbers
 * `math.prod` to calculate the product of a list of numbers
 
-## Day X: [Title](https://adventofcode.com/2015/day/X)
-desc
-### Optimizations:
-### Bugs and issues:
+## Day 25: [Let It Snow](https://adventofcode.com/2015/day/25)
+It's a modular exponentiation puzzle.\
+The input is a position in the grid and we need to find the number at that position.\
+Each item is the modular multiplication of a constant (`252533`) to the previous value.\
+The sequence starts with `20151125`.\
+The efficient solution is to calculate the position of the number in the sequence and calculate the number by modular exponentiation.\
+`pow(252533, order, 33554393)` calculates `(252533**order) % 33554393` efficiently.\
+Then we need to find `20151125 * pow(252533, order - 1, 33554393) % 33554393`.
