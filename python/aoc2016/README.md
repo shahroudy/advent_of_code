@@ -26,7 +26,10 @@ A simple puzzle of counting and shifting the characters in strings.
 * `collections.Counter` to count the characters in the string.
 * `ord()` and `chr()` to shift the characters.
 
-
+## Day 5: [How About a Nice Game of Chess?](https://adventofcode.com/2016/day/5) &rarr; [Solution](./day05/d05.py)
+MD5 hash mining.\
+It's very similar to AoC 2015 Day 4.\
+Nothing fun in looping over hash values.
 
 ## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
 Desc

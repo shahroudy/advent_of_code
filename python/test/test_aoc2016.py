@@ -70,3 +70,19 @@ def test_day04():
     puzzle = SecurityThroughObscurity(f"{input_folder}/aoc2016_day04.txt")
     assert puzzle.sum_of_real_sector_ids() == 245102
     assert puzzle.sector_id_of_northpole_storage() == 324
+
+
+def test_day05_samples():
+    from aoc2016.day05.d05 import HowAboutANiceGameOfChess
+
+    test = HowAboutANiceGameOfChess("./python/aoc2016/day05/sample1.txt")
+    assert test.first_password == "18f47a30"
+    assert test.second_password == "05ace8e3"
+
+
+def test_day05():
+    from aoc2016.day05.d05 import HowAboutANiceGameOfChess
+
+    puzzle = HowAboutANiceGameOfChess(f"{input_folder}/aoc2016_day05.txt")
+    assert puzzle.first_password == "1a3099aa"
+    assert puzzle.second_password == "694190cd"
