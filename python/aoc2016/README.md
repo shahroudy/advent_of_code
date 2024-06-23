@@ -31,6 +31,11 @@ MD5 hash mining.\
 It's very similar to AoC 2015 Day 4.\
 Nothing fun in looping over hash values.
 
+## Day 6: [Signals and Noise](https://adventofcode.com/2016/day/6) &rarr; [Solution](./day06/d06.py)
+Finding the most common and least common characters at each position in a list of strings.\
+* `collections.Counter` to count the characters in each position.
+* [`Counter.most_common()`](https://docs.python.org/3/library/collections.html#collections.Counter.most_common) to get the sorted tuples of characters and their counts.
+
 ## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
 Desc
 ### Optimizations:

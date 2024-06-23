@@ -86,3 +86,19 @@ def test_day05():
     puzzle = HowAboutANiceGameOfChess(f"{input_folder}/aoc2016_day05.txt")
     assert puzzle.first_password == "1a3099aa"
     assert puzzle.second_password == "694190cd"
+
+
+def test_day06_samples():
+    from aoc2016.day06.d06 import SignalsAndNoise
+
+    test = SignalsAndNoise("./python/aoc2016/day06/sample1.txt")
+    assert test.most_common == "easter"
+    assert test.least_common == "advent"
+
+
+def test_day06():
+    from aoc2016.day06.d06 import SignalsAndNoise
+
+    puzzle = SignalsAndNoise(f"{input_folder}/aoc2016_day06.txt")
+    assert puzzle.most_common == "mshjnduc"
+    assert puzzle.least_common == "apfeeebz"
