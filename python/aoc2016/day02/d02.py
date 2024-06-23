@@ -1,5 +1,6 @@
-import os
 from pathlib import Path
+
+from myutils.io_handler import get_input_data
 
 
 class BathroomSecurity:
@@ -28,27 +29,22 @@ class BathroomSecurity:
             res += keypad[current]
         return res
 
-    def bathroom_code_imaginary(self):
-        return self.key_in("keypad1.txt")
-
-    def bathroom_code(self):
-        return self.key_in("keypad2.txt")
-
 
 def test_samples(filename, answer1, answer2):
     if answer1 is None and answer2 is None:
         return
     test = BathroomSecurity(filename)
-    assert answer1 is None or test.bathroom_code_imaginary() == answer1
-    assert answer2 is None or test.bathroom_code() == answer2
+    assert answer1 is None or test.key_in("keypad1.txt") == answer1
+    assert answer2 is None or test.key_in("keypad2.txt") == answer2
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
+
     test_samples("sample1.txt", "1985", "5DB3")
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2016_day02.txt'
-    puzzle = BathroomSecurity(input_file)
-    print(puzzle.bathroom_code_imaginary())
-    print(puzzle.bathroom_code())
+    puzzle = BathroomSecurity(data.input_file)
+    print(puzzle.key_in("keypad1.txt"))
+    print(puzzle.key_in("keypad2.txt"))

@@ -14,6 +14,13 @@ Warming up on:
 * `dict`
 * reading input files
 
+## Day 3: [Squares With Three Sides](https://adventofcode.com/2016/day/3) &rarr; [Solution](./day03/d03.py)
+A simple checking of triangle rule puzzle.\
+In the first part I need to check the values horizontally, and in the second part I need to check the values vertically.
+
+### Bugs and issues:
+* In my first try, I sorted the vertical values in-place and ruined the original order.
+
 ## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
 Desc
 ### Optimizations:
