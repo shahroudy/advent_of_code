@@ -54,3 +54,19 @@ def test_day03():
     puzzle = SquaresWithThreeSides(f"{input_folder}/aoc2016_day03.txt")
     assert puzzle.sum_possible_horizontal() == 993
     assert puzzle.sum_possible_vertical() == 1849
+
+
+def test_day04_samples():
+    from aoc2016.day04.d04 import SecurityThroughObscurity
+
+    test = SecurityThroughObscurity("./python/aoc2016/day04/sample1.txt")
+    assert test.sum_of_real_sector_ids() == 1514
+    assert test.decrypt("qzmt-zixmtkozy-ivhz", 343) == "very encrypted name"
+
+
+def test_day04():
+    from aoc2016.day04.d04 import SecurityThroughObscurity
+
+    puzzle = SecurityThroughObscurity(f"{input_folder}/aoc2016_day04.txt")
+    assert puzzle.sum_of_real_sector_ids() == 245102
+    assert puzzle.sector_id_of_northpole_storage() == 324

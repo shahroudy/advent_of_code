@@ -21,6 +21,13 @@ In the first part I need to check the values horizontally, and in the second par
 ### Bugs and issues:
 * In my first try, I sorted the vertical values in-place and ruined the original order.
 
+## Day 4: [Security Through Obscurity](https://adventofcode.com/2016/day/4) &rarr; [Solution](./day04/d04.py)
+A simple puzzle of counting and shifting the characters in strings.
+* `collections.Counter` to count the characters in the string.
+* `ord()` and `chr()` to shift the characters.
+
+
+
 ## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
 Desc
 ### Optimizations:
