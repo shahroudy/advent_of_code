@@ -102,3 +102,18 @@ def test_day06():
     puzzle = SignalsAndNoise(f"{input_folder}/aoc2016_day06.txt")
     assert puzzle.most_common == "mshjnduc"
     assert puzzle.least_common == "apfeeebz"
+
+
+def test_day07_samples():
+    from aoc2016.day07.d07 import InternetProtocolVersion7
+
+    assert InternetProtocolVersion7("./python/aoc2016/day07/sample1.txt").TLS_count() == 2
+    assert InternetProtocolVersion7("./python/aoc2016/day07/sample2.txt").SSL_count() == 3
+
+
+def test_day07():
+    from aoc2016.day07.d07 import InternetProtocolVersion7
+
+    puzzle = InternetProtocolVersion7(f"{input_folder}/aoc2016_day07.txt")
+    assert puzzle.TLS_count() == 105
+    assert puzzle.SSL_count() == 258

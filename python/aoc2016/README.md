@@ -36,6 +36,19 @@ Finding the most common and least common characters at each position in a list o
 * `collections.Counter` to count the characters in each position.
 * [`Counter.most_common()`](https://docs.python.org/3/library/collections.html#collections.Counter.most_common) to get the sorted tuples of characters and their counts.
 
+## Day 7: [Internet Protocol Version 7](https://adventofcode.com/2016/day/7) &rarr; [Solution](./day07/d07.py)
+Playing with patterns like `ABBA` and `ABA` in strings.\
+This was a fun puzzle to solve with `re` (regular expressions) library tools.
+
+Specifically, to find the `ABBA`s, I used:
+`re.search(r"(?=(\w)(?!\1)(\w)\2\1)", s)`.
+* `(?=...)` is a positive lookahead assertion, which matches the pattern but doesn't consume the string; which is needed to catch all the overlapping patterns.
+* `(?!\1)` is a negative lookahead assertion, which matches if the next character is not the same as the first one.
+
+And for the `ABA`s, I used:
+* `re.findall(r"(?=(\w)(?!\1)(\w)\1)", s)`
+
+
 ## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
 Desc
 ### Optimizations:
