@@ -117,3 +117,17 @@ def test_day07():
     puzzle = InternetProtocolVersion7(f"{input_folder}/aoc2016_day07.txt")
     assert puzzle.TLS_count() == 105
     assert puzzle.SSL_count() == 258
+
+
+def test_day08_samples():
+    from aoc2016.day08.d08 import TwoFactorAuthentication
+
+    test = TwoFactorAuthentication("./python/aoc2016/day08/sample1.txt")
+    assert test.lit_led_count() == 6
+
+
+def test_day08():
+    from aoc2016.day08.d08 import TwoFactorAuthentication
+
+    puzzle = TwoFactorAuthentication(f"{input_folder}/aoc2016_day08.txt")
+    assert puzzle.lit_led_count() == 115
