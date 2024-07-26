@@ -52,6 +52,12 @@ And for the `ABA`s, I used:
 An easy puzzle of rotating values in a 2D grid.\
 I used a dictionary to represent the grid and rotated the values in the grid by copying the values to a buffer list.
 
+## Day 9: [Explosives in Cyberspace](https://adventofcode.com/2016/day/9) &rarr; [Solution](./day09/d09.py)
+A puzzle of expanding strings based on two different versions (parts 1 and 2).\
+The only mistake one can do here is to try to really expand the strings, which is not necessary.\
+All we need to do is to implement a recursive function to calculate the length of the expanded strings, with two different versions.
+
+
 ## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
 Desc
 ### Optimizations:

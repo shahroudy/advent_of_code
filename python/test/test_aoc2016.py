@@ -131,3 +131,34 @@ def test_day08():
 
     puzzle = TwoFactorAuthentication(f"{input_folder}/aoc2016_day08.txt")
     assert puzzle.lit_led_count() == 115
+
+
+def test_day09_samples():
+    from aoc2016.day09.d09 import ExplosivesInCyberspace
+
+    test = ExplosivesInCyberspace("./python/aoc2016/day09/sample1.txt")
+    assert test.get_length(version=1) == 6
+    test = ExplosivesInCyberspace("./python/aoc2016/day09/sample2.txt")
+    assert test.get_length(version=1) == 7
+    test = ExplosivesInCyberspace("./python/aoc2016/day09/sample3.txt")
+    assert test.get_length(version=1) == 9
+    assert test.get_length(version=2) == 9
+    test = ExplosivesInCyberspace("./python/aoc2016/day09/sample4.txt")
+    assert test.get_length(version=1) == 11
+    test = ExplosivesInCyberspace("./python/aoc2016/day09/sample5.txt")
+    assert test.get_length(version=1) == 6
+    test = ExplosivesInCyberspace("./python/aoc2016/day09/sample6.txt")
+    assert test.get_length(version=1) == 18
+    assert test.get_length(version=2) == 20
+    test = ExplosivesInCyberspace("./python/aoc2016/day09/sample7.txt")
+    assert test.get_length(version=2) == 241920
+    test = ExplosivesInCyberspace("./python/aoc2016/day09/sample8.txt")
+    assert test.get_length(version=2) == 445
+
+
+def test_day09():
+    from aoc2016.day09.d09 import ExplosivesInCyberspace
+
+    puzzle = ExplosivesInCyberspace(f"{input_folder}/aoc2016_day09.txt")
+    assert puzzle.get_length(version=1) == 97714
+    assert puzzle.get_length(version=2) == 10762972461
