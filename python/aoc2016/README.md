@@ -57,6 +57,15 @@ A puzzle of expanding strings based on two different versions (parts 1 and 2).\
 The only mistake one can do here is to try to really expand the strings, which is not necessary.\
 All we need to do is to implement a recursive function to calculate the length of the expanded strings, with two different versions.
 
+## Day 10: [Balance Bots](https://adventofcode.com/2016/day/10) &rarr; [Solution](./day10/d10.py)
+A simple cellular automaton puzzle.\
+The input file provides a list of steps including:
+* input single values to bots
+* connection between bots (which bot/output bin receives the low/hight value from each bot)
+
+At each step, every bot which holds two inputs (microchips) will compare its values and pass the low and high values to the connected bots or output bins.\
+To solve this, I read the input lines using regular expressions and implemented the whole process using dictionaries.
+
 
 ## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
 Desc

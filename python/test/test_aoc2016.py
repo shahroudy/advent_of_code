@@ -162,3 +162,22 @@ def test_day09():
     puzzle = ExplosivesInCyberspace(f"{input_folder}/aoc2016_day09.txt")
     assert puzzle.get_length(version=1) == 97714
     assert puzzle.get_length(version=2) == 10762972461
+
+
+def test_day10_samples():
+    from aoc2016.day10.d10 import BalanceBots
+
+    test = BalanceBots("./python/aoc2016/day10/sample1.txt", {2, 5})
+    assert test.searched_bot == 2
+    test = BalanceBots("./python/aoc2016/day10/sample1.txt", {2, 3})
+    assert test.searched_bot == 1
+    test = BalanceBots("./python/aoc2016/day10/sample1.txt", {3, 5})
+    assert test.searched_bot == 0
+
+
+def test_day10():
+    from aoc2016.day10.d10 import BalanceBots
+
+    puzzle = BalanceBots(f"{input_folder}/aoc2016_day10.txt")
+    assert puzzle.searched_bot == 147
+    assert puzzle.final_output == 55637
