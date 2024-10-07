@@ -66,6 +66,17 @@ The input file provides a list of steps including:
 At each step, every bot which holds two inputs (microchips) will compare its values and pass the low and high values to the connected bots or output bins.\
 To solve this, I read the input lines using regular expressions and implemented the whole process using dictionaries.
 
+## Day 11: [Radioisotope Thermoelectric Generators](https://adventofcode.com/2016/day/11) &rarr; [Solution](./day11/d11.py)
+In this puzzle, we need to find the minimum number of steps to move all the items to the top floor.\
+This easily guides us to use a BFS algorithm to find the shortest path.\
+But the number of possible states explodes after few iterations, so we need to prune and eliminate the redundant states.
+
+### Optimizations:
+* My first easy optimization was to keep a history of the visited states to avoid visiting them again.\
+This made the solution reachable within a few seconds.
+* **The more effective optimization though was to adopt the fact that a lot of possible states are identical if we exchange the names of the microchips/generators.\
+So, we can eliminate identical states with different chip/generator names.\
+This change speeds up the solution more than a couple of orders in magnitude!**
 
 ## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
 Desc

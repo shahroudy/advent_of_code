@@ -1,6 +1,7 @@
 import re
 from collections import namedtuple
 from pathlib import Path
+from typing import override
 
 from myutils.io_handler import get_input_data
 from myutils.search import Search_MinHeap
@@ -20,8 +21,10 @@ class WizardSimulator20XX(Search_MinHeap):
             initial_state = State(0, 50, 500, boss_hit, 0, 0, 0)
             kwargs["boss_damage"] = boss_damage
 
-        super().__init__(initial_state, **kwargs)
+        super().__init__(**kwargs)
+        self.initial_state = initial_state
 
+    @override
     def get_next_states(self, state):
         next_states = []
         needed_mana_for_actions = [53, 73, 113, 173, 229]
@@ -94,10 +97,12 @@ class WizardSimulator20XX(Search_MinHeap):
             next_states.append(State(spent_mana, hit, mana, boss_hit, shield, poison, recharge))
         return next_states
 
+    @override
     def is_goal(self, state):
         if state.boss_hit <= 0 or state.boss_hit <= 3 and state.poison > 0:
             return True
 
+    @override
     def get_result(self, state):
         return state[0]
 

@@ -1,40 +1,150 @@
 import heapq as hq
 from abc import abstractmethod
+from collections import defaultdict, deque
+from multiprocessing import Pool
+
+# from queue import Queue
+
+# State = namedtuple("state", ["x","y"])
 
 
 class Search:
-    def __init__(self, initial_state, **kwargs):
-        self.initial_state = initial_state
+    def __init__(self, **kwargs):
         self.args = kwargs
 
     @abstractmethod
-    def search(self):
+    def search(self, initial_state=None):
+        pass
+
+    @abstractmethod
+    def search_mp(self, initial_state=None, workers=24):
         pass
 
     @abstractmethod
     def get_next_states(self, state):
-        pass
+        next_states = []
+        # state = State(1, 2)
+        # next_states.append(state)
+        return next_states
 
     @abstractmethod
     def is_goal(self, state):
         pass
 
     @abstractmethod
+    def cost(self, state):
+        pass
+
+    @abstractmethod
+    def heuristic(self, state):
+        pass
+
+    @abstractmethod
     def get_result(self, state):
         pass
 
+    @abstractmethod
+    def state_core(self, state):
+        """
+        Core presentation of the state, in an immutable form.
+        Used to avoid repetition of the same state in the search.
 
-class Search_MinHeap(Search):
-    def __init__(self, initial_state, **kwargs):
-        super().__init__(initial_state, **kwargs)
-        self.min_heap = []
-        hq.heapify(self.min_heap)
-        self.min_heap.append(initial_state)
+        Args:
+            state: The state to be processed.
 
-    def search(self):
-        while self.min_heap:
-            state = hq.heappop(self.min_heap)
+        Returns:
+            The immutable core state.
+        """
+        return state
+
+
+class Search_BFS(Search):
+    def search(self, initial_state=None):
+        initial_state = initial_state if initial_state else self.initial_state
+        self.queue = deque()
+        self.queue.append(initial_state)
+        history = {
+            self.state_core(initial_state),
+        }
+        while self.queue:
+            state = self.queue.popleft()
+            for next_state in self.get_next_states(state):
+                if (core_state := self.state_core(next_state)) in history:
+                    continue
+                if self.is_goal(next_state):
+                    return self.get_result(next_state)
+                self.queue.append(next_state)
+                history.add(core_state)
+
+    def search_mp(self, initial_state=None, workers=24):
+
+        initial_state = initial_state if initial_state else self.initial_state
+        states = [initial_state]
+        history = {
+            self.state_core(initial_state),
+        }
+
+        with Pool(workers) as p:
+            while states:
+                all_next_states = p.map(self.get_next_states, states)
+                states = []
+                for next_states in all_next_states:
+                    for next_state in next_states:
+                        if (core_state := self.state_core(next_state)) in history:
+                            continue
+                        if self.is_goal(next_state):
+                            return self.get_result(next_state)
+                        states.append(next_state)
+                        history.add(core_state)
+
+
+class Search_DFS(Search):
+    def search(self, initial_state=None):
+        initial_state = initial_state if initial_state else self.initial_state
+        self.stack = []
+        self.stack.append(initial_state)
+        while self.stack:
+            state = self.stack.pop()
             if self.is_goal(state):
                 return self.get_result(state)
             for next_state in self.get_next_states(state):
-                hq.heappush(self.min_heap, next_state)
+                self.stack.append(next_state)
+
+
+class Search_MinHeap(Search):
+    def search(self, initial_state=None):
+        initial_state = initial_state if initial_state else self.initial_state
+        min_heap = []
+        hq.heapify(min_heap)
+        min_heap.append(initial_state)
+        while min_heap:
+            state = hq.heappop(min_heap)
+            if self.is_goal(state):
+                return self.get_result(state)
+            for next_state in self.get_next_states(state):
+                hq.heappush(min_heap, next_state)
+
+
+class Search_AStar(Search):
+    def search(self, initial_state=None):
+        initial_state = initial_state if initial_state else self.initial_state
+        min_heap = []
+        hq.heapify(min_heap)
+        init_score = self.heuristic(initial_state) + self.cost(initial_state)
+        min_heap.append(init_score)
+        history = {self.state_core(initial_state)}
+        states = defaultdict(list)
+        states[init_score].append(initial_state)
+        while min_heap:
+            score = hq.heappop(min_heap)
+            state = states[score].pop()
+            if self.is_goal(state):
+                return self.get_result(state)
+            for next_state in self.get_next_states(state):
+                core_state = self.state_core(next_state)
+                if core_state in history:
+                    continue
+                history.add(core_state)
+                next_score = self.heuristic(next_state) + self.cost(next_state)
+                states[next_score].append(next_state)
+                hq.heappush(min_heap, next_score)

@@ -181,3 +181,18 @@ def test_day10():
     puzzle = BalanceBots(f"{input_folder}/aoc2016_day10.txt")
     assert puzzle.searched_bot == 147
     assert puzzle.final_output == 55637
+
+
+def test_day11_samples():
+    from aoc2016.day11.d11 import RadioisotopeThermoelectricGenerators
+
+    test = RadioisotopeThermoelectricGenerators("./python/aoc2016/day11/sample1.txt")
+    assert test.min_number_of_steps() == 11
+
+
+def test_day11():
+    from aoc2016.day11.d11 import RadioisotopeThermoelectricGenerators
+
+    puzzle = RadioisotopeThermoelectricGenerators(f"{input_folder}/aoc2016_day11.txt")
+    assert puzzle.min_number_of_steps() == 37
+    assert puzzle.min_number_of_steps_with_extra_parts() == 61
