@@ -68,12 +68,14 @@ To solve this, I read the input lines using regular expressions and implemented 
 
 ## Day 11: [Radioisotope Thermoelectric Generators](https://adventofcode.com/2016/day/11) &rarr; [Solution](./day11/d11.py)
 In this puzzle, we need to find the minimum number of steps to move all the items to the top floor.\
-This easily guides us to use a BFS algorithm to find the shortest path.\
+Provided items are microchips and their corresponding generators, and we can move at most two items at a time.\
+The limitation we have in the moves is that we can't leave a microchip without its generator if there is another generator on the same floor.\
+This looks like a suitable problem to be solved by BFS algorithm.\
 But the number of possible states explodes after few iterations, so we need to prune and eliminate the redundant states.
 
 ### Optimizations:
-* My first easy optimization was to keep a history of the visited states to avoid visiting them again.\
-This made the solution reachable within a few seconds.
+* My first obvious optimization was to keep a history of the visited states to avoid visiting them again.\
+This made the solution feasible within a few minutes.
 * **The more effective optimization though was to adopt the fact that a lot of possible states are identical if we exchange the names of the microchips/generators.\
 So, we can eliminate identical states with different chip/generator names.\
 This change speeds up the solution more than a couple of orders in magnitude!**
