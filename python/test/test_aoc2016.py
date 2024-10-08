@@ -196,3 +196,18 @@ def test_day11():
     puzzle = RadioisotopeThermoelectricGenerators(f"{input_folder}/aoc2016_day11.txt")
     assert puzzle.min_number_of_steps() == 37
     assert puzzle.min_number_of_steps_with_extra_parts() == 61
+
+
+def test_day12_samples():
+    from aoc2016.day12.d12 import LeonardosMonorail
+
+    test = LeonardosMonorail("./python/aoc2016/day12/sample1.txt")
+    assert test.run_assembunny_code() == 42
+
+
+def test_day12():
+    from aoc2016.day12.d12 import LeonardosMonorail
+
+    puzzle = LeonardosMonorail(f"{input_folder}/aoc2016_day12.txt")
+    assert puzzle.run_assembunny_code() == 318009
+    assert puzzle.run_assembunny_code(ignition=1) == 9227663

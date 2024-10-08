@@ -80,6 +80,11 @@ This made the solution feasible within a few minutes.
 So, we can eliminate identical states with different chip/generator names.\
 This change speeds up the solution more than a couple of orders in magnitude!**
 
+## Day 12: [Leonardo's Monorail](https://adventofcode.com/2016/day/12) &rarr; [Solution](./day12/d12.py)
+A simple assembly (assembunny) simulation puzzle.\
+There is only four possible instructions and emulating it for the input file runs in a few seconds.\
+Therefore, no need for further optimization, though the input program seems easy to be analyyzed and simplified.
+
 ## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
 Desc
 ### Optimizations:
