@@ -85,6 +85,15 @@ A simple assembly (assembunny) simulation puzzle.\
 There is only four possible instructions and emulating it for the input file runs in a few seconds.\
 Therefore, no need for further optimization, though the input program seems easy to be analyyzed and simplified.
 
+## Day 13: [A Maze of Twisty Little Cubicles](https://adventofcode.com/2016/day/13) &rarr; [Solution](./day13/d13.py)
+A simple maze exploration puzzle.\
+A simple BFS algorithm can solve this puzzle.
+
+### Optimizations:
+* Keep track of the visited positions to avoid visiting them again.
+* `@cache` the function which calculates if the neighbor position is a wall or not.
+* Use A* algorithm instead of BFS to find the shortest path (not necessarily faster for this puzzle).
+
 ## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
 Desc
 ### Optimizations:

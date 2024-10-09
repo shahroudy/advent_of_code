@@ -211,3 +211,18 @@ def test_day12():
     puzzle = LeonardosMonorail(f"{input_folder}/aoc2016_day12.txt")
     assert puzzle.run_assembunny_code() == 318009
     assert puzzle.run_assembunny_code(ignition=1) == 9227663
+
+
+def test_day13_samples():
+    from aoc2016.day13.d13 import AMazeOfTwistyLittleCubicles
+
+    test = AMazeOfTwistyLittleCubicles("./python/aoc2016/day13/sample1.txt")
+    assert test.shortest_path_to(7, 4) == 11
+
+
+def test_day13():
+    from aoc2016.day13.d13 import AMazeOfTwistyLittleCubicles
+
+    puzzle = AMazeOfTwistyLittleCubicles(f"{input_folder}/aoc2016_day13.txt")
+    assert puzzle.shortest_path_to(31, 39) == 86
+    assert puzzle.locations_reachable_by_50_steps() == 127

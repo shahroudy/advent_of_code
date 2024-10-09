@@ -6,6 +6,7 @@ from copy import deepcopy
 from functools import cache, cmp_to_key, reduce
 from itertools import *
 from pathlib import Path
+from typing import override
 
 from myutils.io_handler import get_input_data, submit_answer
 from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
@@ -22,7 +23,6 @@ class Puzzle:
         self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
         self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]
 
-        # self.process(filename)
         # self.read_ints(filename)
         # self.read_line_groups(filename)
         # self.read_int_line_groups(filename)
@@ -30,6 +30,22 @@ class Puzzle:
         # self.process_int_int_dict(filename)
         # self.process_int_list_dict(filename)
         # self.process_map(filename)
+
+        # self.process(filename)
+
+    def process(self, filename):
+        lines = Path(filename).read_text().splitlines()
+        self.inp = []
+
+        # self.inp = [tuple(map(int, re.split(r"\D", line))) for line in self.lines]
+
+        # line_re = re.compile(r"(\d+)\s*(\d+):(\d+).*")
+        for line in lines:
+            # parts = line_re.match(line).groups()
+            parts = re.split(r"-, ", line)
+            # a = parts[0].strip().split(" ")
+            # a = list(map(int, re.findall(r"\d+", parts[0])))
+            self.inp.append(parts)
 
     def print_with_color(self, text, text_color="#FFFFFF", back_color="#000000", end="\n"):
         from colored import attr, bg, fg
@@ -77,24 +93,47 @@ class Puzzle:
             parts = list(map(int, re.findall(r"-?\d+", line)))
             self.inp[parts[0]] = parts[1:]
 
-    def process(self, filename):
-        lines = Path(filename).read_text().splitlines()
-        self.inp = []
-
-        # self.inp = [tuple(map(int, re.split(r"\D", line))) for line in self.lines]
-
-        # line_re = re.compile(r"(\d+)\s*(\d+):(\d+).*")
-        for line in lines:
-            # parts = line_re.match(line).groups()
-            parts = re.split(r"-, ", line)
-            # a = parts[0].strip().split(" ")
-            # a = list(map(int, re.findall(r"\d+", parts[0])))
-            self.inp.append(parts)
-
     def solve_some_equation(self):
         x = Symbol("x")
         y = Symbol("y")
         s = solve(x**2 - 1, x)
+
+    # @override
+    # def get_next_states(self, state):
+    #     next_states = []
+    #     # state = State(1, 2)
+    #     # next_states.append(state)
+    #     return next_states
+
+    # @override
+    # def is_goal(self, state):
+    #     pass
+
+    # @override
+    # def cost(self, state):
+    #     pass
+
+    # @override
+    # def heuristic(self, state):
+    #     pass
+
+    # @override
+    # def get_result(self, state):
+    #     pass
+
+    # @override
+    # def state_core(self, state):
+    #     """
+    #     Core presentation of the state, in an immutable form.
+    #     Used to avoid repetition of the same state in the search.
+
+    #     Args:
+    #         state: The state to be processed.
+
+    #     Returns:
+    #         The immutable core state.
+    #     """
+    #     return state
 
     def calc1(self):
         return None
@@ -113,6 +152,18 @@ def test_samples(filename, answer1, answer2):
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
+
+    # assert Puzzle("sample1.txt").calc1() == 0
+    # assert Puzzle("sample2.txt").calc1() == 0
+    # assert Puzzle("sample3.txt").calc1() == 0
+    # assert Puzzle("sample4.txt").calc1() == 0
+    # assert Puzzle("sample5.txt").calc1() == 0
+
+    # assert Puzzle("sample1.txt").calc2() == 0
+    # assert Puzzle("sample2.txt").calc2() == 0
+    # assert Puzzle("sample3.txt").calc2() == 0
+    # assert Puzzle("sample4.txt").calc2() == 0
+    # assert Puzzle("sample5.txt").calc2() == 0
 
     test_samples("sample1.txt", None, None)
     test_samples("sample2.txt", None, None)
