@@ -94,6 +94,17 @@ A simple BFS algorithm can solve this puzzle.
 * `@cache` the function which calculates if the neighbor position is a wall or not.
 * Use A* algorithm instead of BFS to find the shortest path (not necessarily faster for this puzzle).
 
+## Day 14: [One-Time Pad](https://adventofcode.com/2016/day/14) &rarr; [Solution](./day14/d14.py)
+Interesting puzzle of finding the 64th key which passes two criteria in a list of hashes:\
+* It contains three of the same character in a row, like 777. Only consider the first such triplet in a hash.
+* One of the next 1000 hashes in the stream contains that same character five times in a row, like 77777.
+
+To solve this, I used a `deque` to keep track of the indices that meet the first criteria, and a `dictionary` of `deque`s to keep track of the indices that meet the second criteria.\
+Processing indices in batches of thousands and checking the second criteria for each index in the queue of the indices which passed the first.
+
+### Optimizations:
+* Using `multiprocessing.Pool` to parallelize the processing of the indices.
+
 ## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
 Desc
 ### Optimizations:

@@ -226,3 +226,19 @@ def test_day13():
     puzzle = AMazeOfTwistyLittleCubicles(f"{input_folder}/aoc2016_day13.txt")
     assert puzzle.shortest_path_to(31, 39) == 86
     assert puzzle.locations_reachable_by_50_steps() == 127
+
+
+def test_day14_samples():
+    from aoc2016.day14.d14 import OneTimePad
+
+    test = OneTimePad("./python/aoc2016/day14/sample1.txt")
+    assert test.find_64th_key() == 22728
+    assert test.find_64th_key(2016) == 22551
+
+
+def test_day14():
+    from aoc2016.day14.d14 import OneTimePad
+
+    puzzle = OneTimePad(f"{input_folder}/aoc2016_day14.txt")
+    assert puzzle.find_64th_key() == 35186
+    assert puzzle.find_64th_key(2016) == 22429
