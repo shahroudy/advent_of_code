@@ -105,7 +105,18 @@ Processing indices in batches of thousands and checking the second criteria for 
 ### Optimizations:
 * Using `multiprocessing.Pool` to parallelize the processing of the indices.
 
-## Day X: [Title](https://adventofcode.com/2016/day/X) &rarr; [Solution](./dayXX/dXX.py)
-Desc
+## Day 15: [Timing is Everything](https://adventofcode.com/2016/day/15) &rarr; [Solution](./day15/d15.py)
+A capsule is dropping from the top and it should pass through the slots in the discs to reach the bottom.\
+Each disc has one slot, at position zero, and the discs have different number of positions and are in different starting positions.\
+The capsule meets the fist disc at start time + 1, the second at start time + 2, and so on.\
+We need to find the minimum start time that the capsule can pass through all the discs.\
+Analytically, for each disc we have: `i`: index of the disc, `n`: number of positions, `p`: starting position.\
+And we need to find the minimum `t` such that `(p + i + t) % n == 0` for all discs.\
+The ad-hoc looping over the possible start times can solve this puzzle in a fraction of a second.
+
 ### Optimizations:
-### Bugs and issues:
+We can improve the run time by a better algorithm.\
+First we can sort the discs based on their number of positions, in descending order.\
+Setting `t` as `0`, and the `step` as `1`, we can loop over the discs and increase the `t` by `step` until the capsule passes through the disc.\
+Then we can update the `step` by the LCM of the previous step and the number of positions of the current disc.\
+This improves the run time by orders of magnitude.

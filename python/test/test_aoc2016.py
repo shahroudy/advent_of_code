@@ -242,3 +242,18 @@ def test_day14():
     puzzle = OneTimePad(f"{input_folder}/aoc2016_day14.txt")
     assert puzzle.find_64th_key() == 35186
     assert puzzle.find_64th_key(2016) == 22429
+
+
+def test_day15_samples():
+    from aoc2016.day15.d15 import TimingIsEverything
+
+    test = TimingIsEverything("./python/aoc2016/day15/sample1.txt")
+    assert test.fist_capsule_passing_time() == 5
+
+
+def test_day15():
+    from aoc2016.day15.d15 import TimingIsEverything
+
+    puzzle = TimingIsEverything(f"{input_folder}/aoc2016_day15.txt")
+    assert puzzle.fist_capsule_passing_time() == 400589
+    assert puzzle.fist_capsule_passing_time(extra_disc=True) == 3045959
