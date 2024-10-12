@@ -272,3 +272,25 @@ def test_day16():
     puzzle = Puzzle(f"{input_folder}/aoc2016_day16.txt")
     assert puzzle.checksum(disk_len=272) == "10101001010100001"
     assert puzzle.checksum(disk_len=35651584) == "10100001110101001"
+
+
+def test_day17_samples():
+    from aoc2016.day17.d17 import TwoStepsForward
+
+    test = TwoStepsForward("./python/aoc2016/day17/sample1.txt")
+    assert test.shortest_path() == "DDRRRD"
+    assert test.length_of_longest_path() == 370
+    test = TwoStepsForward("./python/aoc2016/day17/sample2.txt")
+    assert test.shortest_path() == "DDUDRLRRUDRD"
+    assert test.length_of_longest_path() == 492
+    test = TwoStepsForward("./python/aoc2016/day17/sample3.txt")
+    assert test.shortest_path() == "DRURDRUDDLLDLUURRDULRLDUUDDDRR"
+    assert test.length_of_longest_path() == 830
+
+
+def test_day17():
+    from aoc2016.day17.d17 import TwoStepsForward
+
+    puzzle = TwoStepsForward(f"{input_folder}/aoc2016_day17.txt")
+    assert puzzle.shortest_path() == "DUDDRLRRRD"
+    assert puzzle.length_of_longest_path() == 578

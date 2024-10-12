@@ -124,3 +124,9 @@ This improves the run time by orders of magnitude.
 ## Day 16: [Dragon Checksum](https://adventofcode.com/2016/day/16) &rarr; [Solution](./day16/d16.py)
 A simple puzzle of generating a dragon curve and calculating the checksum.\
 The main challenge here was to read and understand the problem statement; implementation was straightforward.
+
+## Day 17: [Two Steps Forward](https://adventofcode.com/2016/day/17) &rarr; [Solution](./day17/d17.py)
+A simple path search puzzle in a 4x4 grid.\
+Passages between rooms are open based on some criteria on corrsponding digit in the MD5 hash of the currently traveled path.\
+I used a BFS algorithm to find the shortest path to the target room.\
+In part 2, we need to find the longest path to the target room, which can be done by completing the BFS for all possible paths.

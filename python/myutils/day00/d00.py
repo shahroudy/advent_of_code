@@ -14,6 +14,7 @@ from sympy import Symbol
 from sympy.solvers import solve
 
 
+# State = namedtuple("state", ["x","y"])
 class Puzzle:
     def __init__(self, filename):
         self.directions = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
