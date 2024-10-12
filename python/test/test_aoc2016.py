@@ -257,3 +257,18 @@ def test_day15():
     puzzle = TimingIsEverything(f"{input_folder}/aoc2016_day15.txt")
     assert puzzle.fist_capsule_passing_time() == 400589
     assert puzzle.fist_capsule_passing_time(extra_disc=True) == 3045959
+
+
+def test_day16_samples():
+    from aoc2016.day16.d16 import Puzzle
+
+    test = Puzzle("./python/aoc2016/day16/sample1.txt")
+    assert test.checksum() == "01100"
+
+
+def test_day16():
+    from aoc2016.day16.d16 import Puzzle
+
+    puzzle = Puzzle(f"{input_folder}/aoc2016_day16.txt")
+    assert puzzle.checksum(disk_len=272) == "10101001010100001"
+    assert puzzle.checksum(disk_len=35651584) == "10100001110101001"

@@ -120,3 +120,7 @@ First we can sort the discs based on their number of positions, in descending or
 Setting `t` as `0`, and the `step` as `1`, we can loop over the discs and increase the `t` by `step` until the capsule passes through the disc.\
 Then we can update the `step` by the LCM of the previous step and the number of positions of the current disc.\
 This improves the run time by orders of magnitude.
+
+## Day 16: [Dragon Checksum](https://adventofcode.com/2016/day/16) &rarr; [Solution](./day16/d16.py)
+A simple puzzle of generating a dragon curve and calculating the checksum.\
+The main challenge here was to read and understand the problem statement; implementation was straightforward.

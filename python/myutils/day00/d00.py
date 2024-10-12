@@ -98,6 +98,8 @@ class Puzzle:
         y = Symbol("y")
         s = solve(x**2 - 1, x)
 
+    # region Search Methods
+
     # @override
     # def get_next_states(self, state):
     #     next_states = []
@@ -134,6 +136,8 @@ class Puzzle:
     #         The immutable core state.
     #     """
     #     return state
+
+    # endregion
 
     def calc1(self):
         return None
