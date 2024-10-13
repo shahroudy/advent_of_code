@@ -294,3 +294,20 @@ def test_day17():
     puzzle = TwoStepsForward(f"{input_folder}/aoc2016_day17.txt")
     assert puzzle.shortest_path() == "DUDDRLRRRD"
     assert puzzle.length_of_longest_path() == 578
+
+
+def test_day18_samples():
+    from aoc2016.day18.d18 import LikeARogue
+
+    test = LikeARogue("./python/aoc2016/day18/sample1.txt")
+    assert test.safe_count(3) == 6
+    test = LikeARogue("./python/aoc2016/day18/sample2.txt")
+    assert test.safe_count(10) == 38
+
+
+def test_day18():
+    from aoc2016.day18.d18 import LikeARogue
+
+    puzzle = LikeARogue(f"{input_folder}/aoc2016_day18.txt")
+    assert puzzle.safe_count(40) == 1961
+    assert puzzle.safe_count(400000) == 20000795

@@ -130,3 +130,9 @@ A simple path search puzzle in a 4x4 grid.\
 Passages between rooms are open based on some criteria on corrsponding digit in the MD5 hash of the currently traveled path.\
 I used a BFS algorithm to find the shortest path to the target room.\
 In part 2, we need to find the longest path to the target room, which can be done by completing the BFS for all possible paths.
+
+## Day 18: [Like a Rogue](https://adventofcode.com/2016/day/18) &rarr; [Solution](./day18/d18.py)
+A simple puzzle of generating the pattern of each row based on the previous row.\
+The simple implementation of the rules can solve this puzzle in a few seconds.\
+I tried to optimize the solution by keeping a history of the generated rows, but it didn't improve the run time at all.\
+Apparently there was no repetitive pattern in the generated rows in the required number of rows.
