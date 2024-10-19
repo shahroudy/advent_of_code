@@ -335,3 +335,18 @@ def test_day19():
     puzzle = AnElephantNamedJoseph(f"{input_folder}/aoc2016_day19.txt")
     assert puzzle.who_wins_grab_from_left() == 1834903
     assert puzzle.who_wins_grab_from_front() == 1420280
+
+
+def test_day20_samples():
+    from aoc2016.day20.d20 import FirewallRules
+
+    test = FirewallRules("./python/aoc2016/day20/sample1.txt")
+    assert test.first_valid == 3
+
+
+def test_day20():
+    from aoc2016.day20.d20 import FirewallRules
+
+    puzzle = FirewallRules(f"{input_folder}/aoc2016_day20.txt", max_ip=4294967295)
+    assert puzzle.first_valid == 22887907
+    assert puzzle.valid_count == 109

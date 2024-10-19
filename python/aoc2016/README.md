@@ -269,3 +269,10 @@ def who_wins_grab_from_front(self):
 
 This solution is of a linear order can solve the puzzle for a large number of elves in a fraction of a second.
 
+## Day 20: [Firewall Rules](https://adventofcode.com/2016/day/20) &rarr; [Solution](./day20/d20.py)
+A range-handling puzzle.\
+We have a list of invalid ranges of numbers and we need to find the smallest valid number.\
+Obviously since it's about very very long ranges, looping over indices will not be tractable.\
+So the solution here is to to find the range that invalidates the current number and jump to its end; and repeat this until we find a valid IP.\
+In the second part, we need to find the number of all valid numbers.\
+To do so, we can continue with the same approach, and every time we find a valid number, we can find the next invalid range, and count the numbers in between.
