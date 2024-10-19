@@ -311,3 +311,27 @@ def test_day18():
     puzzle = LikeARogue(f"{input_folder}/aoc2016_day18.txt")
     assert puzzle.safe_count(40) == 1961
     assert puzzle.safe_count(400000) == 20000795
+
+
+def test_day19_samples():
+    from aoc2016.day19.d19 import AnElephantNamedJoseph
+
+    test = AnElephantNamedJoseph(5)
+    assert test.who_wins_grab_from_left() == 3
+    assert test.who_wins_grab_from_front() == 2
+    test = AnElephantNamedJoseph(20)
+    assert test.who_wins_grab_from_front() == 13
+    test = AnElephantNamedJoseph(100)
+    assert test.who_wins_grab_from_front() == 19
+    test = AnElephantNamedJoseph(200)
+    assert test.who_wins_grab_from_front() == 157
+    test = AnElephantNamedJoseph(999)
+    assert test.who_wins_grab_from_front() == 270
+
+
+def test_day19():
+    from aoc2016.day19.d19 import AnElephantNamedJoseph
+
+    puzzle = AnElephantNamedJoseph(f"{input_folder}/aoc2016_day19.txt")
+    assert puzzle.who_wins_grab_from_left() == 1834903
+    assert puzzle.who_wins_grab_from_front() == 1420280

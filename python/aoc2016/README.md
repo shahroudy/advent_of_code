@@ -136,3 +136,136 @@ A simple puzzle of generating the pattern of each row based on the previous row.
 The simple implementation of the rules can solve this puzzle in a few seconds.\
 I tried to optimize the solution by keeping a history of the generated rows, but it didn't improve the run time at all.\
 Apparently there was no repetitive pattern in the generated rows in the required number of rows.
+
+## Day 19: [An Elephant Named Joseph](https://adventofcode.com/2016/day/19) &rarr; [Solution](./day19/d19.py)
+This was the most challenging puzzle so far in AoC 2016.\
+You have a circle of numbered elves, starting from number 1, they eliminate the immediate next elf.\
+We want to find the last elf remaining.\
+The first part can be efficiently simulated using a linked-list-like structure, keeping track of who's next to each remaining elf.\
+But in the second part, each elf eliminates the elf in front of him/her in the circle.
+This requires a more sophisticated solution, since there is not an efficient way to simulate the process for a large number of elves.\
+**So, I had to use the non-efficient implementation for the second part (order of n<sup>2</sup>), find the pattern of the answers, and model the pattern instead**:
+
+1 -> 1
+
+2 -> 1\
+3 -> 3
+
+4 -> 1\
+5 -> 2\
+6 -> 3\
+7 -> 5\
+8 -> 7\
+9 -> 9
+
+10 -> 1\
+11 -> 2\
+12 -> 3\
+13 -> 4\
+14 -> 5\
+15 -> 6\
+16 -> 7\
+17 -> 8\
+18 -> 9\
+19 -> 11\
+20 -> 13\
+21 -> 15\
+22 -> 17\
+23 -> 19\
+24 -> 21\
+25 -> 23\
+26 -> 25\
+27 -> 27
+
+28 -> 1\
+29 -> 2\
+30 -> 3\
+31 -> 4\
+32 -> 5\
+33 -> 6\
+34 -> 7\
+35 -> 8\
+36 -> 9\
+37 -> 10\
+38 -> 11\
+39 -> 12\
+40 -> 13\
+41 -> 14\
+42 -> 15\
+43 -> 16\
+44 -> 17\
+45 -> 18\
+46 -> 19\
+47 -> 20\
+48 -> 21\
+49 -> 22\
+50 -> 23\
+51 -> 24\
+52 -> 25\
+53 -> 26\
+54 -> 27\
+55 -> 29\
+56 -> 31\
+57 -> 33\
+58 -> 35\
+59 -> 37\
+60 -> 39\
+61 -> 41\
+62 -> 43\
+63 -> 45\
+64 -> 47\
+65 -> 49\
+66 -> 51\
+67 -> 53\
+68 -> 55\
+69 -> 57\
+70 -> 59\
+71 -> 61\
+72 -> 63\
+73 -> 65\
+74 -> 67\
+75 -> 69\
+76 -> 71\
+77 -> 73\
+78 -> 75\
+79 -> 77\
+80 -> 79\
+81 -> 81
+
+82 -> 1\
+83 -> 2\
+84 -> 3\
+85 -> 4\
+86 -> 5\
+87 -> 6\
+88 -> 7\
+89 -> 8\
+90 -> 9\
+91 -> 10\
+92 -> 11\
+93 -> 12\
+94 -> 13\
+95 -> 14\
+96 -> 15\
+97 -> 16\
+98 -> 17\
+99 -> 18\
+100 -> 19
+
+Looks like the pattern is:
+
+```python
+def who_wins_grab_from_front(self):
+    winner = 1
+    for i in range(2, self.elf_count + 1):
+        if winner == i - 1:
+            winner = 1
+        elif winner >= i // 2:
+            winner += 2
+        else:
+            winner += 1
+    return winner
+```
+
+This solution is of a linear order can solve the puzzle for a large number of elves in a fraction of a second.
+
