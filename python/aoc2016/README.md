@@ -275,4 +275,5 @@ We have a list of invalid ranges of numbers and we need to find the smallest val
 Obviously since it's about very very long ranges, looping over indices will not be tractable.\
 So the solution here is to to find the range that invalidates the current number and jump to its end; and repeat this until we find a valid IP.\
 In the second part, we need to find the number of all valid numbers.\
-To do so, we can continue with the same approach, and every time we find a valid number, we can find the next invalid range, and count the numbers in between.
+To do so, we can continue with the same approach, and every time we find a valid number, we can find the next invalid range, and count the numbers in between.\
+Inspired by this puzzle, I implemented a `ExRange` class to handle the multi-ranges and the operations on them.
