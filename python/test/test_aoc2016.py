@@ -350,3 +350,18 @@ def test_day20():
     puzzle = FirewallRules(f"{input_folder}/aoc2016_day20.txt", max_ip=4294967295)
     assert puzzle.first_valid == 22887907
     assert puzzle.valid_count == 109
+
+
+def test_day21_samples():
+    from aoc2016.day21.d21 import ScrambledLettersAndHash
+
+    test = ScrambledLettersAndHash("./python/aoc2016/day21/sample1.txt")
+    assert test.scramble("abcde") == "decab"
+
+
+def test_day21():
+    from aoc2016.day21.d21 import ScrambledLettersAndHash
+
+    puzzle = ScrambledLettersAndHash(f"{input_folder}/aoc2016_day21.txt")
+    assert puzzle.scramble("abcdefgh") == "aefgbcdh"
+    assert puzzle.find_unscrambled("fbgdceah") == "egcdahbf"
