@@ -365,3 +365,18 @@ def test_day21():
     puzzle = ScrambledLettersAndHash(f"{input_folder}/aoc2016_day21.txt")
     assert puzzle.scramble("abcdefgh") == "aefgbcdh"
     assert puzzle.find_unscrambled("fbgdceah") == "egcdahbf"
+
+
+def test_day22_samples():
+    from aoc2016.day22.d22 import GridComputing
+
+    test = GridComputing("./python/aoc2016/day22/sample1.txt")
+    assert test.steps_to_move_goal() == 7
+
+
+def test_day22():
+    from aoc2016.day22.d22 import GridComputing
+
+    puzzle = GridComputing(f"{input_folder}/aoc2016_day22.txt")
+    assert puzzle.viable_pairs_count() == 955
+    assert puzzle.steps_to_move_goal() == 246

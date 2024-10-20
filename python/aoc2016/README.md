@@ -284,3 +284,15 @@ The rules are string operations: swap, rotate, reverse, move, and rotate based o
 For faster implementation, I converted the string to a list of characters and applied the rules on the list.\
 For the second part, we need to find the reverse operation of the scramble rules.\
 Due to the nature of the rules, the reverse operation of each rule is not so straightforward, so we need another way: brute force search, which was tractable thanks to the efficient implementation of the scramble operations.
+
+## Day 22: [Grid Computing](https://adventofcode.com/2016/day/22) &rarr; [Solution](./day22/d22.py)
+Another nice puzzle that needs some thinking to solve.\
+We are given a grid of nodes, each node has a volume size and usage in TeraBytes.\
+In part 1, we need to find the number of viable pairs of nodes, defined by 3 simple rules, doable in one line of code :smile:\
+In part 2, we need to find the minimum number of steps to move the data from the top-right node to the top-left node, moving the data through the only empty node in the grid.\
+This reminds me of a jig-saw puzzle, where we need to move the empty piece to the right place to move the other pieces.\
+In my first implementation, I kept all the usage values of the nodes in the search state, which made the memory usage out of control.\
+***In AoC this is a hint that there is a possible relaxation of the problem to make it more tractable.\
+Similar to the example provided in the statement of the puzzle, we can limit the usable nodes to the ones that have data fittable in the empty node.\
+This point was actually hinted in part 1 as well :smile:***\
+This way, you do not need to keep the usage values of the nodes in the search state, and you can use a simple BFS algorithm to find the minimum number of steps in about a second.
