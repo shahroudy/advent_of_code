@@ -296,3 +296,9 @@ In my first implementation, I kept all the usage values of the nodes in the sear
 Similar to the example provided in the statement of the puzzle, we can limit the usable nodes to the ones that have data fittable in the empty node.\
 This point was actually hinted in part 1 as well :smile:***\
 This way, you do not need to keep the usage values of the nodes in the search state, and you can use a simple BFS algorithm to find the minimum number of steps in about a second.
+
+## Day 23: [Safe Cracking](https://adventofcode.com/2016/day/23) &rarr; [Solution](./day23/d23.py)
+An assembly (assmebunny) code translation puzzle.\
+We have a new instruction in the assembly code, `tgl`, which toggles the instruction at the given offset, which makes the emulation very slow for larger input values (inital `a-register` values).\
+I let it run for 6-7 minutes for part 2, and it gave the correct answer.\
+Apparently one can translate the input assembly code to a mathematical formula and solve it in a much faster way (future work) :smile:.
