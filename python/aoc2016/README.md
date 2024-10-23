@@ -301,4 +301,7 @@ This way, you do not need to keep the usage values of the nodes in the search st
 An assembly (assmebunny) code translation puzzle.\
 We have a new instruction in the assembly code, `tgl`, which toggles the instruction at the given offset, which makes the emulation very slow for larger input values (inital `a-register` values).\
 I let it run for 6-7 minutes for part 2, and it gave the correct answer.\
-Apparently one can translate the input assembly code to a mathematical formula and solve it in a much faster way (future work) :smile:.
+Apparently one can analyze and translate the input assembly code.\
+I managed to do so, finding out the answer (for `egg counts >= 7`) is `n! + X * Y` where:
+* `n` is the initial value of the `a-register` a.k.a egg count, 
+* `X` and `Y` are the values of the constants used as the first arguments in the input command lines 20 and 21 respectively.

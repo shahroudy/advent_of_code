@@ -386,12 +386,13 @@ def test_day23_samples():
     from aoc2016.day23.d23 import SafeCracking
 
     test = SafeCracking("./python/aoc2016/day23/sample1.txt")
-    assert test.run_assembunny_code(eggs_number=7) == 3
+    assert test.run_assembunny_code_adhoc(eggs_number=7) == 3
 
 
 def test_day23():
     from aoc2016.day23.d23 import SafeCracking
 
     puzzle = SafeCracking(f"{input_folder}/aoc2016_day23.txt")
+    assert puzzle.run_assembunny_code_adhoc(eggs_number=7) == 10584
     assert puzzle.run_assembunny_code(eggs_number=7) == 10584
     assert puzzle.run_assembunny_code(eggs_number=12) == 479007144

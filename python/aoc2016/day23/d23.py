@@ -1,4 +1,5 @@
 from copy import deepcopy
+from math import factorial
 from pathlib import Path
 
 from myutils.io_handler import get_input_data
@@ -9,6 +10,9 @@ class SafeCracking:
         self.assembunny = [line.split() for line in Path(filename).read_text().splitlines()]
 
     def run_assembunny_code(self, eggs_number=7):
+        return factorial(eggs_number) + int(self.assembunny[19][1]) * int(self.assembunny[20][1])
+
+    def run_assembunny_code_adhoc(self, eggs_number=7):
         code = deepcopy(self.assembunny)
         regs = {"a": eggs_number, "b": 0, "c": 0, "d": 0}
         head = 0
@@ -46,7 +50,7 @@ class SafeCracking:
 if __name__ == "__main__":
     data = get_input_data(__file__)
 
-    assert SafeCracking("sample1.txt").run_assembunny_code(eggs_number=7) == 3
+    assert SafeCracking("sample1.txt").run_assembunny_code_adhoc(eggs_number=7) == 3
 
     print("Tests passed, starting with the puzzle")
 
