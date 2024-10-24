@@ -396,3 +396,18 @@ def test_day23():
     assert puzzle.run_assembunny_code_adhoc(eggs_number=7) == 10584
     assert puzzle.run_assembunny_code(eggs_number=7) == 10584
     assert puzzle.run_assembunny_code(eggs_number=12) == 479007144
+
+
+def test_day24_samples():
+    from aoc2016.day24.d24 import AirDuctSpelunking
+
+    test = AirDuctSpelunking("./python/aoc2016/day24/sample1.txt")
+    assert test.min_steps_to_meet_all_numbers() == 14
+
+
+def test_day24():
+    from aoc2016.day24.d24 import AirDuctSpelunking
+
+    puzzle = AirDuctSpelunking(f"{input_folder}/aoc2016_day24.txt")
+    assert puzzle.min_steps_to_meet_all_numbers() == 474
+    assert puzzle.min_steps_to_meet_all_numbers_and_return() == 696

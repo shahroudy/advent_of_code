@@ -305,3 +305,13 @@ Apparently one can analyze and translate the input assembly code.\
 I managed to do so, finding out the answer (for `egg counts >= 7`) is `n! + X * Y` where:
 * `n` is the initial value of the `a-register` a.k.a egg count, 
 * `X` and `Y` are the values of the constants used as the first arguments in the input command lines 20 and 21 respectively.
+
+## Day 24: [Air Duct Spelunking](https://adventofcode.com/2016/day/24) &rarr; [Solution](./day24/d24.py)
+A map based search puzzle.\
+We need to find the shortest path that visits all the numbers in the map.\
+The only challenge here was to formulate the problem as a graph search problem.\
+The rest was a simple BFS algorithm to find the shortest path.\
+In the second part, we need to find the shortest path that visits all the numbers and returns to the starting point.\
+Which had more-or-less the same challenge; how to formulate!\
+What I did was to keep the sorted list of the visited numbers in the search state, and find the shortest path that visits all the numbers in the list.\
+In part 2, we need an extra twist, ignore the start point (#0) before visiting all the rest of the numbers.
