@@ -411,3 +411,10 @@ def test_day24():
     puzzle = AirDuctSpelunking(f"{input_folder}/aoc2016_day24.txt")
     assert puzzle.min_steps_to_meet_all_numbers() == 474
     assert puzzle.min_steps_to_meet_all_numbers_and_return() == 696
+
+
+def test_day25():
+    from aoc2016.day25.d25 import ClockSignal
+
+    puzzle = ClockSignal(f"{input_folder}/aoc2016_day25.txt")
+    assert puzzle.find_minimum_init_value() == 189

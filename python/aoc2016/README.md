@@ -315,3 +315,12 @@ In the second part, we need to find the shortest path that visits all the number
 Which had more-or-less the same challenge; how to formulate!\
 What I did was to keep the sorted list of the visited numbers in the search state, and find the shortest path that visits all the numbers in the list.\
 In part 2, we need an extra twist, ignore the start point (#0) before visiting all the rest of the numbers.
+
+## Day 25: [Clock Signal](https://adventofcode.com/2016/day/25) &rarr; [Solution](./day25/d25.py)
+Another assembly code puzzle.\
+We have a new command that transmits a value to the output, and we need to find the mimimum value of initial `a-register` that makes the output signal alternate between `0` and `1` forever.\
+I used the same approach as in Day 23, analyzing the assembly code and finding out what it does.\
+Spending some time on the analysis, I found out the code adds a constant to the value of the `a-register` and then it transmits its binary representation (from LSB to HSB), and repeats from beginning.\
+This way, I needed to find the minimum binary value, bigger than the constant, that is like `1010101010...` in binary representation.\
+<b>But apparently the shortcut was to try the adhoc way (running the code iteratively with different init values to find the answer in a few minutes) :smile:.</b>\
+The only trick there would be to check a limited number of output signals and stop checking at some point because the output is infinite.
