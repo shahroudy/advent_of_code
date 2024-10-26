@@ -1,12 +1,12 @@
 import os
-from functools import reduce
 from collections import deque
+from functools import reduce
 from pathlib import Path
 
 
 class KnotHash:
-    def __init__(self, filename):
-        self.input = Path(filename).read_text().strip()
+    def __init__(self, filename=None, input=None):
+        self.input = Path(filename).read_text().strip() if filename else input
 
     def do(self, input_lengths):
         for i in input_lengths:
@@ -27,9 +27,9 @@ class KnotHash:
         self.do(input_lengths)
         return self.elements[0] * self.elements[1]
 
-    def full_knot_hash(self, ar_len=256):
+    def full_knot_hash(self):
         input = list(map(ord, self.input)) + [17, 31, 73, 47, 23]
-        self.elements = deque(range(ar_len))
+        self.elements = deque(range(256))
         self.head = self.skip = 0
         for _ in range(64):
             self.do(input)
@@ -43,7 +43,7 @@ def test_samples(filename, answer1, answer2, array_len=256):
         return
     test = KnotHash(filename)
     assert answer1 is None or test.single_knot_hash(array_len) == answer1
-    assert answer2 is None or test.full_knot_hash(array_len) == answer2
+    assert answer2 is None or test.full_knot_hash() == answer2
 
 
 if __name__ == "__main__":

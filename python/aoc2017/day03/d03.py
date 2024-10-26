@@ -1,11 +1,14 @@
 from collections import defaultdict
+from pathlib import Path
+
+from myutils.io_handler import get_input_data
 
 
 class SpiralMemory:
     def __init__(self, input):
+        self.input = input if isinstance(input, int) else int(Path(input).read_text().strip())
         self.dirs = [[0, -1], [-1, 0], [0, 1], [1, 0]]
         self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]
-        self.input = input
 
     def print(self, m: dict):
         k = m.keys()
@@ -65,12 +68,14 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
+
     test_samples(12, 3, None)
     test_samples(23, 2, None)
     test_samples(1024, 31, None)
 
     print("Tests passed, starting with the puzzle")
 
-    puzzle = SpiralMemory(325489)
+    puzzle = SpiralMemory(data.input_file)
     print(puzzle.simple_spiral())
     print(puzzle.summation_spiral())

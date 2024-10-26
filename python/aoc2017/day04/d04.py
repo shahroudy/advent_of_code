@@ -31,6 +31,14 @@ class HighEntropyPassphrases:
 
 if __name__ == "__main__":
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2017_day04.txt'
+
+    assert HighEntropyPassphrases("sample1.txt").number_of_simple_valid_passphrases() == 2
+    assert (
+        HighEntropyPassphrases("sample2.txt").number_of_valid_passphrases_with_no_rearranging() == 3
+    )
+
+    print("Tests passed, starting with the puzzle")
+
     puzzle = HighEntropyPassphrases(input_file)
     print(puzzle.number_of_simple_valid_passphrases())
     print(puzzle.number_of_valid_passphrases_with_no_rearranging())
