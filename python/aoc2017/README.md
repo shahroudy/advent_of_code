@@ -127,7 +127,14 @@ In part two, we need to apply the operations in the input order 1 billion times;
 ### Optimizations:
 * The order of the programs is cyclic, so we can find the cycle length and apply the operations only the remaining times by fast-forwarding the operations.
 
-## Day X: [Title](https://adventofcode.com/2017/day/X)
-Desc
-### Optimizations:
-### Bugs and issues:
+## Day 17: [Spinlock](https://adventofcode.com/2017/day/17) &rarr; [Solution](./day17/d17.py)
+An interesting puzzle to solve.\
+We have a circular list (starting at [0]) and we need to insert numbers in it based on an input step size.\
+At each step, we move forward the step size and insert the number after the current position.\
+The first part is to find the number after 2017 when it's inserted.\
+The ad-hoc solution of keeping the list as a `list` was good enough for part one.\
+For part two, we need to find next value to `0` but after 50 million steps.\
+The ad-hoc solution is not more tractable, so we need to find a better solution.\
+### <b>Optimizations:
+* First improvement was to switch to a `deque` instead of a `list` to have O(1) insertion time. `deque` can rotate the list very efficiently; This can give us the answer in about 10 seconds.
+* We don't need to keep the whole list for this part :smile:, we can keep only the current position and the value after `0`. This speeds up the solution to about a couple of seconds.</b>

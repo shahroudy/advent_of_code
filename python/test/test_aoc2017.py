@@ -307,3 +307,19 @@ def test_day16():
     puzzle = PermutationPromenade(input_file)
     assert puzzle.after_first_dance == "dcmlhejnifpokgba"
     assert puzzle.after_billions_dance == "ifocbejpdnklamhg"
+
+
+def test_day17_samples():
+    from aoc2017.day17.d17 import Spinlock
+
+    test = Spinlock(3)
+    assert test.value_after_2017() == 638
+
+
+def test_day17():
+    from aoc2017.day17.d17 import Spinlock
+
+    input_file = f"{input_folder}/aoc2017_day17.txt"
+    puzzle = Spinlock(input_file)
+    assert puzzle.value_after_2017() == 772
+    assert puzzle.value_after_0_on_50_million_steps() == 42729050
