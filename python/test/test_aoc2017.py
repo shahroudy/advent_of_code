@@ -291,3 +291,19 @@ def test_day15():
     puzzle = DuelingGenerators(input_file)
     assert puzzle.judges_final_count() == 567
     assert puzzle.judges_final_count_more_picky() == 323
+
+
+def test_day16_samples():
+    from aoc2017.day16.d16 import PermutationPromenade
+
+    test = PermutationPromenade("./python/aoc2017/day16/sample1.txt", program_count=5)
+    assert test.after_first_dance == "baedc"
+
+
+def test_day16():
+    from aoc2017.day16.d16 import PermutationPromenade
+
+    input_file = f"{input_folder}/aoc2017_day16.txt"
+    puzzle = PermutationPromenade(input_file)
+    assert puzzle.after_first_dance == "dcmlhejnifpokgba"
+    assert puzzle.after_billions_dance == "ifocbejpdnklamhg"

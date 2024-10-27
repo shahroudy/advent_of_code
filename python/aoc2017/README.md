@@ -112,10 +112,20 @@ And we need to count the number of pairs that have matching 16 least significant
 The second part is to find the number of pairs that have matching 16 least significant bits after 5 million iterations.\
 But this time each generator will generate the first number which is divisible by a specific number (4 for A and 8 for B).\
 The solution was to simply implement the generators and count the number of matching pairs.
-
 ### Optimizations:
 * Instead of using `%16` or `bin()` function, we can speed up by using `&0xFFFF` to get the 16 least significant bits.
 * I spent some time trying to find a better solution using the modulus properties, but I couldn't find any :sweat_smile:. The ad-hoc solutions run in about 10 seconds, which is acceptable.
+
+## Day 16: [Permutation Promenade](https://adventofcode.com/2017/day/16) &rarr; [Solution](./day16/d16.py)
+A string manipulation problem.\
+We start with a string of characters and we need to apply a series of operations on it including:\
+* `s` shift the programs (characters in the string) rotationally
+* `x` swap two programs in the two input positions
+* `p` swap the programs with two input values.
+In part one, we need to apply the operations in the input order only once; which is doable in a fraction of a second.\
+In part two, we need to apply the operations in the input order 1 billion times; which is not doable in a reasonable time.\
+### Optimizations:
+* The order of the programs is cyclic, so we can find the cycle length and apply the operations only the remaining times by fast-forwarding the operations.
 
 ## Day X: [Title](https://adventofcode.com/2017/day/X)
 Desc
