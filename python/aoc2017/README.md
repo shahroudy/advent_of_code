@@ -105,6 +105,18 @@ To do so, I stored all the locations of `1`s in a set and iterated over them to 
 ### Bugs and issues:
 * While turning the hash to binary, I forgot to add the leading zeros to the binary representation, which led to wrong locations of `1`s.
 
+## Day 15: [Dueling Generators](https://adventofcode.com/2017/day/15) &rarr; [Solution](./day15/d15.py)
+A modulus multiplication problem.\
+There are two generators that generate numbers based on the previous number with different factors in the same modulus.\
+And we need to count the number of pairs that have matching 16 least significant bits.\
+The second part is to find the number of pairs that have matching 16 least significant bits after 5 million iterations.\
+But this time each generator will generate the first number which is divisible by a specific number (4 for A and 8 for B).\
+The solution was to simply implement the generators and count the number of matching pairs.
+
+### Optimizations:
+* Instead of using `%16` or `bin()` function, we can speed up by using `&0xFFFF` to get the 16 least significant bits.
+* I spent some time trying to find a better solution using the modulus properties, but I couldn't find any :sweat_smile:. The ad-hoc solutions run in about 10 seconds, which is acceptable.
+
 ## Day X: [Title](https://adventofcode.com/2017/day/X)
 Desc
 ### Optimizations:

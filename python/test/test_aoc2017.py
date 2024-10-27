@@ -274,3 +274,20 @@ def test_day14():
     puzzle = DiskDefragmentation(input_file)
     assert puzzle.one_count == 8140
     assert puzzle.region_count == 1182
+
+
+def test_day15_samples():
+    from aoc2017.day15.d15 import DuelingGenerators
+
+    test = DuelingGenerators("./python/aoc2017/day15/sample1.txt")
+    assert test.judges_final_count() == 588
+    assert test.judges_final_count_more_picky() == 309
+
+
+def test_day15():
+    from aoc2017.day15.d15 import DuelingGenerators
+
+    input_file = f"{input_folder}/aoc2017_day15.txt"
+    puzzle = DuelingGenerators(input_file)
+    assert puzzle.judges_final_count() == 567
+    assert puzzle.judges_final_count_more_picky() == 323
