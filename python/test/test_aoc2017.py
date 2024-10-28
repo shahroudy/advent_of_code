@@ -323,3 +323,21 @@ def test_day17():
     puzzle = Spinlock(input_file)
     assert puzzle.value_after_2017() == 772
     assert puzzle.value_after_0_on_50_million_steps() == 42729050
+
+
+def test_day18_samples():
+    from aoc2017.day18.d18 import Duet
+
+    test = Duet("./python/aoc2017/day18/sample1.txt")
+    assert test.recovered_frequency() == 4
+    test = Duet("./python/aoc2017/day18/sample2.txt")
+    assert test.sent_values_before_deadlock() == 3
+
+
+def test_day18():
+    from aoc2017.day18.d18 import Duet
+
+    input_file = f"{input_folder}/aoc2017_day18.txt"
+    puzzle = Duet(input_file)
+    assert puzzle.recovered_frequency() == 8600
+    assert puzzle.sent_values_before_deadlock() == 7239

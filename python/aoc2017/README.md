@@ -138,3 +138,9 @@ The ad-hoc solution is not more tractable, so we need to find a better solution.
 ### <b>Optimizations:
 * First improvement was to switch to a `deque` instead of a `list` to have O(1) insertion time. `deque` can rotate the list very efficiently; This can give us the answer in about 10 seconds.
 * We don't need to keep the whole list for this part :smile:, we can keep only the current position and the value after `0`. This speeds up the solution to about a couple of seconds.</b>
+
+## Day 18: [Duet](https://adventofcode.com/2017/day/18) &rarr; [Solution](./day18/d18.py)
+An interesting puzzle to simulate concurrently running programs.\
+In part two we have two programs that run concurrently and communicate with each other.\
+The solution was to simulate the programs and their communication.\
+Python's generators seemed to be a good fit for this problem.
