@@ -358,3 +358,21 @@ def test_day19():
     puzzle = ASeriesOfTubes(input_file)
     assert puzzle.seen_letters == "EPYDUXANIT"
     assert puzzle.steps == 17544
+
+
+def test_day20_samples():
+    from aoc2017.day20.d20 import ParticleSwarm
+
+    test = ParticleSwarm("./python/aoc2017/day20/sample1.txt")
+    assert test.closest_particle() == 0
+    test = ParticleSwarm("./python/aoc2017/day20/sample2.txt")
+    assert test.count_no_colliding_particles() == 1
+
+
+def test_day20():
+    from aoc2017.day20.d20 import ParticleSwarm
+
+    input_file = f"{input_folder}/aoc2017_day20.txt"
+    puzzle = ParticleSwarm(input_file)
+    assert puzzle.closest_particle() == 300
+    assert puzzle.count_no_colliding_particles() == 502

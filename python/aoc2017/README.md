@@ -149,3 +149,12 @@ Python's generators seemed to be a good fit for this problem.
 A simple path following problem.\
 We have a map of signs and we need to follow a path starting from the top row, catch all the alphabets and count the number of steps.\
 The only twist is that we need to follow the path in the direction of the arrow, and turn when we reach a `+` sign.
+
+## Day 20: [Particle Swarm](https://adventofcode.com/2017/day/20) &rarr; [Solution](./day20/d20.py)
+A simple physics simulation problem.\
+We have a list of particles with their positions, velocities, and accelerations, and need to simulation their movement over time.\
+For part one, we need to find the particle that stays closest to the origin in the long run.\
+For part two, we need to find the number of particles that do not collide with others.\
+The ad-hoc way of simulating the particles for a long time (1000 iterations) was good enough for both parts.\
+But one can analytically solve the quadratic equation to find the time of collision for part two.\
+Anyways, the analytical solution will not necessarily faster than the ad-hoc one, and it will be way more complex, because the colliding particles should be immediately removed from the list.
