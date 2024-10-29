@@ -341,3 +341,20 @@ def test_day18():
     puzzle = Duet(input_file)
     assert puzzle.recovered_frequency() == 8600
     assert puzzle.sent_values_before_deadlock() == 7239
+
+
+def test_day19_samples():
+    from aoc2017.day19.d19 import ASeriesOfTubes
+
+    test = ASeriesOfTubes("./python/aoc2017/day19/sample1.txt")
+    assert test.seen_letters == "ABCDEF"
+    assert test.steps == 38
+
+
+def test_day19():
+    from aoc2017.day19.d19 import ASeriesOfTubes
+
+    input_file = f"{input_folder}/aoc2017_day19.txt"
+    puzzle = ASeriesOfTubes(input_file)
+    assert puzzle.seen_letters == "EPYDUXANIT"
+    assert puzzle.steps == 17544

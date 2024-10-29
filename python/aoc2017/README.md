@@ -144,3 +144,8 @@ An interesting puzzle to simulate concurrently running programs.\
 In part two we have two programs that run concurrently and communicate with each other.\
 The solution was to simulate the programs and their communication.\
 Python's generators seemed to be a good fit for this problem.
+
+## Day 19: [A Series of Tubes](https://adventofcode.com/2017/day/19) &rarr; [Solution](./day19/d19.py)
+A simple path following problem.\
+We have a map of signs and we need to follow a path starting from the top row, catch all the alphabets and count the number of steps.\
+The only twist is that we need to follow the path in the direction of the arrow, and turn when we reach a `+` sign.
