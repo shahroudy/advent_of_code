@@ -158,3 +158,23 @@ For part two, we need to find the number of particles that do not collide with o
 The ad-hoc way of simulating the particles for a long time (1000 iterations) was good enough for both parts.\
 But one can analytically solve the quadratic equation to find the time of collision for part two.\
 Anyways, the analytical solution will not necessarily faster than the ad-hoc one, and it will be way more complex, because the colliding particles should be immediately removed from the list.
+
+## Day 21: [Fractal Art](https://adventofcode.com/2017/day/21) &rarr; [Solution](./day21/d21.py)
+In this puzzle, we are provided with a set of expansion rules for inner grids of a grid.\
+Based on the size of the whole grid, we either expand each 2x2 grid to a 3x3 grid, or each 3x3 grid to a 4x4 grid.\
+We need to apply the rules for a number of iterations and count the number of `#`s in the final grid.\
+The only effective optimization was to store the rules in a dictionary to speed up the lookup.\
+To implement the mechanics of the puzzle, we can either use a simple list of strings or a `numpy` array.\
+It's good to recall the useful `numpy` structures and functions for such puzzles:
+* `np.ndarray`
+* `np.rot90`
+* `np.flipud`
+* `np.fliplr`
+* `np.concatenate`
+* `np.split`
+* `np.hsplit`
+* `np.vsplit`
+* `np.hstack`
+* `np.vstack`
+* `np.reshape`
+* `np.sum`

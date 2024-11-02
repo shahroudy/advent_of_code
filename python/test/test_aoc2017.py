@@ -376,3 +376,35 @@ def test_day20():
     puzzle = ParticleSwarm(input_file)
     assert puzzle.closest_particle() == 300
     assert puzzle.count_no_colliding_particles() == 502
+
+
+def test_day21_samples():
+    from aoc2017.day21.d21 import FractalArt
+
+    test = FractalArt("./python/aoc2017/day21/sample1.txt")
+    assert test.pixel_count_after_expansion(iterations=2) == 12
+
+
+def test_day21_numpy_samples():
+    from aoc2017.day21.d21_numpy import FractalArt
+
+    test = FractalArt("./python/aoc2017/day21/sample1.txt")
+    assert test.pixel_count_after_expansion(iterations=2) == 12
+
+
+def test_day21():
+    from aoc2017.day21.d21 import FractalArt
+
+    input_file = f"{input_folder}/aoc2017_day21.txt"
+    puzzle = FractalArt(input_file)
+    assert puzzle.pixel_count_after_expansion(iterations=5) == 167
+    assert puzzle.pixel_count_after_expansion(iterations=18) == 2425195
+
+
+def test_day21_numpy():
+    from aoc2017.day21.d21_numpy import FractalArt
+
+    input_file = f"{input_folder}/aoc2017_day21.txt"
+    puzzle = FractalArt(input_file)
+    assert puzzle.pixel_count_after_expansion(iterations=5) == 167
+    assert puzzle.pixel_count_after_expansion(iterations=18) == 2425195
