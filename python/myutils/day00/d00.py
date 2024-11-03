@@ -18,11 +18,13 @@ from sympy.solvers import solve
 class Puzzle:
     def __init__(self, filename):
         self.directions = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
+        self.turn_left = {"e": "n", "n": "w", "w": "s", "s": "e"}
+        self.turn_right = {"e": "s", "s": "w", "w": "n", "n": "e"}
+        self.turn_reverse = {"e": "w", "w": "e", "n": "s", "s": "n"}
         self.dir_chars = {">": (1, 0), "<": (-1, 0), "^": (0, -1), "v": (0, 1)}
-        self.mask4 = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-        self.mask5 = [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]]
-        self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
-        self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]
+        self.dir_chars_turn_left = {">": "^", "^": "<", "<": "v", "v": ">"}
+        self.dir_chars_turn_right = {">": "v", "v": "<", "<": "^", "^": ">"}
+        self.dir_chars_turn_reverse = {">": "<", "<": ">", "^": "v", "v": "^"}
 
         # self.read_ints(filename)
         # self.read_line_groups(filename)

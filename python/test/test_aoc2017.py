@@ -408,3 +408,23 @@ def test_day21_numpy():
     puzzle = FractalArt(input_file)
     assert puzzle.pixel_count_after_expansion(iterations=5) == 167
     assert puzzle.pixel_count_after_expansion(iterations=18) == 2425195
+
+
+def test_day22_samples():
+    from aoc2017.day22.d22 import SporificaVirus
+
+    test = SporificaVirus("./python/aoc2017/day22/sample1.txt")
+    assert test.count_infection_bursts(7) == 5
+    assert test.count_infection_bursts(70) == 41
+    assert test.count_infection_bursts(10000) == 5587
+    assert test.count_infection_bursts_evolved(100) == 26
+    assert test.count_infection_bursts_evolved(10000000) == 2511944
+
+
+def test_day22():
+    from aoc2017.day22.d22 import SporificaVirus
+
+    input_file = f"{input_folder}/aoc2017_day22.txt"
+    puzzle = SporificaVirus(input_file)
+    assert puzzle.count_infection_bursts() == 5406
+    assert puzzle.count_infection_bursts_evolved() == 2511640

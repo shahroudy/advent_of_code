@@ -178,3 +178,9 @@ It's good to recall the useful `numpy` structures and functions for such puzzles
 * `np.vstack`
 * `np.reshape`
 * `np.sum`
+
+## Day 22: [Sporifica Virus](https://adventofcode.com/2017/day/22) &rarr; [Solution](./day22/d22.py)
+A simple cellular automata problem.\
+We start with a grid of clean/infected cells and a virus career that moves based on the current cell state.\
+In part two, we have 4 states instead of two.
+
