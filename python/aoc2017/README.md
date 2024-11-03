@@ -184,3 +184,26 @@ A simple cellular automata problem.\
 We start with a grid of clean/infected cells and a virus career that moves based on the current cell state.\
 In part two, we have 4 states instead of two.
 
+## Day 23: [Coprocessor Conflagration](https://adventofcode.com/2017/day/23) &rarr; [Solution](./day23/d23.py)
+Another assembly-code simulation problem.\
+Part 1 was to run the code in normal mode and count the number of times the `mul` instruction is executed.\
+Part 2 was to run the code in debug mode (set register `a` to 1) and get the final value of register `h`, which apparently runs for a very long time.
+
+### Bugs and issues:
+* <b>In the first part, I was checking the arguments if they are `is_numeric()` to distinguish between registers and values.\
+This fails when we have a negative value.</b>\
+So I had to change it to check if the value is a key in the registers' dictionary instead, which is more robust.
+* At some of the steps, I was misinterpreting the subtracting of a negative value as a decrement operation, which was wrong.
+
+### Optimizations:
+As expected, for part 2 we had to translate the assembly code to higher level instructions and understand what it does.\
+The code was actually counting the non-prime numbers in a defined range and with a defined step, in its most inefficient way.\
+Registers:
+  * `a` is the input switch for debug mode
+  * `b` is the loop counter
+  * `c` is the range upper bound
+  * `d` and `e` are the inner loop counters to find the divisors for current `b` value
+  * `f` is the flag to indicate if the current `b` value is prime
+  * `g` is mainly used to build jump conditions
+  * `h` is the counter for non-prime numbers in the range
+This way we should re-implement the logic in its efficient way to get the answer in a reasonable time.
