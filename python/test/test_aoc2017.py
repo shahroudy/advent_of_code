@@ -428,3 +428,29 @@ def test_day22():
     puzzle = SporificaVirus(input_file)
     assert puzzle.count_infection_bursts() == 5406
     assert puzzle.count_infection_bursts_evolved() == 2511640
+
+
+def test_day23():
+    from aoc2017.day23.d23 import CoprocessorConflagration
+
+    input_file = f"{input_folder}/aoc2017_day23.txt"
+    puzzle = CoprocessorConflagration(input_file)
+    assert puzzle.mul_count() == 3969
+    assert puzzle.run_debug_mode() == 917
+
+
+def test_day24_samples():
+    from aoc2017.day24.d24 import ElectromagneticMoat
+
+    test = ElectromagneticMoat("./python/aoc2017/day24/sample1.txt")
+    assert test.find_strongest_bridge() == 31
+    assert test.find_strongest_bridge(ignore_length=False) == 19
+
+
+def test_day24():
+    from aoc2017.day24.d24 import ElectromagneticMoat
+
+    input_file = f"{input_folder}/aoc2017_day24.txt"
+    puzzle = ElectromagneticMoat(input_file)
+    assert puzzle.find_strongest_bridge() == 1511
+    assert puzzle.find_strongest_bridge(ignore_length=False) == 1471

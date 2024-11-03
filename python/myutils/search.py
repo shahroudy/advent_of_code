@@ -111,6 +111,20 @@ class Search_DFS(Search):
                 self.stack.append(next_state)
 
 
+class Search_DFS_MaxCost(Search):
+    def search(self, initial_state=None):
+        initial_state = initial_state if initial_state else self.initial_state
+        self.stack = []
+        self.stack.append(initial_state)
+        max_cost = None
+        while self.stack:
+            state = self.stack.pop()
+            max_cost = max(max_cost, self.cost(state)) if max_cost is not None else self.cost(state)
+            for next_state in self.get_next_states(state):
+                self.stack.append(next_state)
+        return max_cost
+
+
 class Search_MinHeap(Search):
     def search(self, initial_state=None):
         initial_state = initial_state if initial_state else self.initial_state

@@ -207,3 +207,10 @@ Registers:
   * `g` is mainly used to build jump conditions
   * `h` is the counter for non-prime numbers in the range
 This way we should re-implement the logic in its efficient way to get the answer in a reasonable time.
+
+## Day 24: [Electromagnetic Moat](https://adventofcode.com/2017/day/24) &rarr; [Solution](./day24/d24.py)
+A search problem to find the longest bridge in a list of components.\
+We are provided with a list of connections between components and we need to find the longest bridge that can be built.\
+A simply DFS search can solve the problem.\
+In part two, we need to find the longest bridge with the highest strength.\
+With a small modification to the DFS search, we can easily find the answer.
