@@ -214,3 +214,13 @@ We are provided with a list of connections between components and we need to fin
 A simply DFS search can solve the problem.\
 In part two, we need to find the longest bridge with the highest strength.\
 With a small modification to the DFS search, we can easily find the answer.
+
+## Day 25: [The Halting Problem](https://adventofcode.com/2017/day/25) &rarr; [Solution](./day25/d25.py)
+A sweet puzzle of a super-simple Turing machine.\
+We are provided with a set of rules for a Turing machine and we need to simulate it for a number of steps.\
+The machine has multiple states and a tape that can be moved left or right.\
+After running it for the requested number of steps, we need to count the number of `1`s on the tape.
+
+### Bugs and issues:
+<b>Reading multi-line rules from the input file by `re` was not trivial to me.\
+But trying `r"""..."""` worked fine.</b>

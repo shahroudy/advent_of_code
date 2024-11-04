@@ -454,3 +454,18 @@ def test_day24():
     puzzle = ElectromagneticMoat(input_file)
     assert puzzle.find_strongest_bridge() == 1511
     assert puzzle.find_strongest_bridge(ignore_length=False) == 1471
+
+
+def test_day25_samples():
+    from aoc2017.day25.d25 import TheHaltingProblem
+
+    test = TheHaltingProblem("./python/aoc2017/day25/sample1.txt")
+    assert test.diagnostic_checksum() == 3
+
+
+def test_day25():
+    from aoc2017.day25.d25 import TheHaltingProblem
+
+    input_file = f"{input_folder}/aoc2017_day25.txt"
+    puzzle = TheHaltingProblem(input_file)
+    assert puzzle.diagnostic_checksum() == 2725
