@@ -59,6 +59,23 @@ Not much of a challenge here, just a simulation, with one optimization trick.
   The trick is to find the cycle in the state of the grid and fast-forward to the final state.
 * For easier handling of cells and their neighbors, I used a string to represent the grid, and I used a dictionary to store the indices of neighbors for each cell.
 
+## Day 19: [Go With The Flow](https://adventofcode.com/2018/day/19)
+Emulating another assembly program (extension of Day 16), with jump command functionality.\
+Part 1 was simple, just running the program and finding the value of a register.\
+Part 2 was not tractable with the brute-force approach, so I had to translate the assembly code to higher levels and implement it in a more efficient way.\
+Analyzing the assembly code, I found that it was calculating the sum of the divisors of a number.\
+The input number is generated in a sub-routine (lines 17 afterwards), and the sum of its divisors is calculated in the main loop.
+
+### Optimizations:
+Simply let the sub-routine generate the number and save it in register #5.\
+Then we can calculate the sum of the divisors of it in Python.
+
+### Bugs and issues:
+<b>Looking at the assembly code, I should be able to find the sub-routine part quickly and skip analyzing it.\
+We always cal let that part run in the emulator and get the result.\
+All we need to analyze is the main loop which is not running efficiently.</b>
+
+
 ## Day X: [Title](https://adventofcode.com/2018/day/X)
 desc
 ### Optimizations:

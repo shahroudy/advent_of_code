@@ -97,3 +97,18 @@ def test_day18():
     puzzle = SettlersOfTheNorthPole(f"{input_folder}/aoc2018_day18.txt")
     assert puzzle.simulate() == 531417
     assert puzzle.simulate(minutes=1000000000) == 205296
+
+
+def test_day19_samples():
+    from aoc2018.day19.d19 import GoWithTheFlow
+
+    test = GoWithTheFlow("./python/aoc2018/day19/sample1.txt")
+    assert test.run_background_process() == 6
+
+
+def test_day19():
+    from aoc2018.day19.d19 import GoWithTheFlow
+
+    puzzle = GoWithTheFlow(f"{input_folder}/aoc2018_day19.txt")
+    assert puzzle.run_background_process() == 2072
+    assert puzzle.set_reg_0_and_run_background_process() == 27578880

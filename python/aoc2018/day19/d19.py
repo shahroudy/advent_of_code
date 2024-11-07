@@ -1,19 +1,9 @@
-import cProfile
-import os
-import re
-from collections import *
-from copy import deepcopy
-from functools import cache, cmp_to_key, reduce
-from itertools import *
 from pathlib import Path
 
-from myutils.file_reader import *
-from myutils.io_handler import get_input_data, submit_answer
-from sympy import Symbol
-from sympy.solvers import solve
+from myutils.io_handler import get_input_data
 
 
-class Puzzle:
+class GoWithTheFlow:
     def __init__(self, filename):
         self.program = []
         for line in Path(filename).read_text().strip().split("\n"):
@@ -58,41 +48,33 @@ class Puzzle:
         elif opcode == "eqrr":
             registers[c] = 1 if registers[a] == registers[b] else 0
 
-    def calc1(self, r0_init=0):
+    def run_background_process(self):
         registers = [0] * 6
-        registers[0] = r0_init
         while True:
             self.run_op(self.program[registers[self.ip_reg]], registers)
-            if registers[self.ip_reg] >= len(self.program) - 1:
+            if not (0 <= registers[self.ip_reg] < len(self.program) - 1):
                 return registers[0]
             registers[self.ip_reg] += 1
 
-    def calc2(self):
-        return self.calc1(1)
-
-
-def test_samples(filename, answer1, answer2):
-    if answer1 is None and answer2 is None:
-        return
-    test = Puzzle(filename)
-    assert answer1 is None or test.calc1() == answer1
-    assert answer2 is None or test.calc2() == answer2
+    def set_reg_0_and_run_background_process(self):
+        registers = [0] * 6
+        registers[0] = 1
+        while registers[self.ip_reg] != 1:
+            self.run_op(self.program[registers[self.ip_reg]], registers)
+            if not (0 <= registers[self.ip_reg] < len(self.program) - 1):
+                return registers[0]
+            registers[self.ip_reg] += 1
+        r5 = registers[5]
+        return sum([i for i in range(1, r5 + 1) if r5 % i == 0])
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
 
-    # assert Puzzle("sample1.txt").calc1() == 6
+    assert GoWithTheFlow("sample1.txt").run_background_process() == 6
 
     print("Tests passed, starting with the puzzle")
 
-    submit_answers = False
-    puzzle = Puzzle(data.input_file)
-    # cProfile.run("print(answer1 := puzzle.calc1())")
-    # print(answer1 := puzzle.calc1())
-    # if submit_answers and answer1 is not None:
-    #     submit_answer(answer1, "a", data)
-    # cProfile.run("print(answer2 := puzzle.calc2())")
-    print(answer2 := puzzle.calc2())
-    if submit_answers and answer2 is not None:
-        submit_answer(answer2, "b", data)
+    puzzle = GoWithTheFlow(data.input_file)
+    print(puzzle.run_background_process())
+    print(puzzle.set_reg_0_and_run_background_process())
