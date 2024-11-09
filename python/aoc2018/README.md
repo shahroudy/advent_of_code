@@ -75,6 +75,15 @@ Then we can calculate the sum of the divisors of it in Python.
 We always cal let that part run in the emulator and get the result.\
 All we need to analyze is the main loop which is not running efficiently.</b>
 
+## Day 20: [A Regular Map](https://adventofcode.com/2018/day/20)
+This puzzle was about passing through the input path and finding the farthest room from the starting point.\
+They provided path is consists of a set of doors towards north, south, east or west.\
+The also have branches, coded with parentheses.\
+The key to the solution was:
+* use a list (as a stack) to keep track of the position when we encounter a branch.
+* use a dictionary to store the distance of each room from the starting point.
+
+And the input being a `regex` was just a distraction, we really don't need to use `re` here; simply ignore `^` and `$` and use the input as is.
 
 ## Day X: [Title](https://adventofcode.com/2018/day/X)
 desc

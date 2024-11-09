@@ -112,3 +112,21 @@ def test_day19():
     puzzle = GoWithTheFlow(f"{input_folder}/aoc2018_day19.txt")
     assert puzzle.run_background_process() == 2072
     assert puzzle.set_reg_0_and_run_background_process() == 27578880
+
+
+def test_day20_samples():
+    from aoc2018.day20.d20 import ARegularMap
+
+    assert ARegularMap("./python/aoc2018/day20/sample1.txt").calc1 == 3
+    assert ARegularMap("./python/aoc2018/day20/sample2.txt").calc1 == 10
+    assert ARegularMap("./python/aoc2018/day20/sample3.txt").calc1 == 18
+    assert ARegularMap("./python/aoc2018/day20/sample4.txt").calc1 == 23
+    assert ARegularMap("./python/aoc2018/day20/sample5.txt").calc1 == 31
+
+
+def test_day20():
+    from aoc2018.day20.d20 import ARegularMap
+
+    puzzle = ARegularMap(f"{input_folder}/aoc2018_day20.txt")
+    assert puzzle.calc1 == 4025
+    assert puzzle.calc2 == 8186
