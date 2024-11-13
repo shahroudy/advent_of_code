@@ -85,6 +85,47 @@ The key to the solution was:
 
 And the input being a `regex` was just a distraction, we really don't need to use `re` here; simply ignore `^` and `$` and use the input as is.
 
+## Day 21: [Chronal Conversion](https://adventofcode.com/2018/day/21)
+Another assembly program to emulate.\
+The main challenge here for me was to understand the problem.\
+The long paragraph including the explanation of bitwise operations was all useless and distracting.\
+In part 1, we need to find the minimum value of register 0 to halt the program.\
+The solution is to have an analysis of the program, there is only one line accessing the register 0, and if the quality check in that line is met, the program halts.\
+This way, all we need to do is to let the program run and reach to that line, then the value of the register which is getting compared to register 0 is the answer!\
+In part 2, we need to find the last value of register 0 before the program goes the infinite loop (skipping the only line which accesses register 0 value).
+
+## Optimization:
+* For these types of assembly programs, it's usually a good idea to implement a line translator to convert the assembly code to a higher-level language, at least line by line.\
+This way, we can analyze the code and find the purpose of the program more easily.
+* <b>For the ad-hoc way of solving the problem, it's always better to use `pypy` instead of `python` for faster execution.</b>
+
+## Bugs and issues:
+* <b>Understanding what is requested in the problem statement is the most important part of solving this puzzle.\
+To me, this was the least understandable problem statement in all the puzzles I solved so far (2015-2023).</b>
+
+## Day 22: [Mode Maze](https://adventofcode.com/2018/day/22)
+A path-finding problem in a 2D grid.\
+We have specific yet simple formulas to calculate the geological index, erosion level, and region type of each cell.\
+In part 1, we need to calculate the risk level of the area from the starting point to the target point, by summing the region types of each cell.\
+In part 2, we need to find the minimum time to reach the target point from the starting point, starting and ending with the equipment type of `torch`.\
+There are some limitations of equipment in each region type, and we need to switch the equipment when entering a cell with a different region type, which takes 7 times of movement time.\
+I solved this with two different approaches:
+* A* search algorithm to find the shortest path to the target point.
+* Dijsktra's algorithm to find the shortest path to the target point.
+
+### Optimizations:
+* One obvious optimization to calculate geological index, erosion levels, and the region types is to cache them.\
+Either useing dictionaries, or `@cache` decorator from `functools` module.
+
+### Bugs and issues:
+* <b>Another misreading of the problem input for me :sweat_smile: .\
+For the recursive rule of the geological index calculation, I was using the geological index values of the reference cells instead of their erosion levels!.\
+This was a big mistake and took me a while to figure out.</b>
+* Since the cells are infinite, and in the puzzle input, `x` and `y` values are of different orders, one needs to expand the search area in both directions and with different factors, to ensure the `Dijsktra` algorithm finds the optimum shortest path.
+* Using `@cache` is handy, but if it's using recursion and the input values are large, it can cause a stack overflow error.\
+  In this case, it's better to fill the cache before using it.
+* Solving this helped me find a bug in my A* search algorithm implementation :smile:.
+
 ## Day X: [Title](https://adventofcode.com/2018/day/X)
 desc
 ### Optimizations:

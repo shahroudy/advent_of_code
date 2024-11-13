@@ -146,7 +146,7 @@ class Search_AStar(Search):
         hq.heapify(min_heap)
         init_score = self.heuristic(initial_state) + self.cost(initial_state)
         min_heap.append(init_score)
-        history = {self.state_core(initial_state)}
+        history = {self.state_core(initial_state): self.cost(initial_state)}
         states = defaultdict(list)
         states[init_score].append(initial_state)
         while min_heap:
@@ -156,9 +156,39 @@ class Search_AStar(Search):
                 return self.get_result(state)
             for next_state in self.get_next_states(state):
                 core_state = self.state_core(next_state)
+                cost = self.cost(next_state)
                 if core_state in history:
-                    continue
-                history.add(core_state)
+                    if history[core_state] <= cost:
+                        continue
+                history[core_state] = self.cost(next_state)
                 next_score = self.heuristic(next_state) + self.cost(next_state)
                 states[next_score].append(next_state)
                 hq.heappush(min_heap, next_score)
+
+
+class Search_Dijkstra(Search):
+    def search(self, initial_state=None):
+        initial_state = initial_state if initial_state else self.initial_state
+        min_heap = []
+        hq.heapify(min_heap)
+        init_score = self.cost(initial_state)
+        min_heap.append(init_score)
+        shortest_distance = {self.state_core(initial_state): init_score}
+        backtrace = {self.state_core(initial_state): None}
+        states = defaultdict(list)
+        states[init_score].append(initial_state)
+        while min_heap:
+            score = hq.heappop(min_heap)
+            state = states[score].pop()
+            if shortest_distance[self.state_core(state)] < score:
+                continue
+            for next_state in self.get_next_states(state):
+                core_state = self.state_core(next_state)
+                next_score = self.cost(next_state)
+                if shortest_distance.get(core_state, float("inf")) <= next_score:
+                    continue
+                shortest_distance[core_state] = next_score
+                states[next_score].append(next_state)
+                backtrace[core_state] = self.state_core(state)
+                hq.heappush(min_heap, next_score)
+        return shortest_distance, backtrace
