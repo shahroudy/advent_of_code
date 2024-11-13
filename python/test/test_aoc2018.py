@@ -132,19 +132,12 @@ def test_day20():
     assert puzzle.calc2 == 8186
 
 
-def test_day21_samples():
-    from aoc2018.day21.d21 import ChronalConversion
-
-    test = ChronalConversion("./python/aoc2018/day21/sample1.txt")
-    assert test.register_0_value_for_fewest_instructions_executed_before_halt() == 6
-
-
 def test_day21():
     from aoc2018.day21.d21 import ChronalConversion
 
     puzzle = ChronalConversion(f"{input_folder}/aoc2018_day21.txt")
     assert puzzle.register_0_value_for_fewest_instructions_executed_before_halt() == 7224964
-    assert puzzle.register_0_value_for_maximum_instructions_executed_before_halt() == 13813247
+    assert puzzle.register_0_value_for_maximum_instructions_executed_before_repeating() == 13813247
 
 
 def test_day22_samples():

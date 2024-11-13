@@ -87,21 +87,23 @@ And the input being a `regex` was just a distraction, we really don't need to us
 
 ## Day 21: [Chronal Conversion](https://adventofcode.com/2018/day/21)
 Another assembly program to emulate.\
-The main challenge here for me was to understand the problem.\
+The main challenge here for me was to understand the problem statement.\
 The long paragraph including the explanation of bitwise operations was all useless and distracting.\
 In part 1, we need to find the minimum value of register 0 to halt the program.\
 The solution is to have an analysis of the program, there is only one line accessing the register 0, and if the quality check in that line is met, the program halts.\
 This way, all we need to do is to let the program run and reach to that line, then the value of the register which is getting compared to register 0 is the answer!\
-In part 2, we need to find the last value of register 0 before the program goes the infinite loop (skipping the only line which accesses register 0 value).
+In part 2, we need to find the last value of register 0 before the program repeats the halting condition.
 
 ## Optimization:
 * For these types of assembly programs, it's usually a good idea to implement a line translator to convert the assembly code to a higher-level language, at least line by line.\
 This way, we can analyze the code and find the purpose of the program more easily.
-* <b>For the ad-hoc way of solving the problem, it's always better to use `pypy` instead of `python` for faster execution.</b>
+* <b>For the ad-hoc way of solving the problem, it's always better to use `pypy` instead of `python` for faster execution.</b>\
+For my implementation, `pypy3` (71s) was about 8 times faster than `python3` (543s).
 
 ## Bugs and issues:
 * <b>Understanding what is requested in the problem statement is the most important part of solving this puzzle.\
 To me, this was the least understandable problem statement in all the puzzles I solved so far (2015-2023).</b>
+* I spent some time trying to analyze the input program and solve it analytically, but I have up and went for the brute-force approach.
 
 ## Day 22: [Mode Maze](https://adventofcode.com/2018/day/22)
 A path-finding problem in a 2D grid.\
