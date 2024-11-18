@@ -170,3 +170,29 @@ def test_day22_dijkstra():
 
     assert puzzle.total_risk_level() == 11843
     assert puzzle.fastest_way_to_reach_the_target() == 1078
+
+
+def test_day23_samples():
+    from aoc2018.day23.d23 import ExperimentalEmergencyTeleportation
+
+    assert (
+        ExperimentalEmergencyTeleportation(
+            "./python/aoc2018/day23/sample1.txt"
+        ).nanobots_in_range_of_strongest()
+        == 7
+    )
+    assert (
+        ExperimentalEmergencyTeleportation(
+            "./python/aoc2018/day23/sample2.txt"
+        ).in_range_of_max_nanobots()
+        == 36
+    )
+
+
+def test_day23():
+    from aoc2018.day23.d23 import ExperimentalEmergencyTeleportation
+
+    puzzle = ExperimentalEmergencyTeleportation(f"{input_folder}/aoc2018_day23.txt")
+
+    assert puzzle.nanobots_in_range_of_strongest() == 319
+    assert puzzle.in_range_of_max_nanobots() == 129293598

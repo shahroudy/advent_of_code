@@ -113,22 +113,54 @@ In part 2, we need to find the minimum time to reach the target point from the s
 There are some limitations of equipment in each region type, and we need to switch the equipment when entering a cell with a different region type, which takes 7 times of movement time.\
 I solved this with two different approaches:
 * A* search algorithm to find the shortest path to the target point.
-* Dijsktra's algorithm to find the shortest path to the target point.
+* Dijkstra's algorithm to find the shortest path to the target point.
 
 ### Optimizations:
 * One obvious optimization to calculate geological index, erosion levels, and the region types is to cache them.\
-Either useing dictionaries, or `@cache` decorator from `functools` module.
+Either using dictionaries, or `@cache` decorator from `functools` module.
 
 ### Bugs and issues:
 * <b>Another misreading of the problem input for me :sweat_smile: .\
 For the recursive rule of the geological index calculation, I was using the geological index values of the reference cells instead of their erosion levels!.\
 This was a big mistake and took me a while to figure out.</b>
-* Since the cells are infinite, and in the puzzle input, `x` and `y` values are of different orders, one needs to expand the search area in both directions and with different factors, to ensure the `Dijsktra` algorithm finds the optimum shortest path.
+* Since the cells are infinite, and in the puzzle input, `x` and `y` values are of different orders, one needs to expand the search area in both directions and with different factors, to ensure the `Dijkstra` algorithm finds the optimum shortest path.
 * Using `@cache` is handy, but if it's using recursion and the input values are large, it can cause a stack overflow error.\
   In this case, it's better to fill the cache before using it.
 * Solving this helped me find a bug in my A* search algorithm implementation :smile:.
 
-## Day X: [Title](https://adventofcode.com/2018/day/X)
-desc
-### Optimizations:
-### Bugs and issues:
+## Day 23: [Experimental Emergency Teleportation](https://adventofcode.com/2018/day/23)
+A problem about handling manhattan distance ranges of a thousand of nanobots.\
+We are provided a list of nanobots with their 3D positions and range value.\
+The actual range of each nanobot are the points in the 3D space that are within the range of manhattan distance of the nanobot's position.\
+In part 1, we need to find the nanobot with the largest range and count the number of nanobots in its range.\
+In part 2, we need to find the point in the 3D space that is in the range of the maximum number of nanobots, and has the shortest manhattan distance to the origin.\
+To solve this, I had to analyze how the 3D space of a nanobot's range looks like, and how to find the intersection of multiple ranges.\
+It can be simply formulated as:
+* `abs(x-x0) + abs(y-y0) + abs(z-z0) <= r`
+But this cannot help to handle the intersection of multiple ranges.\
+Apparently, each range is the volume between 8 planes:
+* `(x-x0) + (y-y0) + (z-z0) = r` and `(x-x0) + (y-y0) + (z-z0) = -r`
+* `(x-x0) + (y-y0) - (z-z0) = r` and `(x-x0) + (y-y0) - (z-z0) = -r`
+* `(x-x0) - (y-y0) + (z-z0) = r` and `(x-x0) - (y-y0) + (z-z0) = -r`
+* `-(x-x0) + (y-y0) + (z-z0) = r` and `-(x-x0) + (y-y0) + (z-z0) = -r`
+
+To simplify the solution, we can transfer each bot's 4-D values, to a new space:
+* `a = x + y + z`
+* `b = x + y - z`
+* `c = x - y + z`
+* `d = -x + y + z`
+
+This way, the range of each nanobot in the new representation will be:
+* `a0-r <= a <= a0+r`
+* `b0-r <= b <= b0+r`
+* `c0-r <= c <= c0+r`
+* `d0-r <= d <= d0+r`
+
+And each bot's range can be represented by lower bounds (`a0-r, b0-r, c0-r, d0-r`) and upper bounds (`a0+r, b0+r, c0+r, d0+r`).\
+The intersection of multiple ranges can be found by finding the maximum of the lower bounds and the minimum of the upper bounds.\
+Now the problem is to search in the space of nanobots combinations and find the maximum number of nanobots in the intersection of their ranges.\
+If any lower bound is greater than its corresponding upper bound, the intersection is empty and the combination is invalid.\
+The rest is an optimized depth-first search to find the maximum number of nanobots in the intersection of their ranges.\
+After expanding each state in the search space, we should check the current stack and eliminate the states that are a subset of the current state.\
+We also need to keep track of the visited states and avoid visiting them again.\
+For a more optimized solution, I used a binary representation of states and used bitwise operations to check if a nanobot is included in the state or not.
