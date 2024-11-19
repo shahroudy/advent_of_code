@@ -164,3 +164,11 @@ The rest is an optimized depth-first search to find the maximum number of nanobo
 After expanding each state in the search space, we should check the current stack and eliminate the states that are a subset of the current state.\
 We also need to keep track of the visited states and avoid visiting them again.\
 For a more optimized solution, I used a binary representation of states and used bitwise operations to check if a nanobot is included in the state or not.
+
+### Optimizations:
+* <b>Looking at other people's solutions, I learned the inputs are in way you can easily solve this with a hack :smile:.\
+  The solution is to find the min and max values of the of each nanobot's range's distance to the origin, the answer is among these values.\
+  Evaluate the number of nanobots in the range of each value and find the maximum!\
+  Runs in a fraction of a second!\
+  This is something very important to keep in mind solving all other AoC puzzles!\
+  Most probably is a big relaxing factor in the puzzle input that makes the best solution very quick even on a weak computer!</b>

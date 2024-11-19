@@ -70,6 +70,23 @@ class ExperimentalEmergencyTeleportation:
                 min_distance = min(min_distance, (abs(x) + abs(y) + abs(z)))
         return min_distance
 
+    def in_range_of_max_nanobots_hack(self):
+        ranges = []
+        bounds = set()
+        for x, y, z, r in self.nanobots:
+            d = abs(x) + abs(y) + abs(z)
+            min_max = (max(0, d - r), d + r)
+            ranges.append(min_max)
+            bounds |= set(min_max)
+        result = 0
+        max_count = 0
+        for b in sorted(bounds):
+            count = sum(l <= b <= r for l, r in ranges)
+            if count > max_count:
+                result = b
+                max_count = count
+        return result
+
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
@@ -83,3 +100,4 @@ if __name__ == "__main__":
 
     print(puzzle.nanobots_in_range_of_strongest())
     print(puzzle.in_range_of_max_nanobots())
+    print(puzzle.in_range_of_max_nanobots_hack())
