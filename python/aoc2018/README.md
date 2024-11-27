@@ -172,3 +172,19 @@ For a more optimized solution, I used a binary representation of states and used
   Runs in a fraction of a second!\
   This is something very important to keep in mind solving all other AoC puzzles!\
   Most probably is a big relaxing factor in the puzzle input that makes the best solution very quick even on a weak computer!</b>
+
+## Day 24: [Immune System Simulator 20XX](https://adventofcode.com/2018/day/24)
+This one was a fight simulation problem.\
+There are two armies of units, immune system and infection.\
+Each unit has hit points, attack damage, attack type, initiative, and weaknesses and immunities.\
+The challenge here was to understand the mechanics of the fight and implement it correctly.
+
+### Bugs and issues:
+There was one important point in part two: with some boosting values, the fight leads to a state that both armies have units and they cannot attack each other.\
+This way, the termination condition should be modified and check if any damage occurred in the last round or not.
+
+## Day 25: [Four-Dimensional Adventure](https://adventofcode.com/2018/day/25)
+This was actually finding the number of connected components in a graph.\
+Each cell is a point in 4D space, and two cells are connected if their manhattan distance is less than or equal to 3.\
+There are different ways to solve this, and I picked depth-first search.\
+We need to keep track of the cells that are already connected to a constellation, and avoid visiting them again.

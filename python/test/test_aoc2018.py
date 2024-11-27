@@ -175,18 +175,10 @@ def test_day22_dijkstra():
 def test_day23_samples():
     from aoc2018.day23.d23 import ExperimentalEmergencyTeleportation
 
-    assert (
-        ExperimentalEmergencyTeleportation(
-            "./python/aoc2018/day23/sample1.txt"
-        ).nanobots_in_range_of_strongest()
-        == 7
-    )
-    assert (
-        ExperimentalEmergencyTeleportation(
-            "./python/aoc2018/day23/sample2.txt"
-        ).in_range_of_max_nanobots()
-        == 36
-    )
+    test = ExperimentalEmergencyTeleportation("./python/aoc2018/day23/sample1.txt")
+    assert test.nanobots_in_range_of_strongest() == 7
+    test = ExperimentalEmergencyTeleportation("./python/aoc2018/day23/sample2.txt")
+    assert test.in_range_of_max_nanobots() == 36
 
 
 def test_day23():
@@ -196,3 +188,30 @@ def test_day23():
 
     assert puzzle.nanobots_in_range_of_strongest() == 319
     assert puzzle.in_range_of_max_nanobots() == 129293598
+
+
+def test_day24_samples():
+    from aoc2018.day24.d24 import ImmuneSystemSimulator20XX
+
+    test = ImmuneSystemSimulator20XX("./python/aoc2018/day24/sample1.txt")
+    assert test.unit_count_of_winner() == 5216
+    assert test.unit_count_with_min_boost() == 51
+
+
+def test_day24():
+    from aoc2018.day24.d24 import ImmuneSystemSimulator20XX
+
+    puzzle = ImmuneSystemSimulator20XX(f"{input_folder}/aoc2018_day24.txt")
+
+    assert puzzle.unit_count_of_winner() == 19295
+    assert puzzle.unit_count_with_min_boost() == 12084
+
+
+def test_day25_samples():
+    from aoc2018.day25.d25 import FourDimensionalAdventure
+
+    assert FourDimensionalAdventure("./python/aoc2018/day25/sample1.txt").constellations() == 2
+    assert FourDimensionalAdventure("./python/aoc2018/day25/sample2.txt").constellations() == 4
+    assert FourDimensionalAdventure("./python/aoc2018/day25/sample3.txt").constellations() == 3
+    assert FourDimensionalAdventure("./python/aoc2018/day25/sample4.txt").constellations() == 8
+    assert FourDimensionalAdventure("./python/aoc2018/day25/sample5.txt").constellations() == 1
