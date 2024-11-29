@@ -17,6 +17,7 @@ from sympy.solvers import solve
 # State = namedtuple("state", ["x","y"])
 class Puzzle:
     def __init__(self, filename):
+        self.input_text = Path(filename).read_text()
         self.mask4 = [[-1, 0], [1, 0], [0, -1], [0, 1]]
         self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]
         self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
@@ -29,18 +30,18 @@ class Puzzle:
         self.dir_chars_turn_right = {">": "v", "v": "<", "<": "^", "^": ">"}
         self.dir_chars_turn_reverse = {">": "<", "<": ">", "^": "v", "v": "^"}
 
-        # self.read_ints(filename)
-        # self.read_line_groups(filename)
-        # self.read_int_line_groups(filename)
-        # self.process_int_list(filename)
-        # self.process_int_int_dict(filename)
-        # self.process_int_list_dict(filename)
-        # self.process_map(filename)
+        # self.read_ints()
+        # self.read_line_groups()
+        # self.read_int_line_groups()
+        # self.process_int_list()
+        # self.process_int_int_dict()
+        # self.process_int_list_dict()
+        # self.process_map()
 
-        # self.process(filename)
+        # self.process()
 
-    def process(self, filename):
-        lines = Path(filename).read_text().splitlines()
+    def process(self):
+        lines = self.input_text.splitlines()
         self.inp = []
 
         # self.inp = [tuple(map(int, re.split(r"\D", line))) for line in self.lines]
@@ -53,51 +54,60 @@ class Puzzle:
             # a = list(map(int, re.findall(r"\d+", parts[0])))
             self.inp.append(parts)
 
-    def print_with_color(self, text, text_color="#FFFFFF", back_color="#000000", end="\n"):
-        from colored import attr, bg, fg
+    def recursive_split(self, seps, inp=None):
+        if inp is None:
+            inp = self.input_text
+        if not seps:
+            return inp
+        if 1:  # should I strip the parts?
+            return [self.recursive_split(seps[1:], x.strip()) for x in inp.split(seps[0])]
+        else:
+            return [self.recursive_split(seps[1:], x) for x in inp.split(seps[0])]
 
-        color = fg(text_color)
-        back = bg(back_color)
-        reset = attr("reset")
-        print(f"{color+ back}" + text + f"{reset}", end=end)
-
-    def process_map(self, filename):
-        lines = Path(filename).read_text().splitlines()
+    def process_map(self):
+        lines = self.input_text.splitlines()
         self.map = dict()
         for row, line in enumerate(lines):
             for col, ch in enumerate(line):
                 self.map[(col, row)] = ch
         self.rows, self.cols = row + 1, col + 1
 
-    def read_ints(self, filename):
-        self.inp = [int(n) for n in re.findall(r"[+-]?\d+", Path(filename).read_text())]
+    def read_ints(self):
+        self.inp = [int(n) for n in re.findall(r"[+-]?\d+", self.input_text)]
 
-    def read_line_groups(self, filename):
-        self.inp = [re.split("\n", g) for g in re.split("\n\n", Path(filename).read_text().strip())]
+    def read_line_groups(self):
+        self.inp = [re.split("\n", g) for g in re.split("\n\n", self.input_text.strip())]
 
-    def read_int_line_groups(self, filename):
+    def read_int_line_groups(self):
         self.inp = [
-            [int(n) for n in re.split("\n", g)]
-            for g in re.split("\n\n", Path(filename).read_text().strip())
+            [int(n) for n in re.split("\n", g)] for g in re.split("\n\n", self.input_text.strip())
         ]
 
-    def process_int_list(self, filename):
-        lines = Path(filename).read_text().splitlines()
+    def process_int_list(self):
+        lines = self.input_text.splitlines()
         self.inp = [list(map(int, re.findall(r"-?\d+", line))) for line in lines]
 
-    def process_int_int_dict(self, filename):
-        lines = Path(filename).read_text().splitlines()
+    def process_int_int_dict(self):
+        lines = self.input_text.splitlines()
         self.inp = {}
         for line in lines:
             parts = list(map(int, re.findall(r"-?\d+", line)))
             self.inp[parts[0]] = parts[1]
 
-    def process_int_list_dict(self, filename):
-        lines = Path(filename).read_text().splitlines()
+    def process_int_list_dict(self):
+        lines = self.input_text.splitlines()
         self.inp = {}
         for line in lines:
             parts = list(map(int, re.findall(r"-?\d+", line)))
             self.inp[parts[0]] = parts[1:]
+
+    def print_with_color(self, text, text_color="#FFFFFF", back_color="#000000", end="\n"):
+        from colored import attr, bg, fg
+
+        color = fg(text_color)
+        back = bg(back_color)
+        reset = attr("reset")
+        print(f"{color + back}" + text + f"{reset}", end=end)
 
     def solve_some_equation(self):
         x = Symbol("x")

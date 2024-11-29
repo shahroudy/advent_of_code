@@ -10,12 +10,12 @@ class CubeConundrum:
             left, right = line.split(":")
             id = int(left.split(" ")[1])
             game_sets = right.split(";")
-            mins = defaultdict(int)
+            mx = defaultdict(int)
             for game_set in game_sets:
                 for color_count in game_set.strip().split(","):
                     count, color = color_count.strip().split(" ")
-                    mins[color] = max(mins[color], int(count))
-            self.games[id] = mins
+                    mx[color] = max(mx[color], int(count))
+            self.games[id] = mx
 
     def is_possible(self, mins):
         return mins["red"] <= 12 and mins["green"] <= 13 and mins["blue"] <= 14
