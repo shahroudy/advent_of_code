@@ -39,6 +39,7 @@ class Puzzle:
         # self.process_map()
 
         # self.process()
+        # self.recursive_split("\n")
 
     def process(self):
         lines = self.input_text.splitlines()
@@ -56,7 +57,8 @@ class Puzzle:
 
     def recursive_split(self, seps, inp=None):
         if inp is None:
-            inp = self.input_text
+            self.inp = self.recursive_split(seps, self.input_text)
+            return self.inp
         if not seps:
             return inp
         if 1:  # should I strip the parts?
