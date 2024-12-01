@@ -1,31 +1,33 @@
-import os
+from itertools import combinations
+from pathlib import Path
 
-from myutils.file_reader import read_int_list
 from myutils.io_handler import get_input_data
 
-data = get_input_data(__file__)
-values = read_int_list(data.input_file)
 
-# first challenge, using dictionary
-d = {}
-for n in values:
-    if d.get(n, None) is not None:
-        print(n * d[n])
-    d[2020 - n] = n
+class ReportRepair:
+    def __init__(self, filename):
+        self.inp = {int(n) for n in Path(filename).read_text().splitlines()}
 
-# second challenge, using double dictionaries
-d = {}
-dd = {}
-for n in values:
-    if dd.get(n, None) is not None:
-        print(n * dd[n])
-    for k, v in d.items():
-        dd[k - n] = v * n
-    d[2020 - n] = n
+    def multiplication_of_two(self):
+        for n in self.inp:
+            if 2020 - n in self.inp:
+                return n * (2020 - n)
 
-# second challenge, using brute-force looping!
-for i in range(len(values)):
-    for j in range(i + 1, len(values)):
-        for k in range(j + 1, len(values)):
-            if values[i] + values[j] + values[k] == 2020:
-                print(values[i] * values[j] * values[k])
+    def multiplication_of_three(self):
+        for n, m in combinations(self.inp, 2):
+            if 2020 - n - m in self.inp:
+                return n * m * (2020 - n - m)
+
+
+if __name__ == "__main__":
+    data = get_input_data(__file__)
+
+    assert ReportRepair("sample1.txt").multiplication_of_two() == 514579
+    assert ReportRepair("sample1.txt").multiplication_of_three() == 241861950
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = ReportRepair(data.input_file)
+
+    print(puzzle.multiplication_of_two())
+    print(puzzle.multiplication_of_three())
