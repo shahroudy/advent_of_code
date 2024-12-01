@@ -2,6 +2,7 @@ import os
 import re
 from functools import reduce
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class Aplenty:
@@ -67,11 +68,11 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 19114, 167409079868000)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day19.txt'
-    puzzle = Aplenty(input_file)
+    puzzle = Aplenty(data.input_file)
     print(puzzle.sum_rating_accepted_parts())
     print(puzzle.count_accepted_distinct_combinations())

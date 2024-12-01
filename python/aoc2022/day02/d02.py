@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class RockPaperScissors:
@@ -34,10 +35,10 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", 15, 12)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day02.txt'
-    rock_paper_scissors = RockPaperScissors(input_file)
+    rock_paper_scissors = RockPaperScissors(data.input_file)
     print(rock_paper_scissors.total_score_first_strategy())
     print(rock_paper_scissors.total_score_second_strategy())

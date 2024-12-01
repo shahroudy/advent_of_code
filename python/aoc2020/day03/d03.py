@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_str_list
+from myutils.io_handler import get_input_data
 
 
 class TobogganMap:
@@ -18,6 +19,7 @@ class TobogganMap:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     tob_test = TobogganMap("test.txt")
     assert tob_test.calc_trees(1, 1) == 2
     assert tob_test.calc_trees(3, 1) == 7
@@ -25,8 +27,7 @@ if __name__ == "__main__":
     assert tob_test.calc_trees(7, 1) == 4
     assert tob_test.calc_trees(1, 2) == 2
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day03.txt'
-    tob_map = TobogganMap(input_file)
+    tob_map = TobogganMap(data.input_file)
     dxs = [1, 3, 5, 7, 1]
     dys = [1, 1, 1, 1, 2]
     cm = 1

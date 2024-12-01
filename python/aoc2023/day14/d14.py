@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict, deque
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class ParabolicReflectorDish:
@@ -102,11 +103,11 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 136, 64)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day14.txt'
-    puzzle = ParabolicReflectorDish(input_file)
+    puzzle = ParabolicReflectorDish(data.input_file)
     print(puzzle.load_after_single_tilt())
     print(puzzle.load_after_a_billion_cycles())

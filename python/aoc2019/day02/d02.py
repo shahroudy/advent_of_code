@@ -1,5 +1,7 @@
 import os
+
 from myutils.file_reader import read_int_list
+from myutils.io_handler import get_input_data
 
 
 def compute(prog, noun, verb):
@@ -22,10 +24,9 @@ def compute(prog, noun, verb):
         i += 4
     return prog[0]
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day02.txt'
 
-
-p = read_int_list(input_file)
+data = get_input_data(__file__)
+p = read_int_list(data.input_file)
 print(compute(p.copy(), 12, 2))
 
 for noun in range(100):

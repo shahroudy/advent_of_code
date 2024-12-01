@@ -1,6 +1,7 @@
 import os
 from itertools import combinations
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class CosmicExpansion:
@@ -34,6 +35,7 @@ class CosmicExpansion:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test = CosmicExpansion("sample1.txt")
     assert test.sum_distance_between_expanded_galaxies(2) == 374
     assert test.sum_distance_between_expanded_galaxies(10) == 1030
@@ -41,7 +43,6 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day11.txt'
-    puzzle = CosmicExpansion(input_file)
+    puzzle = CosmicExpansion(data.input_file)
     print(puzzle.sum_distance_between_expanded_galaxies())
     print(puzzle.sum_distance_between_expanded_galaxies(1000000))

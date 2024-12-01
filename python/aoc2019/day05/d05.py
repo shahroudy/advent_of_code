@@ -1,6 +1,7 @@
 import os
 from myutils.file_reader import read_int_list
 from collections import deque
+from myutils.io_handler import get_input_data
 
 
 class IntcodeComputer:
@@ -101,8 +102,8 @@ class IntcodeComputer:
 
 
 if __name__ == "__main__":
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day05.txt'
-    prog = read_int_list(input_file)
+    data = get_input_data(__file__)
+    prog = read_int_list(data.input_file)
     computer = IntcodeComputer(prog)
     print(computer.compute(deque([1])))
     print(computer.compute(deque([5])))

@@ -1,6 +1,7 @@
 import os
 from functools import cache
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class TheFloorWillBeLava:
@@ -88,11 +89,11 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 46, 51)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day16.txt'
-    puzzle = TheFloorWillBeLava(input_file)
+    puzzle = TheFloorWillBeLava(data.input_file)
     print(puzzle.top_left_beam_energized_count())
     print(puzzle.max_beam_energized_count())

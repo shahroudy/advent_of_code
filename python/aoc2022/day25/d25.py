@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from functools import cache
+from myutils.io_handler import get_input_data
 
 
 class FullOfHotAir:
@@ -42,8 +43,8 @@ def test_samples(filename, answer):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", "2=-1=0")
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day25.txt'
-    full_of_hot_air = FullOfHotAir(input_file)
+    full_of_hot_air = FullOfHotAir(data.input_file)
     print(full_of_hot_air.sum_of_snafu_numbers())

@@ -2,6 +2,7 @@ import os
 import math
 from collections import defaultdict, deque
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class MonitoringStation:
@@ -58,6 +59,7 @@ class MonitoringStation:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = MonitoringStation("test1.txt")
     assert test1.calc_visible_asteroids(3, 4) == 8
     assert test1.calc_visible_asteroids(4, 2) == 5
@@ -67,7 +69,6 @@ if __name__ == "__main__":
     assert test2.find_best_location() == (210, 11, 13)
     assert test2.find_200th_asteroid() == 802
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day10.txt'
-    station = MonitoringStation(input_file)
+    station = MonitoringStation(data.input_file)
     print(station.find_best_location())
     print(station.find_200th_asteroid())

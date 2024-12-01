@@ -1,10 +1,12 @@
 import os
 from collections import defaultdict
-from myutils.file_reader import read_int_list
-from aoc2019.day09.d09 import IntcodeComputer
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day11.txt'
-prog = read_int_list(input_file)
+from aoc2019.day09.d09 import IntcodeComputer
+from myutils.file_reader import read_int_list
+from myutils.io_handler import get_input_data
+
+data = get_input_data(__file__)
+prog = read_int_list(data.input_file)
 
 for puzzle in [1, 2]:
     panels = defaultdict(bool)  # false is black
@@ -26,7 +28,7 @@ for puzzle in [1, 2]:
         elif code == 1:
             panels[(x, y)] = True
         else:
-            raise Exception('Invalid output code!')
+            raise Exception("Invalid output code!")
         if puzzle == 1:
             painted.add((x, y))
         if move == 0:
@@ -48,10 +50,10 @@ for puzzle in [1, 2]:
             maxy = max(maxy, y)
 
         print()
-        for y in range(miny, maxy+1):
-            for x in range(minx, maxx+1):
+        for y in range(miny, maxy + 1):
+            for x in range(minx, maxx + 1):
                 if panels[(x, y)]:
-                    print('###', end='')
+                    print("###", end="")
                 else:
-                    print('   ', end='')
+                    print("   ", end="")
             print()

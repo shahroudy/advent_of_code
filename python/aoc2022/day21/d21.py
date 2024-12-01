@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from sympy import symbols, Eq, solve
+from myutils.io_handler import get_input_data
 
 
 class MonkeyMath:
@@ -37,10 +38,10 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", 152, 301)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day21.txt'
-    puzzle = MonkeyMath(input_file)
+    puzzle = MonkeyMath(data.input_file)
     print(puzzle.yell_root())
     print(puzzle.match_root())

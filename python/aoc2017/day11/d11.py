@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class HexEd:
@@ -33,6 +34,7 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 3, None)
     test_samples("sample2.txt", 0, None)
     test_samples("sample3.txt", 2, None)
@@ -40,7 +42,6 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2017_day11.txt'
-    puzzle = HexEd(input_file)
+    puzzle = HexEd(data.input_file)
     print(puzzle.final_dist)
     print(puzzle.farthest_dist)

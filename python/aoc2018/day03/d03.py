@@ -3,6 +3,7 @@ import re
 from collections import defaultdict
 from itertools import product
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class NoMatterHowYouSliceIt:
@@ -37,12 +38,12 @@ class NoMatterHowYouSliceIt:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = NoMatterHowYouSliceIt("test1.txt")
     assert test1.within_multiple_claims() == 4
     assert test1.id_of_no_overlapping_claim() == 3
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day03.txt'
-    puzzle = NoMatterHowYouSliceIt(input_file)
+    puzzle = NoMatterHowYouSliceIt(data.input_file)
     print(puzzle.within_multiple_claims())
     print(puzzle.id_of_no_overlapping_claim())

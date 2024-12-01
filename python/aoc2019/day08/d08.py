@@ -2,6 +2,7 @@ import os
 import re
 from collections import defaultdict
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class SpaceImage:
@@ -47,7 +48,7 @@ class SpaceImage:
 
 
 if __name__ == "__main__":
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day08.txt'
+    data = get_input_data(__file__)
     image = SpaceImage(input_file, 25, 6)
     print(image.calc())
     image.draw_image()

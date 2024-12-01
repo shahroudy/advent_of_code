@@ -2,6 +2,7 @@ import os
 import re
 from collections import defaultdict
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class LuggageProcessing:
@@ -56,13 +57,13 @@ class LuggageProcessing:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     luggage_test1 = LuggageProcessing("test1.txt")
     assert luggage_test1.contained_count("shiny gold") == 4
     luggage_test2 = LuggageProcessing("test2.txt")
     assert luggage_test2.contains_inside_count("shiny gold") == 126
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day07.txt'
-    luggage_proc = LuggageProcessing(input_file)
+    luggage_proc = LuggageProcessing(data.input_file)
     print(
         luggage_proc.contained_count("shiny gold"), luggage_proc.contains_inside_count("shiny gold")
     )

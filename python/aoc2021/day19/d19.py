@@ -32,6 +32,7 @@ rot24 = np.array(
         [[0, 1, 0], [0, 0, -1], [-1, 0, 0]],
     ]
 )
+from myutils.io_handler import get_input_data
 
 
 class BeaconScanner:
@@ -142,8 +143,8 @@ class BeaconScanner:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = BeaconScanner("test1.txt")
     assert test1.align_all_scanners() == (79, 3621)
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day19.txt'
-    beacon_scanner = BeaconScanner(input_file)
+    beacon_scanner = BeaconScanner(data.input_file)
     print(beacon_scanner.align_all_scanners())

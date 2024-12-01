@@ -1,6 +1,7 @@
 import os
 from myutils.file_reader import read_line_groups
 from myutils.matching import find_a_mapping
+from myutils.io_handler import get_input_data
 
 
 class TicketTranslator:
@@ -81,10 +82,10 @@ class TicketTranslator:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = TicketTranslator("test1.txt")
     assert test1.ticket_scanning_error_rate() == 71
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day16.txt'
-    ticket_translator = TicketTranslator(input_file)
+    ticket_translator = TicketTranslator(data.input_file)
     print(ticket_translator.ticket_scanning_error_rate())  # 23009
     print(ticket_translator.match_rules())  # 10458887314153

@@ -1,3 +1,9 @@
+import re
+from pathlib import Path
+
+from myutils.io_handler import get_input_data
+
+
 def trick_shot(x0, x1, y0, y1):
     maxy = -100
     count = 0
@@ -30,5 +36,7 @@ def trick_shot(x0, x1, y0, y1):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     assert trick_shot(20, 30, -10, -5) == (45, 112)
+    nums = list(map(int, re.findall(r"-?\d+", Path(data.input_file).read_text())))
     print(trick_shot(192, 251, -89, -59))

@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class ALongWalk:
@@ -99,11 +100,11 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 94, 154)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day23.txt'
-    puzzle = ALongWalk(input_file)
+    puzzle = ALongWalk(data.input_file)
     print(puzzle.longest_hike())
     print(puzzle.longest_hike(slopes=False))

@@ -1,6 +1,7 @@
 import os
 from collections import deque
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class HillClimbingAlgorithm:
@@ -48,10 +49,10 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", 31, 29)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day12.txt'
-    puzzle = HillClimbingAlgorithm(input_file)
+    puzzle = HillClimbingAlgorithm(data.input_file)
     print(puzzle.start_to_E_dist())
     print(puzzle.min_a_to_E_dist())

@@ -5,6 +5,7 @@ from itertools import combinations
 from pathlib import Path
 
 from aoc2019.day09.d09 import IntcodeComputer
+from myutils.io_handler import get_input_data
 
 
 class Cryostasis:
@@ -131,14 +132,15 @@ class Cryostasis:
 
 
 if __name__ == "__main__":
-    file_name_template = f'{os.environ.get("aoc_inputs")}/aoc2019_day25'
+    data = get_input_data(__file__)
+    fn = data.input_file
 
-    assert Cryostasis(file_name_template + "_sample1.txt").run_droid() == 2228740
-    assert Cryostasis(file_name_template + "_sample2.txt").run_droid() == 11534338
-    assert Cryostasis(file_name_template + "_sample3.txt").run_droid() == 269520896
-    assert Cryostasis(file_name_template + "_sample4.txt").run_droid() == 529920
+    assert Cryostasis(fn.replace(".txt", "_sample1.txt")).run_droid() == 2228740
+    assert Cryostasis(fn.replace(".txt", "_sample2.txt")).run_droid() == 11534338
+    assert Cryostasis(fn.replace(".txt", "_sample3.txt")).run_droid() == 269520896
+    assert Cryostasis(fn.replace(".txt", "_sample4.txt")).run_droid() == 529920
 
     print("Tests passed, starting with the puzzle")
 
-    puzzle = Cryostasis(file_name_template + ".txt")
+    puzzle = Cryostasis(fn)
     print(puzzle.run_droid(show_announcements=True))

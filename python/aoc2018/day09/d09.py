@@ -1,6 +1,7 @@
 import os
 from collections import deque
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class MarbleMania:
@@ -23,6 +24,7 @@ class MarbleMania:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     assert MarbleMania("test1.txt").winnin_elf_score() == 32
     assert MarbleMania("test2.txt").winnin_elf_score() == 8317
@@ -31,7 +33,6 @@ if __name__ == "__main__":
     assert MarbleMania("test5.txt").winnin_elf_score() == 54718
     assert MarbleMania("test6.txt").winnin_elf_score() == 37305
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day09.txt'
-    marble_mania = MarbleMania(input_file)
+    marble_mania = MarbleMania(data.input_file)
     print(marble_mania.winnin_elf_score())
     print(marble_mania.winnin_elf_score(100))

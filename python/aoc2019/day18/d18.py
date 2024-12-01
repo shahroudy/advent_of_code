@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict, deque
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class ManyWorldsInterpretation:
@@ -161,6 +162,7 @@ class ManyWorldsInterpretation:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = ManyWorldsInterpretation("test1.txt")
     assert test1.shortest_path_to_collect_keys() == 8
 
@@ -188,7 +190,6 @@ if __name__ == "__main__":
     test9 = ManyWorldsInterpretation("test9.txt")
     assert test9.shortest_path_to_collect_keys(True) == 72
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day18.txt'
-    many_worlds_interpretation = ManyWorldsInterpretation(input_file)
+    many_worlds_interpretation = ManyWorldsInterpretation(data.input_file)
     print(many_worlds_interpretation.shortest_path_to_collect_keys(False))
     print(many_worlds_interpretation.shortest_path_to_collect_keys(True))

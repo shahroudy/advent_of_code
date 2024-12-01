@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_str_list
+from myutils.io_handler import get_input_data
 
 
 class Orbits:
@@ -34,11 +35,11 @@ class Orbits:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_orbits = Orbits("test1.txt")
     assert test_orbits.get_sum_all_orbits() == 42
     test_orbits = Orbits("test2.txt")
     assert test_orbits.calc_transitions("YOU", "SAN") == 4
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day06.txt'
-    orbits = Orbits(input_file)
+    orbits = Orbits(data.input_file)
     print(orbits.get_sum_all_orbits(), orbits.calc_transitions("YOU", "SAN"))

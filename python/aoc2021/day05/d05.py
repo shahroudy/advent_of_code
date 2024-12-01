@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class HydrothermalVenture:
@@ -30,11 +31,11 @@ class HydrothermalVenture:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = HydrothermalVenture("test1.txt")
     assert test1.count_overlaps(keep_diag=False) == 5
     assert test1.count_overlaps(keep_diag=True) == 12
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day05.txt'
-    hydrothermal_venture = HydrothermalVenture(input_file)
+    hydrothermal_venture = HydrothermalVenture(data.input_file)
     print(hydrothermal_venture.count_overlaps(keep_diag=False))
     print(hydrothermal_venture.count_overlaps(keep_diag=True))

@@ -1,6 +1,8 @@
 import os
-from myutils.file_reader import read_str_list
 import re
+
+from myutils.file_reader import read_str_list
+from myutils.io_handler import get_input_data
 
 
 def get_seat_number1(board_code: str):
@@ -34,11 +36,10 @@ def test_answers():
 
 
 if __name__ == "__main__":
-
+    data = get_input_data(__file__)
     test_answers()
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day05.txt'
-    passes = read_str_list(input_file)
+    passes = read_str_list(data.input_file)
 
     minn = pow(2, 20)
     maxn = 0

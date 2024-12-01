@@ -3,6 +3,7 @@ import re
 from functools import reduce
 from collections import deque, Counter
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class RecursiveCircus:
@@ -53,10 +54,10 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", "tknk", 60)
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2017_day07.txt'
-    puzzle = RecursiveCircus(input_file)
+    puzzle = RecursiveCircus(data.input_file)
     print(puzzle.bottom_program())
     print(puzzle.proper_weight_of_unbalanced_program())

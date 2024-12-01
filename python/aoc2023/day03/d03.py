@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class GearRatios:
@@ -64,11 +65,11 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 4361, 467835)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day03.txt'
-    puzzle = GearRatios(input_file)
+    puzzle = GearRatios(data.input_file)
     print(puzzle.sum_of_part_numbers_in_engine_schematic())
     print(puzzle.sum_of_gear_ratios())

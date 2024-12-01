@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict
 from myutils.file_reader import read_int_list
+from myutils.io_handler import get_input_data
 
 
 class Lanternfish:
@@ -21,12 +22,12 @@ class Lanternfish:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = Lanternfish("test1.txt")
     assert test1.simulate(18) == 26
     assert test1.simulate(80) == 5934
     assert test1.simulate(256) == 26984457539
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day06.txt'
-    lanternfish = Lanternfish(input_file)
+    lanternfish = Lanternfish(data.input_file)
     print(lanternfish.simulate(80))
     print(lanternfish.simulate(256))

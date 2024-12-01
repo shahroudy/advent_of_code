@@ -1,6 +1,7 @@
 import os
 from itertools import product
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class ChronalCoordinates:
@@ -70,12 +71,12 @@ class ChronalCoordinates:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = ChronalCoordinates("test1.txt")
     assert test1.largest_finite_area() == 17
     assert test1.area_of_the_region() == 16
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day06.txt'
-    chronal_coordinates = ChronalCoordinates(input_file)
+    chronal_coordinates = ChronalCoordinates(data.input_file)
     print(chronal_coordinates.largest_finite_area())
     print(chronal_coordinates.area_of_the_region(10000))

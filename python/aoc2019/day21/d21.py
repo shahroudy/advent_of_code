@@ -3,6 +3,7 @@ from collections import deque
 from pathlib import Path
 
 from aoc2019.day09.d09 import IntcodeComputer
+from myutils.io_handler import get_input_data
 
 
 class SpringdroidAdventure:
@@ -50,7 +51,7 @@ class SpringdroidAdventure:
 
 
 if __name__ == "__main__":
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day21.txt'
-    puzzle = SpringdroidAdventure(input_file)
+    data = get_input_data(__file__)
+    puzzle = SpringdroidAdventure(data.input_file)
     print(puzzle.hull_damage())
     print(puzzle.hull_damage(extended_sensor_mode=True))

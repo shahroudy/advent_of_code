@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from collections import deque
+from myutils.io_handler import get_input_data
 
 
 class CathodeRayTube:
@@ -42,9 +43,9 @@ def test_samples(filename, answer):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", 13140)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day10.txt'
-    cathode_ray_tube = CathodeRayTube(input_file)
+    cathode_ray_tube = CathodeRayTube(data.input_file)
     print(cathode_ray_tube.sum_signal_strengths(printer=True))

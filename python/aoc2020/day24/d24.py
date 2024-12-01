@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict, deque
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class LobbyLayout:
@@ -77,13 +78,13 @@ class LobbyLayout:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = LobbyLayout("test1.txt")
     assert test1.count_black_tiles() == 10
     assert test1.count_black_afte_flipping(1) == 15
     assert test1.count_black_afte_flipping(10) == 37
     assert test1.count_black_afte_flipping(100) == 2208
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day24.txt'
-    lobby_layout = LobbyLayout(input_file)
+    lobby_layout = LobbyLayout(data.input_file)
     print(lobby_layout.count_black_tiles())
     print(lobby_layout.count_black_afte_flipping(100))

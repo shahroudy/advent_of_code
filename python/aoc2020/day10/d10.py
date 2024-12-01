@@ -1,6 +1,7 @@
 import os
 from itertools import combinations
 from myutils.file_reader import read_int_list
+from myutils.io_handler import get_input_data
 
 
 class AdapterArray:
@@ -29,6 +30,7 @@ class AdapterArray:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = AdapterArray("test1.txt")
     assert test1.calc_jolt_diffs() == 35
     assert test1.calc_overall_combinations() == 8
@@ -37,7 +39,6 @@ if __name__ == "__main__":
     assert test2.calc_jolt_diffs() == 220
     assert test2.calc_overall_combinations() == 19208
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day10.txt'
-    some = AdapterArray(input_file)
+    some = AdapterArray(data.input_file)
     print(some.calc_jolt_diffs())
     print(some.calc_overall_combinations())

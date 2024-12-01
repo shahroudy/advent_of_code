@@ -1,4 +1,7 @@
 from collections import defaultdict
+from pathlib import Path
+
+from myutils.io_handler import get_input_data
 
 
 class ChronalCharge:
@@ -58,7 +61,7 @@ class ChronalCharge:
 
 
 if __name__ == "__main__":
-
+    data = get_input_data(__file__)
     test1 = ChronalCharge(18)
     assert test1.calc1() == "33,45"
     assert test1.calc2() == "90,269,16"
@@ -67,6 +70,6 @@ if __name__ == "__main__":
     assert test2.calc1() == "21,61"
     assert test2.calc2() == "232,251,12"
 
-    chronal_charge = ChronalCharge(5719)
+    chronal_charge = ChronalCharge(int(Path(data.input_file).read_text().strip()))
     print(chronal_charge.calc1())
     print(chronal_charge.calc2())

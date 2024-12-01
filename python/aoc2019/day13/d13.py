@@ -3,6 +3,7 @@ import os, time
 from collections import defaultdict
 from myutils.file_reader import read_int_list
 from aoc2019.day09.d09 import IntcodeComputer
+from myutils.io_handler import get_input_data
 
 
 class CarePackage:
@@ -92,7 +93,7 @@ class CarePackage:
 
 
 if __name__ == "__main__":
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day13.txt'
-    care_package = CarePackage(input_file)
+    data = get_input_data(__file__)
+    care_package = CarePackage(data.input_file)
     print(care_package.count_blocks())
     print(care_package.play_arcade(display=False))

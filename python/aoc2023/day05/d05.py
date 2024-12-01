@@ -1,6 +1,7 @@
 import os
 import re
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class IfYouGiveASeedAFertilizer:
@@ -82,11 +83,11 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 35, 46)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day05.txt'
-    puzzle = IfYouGiveASeedAFertilizer(input_file)
+    puzzle = IfYouGiveASeedAFertilizer(data.input_file)
     print(puzzle.min_location_for_input_seeds())
     print(puzzle.min_location_for_input_seed_ranges())

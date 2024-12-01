@@ -1,6 +1,7 @@
 import os
 import re
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class PacketScanners:
@@ -39,11 +40,11 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 24, 10)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2017_day13.txt'
-    puzzle = PacketScanners(input_file)
+    puzzle = PacketScanners(data.input_file)
     print(puzzle.trip_severity())
     print(puzzle.delay_not_to_get_caught())

@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class PipeMaze:
@@ -79,6 +80,7 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 4, 1)
     test_samples("sample2.txt", 8, 1)
     test_samples("sample3.txt", None, 4)
@@ -87,7 +89,6 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day10.txt'
-    puzzle = PipeMaze(input_file)
+    puzzle = PipeMaze(data.input_file)
     print(puzzle.loop_length())
     print(puzzle.count_inner_points())

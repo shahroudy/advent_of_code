@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict, deque, Counter
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class PassagePathing:
@@ -38,6 +39,7 @@ class PassagePathing:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = PassagePathing("test1.txt")
     assert test1.count_paths() == 10
     assert test1.count_paths(single_small_twice=True) == 36
@@ -48,7 +50,6 @@ if __name__ == "__main__":
     assert test3.count_paths() == 226
     assert test3.count_paths(single_small_twice=True) == 3509
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day12.txt'
-    passage_pathing = PassagePathing(input_file)
+    passage_pathing = PassagePathing(data.input_file)
     print(passage_pathing.count_paths())
     print(passage_pathing.count_paths(True))

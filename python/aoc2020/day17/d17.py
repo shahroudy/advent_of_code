@@ -2,6 +2,7 @@ import os
 from collections import defaultdict
 from itertools import product
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class ConwayCubes:
@@ -59,11 +60,11 @@ class ConwayCubes:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = ConwayCubes("test1.txt")
     assert test1.iterate_and_calculate(dims=3, cycles=6) == 112
     assert test1.iterate_and_calculate(dims=4, cycles=6) == 848
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day17.txt'
-    conway_cubes = ConwayCubes(input_file)
+    conway_cubes = ConwayCubes(data.input_file)
     print(conway_cubes.iterate_and_calculate(dims=3, cycles=6))
     print(conway_cubes.iterate_and_calculate(dims=4, cycles=6))

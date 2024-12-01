@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class DumboOctopus:
@@ -60,9 +61,9 @@ class DumboOctopus:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = DumboOctopus("test1.txt")
     assert test1.analyse_flashes() == (1656, 195)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day11.txt'
-    dumbo_octopus = DumboOctopus(input_file)
+    dumbo_octopus = DumboOctopus(data.input_file)
     print(dumbo_octopus.analyse_flashes())

@@ -1,6 +1,7 @@
 import os
 from myutils.file_reader import read_lines
 from copy import deepcopy
+from myutils.io_handler import get_input_data
 
 
 class SeatingSystem:
@@ -101,11 +102,11 @@ class SeatingSystem:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = SeatingSystem("test1.txt")
     assert test1.calc_final_state(1) == 37
     assert test1.calc_final_state(2) == 26
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day11.txt'
-    some = SeatingSystem(input_file)
+    some = SeatingSystem(data.input_file)
     print(some.calc_final_state(1))
     print(some.calc_final_state(2))

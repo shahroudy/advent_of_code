@@ -3,6 +3,7 @@ from collections import defaultdict, deque
 from itertools import product
 from myutils.file_reader import read_int_list
 from aoc2019.day09.d09 import IntcodeComputer
+from myutils.io_handler import get_input_data
 
 
 class TractorBeam:
@@ -38,8 +39,8 @@ class TractorBeam:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day19.txt'
-    puzzle = TractorBeam(input_file)
+    puzzle = TractorBeam(data.input_file)
     print(puzzle.affected_in_50x50())
     print(puzzle.detect_100x100_square())

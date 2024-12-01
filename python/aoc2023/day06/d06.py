@@ -2,6 +2,7 @@ import math
 import os
 import re
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class WaitForIt:
@@ -46,11 +47,11 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 288, 71503)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day06.txt'
-    puzzle = WaitForIt(input_file)
+    puzzle = WaitForIt(data.input_file)
     print(puzzle.ways_to_beat_records())
     print(puzzle.ways_to_beat_the_combined_record())

@@ -2,7 +2,9 @@ import os
 import re
 from collections import *
 from itertools import *
+
 from myutils.file_reader import *
+from myutils.io_handler import get_input_data
 
 # TODO: Code cleanup :D
 
@@ -14,10 +16,10 @@ def listtonum(s):
     n2 = int("".join(s), 2)
     return min(n1, n2)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day20.txt'
 
+data = get_input_data(__file__)
 
-gr = read_line_groups(input_file)
+gr = read_line_groups(data.input_file)
 # gr = read_line_groups('test1.txt')
 
 tileedges = defaultdict(list)

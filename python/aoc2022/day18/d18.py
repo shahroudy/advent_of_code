@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from functools import cache
+from myutils.io_handler import get_input_data
 
 
 class BoilingBoulders:
@@ -43,10 +44,10 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", 64, 58)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day18.txt'
-    boiling_boulders = BoilingBoulders(input_file)
+    boiling_boulders = BoilingBoulders(data.input_file)
     print(boiling_boulders.open_sides())
     print(boiling_boulders.reachable_sides())

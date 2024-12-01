@@ -1,6 +1,7 @@
 import os
 import re
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class Trebuchet:
@@ -36,12 +37,12 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 142, None)
     test_samples("sample2.txt", None, 281)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day01.txt'
-    puzzle = Trebuchet(input_file)
+    puzzle = Trebuchet(data.input_file)
     print(puzzle.sum_of_first_and_last_digits())
     print(puzzle.sum_of_first_and_last_alphanumeric_digits())

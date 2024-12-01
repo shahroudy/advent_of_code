@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_line_groups
+from myutils.io_handler import get_input_data
 
 
 class SubterraneanSustainability:
@@ -30,11 +31,11 @@ class SubterraneanSustainability:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = SubterraneanSustainability("test1.txt")
     assert test1.sum_of_planted_pots() == 325
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day12.txt'
-    ss = SubterraneanSustainability(input_file)
+    ss = SubterraneanSustainability(data.input_file)
     print(ss.sum_of_planted_pots())
     print(ss.sum_of_planted_pots(50000000000))

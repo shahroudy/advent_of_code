@@ -1,6 +1,7 @@
 import os
 from functools import reduce
 from myutils.file_reader import read_line_groups
+from myutils.io_handler import get_input_data
 
 
 class CustomList:
@@ -25,10 +26,10 @@ class CustomList:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_custom_list = CustomList("test.txt")
     assert test_custom_list.calc_anyone() == 11
     assert test_custom_list.calc_everyone() == 6
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day06.txt'
-    custom_list = CustomList(input_file)
+    custom_list = CustomList(data.input_file)
     print(custom_list.calc_anyone(), custom_list.calc_everyone())

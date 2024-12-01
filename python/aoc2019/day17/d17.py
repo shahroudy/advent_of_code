@@ -2,6 +2,7 @@ import os
 from collections import defaultdict, deque
 from myutils.file_reader import read_int_list
 from aoc2019.day09.d09 import IntcodeComputer
+from myutils.io_handler import get_input_data
 
 
 class SetAndForget:
@@ -109,7 +110,7 @@ class SetAndForget:
 
 
 if __name__ == "__main__":
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day17.txt'
-    sg = SetAndForget(input_file)
+    data = get_input_data(__file__)
+    sg = SetAndForget(data.input_file)
     sg.alignment()
     sg.cleaning()

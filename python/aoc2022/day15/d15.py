@@ -1,6 +1,7 @@
 import os
 import re
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class BeaconExclusionZone:
@@ -46,10 +47,10 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", 26, 56000011)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day15.txt'
-    beacon_exclusion_zone = BeaconExclusionZone(input_file)
+    beacon_exclusion_zone = BeaconExclusionZone(data.input_file)
     print(beacon_exclusion_zone.no_beacon_count_in_row(2000000))
     print(beacon_exclusion_zone.tuning_freq_of_hidden_beacon(4000000))

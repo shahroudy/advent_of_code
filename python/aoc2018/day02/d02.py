@@ -1,6 +1,7 @@
 import os
 from collections import Counter
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class InventoryManagementSystem:
@@ -43,11 +44,11 @@ class InventoryManagementSystem:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = InventoryManagementSystem("test1.txt")
     assert test1.common_in_box_ids() == "fgij"
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day02.txt'
-    ims = InventoryManagementSystem(input_file)
+    ims = InventoryManagementSystem(data.input_file)
     print(ims.checksum())
     print(ims.common_in_box_ids())

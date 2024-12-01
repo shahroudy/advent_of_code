@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_int_list
+from myutils.io_handler import get_input_data
 
 
 class SonarSweep:
@@ -19,12 +20,12 @@ class SonarSweep:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = SonarSweep("test1.txt")
     assert test1.depth_increments() == 7
     assert test1.depth_windows_increments() == 5
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day01.txt'
-    sonar_sweep = SonarSweep(input_file)
+    sonar_sweep = SonarSweep(data.input_file)
     print(
         sonar_sweep.depth_increments(),
         sonar_sweep.depth_windows_increments(),

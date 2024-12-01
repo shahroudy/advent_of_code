@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class SeaCucumber:
@@ -46,9 +47,9 @@ class SeaCucumber:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = SeaCucumber("test1.txt")
     assert test1.move_sea_cucumbers() == 58
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day25.txt'
-    sea_cucumber = SeaCucumber(input_file)
+    sea_cucumber = SeaCucumber(data.input_file)
     print(sea_cucumber.move_sea_cucumbers())

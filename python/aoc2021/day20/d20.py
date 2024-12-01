@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_line_groups
+from myutils.io_handler import get_input_data
 
 
 class TrenchMap:
@@ -67,12 +68,12 @@ class TrenchMap:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = TrenchMap("test1.txt")
     assert test1.iterative_enhancement(2) == 35
     assert test1.iterative_enhancement(50) == 3351
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day20.txt'
-    trench_map = TrenchMap(input_file)
+    trench_map = TrenchMap(data.input_file)
     print(trench_map.iterative_enhancement(2))
     print(trench_map.iterative_enhancement(50))

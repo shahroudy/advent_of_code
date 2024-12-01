@@ -1,5 +1,9 @@
+import re
 from collections import defaultdict
-from itertools import product, permutations
+from itertools import permutations, product
+from pathlib import Path
+
+from myutils.io_handler import get_input_data
 
 
 class DiracDice:
@@ -55,10 +59,13 @@ class DiracDice:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = DiracDice(4, 8)
     assert test1.deterministic_dice() == 739785
     assert test1.quantum_dice() == 444356092776315
 
-    dirac_dice = DiracDice(8, 3)
+    nums = list(map(int, re.findall(r"\d+", Path(data.input_file).read_text())))
+    nums = nums[1::2]
+    dirac_dice = DiracDice(*nums)
     print(dirac_dice.deterministic_dice())
     print(dirac_dice.quantum_dice())

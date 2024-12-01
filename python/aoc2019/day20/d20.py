@@ -5,6 +5,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from myutils.graph_funcs import shortest_path, simplify_graph
+from myutils.io_handler import get_input_data
 
 
 class DonutMaze:
@@ -97,13 +98,13 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 23, 26)
     test_samples("sample2.txt", 58, None)
     test_samples("sample3.txt", None, 396)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day20.txt'
-    puzzle = DonutMaze(input_file)
+    puzzle = DonutMaze(data.input_file)
     print(puzzle.steps_in_single_space())
     print(puzzle.steps_in_recursive_spaces())

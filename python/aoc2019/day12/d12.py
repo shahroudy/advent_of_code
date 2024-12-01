@@ -3,6 +3,7 @@ import re
 from collections import defaultdict
 from myutils.file_reader import read_lines
 from myutils.factorization import Factorization
+from myutils.io_handler import get_input_data
 
 
 class NBody:
@@ -84,6 +85,7 @@ class NBody:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = NBody("test1.txt")
     assert test1.simulate(10) == 179
     assert test1.find_cycle() == 2772
@@ -91,7 +93,6 @@ if __name__ == "__main__":
     assert test2.simulate(100) == 1940
     assert test2.find_cycle() == 4686774924
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day12.txt'
-    n_body = NBody(input_file)
+    n_body = NBody(data.input_file)
     print(n_body.simulate(1000))
     print(n_body.find_cycle())

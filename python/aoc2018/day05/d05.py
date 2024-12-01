@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class AlchemicalReduction:
@@ -22,12 +23,12 @@ class AlchemicalReduction:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = AlchemicalReduction("test1.txt")
     assert test1.size_after_reaction() == 10
     assert test1.min_size_after_elimination() == 4
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day05.txt'
-    alchemical_reduction = AlchemicalReduction(input_file)
+    alchemical_reduction = AlchemicalReduction(data.input_file)
     print(alchemical_reduction.size_after_reaction())
     print(alchemical_reduction.min_size_after_elimination())

@@ -1,6 +1,8 @@
 import re
 from pathlib import Path
 
+from myutils.io_handler import get_input_data
+
 
 class CampCleanup:
     def __init__(self, filename):
@@ -32,9 +34,9 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
-
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 2, 4)
 
-    camp_cleanup = CampCleanup("input.txt")
+    camp_cleanup = CampCleanup(data.input_file)
     print(camp_cleanup.sub_super_set_count())
     print(camp_cleanup.overlapping_count())

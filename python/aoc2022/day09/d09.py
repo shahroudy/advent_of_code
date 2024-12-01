@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from numpy import sign
+from myutils.io_handler import get_input_data
 
 
 class RopeBridge:
@@ -31,11 +32,11 @@ def test_samples(filename, parameter, answer):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", 2, 13)
     test_samples("sample2.txt", 10, 36)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day09.txt'
-    rope_bridge = RopeBridge(input_file)
+    rope_bridge = RopeBridge(data.input_file)
     print(rope_bridge.pull_the_damn_rope())
     print(rope_bridge.pull_the_damn_rope(10))

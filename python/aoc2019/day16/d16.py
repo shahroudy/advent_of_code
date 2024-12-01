@@ -1,6 +1,7 @@
 import os
 
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class FFT:
@@ -69,6 +70,7 @@ class FFT_Efficient:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     fft1 = FFT("test1.txt")
     assert fft1.process(4) == "01029498"
     fft2 = FFT("test2.txt")
@@ -85,10 +87,9 @@ if __name__ == "__main__":
     fft7 = FFT("test7.txt", 10000, True)
     assert fft7.process() == "53553731"
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day16.txt'
-    fft = FFT(input_file)
+    fft = FFT(data.input_file)
     print(fft.process())
     fft = FFT(input_file, 10000, True)
     print(fft.process())
-    fft = FFT_Efficient(input_file)
+    fft = FFT_Efficient(data.input_file)
     print(fft.process())

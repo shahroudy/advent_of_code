@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class Snailfish:
@@ -111,6 +112,7 @@ class Snailfish:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     # Test Explode Funcion
     assert Snailfish([[[[[9, 8], 1], 2], 3], 4]).explode() == [
@@ -183,7 +185,6 @@ if __name__ == "__main__":
     assert test5.max_pairwise_sum_magnitude() == 3993
 
     # Solve the Puzzle Input
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day18.txt'
-    snailfish = Snailfish(input_file)
+    snailfish = Snailfish(data.input_file)
     print(snailfish.final_sum_magnitude())
     print(snailfish.max_pairwise_sum_magnitude())

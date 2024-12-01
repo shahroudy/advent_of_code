@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class MonkeyMap:
@@ -121,10 +122,10 @@ def test_samples(filename, answer):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", 6032)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day22.txt'
-    puzzle = MonkeyMap(input_file)
+    puzzle = MonkeyMap(data.input_file)
     print(puzzle.final_password())
     print(puzzle.final_password(simple_wrap=False))

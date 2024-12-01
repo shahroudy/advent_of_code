@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class GameConsole:
@@ -74,10 +75,10 @@ class GameConsole:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = GameConsole("test1.txt")
     assert test1.run() == 5
     assert test1.run_with_correction() == 8
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day08.txt'
-    console = GameConsole(input_file)
+    console = GameConsole(data.input_file)
     print(console.run(), console.run_with_correction())

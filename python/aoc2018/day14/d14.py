@@ -1,3 +1,8 @@
+from pathlib import Path
+
+from myutils.io_handler import get_input_data
+
+
 class ChocolateCharts:
     def __init__(self):
         self.init_recipes = "37"
@@ -28,6 +33,7 @@ class ChocolateCharts:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test = ChocolateCharts()
     assert test.calc1(9) == "5158916779"
     assert test.calc1(5) == "0124515891"
@@ -41,5 +47,6 @@ if __name__ == "__main__":
     print("Tests passed, starting with the puzzle")
 
     puzzle = ChocolateCharts()
-    print(puzzle.calc1(165061))
-    print(puzzle.calc2("165061"))
+    num = Path(data.input_file).read_text().strip()
+    print(puzzle.calc1(int(num)))
+    print(puzzle.calc2(num))

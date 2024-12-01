@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict
 from myutils.file_reader import read_line_groups
+from myutils.io_handler import get_input_data
 
 
 class ExtendedPolymerization:
@@ -38,12 +39,12 @@ class ExtendedPolymerization:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = ExtendedPolymerization("test1.txt")
     assert test1.simulate_polymerization(steps=10) == 1588
     assert test1.simulate_polymerization(steps=40) == 2188189693529
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day14.txt'
-    extended_polymerization = ExtendedPolymerization(input_file)
+    extended_polymerization = ExtendedPolymerization(data.input_file)
     print(extended_polymerization.simulate_polymerization(steps=10))
     print(extended_polymerization.simulate_polymerization(steps=40))

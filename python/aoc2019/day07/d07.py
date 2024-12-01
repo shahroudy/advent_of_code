@@ -3,6 +3,7 @@ from collections import deque
 from itertools import permutations
 from myutils.file_reader import read_int_list
 from aoc2019.day05.d05 import IntcodeComputer
+from myutils.io_handler import get_input_data
 
 
 class AmplifireControl:
@@ -38,6 +39,7 @@ class AmplifireControl:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = AmplifireControl([3, 15, 3, 16, 1002, 16, 10, 16, 1, 16, 15, 15, 4, 15, 99, 0, 0])
     assert test1.compute_signal([4, 3, 2, 1, 0]) == 43210
     test2 = AmplifireControl(
@@ -207,8 +209,7 @@ if __name__ == "__main__":
     )
     assert test5.compute_signal_feedback_loop([9, 7, 8, 5, 6]) == 18216
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day07.txt'
-    prog = read_int_list(input_file)
+    prog = read_int_list(data.input_file)
     controler = AmplifireControl(prog)
     max_out_signal = 0
     for p in permutations(list(range(5))):

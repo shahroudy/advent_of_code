@@ -1,6 +1,7 @@
 import os
 from itertools import product
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class StepCounter:
@@ -87,12 +88,12 @@ class StepCounter:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test = StepCounter("sample1.txt")
     assert test.simple_garden_plots_count(steps=6) == 16
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day21.txt'
-    puzzle = StepCounter(input_file)
+    puzzle = StepCounter(data.input_file)
     print(puzzle.simple_garden_plots_count(steps=64))
     print(puzzle.garden_plots_in_indefinite_map(iterations=26501365))

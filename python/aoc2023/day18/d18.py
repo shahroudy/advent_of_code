@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class LavaductLagoon:
@@ -81,11 +82,11 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 62, 952408144115)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day18.txt'
-    puzzle = LavaductLagoon(input_file)
+    puzzle = LavaductLagoon(data.input_file)
     print(puzzle.digged_area())
     print(puzzle.digged_area(swapped=True))

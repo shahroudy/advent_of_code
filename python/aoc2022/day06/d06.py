@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class TuningTrouble:
@@ -19,10 +20,10 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", 7, 19)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day06.txt'
-    tuning_trouble = TuningTrouble(input_file)
+    tuning_trouble = TuningTrouble(data.input_file)
     print(tuning_trouble.char_count(4))
     print(tuning_trouble.char_count(14))

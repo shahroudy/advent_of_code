@@ -1,6 +1,7 @@
 import os
 from functools import reduce
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class PacketDecoder:
@@ -74,6 +75,7 @@ class PacketDecoder:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = PacketDecoder(input="D2FE28")
     assert test1.result == 2021
@@ -120,6 +122,5 @@ if __name__ == "__main__":
     test15 = PacketDecoder(input="9C0141080250320F1802104A08")
     assert test15.result == 1
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day16.txt'
     packet_decoder = PacketDecoder(filename=input_file)
     print(packet_decoder.sum_versions, packet_decoder.result)

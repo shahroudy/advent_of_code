@@ -6,6 +6,7 @@ from pathlib import Path
 
 import networkx as nx
 from myutils.graph_funcs import path_counter
+from myutils.io_handler import get_input_data
 
 
 class Snowverload:
@@ -47,11 +48,11 @@ class Snowverload:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test = Snowverload("sample1.txt")
     assert test.cut_three_wires() == 54
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day25.txt'
-    puzzle = Snowverload(input_file)
+    puzzle = Snowverload(data.input_file)
     print(puzzle.cut_three_wires())

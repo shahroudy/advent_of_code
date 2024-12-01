@@ -2,6 +2,7 @@ import heapq as hq
 import os
 from collections import defaultdict
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class ClumsyCrucible:
@@ -67,13 +68,12 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 102, 94)
     test_samples("sample2.txt", None, 71)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day17.txt'
-
-    puzzle = ClumsyCrucible(input_file)
+    puzzle = ClumsyCrucible(data.input_file)
     print(puzzle.minimum_heat_loss())
     print(puzzle.minimum_heat_loss(4, 10))

@@ -4,6 +4,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from myutils.matching import find_a_mapping_dic
+from myutils.io_handler import get_input_data
 
 
 class ChronalClassification:
@@ -76,7 +77,7 @@ class ChronalClassification:
 
 
 if __name__ == "__main__":
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day16.txt'
-    puzzle = ChronalClassification(input_file)
+    data = get_input_data(__file__)
+    puzzle = ChronalClassification(data.input_file)
     print(puzzle.find_matches())
     print(puzzle.run_opcode_program())

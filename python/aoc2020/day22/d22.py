@@ -1,6 +1,7 @@
 import os
 from collections import deque
 from myutils.file_reader import read_line_groups
+from myutils.io_handler import get_input_data
 
 
 class CrabCombat:
@@ -59,13 +60,13 @@ class CrabCombat:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = CrabCombat("test1.txt")
     assert test1.combat() == 306
     assert test1.combat(recursive=True) == 291
     test2 = CrabCombat("test2.txt")
     assert test2.combat(recursive=True) > 0
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day22.txt'
-    carb_combat = CrabCombat(input_file)
+    carb_combat = CrabCombat(data.input_file)
     print(carb_combat.combat())
     print(carb_combat.combat(recursive=True))

@@ -1,3 +1,8 @@
+from pathlib import Path
+
+from myutils.io_handler import get_input_data
+
+
 class CrabCups:
     def __init__(self, input):
         self.cups = list(map(int, list(input)))
@@ -56,11 +61,13 @@ class CrabCups:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
+
     test1 = CrabCups("389125467")
     assert test1.play_cups(mode=1, moves=10) == "92658374"
     assert test1.play_cups(mode=1) == "67384529"
     assert test1.play_cups(mode=2) == 149245887792
 
-    carb_cups = CrabCups("523764819")
+    carb_cups = CrabCups(Path(data.input_file).read_text().strip())
     print(carb_cups.play_cups(mode=1))
     print(carb_cups.play_cups(mode=2))

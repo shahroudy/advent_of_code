@@ -1,8 +1,10 @@
 import os
-from myutils.file_reader import read_int_list
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day01.txt'
-lines = read_int_list(input_file)
+from myutils.file_reader import read_int_list
+from myutils.io_handler import get_input_data
+
+data = get_input_data(__file__)
+lines = read_int_list(data.input_file)
 
 s = 0
 s2 = 0

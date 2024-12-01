@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_int_list
+from myutils.io_handler import get_input_data
 
 
 class TheTreacheryOfWhales:
@@ -37,11 +38,11 @@ class TheTreacheryOfWhales:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = TheTreacheryOfWhales("test1.txt")
     assert test1.simple_align() == 37
     assert test1.full_align() == 168
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day07.txt'
-    treachery = TheTreacheryOfWhales(input_file)
+    treachery = TheTreacheryOfWhales(data.input_file)
     print(treachery.simple_align())
     print(treachery.full_align())

@@ -1,6 +1,7 @@
 import os
 from myutils.file_reader import read_str_list
 from myutils.factorization import Factorization
+from myutils.io_handler import get_input_data
 
 
 class ShuttleSearch:
@@ -50,12 +51,12 @@ class ShuttleSearch:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = ShuttleSearch("test1.txt")
     assert test1.find_earliest() == 295
     test2 = ShuttleSearch("test2.txt")
     assert test2.find_magic_time() == 3417
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day13.txt'
-    shuttle = ShuttleSearch(input_file)
+    shuttle = ShuttleSearch(data.input_file)
     print(shuttle.find_earliest())
     print(shuttle.find_magic_time())

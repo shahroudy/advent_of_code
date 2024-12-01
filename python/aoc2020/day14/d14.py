@@ -3,6 +3,7 @@ import re
 from collections import defaultdict
 from itertools import product
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class DockingData:
@@ -70,12 +71,12 @@ class DockingData:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = DockingData("test1.txt")
     assert test1.run(mode=1) == 165
     test2 = DockingData("test2.txt")
     assert test2.run(mode=2) == 208
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day14.txt'
-    dock = DockingData(input_file)
+    dock = DockingData(data.input_file)
     print(dock.run(mode=1))
     print(dock.run(mode=2))

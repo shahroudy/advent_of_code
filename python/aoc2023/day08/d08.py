@@ -2,6 +2,7 @@ import os
 import re
 from math import lcm
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class HauntedWasteland:
@@ -39,13 +40,13 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 2, None)
     test_samples("sample2.txt", 6, None)
     test_samples("sample3.txt", None, 6)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day08.txt'
-    puzzle = HauntedWasteland(input_file)
+    puzzle = HauntedWasteland(data.input_file)
     print(puzzle.navigate_human())
     print(puzzle.navigate_ghost())

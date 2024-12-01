@@ -2,6 +2,7 @@ import os
 import re
 from pathlib import Path
 from collections import defaultdict
+from myutils.io_handler import get_input_data
 
 
 class TheSumOfItsParts:
@@ -65,12 +66,12 @@ class TheSumOfItsParts:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = TheSumOfItsParts("test1.txt")
     assert test1.order_of_single_steps() == "CABDFE"
     assert test1.time_to_complete_with_workers() == 15
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day07.txt'
-    the_sum_of_its_parts = TheSumOfItsParts(input_file)
+    the_sum_of_its_parts = TheSumOfItsParts(data.input_file)
     print(the_sum_of_its_parts.order_of_single_steps())
     print(the_sum_of_its_parts.time_to_complete_with_workers(5, 60))

@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class SevenSegmentSearch:
@@ -95,11 +96,11 @@ class SevenSegmentSearch:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test2 = SevenSegmentSearch("test2.txt")
     assert test2.count_simple_digits() == 26
     assert test2.calc_full_matching_result() == 61229
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day08.txt'
-    seven_segment_search = SevenSegmentSearch(input_file)
+    seven_segment_search = SevenSegmentSearch(data.input_file)
     print(seven_segment_search.count_simple_digits())
     print(seven_segment_search.calc_full_matching_result())

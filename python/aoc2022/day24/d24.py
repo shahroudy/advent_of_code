@@ -4,6 +4,7 @@ from collections import defaultdict
 from itertools import product
 from pathlib import Path
 import heapq as hq
+from myutils.io_handler import get_input_data
 
 
 class BlizzardBasin:
@@ -84,9 +85,9 @@ def test_samples(filename, answer):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", (18, 54))
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day24.txt'
-    blizzard_basin = BlizzardBasin(input_file)
+    blizzard_basin = BlizzardBasin(data.input_file)
     print(blizzard_basin.reach_the_goal_with_snacks())

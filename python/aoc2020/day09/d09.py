@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_int_list
+from myutils.io_handler import get_input_data
 
 
 class ErrorDetector:
@@ -49,13 +50,13 @@ class ErrorDetector:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = ErrorDetector("test1.txt")
     assert test1.find_invalid(5) == 127
     assert test1.find_weakness(127) == 62
     assert test1.find_weakness_brute_force(127) == 62
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day09.txt'
-    detector = ErrorDetector(input_file)
+    detector = ErrorDetector(data.input_file)
     inval = detector.find_invalid(25)
     weakness = detector.find_weakness(inval)
     print(inval, weakness)

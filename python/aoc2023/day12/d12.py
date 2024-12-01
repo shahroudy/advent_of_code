@@ -2,6 +2,7 @@ import os
 import re
 from functools import cache
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class HotSprings:
@@ -96,6 +97,7 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 1, 1)
     test_samples("sample2.txt", 4, 16384)
     test_samples("sample3.txt", 1, 1)
@@ -105,7 +107,6 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2023_day12.txt'
-    puzzle = HotSprings(input_file)
+    puzzle = HotSprings(data.input_file)
     print(puzzle.sum_of_different_arrangements())
     print(puzzle.sum_of_different_arrangements(rep=5))

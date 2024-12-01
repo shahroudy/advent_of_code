@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class CalorieCounting:
@@ -23,9 +24,9 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 24000, 45000)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day01.txt'
-    calorie_counting = CalorieCounting(input_file)
+    calorie_counting = CalorieCounting(data.input_file)
     print(calorie_counting.max_cal_elf())
     print(calorie_counting.max_cal_three_elves())

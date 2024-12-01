@@ -1,6 +1,7 @@
 import os
 from functools import cache
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class PlanetOfDiscord:
@@ -105,11 +106,11 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 2129920, 99)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day24.txt'
-    puzzle = PlanetOfDiscord(input_file)
+    puzzle = PlanetOfDiscord(data.input_file)
     print(puzzle.first_repeating_biodiversity_rating())
     print(puzzle.bug_count_in_recursing_grids(iterations=200))

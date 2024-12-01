@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class StreamProcessing:
@@ -49,6 +50,7 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 5, None)
     test_samples("sample2.txt", 16, None)
     test_samples("sample3.txt", 1, None)
@@ -58,7 +60,6 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2017_day09.txt'
-    puzzle = StreamProcessing(input_file)
+    puzzle = StreamProcessing(data.input_file)
     print(puzzle.total_score())
     print(puzzle.non_cancelled_chars_in_garbage())

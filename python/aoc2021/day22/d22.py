@@ -1,6 +1,7 @@
 import os
 from time import time
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class ReactorReboot:
@@ -82,6 +83,7 @@ class ReactorReboot:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = ReactorReboot("test1.txt")
     assert test1.reboot(is_init=True) == 39
@@ -94,7 +96,6 @@ if __name__ == "__main__":
     assert test3.reboot(is_init=True) == 474140
     assert test3.reboot(is_init=False) == 2758514936282235
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day22.txt'
-    reactor_reboot = ReactorReboot(input_file)
+    reactor_reboot = ReactorReboot(data.input_file)
     print(reactor_reboot.reboot(is_init=True))
     print(reactor_reboot.reboot(is_init=False, verbose=True))

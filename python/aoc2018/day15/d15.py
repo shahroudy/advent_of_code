@@ -1,6 +1,7 @@
 import os
 from itertools import count
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class BeverageBandits:
@@ -78,6 +79,7 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 27730, 4988)
     test_samples("sample2.txt", 36334, None)
     test_samples("sample3.txt", 39514, 31284)
@@ -87,7 +89,6 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day15.txt'
-    puzzle = BeverageBandits(input_file)
+    puzzle = BeverageBandits(data.input_file)
     print(puzzle.run_battle())
     print(puzzle.run_flawless_battle_with_minimum_attack_power())

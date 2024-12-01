@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from myutils.file_reader import read_line_groups
+from myutils.io_handler import get_input_data
 
 
 class GiantSquidNP:
@@ -52,11 +53,11 @@ class GiantSquidNP:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = GiantSquidNP("test1.txt")
     assert test1.bingo_system() == 4512
     assert test1.last_to_bingo() == 1924
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day04.txt'
-    giant_squid = GiantSquidNP(input_file)
+    giant_squid = GiantSquidNP(data.input_file)
     print(giant_squid.bingo_system())
     print(giant_squid.last_to_bingo())

@@ -1,6 +1,7 @@
 import os
 from collections import deque
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class MemoryManeuver:
@@ -41,12 +42,12 @@ class MemoryManeuver:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = MemoryManeuver("test1.txt")
     assert test1.sum_metadata() == 138
     assert test1.root_value() == 66
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day08.txt'
-    memory_maneuver = MemoryManeuver(input_file)
+    memory_maneuver = MemoryManeuver(data.input_file)
     print(memory_maneuver.sum_metadata())
     print(memory_maneuver.root_value())

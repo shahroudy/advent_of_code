@@ -1,6 +1,7 @@
 import os
 from collections import deque
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class Chiton:
@@ -63,12 +64,12 @@ class Chiton:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = Chiton("test1.txt")
     assert test1.lowest_total_risk(False) == 40
     assert test1.lowest_total_risk(True) == 315
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day15.txt'
-    chiton = Chiton(input_file)
+    chiton = Chiton(data.input_file)
     print(chiton.lowest_total_risk(False))
     print(chiton.lowest_total_risk(True))

@@ -5,6 +5,7 @@ from itertools import *
 from myutils.file_reader import *
 
 MAX_REPEAT = 10
+from myutils.io_handler import get_input_data
 
 
 class MonsterMessages:
@@ -67,13 +68,13 @@ class MonsterMessages:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = MonsterMessages("test1.txt")
     assert test1.count_valid_lines(1) == 2
     test2 = MonsterMessages("test2.txt")
     assert test2.count_valid_lines(1) == 3
     assert test2.count_valid_lines(2) == 12
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day19.txt'
-    monster = MonsterMessages(input_file)
+    monster = MonsterMessages(data.input_file)
     print(monster.count_valid_lines(1))
     print(monster.count_valid_lines(2))

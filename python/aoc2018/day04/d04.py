@@ -2,6 +2,7 @@ import os
 import re
 from collections import defaultdict, Counter
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class ReposeRecord:
@@ -40,12 +41,12 @@ class ReposeRecord:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = ReposeRecord("test1.txt")
     assert test1.top_guard_strategy_1() == 240
     assert test1.top_guard_strategy_2() == 4455
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day04.txt'
-    repose_record = ReposeRecord(input_file)
+    repose_record = ReposeRecord(data.input_file)
     print(repose_record.top_guard_strategy_1())
     print(repose_record.top_guard_strategy_2())

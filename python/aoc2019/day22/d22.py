@@ -1,6 +1,7 @@
 import os
 import re
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class SlamShuffle:
@@ -72,6 +73,7 @@ def test_samples(filename, deck_size, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     assert SlamShuffle(filename="sample1.txt").shuffle_all_cards() == [0, 3, 6, 9, 2, 5, 8, 1, 4, 7]
     assert SlamShuffle(filename="sample2.txt").shuffle_all_cards() == [3, 0, 7, 4, 1, 8, 5, 2, 9, 6]
     assert SlamShuffle(filename="sample3.txt").shuffle_all_cards() == [6, 3, 0, 7, 4, 1, 8, 5, 2, 9]
@@ -79,7 +81,6 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day22.txt'
     puzzle = SlamShuffle(filename=input_file, deck_size=10007)
     print(puzzle.single_shuffle(2019))
     puzzle = SlamShuffle(filename=input_file, deck_size=119315717514047)

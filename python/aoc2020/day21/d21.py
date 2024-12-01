@@ -2,6 +2,7 @@ import os
 import re
 from collections import defaultdict
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class AllergenAssessment:
@@ -67,11 +68,11 @@ class AllergenAssessment:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = AllergenAssessment("test1.txt")
     assert test1.count_safe_ingredients() == 5
     assert test1.list_dangerous_ingredients() == "mxmxvkd,sqjhc,fvjkl"
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day21.txt'
-    allergen_assessment = AllergenAssessment(input_file)
+    allergen_assessment = AllergenAssessment(data.input_file)
     print(allergen_assessment.count_safe_ingredients())
     print(allergen_assessment.list_dangerous_ingredients())

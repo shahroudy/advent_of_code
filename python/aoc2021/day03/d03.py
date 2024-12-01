@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class BinaryDiagnostic:
@@ -78,11 +79,11 @@ class BinaryDiagnostic:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = BinaryDiagnostic("test1.txt")
     assert test1.power_consumption() == 198
     assert test1.life_support_rating() == 230
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day03.txt'
-    binary_diagnostic = BinaryDiagnostic(input_file)
+    binary_diagnostic = BinaryDiagnostic(data.input_file)
     print(binary_diagnostic.power_consumption())
     print(binary_diagnostic.life_support_rating())

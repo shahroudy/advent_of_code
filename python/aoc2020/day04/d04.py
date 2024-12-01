@@ -1,6 +1,8 @@
 import os
 import re
+
 from myutils.file_reader import read_str_list
+from myutils.io_handler import get_input_data
 
 
 def read_passport_lines(filename: str):
@@ -76,8 +78,8 @@ def validate_values(passport: dict):
 
 
 if __name__ == "__main__":
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day04.txt'
-    all_passports = read_dictionaries(input_file)
+    data = get_input_data(__file__)
+    all_passports = read_dictionaries(data.input_file)
 
     valid_keys_count = valid_values_count = 0
     for passport in all_passports:

@@ -2,6 +2,7 @@ import os
 import re
 from pathlib import Path
 import numpy
+from myutils.io_handler import get_input_data
 
 
 class TheStarsAlign:
@@ -29,5 +30,5 @@ class TheStarsAlign:
 
 
 if __name__ == "__main__":
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2018_day10.txt'
-    TheStarsAlign(input_file).fast_forward()
+    data = get_input_data(__file__)
+    TheStarsAlign(data.input_file).fast_forward()

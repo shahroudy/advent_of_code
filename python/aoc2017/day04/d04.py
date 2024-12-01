@@ -1,6 +1,7 @@
 import os
 from collections import Counter
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class HighEntropyPassphrases:
@@ -30,7 +31,7 @@ class HighEntropyPassphrases:
 
 
 if __name__ == "__main__":
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2017_day04.txt'
+    data = get_input_data(__file__)
 
     assert HighEntropyPassphrases("sample1.txt").number_of_simple_valid_passphrases() == 2
     assert (
@@ -39,6 +40,6 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    puzzle = HighEntropyPassphrases(input_file)
+    puzzle = HighEntropyPassphrases(data.input_file)
     print(puzzle.number_of_simple_valid_passphrases())
     print(puzzle.number_of_valid_passphrases_with_no_rearranging())

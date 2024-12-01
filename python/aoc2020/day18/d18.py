@@ -1,6 +1,7 @@
 import os
 import re
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class OperationOrder:
@@ -80,6 +81,7 @@ class OperationOrder:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = OperationOrder("test1.txt")
     assert test1.evaluate_sum_exps(mode=1) == 71
     assert test1.evaluate_sum_exps(mode=2) == 231
@@ -88,7 +90,6 @@ if __name__ == "__main__":
     test3 = OperationOrder("test3.txt")
     assert test3.evaluate_sum_exps(mode=2) == 23340
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day18.txt'
-    op_order = OperationOrder(input_file)
+    op_order = OperationOrder(data.input_file)
     print(op_order.evaluate_sum_exps(mode=1))
     print(op_order.evaluate_sum_exps(mode=2))

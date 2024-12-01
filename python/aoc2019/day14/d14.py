@@ -2,6 +2,7 @@ import os
 import regex
 from collections import defaultdict
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class SpaceStoichiometry:
@@ -85,6 +86,7 @@ class SpaceStoichiometry:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = SpaceStoichiometry("test1.txt")
     assert test1.needed_ORE_for_one_FUEL() == 165
     test2 = SpaceStoichiometry("test2.txt")
@@ -97,7 +99,6 @@ if __name__ == "__main__":
     assert test4.needed_ORE_for_one_FUEL() == 2210736
     assert test4.calc_FUEL_from_1T_ORE() == 460664
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day14.txt'
-    space_stoichiometry = SpaceStoichiometry(input_file)
+    space_stoichiometry = SpaceStoichiometry(data.input_file)
     print(space_stoichiometry.needed_ORE_for_one_FUEL())
     print(space_stoichiometry.calc_FUEL_from_1T_ORE())

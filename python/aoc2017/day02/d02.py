@@ -1,6 +1,7 @@
 import os
 import re
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class CorruptionChecksum:
@@ -38,12 +39,12 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 18, None)
     test_samples("sample2.txt", None, 9)
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2017_day02.txt'
-    puzzle = CorruptionChecksum(input_file)
+    puzzle = CorruptionChecksum(data.input_file)
     print(puzzle.max_min_checksum())
     print(puzzle.divisible_checksum())

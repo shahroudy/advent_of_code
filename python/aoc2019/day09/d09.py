@@ -2,6 +2,7 @@ import os
 from collections import defaultdict, deque
 
 from myutils.file_reader import read_int_list
+from myutils.io_handler import get_input_data
 
 
 class IntcodeComputer:
@@ -132,6 +133,7 @@ class IntcodeComputer:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = read_int_list("test1.txt")
     computer_test1 = IntcodeComputer(test1)
     assert computer_test1.compute(deque()) == deque(test1)
@@ -145,8 +147,7 @@ if __name__ == "__main__":
     computer_test3 = IntcodeComputer(test3)
     assert computer_test3.compute(deque()).pop() == 1125899906842624
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day09.txt'
-    prog = read_int_list(input_file)
+    prog = read_int_list(data.input_file)
     computer = IntcodeComputer(prog)
     print(computer.compute(deque([1])))
     print(computer.compute(deque([2])))

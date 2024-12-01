@@ -2,6 +2,7 @@ import os
 from numpy import product
 from collections import defaultdict
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class SmokeBasin:
@@ -73,11 +74,11 @@ class SmokeBasin:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = SmokeBasin("test1.txt")
     assert test1.low_points() == 15
     assert test1.largest_basins() == 1134
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day09.txt'
-    smoke_basin = SmokeBasin(input_file)
+    smoke_basin = SmokeBasin(data.input_file)
     print(smoke_basin.low_points())
     print(smoke_basin.largest_basins())

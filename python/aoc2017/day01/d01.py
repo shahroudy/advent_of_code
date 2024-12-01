@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class InverseCaptcha:
@@ -28,6 +29,7 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 3, None)
     test_samples("sample2.txt", 4, None)
     test_samples("sample3.txt", None, 0)
@@ -37,7 +39,6 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2017_day01.txt'
-    puzzle = InverseCaptcha(input_file)
+    puzzle = InverseCaptcha(data.input_file)
     print(puzzle.solve_with_next_item())
     print(puzzle.solve_with_halfway_around())

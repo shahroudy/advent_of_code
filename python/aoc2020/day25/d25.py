@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_int_list
+from myutils.io_handler import get_input_data
 
 
 class RFID:
@@ -42,9 +43,9 @@ class ComboBreaker:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = ComboBreaker("test1.txt")
     assert test1.calc_handshake_encryption_key() == 14897079
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day25.txt'
-    handshake = ComboBreaker(input_file)
+    handshake = ComboBreaker(data.input_file)
     print(handshake.calc_handshake_encryption_key())

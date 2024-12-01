@@ -2,6 +2,7 @@ import os
 from collections import deque
 from functools import reduce
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class KnotHash:
@@ -47,6 +48,7 @@ def test_samples(filename, answer1, answer2, array_len=256):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test_samples("sample1.txt", 12, None, 5)
     test_samples("sample2.txt", None, "a2582a3a0e66e6e86e3812dcb672a272")
     test_samples("sample3.txt", None, "33efeb34ea91902bb2f59c9920caa6cd")
@@ -55,7 +57,6 @@ if __name__ == "__main__":
 
     print("Tests passed, starting with the puzzle")
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2017_day10.txt'
-    puzzle = KnotHash(input_file)
+    puzzle = KnotHash(data.input_file)
     print(puzzle.single_knot_hash())
     print(puzzle.full_knot_hash())

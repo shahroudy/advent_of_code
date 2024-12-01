@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict, deque
 from myutils.file_reader import read_int_list
+from myutils.io_handler import get_input_data
 
 
 class MemoryGame:
@@ -40,6 +41,7 @@ class MemoryGame:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = MemoryGame("test1.txt")
     assert test1.calc_spoken([2020]) == [436]
     test2 = MemoryGame("test2.txt")
@@ -47,6 +49,5 @@ if __name__ == "__main__":
     test2 = MemoryGame("test3.txt")
     assert test2.calc_spoken([2020]) == [1836]
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day15.txt'
-    some = MemoryGame(input_file)
+    some = MemoryGame(data.input_file)
     print(some.calc_spoken([2020, 30000000]))

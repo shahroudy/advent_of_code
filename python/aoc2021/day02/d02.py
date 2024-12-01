@@ -1,5 +1,6 @@
 import os
 from myutils.file_reader import read_lines
+from myutils.io_handler import get_input_data
 
 
 class Dive:
@@ -37,11 +38,11 @@ class Dive:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
     test1 = Dive("test1.txt")
     assert test1.position() == 150
     assert test1.position_with_aim() == 900
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2021_day02.txt'
-    dive = Dive(input_file)
+    dive = Dive(data.input_file)
     print(dive.position())
     print(dive.position_with_aim())

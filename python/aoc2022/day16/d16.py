@@ -6,6 +6,7 @@ from pathlib import Path
 
 # This code is the brute force solution for day16 and is in draft mode
 # Some improvements/refatorings are on the way :)
+from myutils.io_handler import get_input_data
 
 
 class Puzzle:
@@ -212,13 +213,13 @@ class Puzzle:
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test1 = Puzzle("test1.txt")
     assert test1.calc1() == 1651
     assert test1.calc2() == 1707
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day16.txt'
-    puzzle = Puzzle(input_file)
+    puzzle = Puzzle(data.input_file)
     print(puzzle.calc1())
     print(puzzle.calc2())
 

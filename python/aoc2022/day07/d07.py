@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict
 from pathlib import Path
+from myutils.io_handler import get_input_data
 
 
 class NoSpaceLeftOnDevice:
@@ -52,10 +53,10 @@ def test_samples(filename, answer1, answer2):
 
 
 if __name__ == "__main__":
+    data = get_input_data(__file__)
 
     test_samples("sample1.txt", 95437, 24933642)
 
-    input_file = f'{os.environ.get("aoc_inputs")}/aoc2022_day07.txt'
-    no_space_left_on_device = NoSpaceLeftOnDevice(input_file)
+    no_space_left_on_device = NoSpaceLeftOnDevice(data.input_file)
     print(no_space_left_on_device.sum_of_all_small_dirs())
     print(no_space_left_on_device.min_dir_size_to_delete())
