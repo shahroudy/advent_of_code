@@ -11,9 +11,9 @@ class NoTimeforATaxicab:
         x, y, dx, dy = 0, 0, 0, -1
         for dir, step in self.inp:
             if dir == "L":
-                dx, dy = dy, -dx
-            else:
                 dx, dy = -dy, dx
+            else:
+                dx, dy = dy, -dx
             x += step * dx
             y += step * dy
         return abs(x) + abs(y)
@@ -23,9 +23,9 @@ class NoTimeforATaxicab:
         x, y, dx, dy = 0, 0, 0, -1
         for dir, step in self.inp:
             if dir == "L":
-                dx, dy = dy, -dx
-            else:
                 dx, dy = -dy, dx
+            else:
+                dx, dy = dy, -dx
             for _ in range(step):
                 x += dx
                 y += dy

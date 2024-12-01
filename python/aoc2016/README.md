@@ -3,8 +3,8 @@
 ## Day 1: [No Time for a Taxicab](https://adventofcode.com/2016/day/1) &rarr; [Solution](./day01/d01.py)
 Simple rotation and moving implementation.\
 Good to recall the rotation formula; 
-when you rotate left: `dx, dy = dy, -dx`
-and when you rotate right: `dx, dy = -dy, dx`
+when you rotate left: `dx, dy = -dy, dx`
+and when you rotate right: `dx, dy = dy, -dx`
 ### Bugs and issues:
 * The only tricky point in this puzzle was to consider all the positions on the way of each step in the visited positions and not only the final position (for part 2)
 
@@ -32,7 +32,7 @@ It's very similar to AoC 2015 Day 4.\
 Nothing fun in looping over hash values.
 
 ## Day 6: [Signals and Noise](https://adventofcode.com/2016/day/6) &rarr; [Solution](./day06/d06.py)
-Finding the most common and least common characters at each position in a list of strings.\
+Finding the most common and least common characters at each position in a list of strings.
 * `collections.Counter` to count the characters in each position.
 * [`Counter.most_common()`](https://docs.python.org/3/library/collections.html#collections.Counter.most_common) to get the sorted tuples of characters and their counts.
 

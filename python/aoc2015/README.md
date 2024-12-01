@@ -36,7 +36,6 @@ A perfect example for using regular expressions:
   ```python 
     import re
 
-    re.search(r"(.)\1", s)
     # Contains at least three vowels (`aeiou` only): 
     len(re.findall(r"[aeiou]", s)) >= 3
     
