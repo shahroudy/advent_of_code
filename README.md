@@ -24,3 +24,4 @@ python3 d01.py
 ## [Advent of Code 2021 Solutions](./python/aoc2021/README.md)
 ## [Advent of Code 2022 Solutions](./python/aoc2022/README.md)
 ## [Advent of Code 2023 Solutions](./python/aoc2023/README.md)
+## [Advent of Code 2024 Solutions](./python/aoc2024/README.md)
