@@ -10,6 +10,7 @@ from typing import override
 
 from myutils.io_handler import get_input_data, submit_answer
 from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
+from myutils.utils import multiply
 from sympy import Symbol
 from sympy.solvers import solve
 

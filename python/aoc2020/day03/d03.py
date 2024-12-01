@@ -1,38 +1,39 @@
-import os
-from myutils.file_reader import read_str_list
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
+from myutils.utils import multiply
 
 
-class TobogganMap:
+class TobogganTrajectory:
     def __init__(self, filename):
-        self.map = read_str_list(filename)
+        self.trees = set()
+        for row, line in enumerate(Path(filename).read_text().splitlines()):
+            for col, ch in enumerate(line):
+                if ch == "#":
+                    self.trees.add((col, row))
+        self.rows, self.cols = row + 1, col + 1
 
-    def calc_trees(self, dx, dy):
-        x = y = c = 0
-        while y < len(self.map):
-            row = self.map[y]
-            if row[x] == "#":
-                c += 1
-            x = (x + dx) % len(row)
+    def tree_count(self, dx=3, dy=1):
+        x = y = result = 0
+        while y < self.rows:
+            result += (x % self.cols, y) in self.trees
+            x += dx
             y += dy
-        return c
+        return result
+
+    def multiplication_of_tree_counts_for_all_slopes(self):
+        return multiply(self.tree_count(*d) for d in [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)])
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    tob_test = TobogganMap("test.txt")
-    assert tob_test.calc_trees(1, 1) == 2
-    assert tob_test.calc_trees(3, 1) == 7
-    assert tob_test.calc_trees(5, 1) == 3
-    assert tob_test.calc_trees(7, 1) == 4
-    assert tob_test.calc_trees(1, 2) == 2
 
-    tob_map = TobogganMap(data.input_file)
-    dxs = [1, 3, 5, 7, 1]
-    dys = [1, 1, 1, 1, 2]
-    cm = 1
-    for dx, dy in zip(dxs, dys):
-        c = tob_map.calc_trees(dx, dy)
-        cm *= c
-        print(f"{dx}, {dy}: {c}")
-    print(f"Multiplication: {cm}")
+    assert TobogganTrajectory("sample1.txt").tree_count() == 7
+    assert TobogganTrajectory("sample1.txt").multiplication_of_tree_counts_for_all_slopes() == 336
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = TobogganTrajectory(data.input_file)
+
+    print(puzzle.tree_count())
+    print(puzzle.multiplication_of_tree_counts_for_all_slopes())

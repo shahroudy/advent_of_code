@@ -33,3 +33,19 @@ def test_day02():
     test = PasswordPhilosophy(f"{input_folder}/aoc2020_day02.txt")
     assert test.valid_passwords_count() == 398
     assert test.valid_passwords_position() == 562
+
+
+def test_day03_samples():
+    from aoc2020.day03.d03 import TobogganTrajectory
+
+    test = TobogganTrajectory("./python/aoc2020/day03/sample1.txt")
+    assert test.tree_count() == 7
+    assert test.multiplication_of_tree_counts_for_all_slopes() == 336
+
+
+def test_day03():
+    from aoc2020.day03.d03 import TobogganTrajectory
+
+    test = TobogganTrajectory(f"{input_folder}/aoc2020_day03.txt")
+    assert test.tree_count() == 211
+    assert test.multiplication_of_tree_counts_for_all_slopes() == 3584591857
