@@ -90,6 +90,21 @@ class ExRange:
         new_range.subtract(*args)
         return new_range
 
+    def intersect(self, *args):
+        intersect_range = ExRange(*args)
+        new_ranges = []
+        for r in self.ranges:
+            for i in intersect_range.ranges:
+                if ranges_overlap(r, i):
+                    new_ranges.append(
+                        range(
+                            max(r.start, i.start),
+                            min(r.stop, i.stop),
+                        )
+                    )
+        self.ranges = new_ranges
+        self._sort_ranges()
+
 
 if __name__ == "__main__":
     r = ExRange(0, 10)
@@ -107,4 +122,10 @@ if __name__ == "__main__":
     assert r2.length() == 15
     r2 = r - s2
     assert r2.length() == 15
+    r1 = ExRange(0, 10)
+    r1.intersect(5, 15)
+    assert r1.length() == 5
+    r1 = ExRange([range(30, 40), range(10, 20)])
+    r1.intersect([range(5, 15), range(25, 35)])
+    assert r1.length() == 10
     print("All tests passed")
