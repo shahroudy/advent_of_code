@@ -15,18 +15,18 @@ class AllergenAssessment:
         self.ingredient_count = defaultdict(int)
 
         for line in lines:
-            sides = line.split('(')
-            ingredients = sides[0].strip().split(' ')
+            sides = line.split("(")
+            ingredients = sides[0].strip().split(" ")
             ingredients_set = set()
             for i in ingredients:
                 self.ingredient_count[i] += 1
                 ingredients_set.add(i)
-            allergens = re.sub(r'contains|,|\)', '', sides[1])
-            for allergen in allergens.strip().split(' '):
+            allergens = re.sub(r"contains|,|\)", "", sides[1])
+            for allergen in allergens.strip().split(" "):
                 if self.allergen_ingredients[allergen]:
-                    self.allergen_ingredients[allergen] = \
-                        self.allergen_ingredients[allergen].intersection(
-                        ingredients_set)
+                    self.allergen_ingredients[allergen] = self.allergen_ingredients[
+                        allergen
+                    ].intersection(ingredients_set)
                 else:
                     self.allergen_ingredients[allergen] = ingredients_set
 
@@ -39,8 +39,7 @@ class AllergenAssessment:
                     ingredient = list(ingredients)[0]
                     for other_allergen in self.allergen_ingredients.keys():
                         if other_allergen != allergen:
-                            self.allergen_ingredients[other_allergen]\
-                                .discard(ingredient)
+                            self.allergen_ingredients[other_allergen].discard(ingredient)
                 else:
                     refined = False
 
@@ -64,13 +63,13 @@ class AllergenAssessment:
 
         dangerous_tuples = sorted(dangerous_tuples, key=lambda x: x[0])
         dangerous_ingredients = [x[1] for x in dangerous_tuples]
-        return ','.join(dangerous_ingredients)
+        return ",".join(dangerous_ingredients)
 
 
-if __name__ == '__main__':
-    test1 = AllergenAssessment('test1.txt')
+if __name__ == "__main__":
+    test1 = AllergenAssessment("test1.txt")
     assert test1.count_safe_ingredients() == 5
-    assert test1.list_dangerous_ingredients() == 'mxmxvkd,sqjhc,fvjkl'
+    assert test1.list_dangerous_ingredients() == "mxmxvkd,sqjhc,fvjkl"
 
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day21.txt'
     allergen_assessment = AllergenAssessment(input_file)

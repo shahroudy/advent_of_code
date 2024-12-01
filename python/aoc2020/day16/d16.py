@@ -9,29 +9,28 @@ class TicketTranslator:
         self.process_input(filename)
 
     def process_input(self, filename):
-        raw_rules, raw_my_ticket, raw_nearby_tickets = \
-            read_line_groups(filename)
+        raw_rules, raw_my_ticket, raw_nearby_tickets = read_line_groups(filename)
 
         # parse the rules
         self.rules = []
         self.rule_names = []
         for line in raw_rules:
-            parts = line.split(':')
-            rs = parts[1].split('or')
+            parts = line.split(":")
+            rs = parts[1].split("or")
             cr = []
             for r in rs:
-                rg = [int(x) for x in r.strip().split('-')]
+                rg = [int(x) for x in r.strip().split("-")]
                 cr.append(rg)
             self.rules.append(cr)
             self.rule_names.append(parts[0])
 
         # parse my ticket
-        self.my_ticket = [int(n) for n in raw_my_ticket[1].split(',')]
+        self.my_ticket = [int(n) for n in raw_my_ticket[1].split(",")]
 
         # parse nearby tickets
         self.nearby_tickets = []
         for line in raw_nearby_tickets[1:]:
-            self.nearby_tickets.append([int(n) for n in line.split(',')])
+            self.nearby_tickets.append([int(n) for n in line.split(",")])
         return
 
     def is_valid(self, rule, values):
@@ -65,8 +64,7 @@ class TicketTranslator:
             matched_columns = []
             for column_index in range(len(self.valid_nearby_tickets[0])):
                 for nearby_ticket in self.valid_nearby_tickets:
-                    if not self.is_valid(self.rules[rule_index],
-                                         nearby_ticket[column_index]):
+                    if not self.is_valid(self.rules[rule_index], nearby_ticket[column_index]):
                         break
                 else:
                     matched_columns.append(column_index)
@@ -77,13 +75,13 @@ class TicketTranslator:
         # find the multiplication of 'departure' related colums in my ticket
         result = 1
         for rule in range(len(self.rules)):
-            if 'departure' in self.rule_names[rule]:
+            if "departure" in self.rule_names[rule]:
                 result *= self.my_ticket[mapped_column[rule]]
         return result
 
 
-if __name__ == '__main__':
-    test1 = TicketTranslator('test1.txt')
+if __name__ == "__main__":
+    test1 = TicketTranslator("test1.txt")
     assert test1.ticket_scanning_error_rate() == 71
 
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day16.txt'

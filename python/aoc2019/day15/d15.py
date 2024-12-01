@@ -21,28 +21,28 @@ class OxygenSystem:
             maxx = max(maxx, x)
             miny = min(miny, y)
             maxy = max(maxy, y)
-        os.system('clear')
+        os.system("clear")
         print()
-        for j in range(miny, maxy+1):
-            for i in range(minx, maxx+1):
+        for j in range(miny, maxy + 1):
+            for i in range(minx, maxx + 1):
                 if (i, j) == self.oxygen:
-                    ch = 'O'
+                    ch = "O"
                 elif j == self.y and i == self.x:
-                    ch = 'd'
+                    ch = "d"
                 else:
                     m = self.map[(i, j)]
                     if m > 0:
-                        ch = '.'
+                        ch = "."
                     elif m < 0:
-                        ch = '#'
+                        ch = "#"
                     else:
-                        ch = ' '
-                print(ch, end='')
+                        ch = " "
+                print(ch, end="")
             print()
         time.sleep(0.05)
 
     def neighbours(self, x, y):
-        return [(x+i, y+j) for i, j in [(-1, 0), (1, 0), (0, -1), (0, 1)]]
+        return [(x + i, y + j) for i, j in [(-1, 0), (1, 0), (0, -1), (0, 1)]]
 
     def moves_to(self, target):
         conn = dict()
@@ -70,7 +70,7 @@ class OxygenSystem:
             elif n[1] < c[1]:
                 result.append(1)
             else:
-                raise Exception('unknown move')
+                raise Exception("unknown move")
             c = n
         return result
 
@@ -83,8 +83,7 @@ class OxygenSystem:
         self.oxygen = None
         while to_visit:
             to_visit = deque([p for p in to_visit if self.map[p] == 0])
-            ns = [n for n in self.neighbours(self.x, self.y)
-                  if self.map[n] == 0]
+            ns = [n for n in self.neighbours(self.x, self.y) if self.map[n] == 0]
             to_visit.extend(ns)
             while not tape:
                 tape = self.moves_to(to_visit.pop())
@@ -93,19 +92,19 @@ class OxygenSystem:
 
             output = self.computer.step(move)
             if len(output) != 1:
-                raise Exception('invalid output')
+                raise Exception("invalid output")
             output = output[0]
 
             if move == 1:
-                dest = (self.x, self.y-1)
+                dest = (self.x, self.y - 1)
             elif move == 2:
-                dest = (self.x, self.y+1)
+                dest = (self.x, self.y + 1)
             elif move == 3:
-                dest = (self.x-1, self.y)
+                dest = (self.x - 1, self.y)
             elif move == 4:
-                dest = (self.x+1, self.y)
+                dest = (self.x + 1, self.y)
             else:
-                raise Exception('invalid move')
+                raise Exception("invalid move")
 
             if output == 0:
                 self.map[dest] = -1
@@ -140,7 +139,7 @@ class OxygenSystem:
                 return t
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day15.txt'
     oxygen_system = OxygenSystem(input_file)
     oxygen_system.navigate()

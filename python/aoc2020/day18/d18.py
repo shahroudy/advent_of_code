@@ -5,29 +5,29 @@ from myutils.file_reader import read_lines
 
 class OperationOrder:
     def __init__(self, filename: str):
-        self.lines = [re.sub(r'\s', '', line) for line in read_lines(filename)]
+        self.lines = [re.sub(r"\s", "", line) for line in read_lines(filename)]
 
     def read_arg(self, exp, i):
         if exp[i].isnumeric():
             openn = i
             i += 1
-            while i < len(exp) and exp[openn:i+1].isnumeric():
+            while i < len(exp) and exp[openn : i + 1].isnumeric():
                 i += 1
             return int(exp[openn:i]), i
-        elif exp[i] == '(':
+        elif exp[i] == "(":
             openp = i
             pc = 1
             i += 1
             while pc > 0:
-                if exp[i] == '(':
+                if exp[i] == "(":
                     pc += 1
-                if exp[i] == ')':
+                if exp[i] == ")":
                     pc -= 1
                 i += 1
-            return self.eval_exp(exp[openp+1:i-1]), i
+            return self.eval_exp(exp[openp + 1 : i - 1]), i
 
     def read_op(self, exp, i):
-        if exp[i] in '+*':
+        if exp[i] in "+*":
             op = exp[i]
             i += 1
         return op, i
@@ -38,9 +38,9 @@ class OperationOrder:
         while i < len(inpexp):
             op, i = self.read_op(inpexp, i)
             m, i = self.read_arg(inpexp, i)
-            if op == '+':
+            if op == "+":
                 n += m
-            if op == '*':
+            if op == "*":
                 n *= m
         return n
 
@@ -52,9 +52,9 @@ class OperationOrder:
         while i < len(inpexp):
             op, i = self.read_op(inpexp, i)
             m, i = self.read_arg(inpexp, i)
-            if op == '+':
+            if op == "+":
                 stack.append(m + stack.pop())
-            if op == '*':
+            if op == "*":
                 stack.append(m)
         n = 1
         for v in stack:
@@ -71,7 +71,7 @@ class OperationOrder:
         if mode in [1, 2]:
             self.mode = mode
         else:
-            raise ValueError(f'Mode {mode} is not supported')
+            raise ValueError(f"Mode {mode} is not supported")
 
         sum = 0
         for line in self.lines:
@@ -79,13 +79,13 @@ class OperationOrder:
         return sum
 
 
-if __name__ == '__main__':
-    test1 = OperationOrder('test1.txt')
+if __name__ == "__main__":
+    test1 = OperationOrder("test1.txt")
     assert test1.evaluate_sum_exps(mode=1) == 71
     assert test1.evaluate_sum_exps(mode=2) == 231
-    test2 = OperationOrder('test2.txt')
+    test2 = OperationOrder("test2.txt")
     assert test2.evaluate_sum_exps(mode=1) == 51
-    test3 = OperationOrder('test3.txt')
+    test3 = OperationOrder("test3.txt")
     assert test3.evaluate_sum_exps(mode=2) == 23340
 
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day18.txt'

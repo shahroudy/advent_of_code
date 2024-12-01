@@ -27,10 +27,10 @@ class SeatingSystem:
         for i in range(-1, 2):
             for j in range(-1, 2):
                 if i != 0 or j != 0:
-                    rn = r+i
-                    cn = c+j
+                    rn = r + i
+                    cn = c + j
                     if self.valid_seat(rn, cn):
-                        if seats[rn][cn] == '#':
+                        if seats[rn][cn] == "#":
                             count += 1
         return count
 
@@ -39,13 +39,13 @@ class SeatingSystem:
         for i in range(-1, 2):
             for j in range(-1, 2):
                 if i != 0 or j != 0:
-                    rn = r+i
-                    cn = c+j
-                    while self.valid_seat(rn, cn) and seats[rn][cn] == '.':
+                    rn = r + i
+                    cn = c + j
+                    while self.valid_seat(rn, cn) and seats[rn][cn] == ".":
                         rn += i
                         cn += j
                     if self.valid_seat(rn, cn):
-                        if seats[rn][cn] == '#':
+                        if seats[rn][cn] == "#":
                             count += 1
         return count
 
@@ -53,14 +53,14 @@ class SeatingSystem:
         count = 0
         for row in self.seats:
             for seat in row:
-                if seat == '#':
+                if seat == "#":
                     count += 1
         return count
 
     def print_seats(self):
         for row in self.seats:
             for s in row:
-                print(s, end='')
+                print(s, end="")
             print()
         print()
 
@@ -72,7 +72,7 @@ class SeatingSystem:
             tolerance = 5
             adjacent_count = self.count_adjacent2
         else:
-            raise ValueError(f'Invalid Mode: {mode}')
+            raise ValueError(f"Invalid Mode: {mode}")
 
         self.reset()
         self.new = deepcopy(self.seats)
@@ -89,21 +89,19 @@ class SeatingSystem:
 
             for r in range(self.rows):
                 for c in range(self.cols):
-                    if self.seats[r][c] == 'L' and \
-                            adjacent_count(self.seats, r, c) == 0:
-                        self.new[r][c] = '#'
+                    if self.seats[r][c] == "L" and adjacent_count(self.seats, r, c) == 0:
+                        self.new[r][c] = "#"
                         changed = True
-                    if self.seats[r][c] == '#' and \
-                            adjacent_count(self.seats, r, c) >= tolerance:
-                        self.new[r][c] = 'L'
+                    if self.seats[r][c] == "#" and adjacent_count(self.seats, r, c) >= tolerance:
+                        self.new[r][c] = "L"
                         changed = True
             self.seats = self.new
 
         return self.count_all_occupied()
 
 
-if __name__ == '__main__':
-    test1 = SeatingSystem('test1.txt')
+if __name__ == "__main__":
+    test1 = SeatingSystem("test1.txt")
     assert test1.calc_final_state(1) == 37
     assert test1.calc_final_state(2) == 26
 

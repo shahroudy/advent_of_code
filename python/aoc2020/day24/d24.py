@@ -15,22 +15,22 @@ class LobbyLayout:
             x, y = 0, 0
             while q:
                 d = q.popleft()
-                if d in 'ns':
+                if d in "ns":
                     d = d + q.popleft()
-                if d == 'e':
+                if d == "e":
                     x += 2
-                elif d == 'w':
+                elif d == "w":
                     x -= 2
-                elif d == 'ne':
+                elif d == "ne":
                     x += 1
                     y += 1
-                elif d == 'nw':
+                elif d == "nw":
                     x -= 1
                     y += 1
-                elif d == 'se':
+                elif d == "se":
                     x += 1
                     y -= 1
-                elif d == 'sw':
+                elif d == "sw":
                     x -= 1
                     y -= 1
             self.tiles[(x, y)] = not self.tiles[(x, y)]
@@ -40,9 +40,14 @@ class LobbyLayout:
 
     @staticmethod
     def adjacent_tiles(x, y):
-        return {(x-2, y), (x+2, y),
-                (x-1, y-1), (x-1, y+1),
-                (x+1, y-1), (x+1, y+1)}
+        return {
+            (x - 2, y),
+            (x + 2, y),
+            (x - 1, y - 1),
+            (x - 1, y + 1),
+            (x + 1, y - 1),
+            (x + 1, y + 1),
+        }
 
     def count_black_afte_flipping(self, days):
         tiles = self.tiles.copy()
@@ -54,8 +59,7 @@ class LobbyLayout:
 
             newtiles = defaultdict(bool)
             for t in tilestocheck:
-                black_adjacents = \
-                    sum([tiles[n] for n in self.adjacent_tiles(*t)])
+                black_adjacents = sum([tiles[n] for n in self.adjacent_tiles(*t)])
                 if tiles[t]:
                     if black_adjacents == 0 or black_adjacents > 2:
                         newtiles[t] = False
@@ -72,8 +76,8 @@ class LobbyLayout:
         return sum(tiles.values())
 
 
-if __name__ == '__main__':
-    test1 = LobbyLayout('test1.txt')
+if __name__ == "__main__":
+    test1 = LobbyLayout("test1.txt")
     assert test1.count_black_tiles() == 10
     assert test1.count_black_afte_flipping(1) == 15
     assert test1.count_black_afte_flipping(10) == 37

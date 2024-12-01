@@ -41,8 +41,8 @@ class ComboBreaker:
         return card.encrypt(door_loop_size)
 
 
-if __name__ == '__main__':
-    test1 = ComboBreaker('test1.txt')
+if __name__ == "__main__":
+    test1 = ComboBreaker("test1.txt")
     assert test1.calc_handshake_encryption_key() == 14897079
 
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day25.txt'

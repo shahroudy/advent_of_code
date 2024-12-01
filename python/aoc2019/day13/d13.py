@@ -46,15 +46,15 @@ class CarePackage:
     @staticmethod
     def display_char(object):
         if object == 0:
-            print(' ', end='')
+            print(" ", end="")
         elif object == 1:
-            print('#', end='')
+            print("#", end="")
         elif object == 2:
-            print('x', end='')
+            print("x", end="")
         elif object == 3:
-            print('T', end='')
+            print("T", end="")
         elif object == 4:
-            print('o', end='')
+            print("o", end="")
 
     def display_board(self):
         xmin = xmax = ymin = ymax = 0
@@ -64,10 +64,10 @@ class CarePackage:
             xmax = max(xmax, x)
             ymin = min(ymin, y)
             ymax = max(ymax, y)
-        os.system('clear')
-        print(f'Score: {self.score}')
-        for y in range(ymin, ymax+1):
-            for x in range(xmin, xmax+1):
+        os.system("clear")
+        print(f"Score: {self.score}")
+        for y in range(ymin, ymax + 1):
+            for x in range(xmin, xmax + 1):
                 self.display_char(self.board[(y, x)])
             print()
 
@@ -91,7 +91,7 @@ class CarePackage:
         return self.score
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day13.txt'
     care_package = CarePackage(input_file)
     print(care_package.count_blocks())

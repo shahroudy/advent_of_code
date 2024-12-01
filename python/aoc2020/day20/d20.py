@@ -6,15 +6,17 @@ from myutils.file_reader import *
 
 # TODO: Code cleanup :D
 
+
 def listtonum(s):
     s = list(s)
-    n1 = int(''.join(s), 2)
+    n1 = int("".join(s), 2)
     s.reverse()
-    n2 = int(''.join(s), 2)
+    n2 = int("".join(s), 2)
     return min(n1, n2)
 
-
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day20.txt'
+
+
 gr = read_line_groups(input_file)
 # gr = read_line_groups('test1.txt')
 
@@ -26,9 +28,9 @@ for g in gr:
     tileno = int(g[0][5:-1])
     tilelist = []
     for line in g[1:]:
-        line = re.sub('#', '1', line)
-        line = re.sub('\.', '0', line)
-        #line = list(map(int, line))
+        line = re.sub("#", "1", line)
+        line = re.sub("\.", "0", line)
+        # line = list(map(int, line))
         tilelist.append(line)
     n1 = listtonum(tilelist[0])
     n2 = listtonum(tilelist[-1])
@@ -56,6 +58,7 @@ for k, v in tileedges.items():
         m *= k
 
 print(m)
+
 
 def fliph_img(t):
     new = []
@@ -121,7 +124,7 @@ def rot_and_flip(tileno, topedge, leftedge):
         else:
             fliph(tileno)
         if i > 8:
-            raise Exception('Tile does not match here!')
+            raise Exception("Tile does not match here!")
 
 
 imgtiles = [[c1]]
@@ -174,12 +177,9 @@ for row in imgtiles:
             rowimg = crop
     img.extend(rowimg)
 
-pattern = [
-    '                  # ',
-    '#    ##    ##    ###',
-    ' #  #  #  #  #  #   ']
+pattern = ["                  # ", "#    ##    ##    ###", " #  #  #  #  #  #   "]
 
-matches= []
+matches = []
 iteration = 0
 while not matches:
     imgh = len(img)
@@ -187,24 +187,24 @@ while not matches:
     ptrh = len(pattern)
     ptrw = len(pattern[0])
     # find monsters
-    for r in range(imgh-ptrh+1):
-        for c in range(imgw-ptrw+1):
+    for r in range(imgh - ptrh + 1):
+        for c in range(imgw - ptrw + 1):
             match = True
             for pr in range(ptrh):
                 for pc in range(ptrw):
-                    if pattern[pr][pc] == '#':
-                        if img[r+pr][c+pc] != '1':
+                    if pattern[pr][pc] == "#":
+                        if img[r + pr][c + pc] != "1":
                             match = False
                             break
                 if not match:
                     break
             if match:
-                matches.append([r,c])
+                matches.append([r, c])
 
     if not matches:
         iteration += 1
         if iteration > 8:
-            raise Exception('Cannot find monsters!')
+            raise Exception("Cannot find monsters!")
         if iteration != 4:
             img = rotate_img(img)
         else:
@@ -218,13 +218,13 @@ for match in matches:
     r, c = match
     for pr in range(ptrh):
         for pc in range(ptrw):
-            if pattern[pr][pc] == '#':
-                img[r+pr][c+pc] = '-1'
+            if pattern[pr][pc] == "#":
+                img[r + pr][c + pc] = "-1"
 
 count = 0
 for r in img:
     for c in r:
-        if c == '1':
+        if c == "1":
             count += 1
 
 print(count)

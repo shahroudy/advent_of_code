@@ -32,20 +32,20 @@ class GameConsole:
         return
 
     def parse_command(self, command):
-        parts = command.split(' ')
+        parts = command.split(" ")
         op = parts[0]
         operand = int(parts[1])
         return op, operand
 
     def make_command(self, op, operand):
-        return f'{op} {operand}'
+        return f"{op} {operand}"
 
     def execute(self, op, operand):
-        if op == 'nop':
+        if op == "nop":
             pass
-        elif op == 'acc':
+        elif op == "acc":
             self.acc += operand
-        elif op == 'jmp':
+        elif op == "jmp":
             self.head += operand
             return
         self.head += 1
@@ -62,10 +62,10 @@ class GameConsole:
 
             # modify the mod_line command
             op, operand = self.parse_command(self.prog[mod_line])
-            if op == 'jmp':
-                self.prog[mod_line] = self.make_command('nop', operand)
-            elif op == 'nop':
-                self.prog[mod_line] = self.make_command('jmp', operand)
+            if op == "jmp":
+                self.prog[mod_line] = self.make_command("nop", operand)
+            elif op == "nop":
+                self.prog[mod_line] = self.make_command("jmp", operand)
 
             self.run()
 
@@ -73,12 +73,11 @@ class GameConsole:
                 return self.acc
 
 
-if __name__ == '__main__':
-    test1 = GameConsole('test1.txt')
+if __name__ == "__main__":
+    test1 = GameConsole("test1.txt")
     assert test1.run() == 5
     assert test1.run_with_correction() == 8
 
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day08.txt'
     console = GameConsole(input_file)
-    print(console.run(),
-          console.run_with_correction())
+    print(console.run(), console.run_with_correction())

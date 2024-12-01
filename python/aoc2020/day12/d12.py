@@ -14,33 +14,33 @@ class Navigation:
         self.x, self.y = 0, 0
 
     def run_command(self, op, num, mode):
-        if op == 'L':
+        if op == "L":
             for _ in range(num // 90):
                 self.wx, self.wy = -self.wy, self.wx
-        elif op == 'R':
+        elif op == "R":
             for _ in range(num // 90):
                 self.wx, self.wy = self.wy, -self.wx
-        elif op == 'F':
+        elif op == "F":
             self.x += self.wx * num
             self.y += self.wy * num
         else:
             if mode == 1:
-                if op == 'N':
+                if op == "N":
                     self.y += num
-                elif op == 'S':
+                elif op == "S":
                     self.y -= num
-                elif op == 'E':
+                elif op == "E":
                     self.x += num
-                elif op == 'W':
+                elif op == "W":
                     self.x -= num
             elif mode == 2:
-                if op == 'N':
+                if op == "N":
                     self.wy += num
-                elif op == 'S':
+                elif op == "S":
                     self.wy -= num
-                elif op == 'E':
+                elif op == "E":
                     self.wx += num
-                elif op == 'W':
+                elif op == "W":
                     self.wx -= num
 
     def manhattan_distance(self):
@@ -53,15 +53,15 @@ class Navigation:
         elif mode == 2:
             self.wx, self.wy = 10, 1
         else:
-            raise ValueError(f'Invalid mode {mode}')
+            raise ValueError(f"Invalid mode {mode}")
 
         for command in self.commands:
             self.run_command(*command, mode)
         return self.manhattan_distance()
 
 
-if __name__ == '__main__':
-    test1 = Navigation('test1.txt')
+if __name__ == "__main__":
+    test1 = Navigation("test1.txt")
     assert test1.evade(mode=1) == 25
     assert test1.evade(mode=2) == 286
 

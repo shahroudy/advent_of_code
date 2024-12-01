@@ -5,18 +5,18 @@ class CrabCups:
     def set_next_cup(self, mode):
         self.next_cup = dict()
         for i, c in enumerate(self.cups):
-            self.next_cup[c] = self.cups[(i+1) % len(self.cups)]
+            self.next_cup[c] = self.cups[(i + 1) % len(self.cups)]
         if mode == 1:
             self.next_cup[self.cups[-1]] = self.cups[0]
         elif mode == 2:
-            cup = max(self.cups)+1
+            cup = max(self.cups) + 1
             self.next_cup[self.cups[-1]] = cup
             while cup < 10**6:
                 self.next_cup[cup] = cup + 1
                 cup += 1
             self.next_cup[cup] = self.cups[0]
         else:
-            raise ValueError('Invalid mode')
+            raise ValueError("Invalid mode")
 
     def play_cups(self, mode, moves=None, log=False):
         self.set_next_cup(mode)
@@ -26,7 +26,7 @@ class CrabCups:
             moves = 100 if mode == 1 else 10000000
         for move in range(moves):
             if log and move % 100000 == 0:
-                print('move: ', move)
+                print("move: ", move)
             picked = []
             p = current
             for _ in range(3):
@@ -55,12 +55,12 @@ class CrabCups:
             return self.next_cup[1] * self.next_cup[self.next_cup[1]]
 
 
-if __name__ == '__main__':
-    test1 = CrabCups('389125467')
-    assert test1.play_cups(mode=1, moves=10) == '92658374'
-    assert test1.play_cups(mode=1) == '67384529'
+if __name__ == "__main__":
+    test1 = CrabCups("389125467")
+    assert test1.play_cups(mode=1, moves=10) == "92658374"
+    assert test1.play_cups(mode=1) == "67384529"
     assert test1.play_cups(mode=2) == 149245887792
 
-    carb_cups = CrabCups('523764819')
+    carb_cups = CrabCups("523764819")
     print(carb_cups.play_cups(mode=1))
     print(carb_cups.play_cups(mode=2))

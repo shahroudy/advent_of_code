@@ -12,9 +12,7 @@ class Snailfish:
             self.snailfishes = Path(input).read_text().strip().split("\n")
 
     def append(self, sequence):
-        self.sequence = (
-            sequence if not self.sequence else [self.sequence, sequence]
-        )
+        self.sequence = sequence if not self.sequence else [self.sequence, sequence]
 
     def transmit(self, s, value, direction):
         if isinstance(s[direction], int):
@@ -84,10 +82,7 @@ class Snailfish:
         if isinstance(s, int):
             return s
         else:
-            return (
-                self.magnitude_recursive(s[0]) * 3
-                + self.magnitude_recursive(s[1]) * 2
-            )
+            return self.magnitude_recursive(s[0]) * 3 + self.magnitude_recursive(s[1]) * 2
 
     def magnitude(self):
         return self.magnitude_recursive(self.sequence)
@@ -130,9 +125,7 @@ if __name__ == "__main__":
         [6, [5, [7, 0]]],
         3,
     ]
-    assert Snailfish(
-        [[3, [2, [1, [7, 3]]]], [6, [5, [4, [3, 2]]]]]
-    ).explode() == [
+    assert Snailfish([[3, [2, [1, [7, 3]]]], [6, [5, [4, [3, 2]]]]]).explode() == [
         [3, [2, [8, 0]]],
         [9, [5, [4, [3, 2]]]],
     ]
@@ -142,9 +135,10 @@ if __name__ == "__main__":
     ]
 
     # Test Reduce Function
-    assert Snailfish(
-        [[[[[4, 3], 4], 4], [7, [[8, 4], 9]]], [1, 1]]
-    ).reduce() == [[[[0, 7], 4], [[7, 8], [6, 0]]], [8, 1]]
+    assert Snailfish([[[[[4, 3], 4], 4], [7, [[8, 4], 9]]], [1, 1]]).reduce() == [
+        [[[0, 7], 4], [[7, 8], [6, 0]]],
+        [8, 1],
+    ]
 
     assert Snailfish("test1.txt").reduce_lines() == [
         [[[1, 1], [2, 2]], [3, 3]],
@@ -170,16 +164,12 @@ if __name__ == "__main__":
     assert Snailfish([9, 1]).magnitude() == 29
     assert Snailfish([[9, 1], [1, 9]]).magnitude() == 129
     assert Snailfish([[1, 2], [[3, 4], 5]]).magnitude() == 143
-    assert (
-        Snailfish([[[[0, 7], 4], [[7, 8], [6, 0]]], [8, 1]]).magnitude() == 1384
-    )
+    assert Snailfish([[[[0, 7], 4], [[7, 8], [6, 0]]], [8, 1]]).magnitude() == 1384
     assert Snailfish([[[[1, 1], [2, 2]], [3, 3]], [4, 4]]).magnitude() == 445
     assert Snailfish([[[[3, 0], [5, 3]], [4, 4]], [5, 5]]).magnitude() == 791
     assert Snailfish([[[[5, 0], [7, 4]], [5, 5]], [6, 6]]).magnitude() == 1137
     assert (
-        Snailfish(
-            [[[[8, 7], [7, 7]], [[8, 6], [7, 7]]], [[[0, 7], [6, 6]], [8, 7]]]
-        ).magnitude()
+        Snailfish([[[[8, 7], [7, 7]], [[8, 6], [7, 7]]], [[[0, 7], [6, 6]], [8, 7]]]).magnitude()
         == 3488
     )
 

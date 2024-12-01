@@ -75,11 +75,7 @@ class Amphipod:
                     steps = dists[p]
                     for n in self.mask4:
                         dest = (p[0] + n[0], p[1] + n[1])
-                        if (
-                            dest not in dists
-                            and dest in map
-                            and map[dest] == "."
-                        ):
+                        if dest not in dists and dest in map and map[dest] == ".":
                             if n[0] == 1:  # moving down one step
                                 if dest[1] == 3:
                                     if v != "A":

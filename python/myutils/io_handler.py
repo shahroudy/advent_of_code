@@ -9,7 +9,7 @@ AoCData = namedtuple("AoCData", ["year", "day", "input_file"])
 
 
 def get_input_data(filename: str):
-    file_parts = filename.replace('\\','/').split("/")
+    file_parts = filename.replace("\\", "/").split("/")
     day = int(re.search(r"\d+", file_parts[-2]).group(0))
     year = int(re.search(r"\d+", file_parts[-3]).group(0))
 

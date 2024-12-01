@@ -10,7 +10,7 @@ class Orbits:
         self.orbits = dict()
         lines = read_str_list(filename)
         for line in lines:
-            names = line.split(')')
+            names = line.split(")")
             self.orbits[names[1]] = names[0]
 
     def get_path_to_com(self, start):
@@ -33,13 +33,12 @@ class Orbits:
         return len(set(source_path) ^ set(dest_path))
 
 
-if __name__ == '__main__':
-    test_orbits = Orbits('test1.txt')
+if __name__ == "__main__":
+    test_orbits = Orbits("test1.txt")
     assert test_orbits.get_sum_all_orbits() == 42
-    test_orbits = Orbits('test2.txt')
-    assert test_orbits.calc_transitions('YOU', 'SAN') == 4
+    test_orbits = Orbits("test2.txt")
+    assert test_orbits.calc_transitions("YOU", "SAN") == 4
 
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day06.txt'
     orbits = Orbits(input_file)
-    print(orbits.get_sum_all_orbits(),
-          orbits.calc_transitions('YOU', 'SAN'))
+    print(orbits.get_sum_all_orbits(), orbits.calc_transitions("YOU", "SAN"))

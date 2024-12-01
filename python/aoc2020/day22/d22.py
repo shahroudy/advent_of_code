@@ -38,8 +38,8 @@ class CrabCombat:
 
             if len(deck1) >= card1 and len(deck2) >= card2:
                 _, _, p1wins = self.recursive_combat(
-                    deque(list(deck1)[:card1]),
-                    deque(list(deck2)[:card2]))
+                    deque(list(deck1)[:card1]), deque(list(deck2)[:card2])
+                )
             else:
                 p1wins = card1 > card2
 
@@ -58,11 +58,11 @@ class CrabCombat:
         return self.calc_score(deck1 if p1wins else deck2)
 
 
-if __name__ == '__main__':
-    test1 = CrabCombat('test1.txt')
+if __name__ == "__main__":
+    test1 = CrabCombat("test1.txt")
     assert test1.combat() == 306
     assert test1.combat(recursive=True) == 291
-    test2 = CrabCombat('test2.txt')
+    test2 = CrabCombat("test2.txt")
     assert test2.combat(recursive=True) > 0
 
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day22.txt'

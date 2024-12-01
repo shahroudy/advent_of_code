@@ -28,9 +28,7 @@ class PassagePathing:
                     continue
                 if cave.islower() and cave in current_path:
                     if single_small_twice:
-                        lower_counts = Counter(
-                            [c for c in current_path if c.islower()]
-                        )
+                        lower_counts = Counter([c for c in current_path if c.islower()])
                         if max(lower_counts.values()) > 1:
                             continue
                     else:

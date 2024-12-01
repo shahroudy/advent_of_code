@@ -16,7 +16,7 @@ class SpaceImage:
         self.layers = defaultdict(list)
         digs = list(map(int, list(self.lines[0])))
         for i in range(len(digs)):
-            self.layers[i//self.imgsz].append(digs[i])
+            self.layers[i // self.imgsz].append(digs[i])
 
     def calc(self):
         minzero = self.w * self.h
@@ -37,16 +37,16 @@ class SpaceImage:
                 px = self.layers[j][i]
                 j += 1
             if px == 0:
-                print(' . ', end='')
+                print(" . ", end="")
             if px == 1:
-                print('###', end='')
-            if (i+1) % self.w == 0:
+                print("###", end="")
+            if (i + 1) % self.w == 0:
                 print()
         print()
         return
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day08.txt'
     image = SpaceImage(input_file, 25, 6)
     print(image.calc())

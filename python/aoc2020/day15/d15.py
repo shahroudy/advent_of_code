@@ -17,7 +17,7 @@ class MemoryGame:
 
     def calc_spoken(self, turns: list):
         if turns != sorted(turns):
-            raise Exception('turns must be sorted ascending')
+            raise Exception("turns must be sorted ascending")
         self.reset()
         last, c = self.last, self.c
         result = []
@@ -30,21 +30,21 @@ class MemoryGame:
             else:
                 last = mem_last[-1] - mem_last[-2]
                 self.mem[last].append(c)
-            if len(self.mem[last])>2:
+            if len(self.mem[last]) > 2:
                 self.mem[last].popleft()
             if c in turns:
                 result.append(last)
             if c % 10**6 == 0:
-                print(f'Processing... step {c}')
+                print(f"Processing... step {c}")
         return result
 
 
-if __name__ == '__main__':
-    test1 = MemoryGame('test1.txt')
+if __name__ == "__main__":
+    test1 = MemoryGame("test1.txt")
     assert test1.calc_spoken([2020]) == [436]
-    test2 = MemoryGame('test2.txt')
+    test2 = MemoryGame("test2.txt")
     assert test2.calc_spoken([2020]) == [1]
-    test2 = MemoryGame('test3.txt')
+    test2 = MemoryGame("test3.txt")
     assert test2.calc_spoken([2020]) == [1836]
 
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2020_day15.txt'

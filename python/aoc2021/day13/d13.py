@@ -39,21 +39,13 @@ class TransparentOrigami:
             if fold_direction == "x":
                 if x == fold_position:
                     continue
-                xn = (
-                    x
-                    if x < fold_position
-                    else fold_position - (x - fold_position)
-                )
+                xn = x if x < fold_position else fold_position - (x - fold_position)
             else:
                 xn = x
             if fold_direction == "y":
                 if y == fold_position:
                     continue
-                yn = (
-                    y
-                    if y < fold_position
-                    else fold_position - (y - fold_position)
-                )
+                yn = y if y < fold_position else fold_position - (y - fold_position)
             else:
                 yn = y
             new_dots.add((xn, yn))

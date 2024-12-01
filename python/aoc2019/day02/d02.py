@@ -10,9 +10,9 @@ def compute(prog, noun, verb):
         op = prog[i]
         if op == 99:
             break
-        a = prog[prog[i+1]]
-        b = prog[prog[i+2]]
-        out = prog[i+3]
+        a = prog[prog[i + 1]]
+        b = prog[prog[i + 2]]
+        out = prog[i + 3]
         if op == 1:
             prog[out] = a + b
         elif op == 2:
@@ -22,8 +22,9 @@ def compute(prog, noun, verb):
         i += 4
     return prog[0]
 
-
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day02.txt'
+
+
 p = read_int_list(input_file)
 print(compute(p.copy(), 12, 2))
 

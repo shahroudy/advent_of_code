@@ -46,12 +46,8 @@ class SevenSegmentSearch:
             codes[len(w)].append(w)
             chars[len(w)].update(set(w))
 
-        match["a"] = (
-            chars[3] & chars[7] & chars[6] & chars[5] - chars[2] - chars[4]
-        )
-        match["g"] = (
-            chars[5] & chars[6] & chars[7] - chars[2] - chars[3] - chars[4]
-        )
+        match["a"] = chars[3] & chars[7] & chars[6] & chars[5] - chars[2] - chars[4]
+        match["g"] = chars[5] & chars[6] & chars[7] - chars[2] - chars[3] - chars[4]
         match["e"] = chars[7] - chars[4]
         match["b"] = chars[4] & chars[6] - chars[2] - chars[3]
         match["d"] = chars[5] & chars[4] - chars[2] - chars[3]

@@ -36,7 +36,7 @@ class IntcodeComputer:
         arg_count = {99: 0, 1: 2, 2: 2, 3: 0, 4: 1, 5: 2, 6: 2, 7: 2, 8: 2}
         no_args = arg_count[command[0]]
         for i in range(no_args):
-            args.append(self.read_one_operand(command[i+1]))
+            args.append(self.read_one_operand(command[i + 1]))
         return args
 
     def write(self, address, value):
@@ -100,7 +100,7 @@ class IntcodeComputer:
             return self.output.pop()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     input_file = f'{os.environ.get("aoc_inputs")}/aoc2019_day05.txt'
     prog = read_int_list(input_file)
     computer = IntcodeComputer(prog)

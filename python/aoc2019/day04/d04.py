@@ -6,7 +6,7 @@ end = 718098
 c1 = c2 = 0
 for i in range(start, end):
     s = str(i)
-    if ''.join(sorted(s)) != s:
+    if "".join(sorted(s)) != s:
         continue
     cnt = Counter(s)
     repeat1 = False

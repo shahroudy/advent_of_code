@@ -29,9 +29,7 @@ class SyntaxScoring:
                 incomplete_score = 0
                 while stack:
                     o = stack.pop()
-                    incomplete_score = (
-                        incomplete_score * 5 + incomplete_points[o]
-                    )
+                    incomplete_score = incomplete_score * 5 + incomplete_points[o]
                 incomplete_scores.append(incomplete_score)
         incomplete_scores.sort()
         return (

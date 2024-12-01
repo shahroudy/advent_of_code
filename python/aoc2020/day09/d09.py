@@ -20,14 +20,14 @@ class ErrorDetector:
     def find_invalid(self, window):
         for i in range(window, self.count):
             found = False
-            for j in range(i-window, i):
-                for k in range(j+1, i):
+            for j in range(i - window, i):
+                for k in range(j + 1, i):
                     if self.nums[j] + self.nums[k] == self.nums[i]:
                         found = True
                         break
             if not found:
                 return self.nums[i]
-            i+=1
+            i += 1
 
     def find_weakness_brute_force(self, sum):
         for i in range(len(self.nums)):
@@ -44,12 +44,12 @@ class ErrorDetector:
         for i in range(self.count):
             j = self.int_lookup.get(sum + self.integral[i], None)
             if j is not None:
-                nums = self.nums[i+1:j+1]
+                nums = self.nums[i + 1 : j + 1]
                 return min(nums) + max(nums)
 
 
-if __name__ == '__main__':
-    test1 = ErrorDetector('test1.txt')
+if __name__ == "__main__":
+    test1 = ErrorDetector("test1.txt")
     assert test1.find_invalid(5) == 127
     assert test1.find_weakness(127) == 62
     assert test1.find_weakness_brute_force(127) == 62

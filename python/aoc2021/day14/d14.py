@@ -33,9 +33,7 @@ class ExtendedPolymerization:
                 new_counter[left] -= counter[left]
             counter = new_counter
 
-        element_counts = [
-            count for (polymer, count) in counter.items() if len(polymer) == 1
-        ]
+        element_counts = [count for (polymer, count) in counter.items() if len(polymer) == 1]
         return max(element_counts) - min(element_counts)
 
 

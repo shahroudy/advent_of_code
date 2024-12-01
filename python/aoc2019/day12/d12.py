@@ -12,11 +12,11 @@ class NBody:
     def reset(self):
         self.positions = []
         self.velocities = []
-        line_re = re.compile(r'<x=(-?\d+), y=(-?\d+), z=(-?\d+)>')
+        line_re = re.compile(r"<x=(-?\d+), y=(-?\d+), z=(-?\d+)>")
         for line in self.lines:
             parse = line_re.match(line)
             if not parse:
-                raise Exception('Cannot parse the input line: ', line)
+                raise Exception("Cannot parse the input line: ", line)
             self.positions.append([int(parse.group(i)) for i in range(1, 4)])
             self.velocities.append([0, 0, 0])
 
@@ -27,7 +27,7 @@ class NBody:
                     continue
                 for dim in range(3):
                     d = other_position[dim] - position[dim]
-                    d = d//abs(d) if d else 0
+                    d = d // abs(d) if d else 0
                     self.velocities[moon][dim] += d
         for moon, velocity in enumerate(self.velocities):
             for dim in range(3):
@@ -83,11 +83,11 @@ class NBody:
         return f.least_common_multiple(factors)
 
 
-if __name__ == '__main__':
-    test1 = NBody('test1.txt')
+if __name__ == "__main__":
+    test1 = NBody("test1.txt")
     assert test1.simulate(10) == 179
     assert test1.find_cycle() == 2772
-    test2 = NBody('test2.txt')
+    test2 = NBody("test2.txt")
     assert test2.simulate(100) == 1940
     assert test2.find_cycle() == 4686774924
 

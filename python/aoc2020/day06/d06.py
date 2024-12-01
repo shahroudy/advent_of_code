@@ -9,23 +9,23 @@ class CustomList:
 
     def calc_anyone(self):
         return sum(
-            [len(
-                reduce(
-                    lambda x, y: set(x) | set(y),
-                    custom_set))
-             for custom_set in self.custom_sets])
+            [
+                len(reduce(lambda x, y: set(x) | set(y), custom_set))
+                for custom_set in self.custom_sets
+            ]
+        )
 
     def calc_everyone(self):
         return sum(
-            [len(
-                reduce(
-                    lambda x, y: set(x) & set(y),
-                    custom_set))
-             for custom_set in self.custom_sets])
+            [
+                len(reduce(lambda x, y: set(x) & set(y), custom_set))
+                for custom_set in self.custom_sets
+            ]
+        )
 
 
-if __name__ == '__main__':
-    test_custom_list = CustomList('test.txt')
+if __name__ == "__main__":
+    test_custom_list = CustomList("test.txt")
     assert test_custom_list.calc_anyone() == 11
     assert test_custom_list.calc_everyone() == 6
 

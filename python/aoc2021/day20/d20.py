@@ -39,10 +39,7 @@ class TrenchMap:
                 sum = 0
                 for n in self.mask9:
                     nr, nc = row + n[0], col + n[1]
-                    if (
-                        self.minrow <= nr < self.maxrow
-                        and self.mincol <= nc < self.maxcol
-                    ):
+                    if self.minrow <= nr < self.maxrow and self.mincol <= nc < self.maxcol:
                         pixel = 1 if (nr, nc) in self.image else 0
                     else:
                         pixel = self.default_value

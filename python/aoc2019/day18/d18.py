@@ -96,10 +96,7 @@ class ManyWorldsInterpretation:
         accessible = set()
         current = set(current_keys)
         for k in set(self.keys) - current:
-            if (
-                self.locks_between[(from_key, k)]
-                | self.keys_between[(from_key, k)]
-            ) <= current:
+            if (self.locks_between[(from_key, k)] | self.keys_between[(from_key, k)]) <= current:
                 accessible.add(k)
         return accessible
 
@@ -147,9 +144,7 @@ class ManyWorldsInterpretation:
                     if 0 < min_dist < new_steps:
                         continue
                     if new_solution in steps:
-                        steps[new_solution] = min(
-                            new_steps, steps[new_solution]
-                        )
+                        steps[new_solution] = min(new_steps, steps[new_solution])
                     else:
                         steps[new_solution] = new_steps
                         if len(new_solution) <= len(self.keys):
@@ -159,9 +154,7 @@ class ManyWorldsInterpretation:
                             min_dist = new_steps
                         else:
                             min_dist = min(min_dist, new_steps)
-            for n in sorted(
-                new_solutions, key=lambda x: steps[x], reverse=False
-            ):
+            for n in sorted(new_solutions, key=lambda x: steps[x], reverse=False):
                 queue.append(n)
 
         return min_dist

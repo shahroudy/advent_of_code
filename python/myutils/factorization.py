@@ -8,7 +8,7 @@ class Factorization:
 
     def _find_primes(self):
         is_prime = [True] * self._max
-        for i in range(2, int(self._max ** 0.5 + 1)):
+        for i in range(2, int(self._max**0.5 + 1)):
             if is_prime[i]:
                 for j in range(i * 2, self._max, i):
                     is_prime[j] = False
@@ -30,7 +30,7 @@ class Factorization:
     def combine_factors(self, factors):
         result = 1
         for factor, power in factors.items():
-            result *= factor ** power
+            result *= factor**power
         return result
 
     def least_common_multiple(self, nums: list):
@@ -49,7 +49,7 @@ class Factorization:
 
 
 if __name__ == "__main__":
-    test = Factorization(max_num=10 ** 5)
+    test = Factorization(max_num=10**5)
     assert test.factorize(99) == {3: 2, 11: 1}
     assert test.combine_factors({3: 2, 11: 1}) == 99
     assert test.least_common_multiple([12, 8, 6]) == 24
