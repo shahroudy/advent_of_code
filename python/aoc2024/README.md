@@ -13,6 +13,10 @@ The criteria for the report to be safe is:
 In part 2, we can accept one bad level in each report, and we need to find the number of safe reports.\
 Easy and tractable to do ad-hoc.\
 But this seems to be something we should know how to optimize in larger scales for future days :wink:
+### Optimizations:
+* Using `itertools.combinations` to find the number of ways to remove one element from the list.\
+This is maybe not an optimization, but a good use of the library and clean code.\
+It's good to remember, `itertools.combinations` keeps the order of the elements in the list.
 ### Bugs and Issues:
 * <b>Never ever refresh the webpage few seconds before the puzzle unlocks.\
 This made my session shaky and took me about a minute to get the puzzle and inputs :angry: </b>
