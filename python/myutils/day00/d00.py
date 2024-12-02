@@ -8,6 +8,8 @@ from itertools import *
 from pathlib import Path
 from typing import override
 
+import numpy as np
+import scipy as sp
 from myutils.io_handler import get_input_data, submit_answer
 from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
 from myutils.utils import multiply
