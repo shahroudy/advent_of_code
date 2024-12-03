@@ -9,7 +9,8 @@ Typical day 1 problem, we are provided with two columns of numbers and we need t
 We are given a list of numbers (a report of multiple levels) in each input line and we need to find how many are safe.\
 The criteria for the report to be safe is:
 * It must be either strictly increasing or strictly decreasing.
-* The difference between adjacent numbers must be between 1 and 3.\
+* The difference between adjacent numbers must be between 1 and 3.
+
 In part 2, we can accept one bad level in each report, and we need to find the number of safe reports.\
 Easy and tractable to do ad-hoc.\
 But this seems to be something we should know how to optimize in larger scales for future days :wink:
@@ -20,3 +21,14 @@ It's good to remember, `itertools.combinations` keeps the order of the elements 
 ### Bugs and Issues:
 * <b>Never ever refresh the webpage few seconds before the puzzle unlocks.\
 This made my session shaky and took me about a minute to get the puzzle and inputs :angry: </b>
+
+## Day 3: [Mull It Over](https://adventofcode.com/2024/day/3) &rarr; [Solution](./day03/d03.py)
+A nice yet simple problem to be solved using regular expressions.\
+The only challenge here is implement the parsing of the input quickly and correctly.\
+In part one, we need to find all proper patterns of `mul(X,Y)` for integer `X` and `Y`s, and calculate the sum of all multiplications.\
+In part two, we also need to find `do()` and `don't()` commands and enable/disable the calculation temporarily (till the next command).
+
+### Bugs and Issues:
+* I was millimeters to the proper implementation, but forgot to capture the `do()` and `don't()` commands.\
+<b>Instead of "mul\((\d+),(\d+)\)|<span style="color:red">(</span>do\(\)<span style="color:red">)</span>|<span style="color:red">(</span>don't\(\)<span style="color:red">)</span>" I used "mul\((\d+),(\d+)\)|do\(\)|don't\(\)"!</b>\
+This took me more than 20 minutes to implement another uglier solution to get the correct answer.

@@ -43,6 +43,8 @@ class Puzzle:
 
         # self.process()
         # self.recursive_split("\n")
+        # self.find_all_re()
+        # self.find_all_per_line_re()
 
     def process(self):
         lines = self.input_text.splitlines()
@@ -68,6 +70,14 @@ class Puzzle:
             return [self.recursive_split(seps[1:], x.strip()) for x in inp.split(seps[0])]
         else:
             return [self.recursive_split(seps[1:], x) for x in inp.split(seps[0])]
+
+    def find_all_re(self):
+        pattern = re.compile(r"(\d+)")
+        self.inp = pattern.findall(self.input_text)
+
+    def find_all_per_line_re(self):
+        pattern = re.compile(r"(\d+)")
+        self.inp = [pattern.findall(line) for line in self.input_text.splitlines()]
 
     def process_map(self):
         lines = self.input_text.splitlines()

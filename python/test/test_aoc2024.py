@@ -33,3 +33,20 @@ def test_day02():
     test = RedNosedReports(f"{input_folder}/aoc2024_day02.txt")
     assert test.safe_count(0) == 472
     assert test.safe_count(1) == 520
+
+
+def test_day03_samples():
+    from aoc2024.day03.d03 import MullItOver
+
+    test = MullItOver("./python/aoc2024/day03/sample1.txt")
+    assert test.sum_of_all_multiplications() == 161
+    test = MullItOver("./python/aoc2024/day03/sample2.txt")
+    assert test.sum_of_all_multiplications(True) == 48
+
+
+def test_day03():
+    from aoc2024.day03.d03 import MullItOver
+
+    test = MullItOver(f"{input_folder}/aoc2024_day03.txt")
+    assert test.sum_of_all_multiplications() == 168539636
+    assert test.sum_of_all_multiplications(True) == 97529391
