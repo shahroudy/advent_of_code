@@ -13,20 +13,10 @@ class RedNosedReports:
     def is_safe(self, input, tolerance=0):
         for ls in combinations(input, len(input) - tolerance):
             inc = ls[0] > ls[-1]
-            safe = True
             for i, j in zip(ls[:-1], ls[1:]):
-                if inc:
-                    if i <= j:
-                        safe = False
-                        break
-                else:
-                    if i >= j:
-                        safe = False
-                        break
-                if abs(i - j) > 3:
-                    safe = False
+                if (inc and i <= j) or (not inc and i >= j) or abs(i - j) > 3:
                     break
-            if safe:
+            else:
                 return True
         return False
 
