@@ -50,3 +50,19 @@ def test_day03():
     test = MullItOver(f"{input_folder}/aoc2024_day03.txt")
     assert test.sum_of_all_multiplications() == 168539636
     assert test.sum_of_all_multiplications(True) == 97529391
+
+
+def test_day04_samples():
+    from aoc2024.day04.d04 import CeresSearch
+
+    test = CeresSearch("./python/aoc2024/day04/sample1.txt")
+    assert test.count_XMAS() == 18
+    assert test.count_X_MAS() == 9
+
+
+def test_day04():
+    from aoc2024.day04.d04 import CeresSearch
+
+    test = CeresSearch(f"{input_folder}/aoc2024_day04.txt")
+    assert test.count_XMAS() == 2401
+    assert test.count_X_MAS() == 1822

@@ -32,3 +32,15 @@ In part two, we also need to find `do()` and `don't()` commands and enable/disab
 * I was millimeters to the proper implementation, but forgot to capture the `do()` and `don't()` commands.\
 <b>Instead of "mul\((\d+),(\d+)\)|<span style="color:red">(</span>do\(\)<span style="color:red">)</span>|<span style="color:red">(</span>don't\(\)<span style="color:red">)</span>" I used "mul\((\d+),(\d+)\)|do\(\)|don't\(\)"!</b>\
 This took me more than 20 minutes to implement another uglier solution to get the correct answer.
+
+## Day 4: [Ceres Search](https://adventofcode.com/2024/day/4) &rarr; [Solution](./day04/d04.py)
+A puzzle of searching for patterns in a map of characters.\
+In part one, we need to find the number occurrences of the word "XMAS" in the map, horizontally, vertically, diagonally, and reverse.\
+In part two, we need to find the X patterns of 5 characters that has two "MAS" in it.\
+Nothing special here to optimize!
+
+### Bugs and Issues:
+* Instead of using a `dict` to store the characters, it will be better to use a `defaultdict` with an invalid default value.\
+This way, you do not need to check if the key exists in the dictionary or not.
+* I had a stupid bug in part one, forgetting to multiply the step number by the direction vector in the loop! Took minutes to figure it out :facepalm:
+* Looking at my code, after cleaning it up, I think I could be way quicker to implement the solution; maybe I need few seconds of thinking and planning before starting to code.

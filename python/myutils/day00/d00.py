@@ -24,6 +24,7 @@ class Puzzle:
         self.mask4 = [[-1, 0], [1, 0], [0, -1], [0, 1]]
         self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]
         self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
+        self.maskx = [[1, 1], [-1, -1], [1, -1], [-1, 1]]
         self.directions = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
         self.turn_left = {"e": "n", "n": "w", "w": "s", "s": "e"}
         self.turn_right = {"e": "s", "s": "w", "w": "n", "n": "e"}
