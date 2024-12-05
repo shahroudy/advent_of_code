@@ -66,3 +66,19 @@ def test_day04():
     test = CeresSearch(f"{input_folder}/aoc2024_day04.txt")
     assert test.count_XMAS() == 2401
     assert test.count_X_MAS() == 1822
+
+
+def test_day05_samples():
+    from aoc2024.day05.d05 import PrintQueue
+
+    test = PrintQueue("./python/aoc2024/day05/sample1.txt")
+    assert test.not_changed_medians_sum == 143
+    assert test.changed_medians_sum == 123
+
+
+def test_day05():
+    from aoc2024.day05.d05 import PrintQueue
+
+    test = PrintQueue(f"{input_folder}/aoc2024_day05.txt")
+    assert test.not_changed_medians_sum == 6041
+    assert test.changed_medians_sum == 4884

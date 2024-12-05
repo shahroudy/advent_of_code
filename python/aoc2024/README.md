@@ -44,3 +44,11 @@ Nothing special here to optimize!
 This way, you do not need to check if the key exists in the dictionary or not.
 * I had a stupid bug in part one, forgetting to multiply the step number by the direction vector in the loop! Took minutes to figure it out :facepalm:
 * Looking at my code, after cleaning it up, I think I could be way quicker to implement the solution; maybe I need few seconds of thinking and planning before starting to code.
+
+## Day 5: [Print Queue](https://adventofcode.com/2024/day/5) &rarr; [Solution](./day05/d05.py)
+This puzzle was mainly about sorting lists with partial ordering.\
+We are provided with a set of partial ordering rules and some lists of numbers to be sorted.\
+We need to sum the medial values of pre-sorted lists, and sorted lists with the given rules.\
+
+### Optimizations:
+* Using `functools.cmp_to_key` to convert the comparison function to a key function for sorting and is super handy here.
