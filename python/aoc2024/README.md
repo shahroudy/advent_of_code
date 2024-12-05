@@ -51,4 +51,5 @@ We are provided with a set of partial ordering rules and some lists of numbers t
 We need to sum the medial values of pre-sorted lists, and sorted lists with the given rules.\
 
 ### Optimizations:
-* Using `functools.cmp_to_key` to convert the comparison function to a key function for sorting and is super handy here.
+* Using `functools.cmp_to_key` to convert the comparison function to a key function for sorting.
+* Do we need to cast all the numbers to `int`? Not really; we use them as keys, so we can simply keep them as `str`.
