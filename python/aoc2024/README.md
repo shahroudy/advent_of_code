@@ -53,3 +53,17 @@ We need to sum the medial values of pre-sorted lists, and sorted lists with the 
 ### Optimizations:
 * Using `functools.cmp_to_key` to convert the comparison function to a key function for sorting.
 * Do we need to cast all the numbers to `int`? Not really; we use them as keys, so we can simply keep them as `str`.
+
+## Day 6: [Guard Gallivant](https://adventofcode.com/2024/day/6) &rarr; [Solution](./day06/d06.py)
+Another puzzle of traveling simulation inside a grid of open and blocked cells.\
+The guard moves forward till it hits a wall, then it turns right and continues.\
+In the first part we need to find the number of visited cells by a guard before it exits the grid.\
+In the second part, we need to find the possible positions in the grid which blocking them would put the guard in an infinite loop.
+
+### Bugs and Issues:
+For such an easy and familiar problem, I had numerous bugs in my implementation, which slowed me down a lot:
+* I failed to properly read the problem statement in part 2, and searched over different starting positions and directions!
+* Instead of initiating the visited `set` as `{(x,y)}`, I initiated it as `{x,y}`!
+* I started the implementation by keeping all the grid values in a `dict` with the coordinates as keys, which was not necessary at all!\
+I knew it's way more efficient to only keep the blocked cells in a `set`, but I didn't start with that!
+* For part 2, I started with searching for all cells to check obstruction! But the only needed cells to be checked are actually the ones we travelled in part 1!

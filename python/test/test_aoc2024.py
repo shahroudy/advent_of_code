@@ -82,3 +82,19 @@ def test_day05():
     test = PrintQueue(f"{input_folder}/aoc2024_day05.txt")
     assert test.not_changed_medians_sum == 6041
     assert test.changed_medians_sum == 4884
+
+
+def test_day06_samples():
+    from aoc2024.day06.d06 import GuardGallivant
+
+    test = GuardGallivant("./python/aoc2024/day06/sample1.txt")
+    assert test.number_of_visited_positions() == 41
+    assert test.number_of_looping_obstructions() == 6
+
+
+def test_day06():
+    from aoc2024.day06.d06 import GuardGallivant
+
+    test = GuardGallivant(f"{input_folder}/aoc2024_day06.txt")
+    assert test.number_of_visited_positions() == 5162
+    assert test.number_of_looping_obstructions() == 1909
