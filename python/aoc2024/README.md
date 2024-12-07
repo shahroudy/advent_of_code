@@ -67,3 +67,15 @@ For such an easy and familiar problem, I had numerous bugs in my implementation,
 * I started the implementation by keeping all the grid values in a `dict` with the coordinates as keys, which was not necessary at all!\
 I knew it's way more efficient to only keep the blocked cells in a `set`, but I didn't start with that!
 * For part 2, I started with searching for all cells to check obstruction! But the only needed cells to be checked are actually the ones we travelled in part 1!
+
+## Day 7: [Bridge Repair](https://adventofcode.com/2024/day/7) &rarr; [Solution](./day07/d07.py)
+Searching for the missing operations between a list of numbers and check if we can find a valid operation sequence to reach the target number.\
+In part one, we only have `+` and `*` operations; in part two a third operation of concatenation is added (`10 || 11 = 1011`).\
+For now, the ad-hoc way of searching all the possible combinations is enough to solve the problem.\
+Will we face an extension of this in future days? :thinking:
+
+### Optimizations:
+* Since numbers are all positive and greater than 0, we can stop the calculation if the current result is greater than the target number.
+
+### Bugs and Issues:
+* I first solved this with a full BFS search! But then I realized that we can simply use `itertools.product` and iterate over possible combinations.

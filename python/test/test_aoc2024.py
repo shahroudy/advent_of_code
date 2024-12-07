@@ -98,3 +98,19 @@ def test_day06():
     test = GuardGallivant(f"{input_folder}/aoc2024_day06.txt")
     assert test.number_of_visited_positions() == 5162
     assert test.number_of_looping_obstructions() == 1909
+
+
+def test_day07_samples():
+    from aoc2024.day07.d07 import BridgeRepair
+
+    test = BridgeRepair("./python/aoc2024/day07/sample1.txt")
+    assert test.total_calibration(2) == 3749
+    assert test.total_calibration(3) == 11387
+
+
+def test_day07():
+    from aoc2024.day07.d07 import BridgeRepair
+
+    test = BridgeRepair(f"{input_folder}/aoc2024_day07.txt")
+    assert test.total_calibration(2) == 3312271365652
+    assert test.total_calibration(3) == 509463489296712
