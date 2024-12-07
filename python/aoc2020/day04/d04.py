@@ -1,91 +1,59 @@
-import os
 import re
+from pathlib import Path
 
-from myutils.file_reader import read_str_list
 from myutils.io_handler import get_input_data
 
 
-def read_passport_lines(filename: str):
-    lines = read_str_list(filename)
-    lines.append("")  # to ensure the last valid line will also read
-    data = []
-    buffer = ""
-    for full_line in lines:
-        line = full_line.strip()
-        if len(line) == 0:
-            data.append(buffer.strip())
-            buffer = ""
-        else:
-            buffer += " " + line.strip()
-    return data
+class PassportProcessing:
+    def __init__(self, filename):
+        self.passports = [g for g in re.split("\n\n", Path(filename).read_text().strip())]
 
+    def passports_with_required_fields(self):
+        needed = {"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"}
+        return sum(needed <= set(re.findall(r"(\w+):\S+", group)) for group in self.passports)
 
-def read_dictionaries(filename: str):
-    data = read_passport_lines(filename)
-    records = []
-    for line in data:
-        pairs = line.split(" ")
-        record = dict()
-        for pair in pairs:
-            key_value = pair.split(":")
-            key = key_value[0].lower().strip()
-            value = key_value[1].strip()
-            record[key] = value
-        records.append(record)
-    return records
-
-
-def validate_keys(passport: dict):
-    return {
-        "byr",
-        "iyr",
-        "eyr",
-        "hgt",
-        "hcl",
-        "ecl",
-        "pid",
-        # 'cid' optional
-    } <= set(passport.keys())
-
-
-def validate_values(passport: dict):
-    try:
-        if not (1920 <= int(passport["byr"]) <= 2002):
-            return False
-        if not (2010 <= int(passport["iyr"]) <= 2020):
-            return False
-        if not (2020 <= int(passport["eyr"]) <= 2030):
-            return False
-        v = passport["hgt"]
-        val = int(v[:-2])
-        if not (v[-2:] == "cm" and 150 <= val <= 193 or v[-2:] == "in" and 59 <= val <= 76):
-            return False
-        v = passport["hcl"]
-        if not (v[0] == "#" and re.match("^[0-9,a-f]{6}$", v[1:])):
-            return False
-        if not (passport["ecl"] in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]):
-            return False
-        v = passport["pid"]
-        int(v)
-        if len(v) != 9:
-            return False
-        # passport['cid'] is optional
-    except ValueError:
-        return False
-    except KeyError:
-        return False
-    return True
+    def fully_valid_passports(self):
+        valid_count = 0
+        for passport in self.passports:
+            passport_dict = {k: v for k, v in re.findall(r"(\w+):(\S+)", passport)}
+            try:
+                if not (1920 <= int(passport_dict["byr"]) <= 2002):
+                    continue
+                if not (2010 <= int(passport_dict["iyr"]) <= 2020):
+                    continue
+                if not (2020 <= int(passport_dict["eyr"]) <= 2030):
+                    continue
+                height = passport_dict["hgt"]
+                if height.endswith("cm"):
+                    if not (150 <= int(height[:-2]) <= 193):
+                        continue
+                elif height.endswith("in"):
+                    if not (59 <= int(height[:-2]) <= 76):
+                        continue
+                else:
+                    continue
+                if not re.match(r"^#[0-9a-f]{6}$", passport_dict["hcl"]):
+                    continue
+                if not passport_dict["ecl"] in {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"}:
+                    continue
+                if not re.match(r"^\d{9}$", passport_dict["pid"]):
+                    continue
+                valid_count += 1
+            except Exception:
+                continue
+        return valid_count
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    all_passports = read_dictionaries(data.input_file)
 
-    valid_keys_count = valid_values_count = 0
-    for passport in all_passports:
-        if validate_keys(passport):
-            valid_keys_count += 1
-        if validate_values(passport):
-            valid_values_count += 1
+    assert PassportProcessing("sample1.txt").passports_with_required_fields() == 2
+    assert PassportProcessing("sample2.txt").fully_valid_passports() == 0
+    assert PassportProcessing("sample3.txt").fully_valid_passports() == 4
 
-    print(valid_keys_count, valid_values_count)
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = PassportProcessing(data.input_file)
+
+    print(puzzle.passports_with_required_fields())
+    print(puzzle.fully_valid_passports())

@@ -25,3 +25,11 @@ No special trick is needed here, just a simple modulo operation to wrap around t
 Warm up on:
 * `%` a.k.a. `modulo` operator
 * reading maps of characters from input files
+
+## Day 4: [Passport Processing](https://adventofcode.com/2020/day/4) &rarr; [Solution](./day04/d04.py)
+A puzzle of parsing input key-value pairs and validating then against a set of rules.\
+Nice one to solve using regular expressions.
+
+### Bugs and Issues
+* Forgot to use `^` and `$` in `re` to ensure the string is an exact match.\
+This way I accepted longer strings that start with a matching substrings.

@@ -49,3 +49,22 @@ def test_day03():
     test = TobogganTrajectory(f"{input_folder}/aoc2020_day03.txt")
     assert test.tree_count() == 211
     assert test.multiplication_of_tree_counts_for_all_slopes() == 3584591857
+
+
+def test_day04_samples():
+    from aoc2020.day04.d04 import PassportProcessing
+
+    test = PassportProcessing("./python/aoc2020/day04/sample1.txt")
+    assert test.passports_with_required_fields() == 2
+    test = PassportProcessing("./python/aoc2020/day04/sample2.txt")
+    assert test.fully_valid_passports() == 0
+    test = PassportProcessing("./python/aoc2020/day04/sample3.txt")
+    assert test.fully_valid_passports() == 4
+
+
+def test_day04():
+    from aoc2020.day04.d04 import PassportProcessing
+
+    test = PassportProcessing(f"{input_folder}/aoc2020_day04.txt")
+    assert test.passports_with_required_fields() == 192
+    assert test.fully_valid_passports() == 101
