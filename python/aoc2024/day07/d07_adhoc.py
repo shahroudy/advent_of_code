@@ -1,36 +1,8 @@
 import re
-from collections import namedtuple
+from itertools import product
 from pathlib import Path
 
 from myutils.io_handler import get_input_data
-from myutils.search import Search_DFS
-
-State = namedtuple("state", ["value", "step"])
-
-
-class MySearch(Search_DFS):
-    def get_next_states(self, state):
-        value, step = state
-        if step >= len(self.nums):
-            return
-        for op in range(self.operations):
-            if op == 0:
-                nv = value + self.nums[step]
-            elif op == 1:
-                nv = value * self.nums[step]
-            else:
-                nv = int(str(value) + str(self.nums[step]))
-            if nv <= self.target:
-                yield State(nv, step + 1)
-
-    def is_goal(self, state):
-        return state.step == len(self.nums) and state.value == self.target
-
-    def get_result(self, state):
-        return True
-
-    def state_core(self, state):
-        return tuple(state)
 
 
 class BridgeRepair:
@@ -50,9 +22,16 @@ class BridgeRepair:
         total = 0
         for line in self.inp:
             test_value, first, rest = line[0], line[1], line[2:]
-            search = MySearch(nums=rest, target=test_value, operations=operations)
-            if search.search(initial_state=State(first, 0)):
-                total += test_value
+            for ops in product(range(operations), repeat=len(rest)):
+                result = first
+                for op, value in zip(ops, rest):
+                    result = self.apply_operation(result, op, value)
+                    if result > test_value:
+                        break  # not possible with these operations, break the op,value loop
+                else:
+                    if result == test_value:
+                        total += test_value
+                        break  # we found the combination and added it, break the ops loop
         return total
 
 

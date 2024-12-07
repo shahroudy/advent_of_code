@@ -72,10 +72,11 @@ I knew it's way more efficient to only keep the blocked cells in a `set`, but I 
 Searching for the missing operations between a list of numbers and check if we can find a valid operation sequence to reach the target number.\
 In part one, we only have `+` and `*` operations; in part two a third operation of concatenation is added (`10 || 11 = 1011`).\
 For now, the ad-hoc way of searching all the possible combinations is enough to solve the problem.\
-Will we face an extension of this in future days? :thinking:
-
-### Optimizations:
-* Since numbers are all positive and greater than 0, we can stop the calculation if the current result is greater than the target number.
+Will we face an extension of this in future days? :thinking:\
 
 ### Bugs and Issues:
 * I first solved this with a full BFS search! But then I realized that we can simply use `itertools.product` and iterate over possible combinations.
+
+### Optimizations:
+* Since numbers are all positive and greater than 0, we can stop the calculation if the current result is greater than the target number.
+* Alright, DFS search supposed to be and actually is faster than BFS and the `itertools.product` solution; I added the DFS search solution as well.

@@ -103,13 +103,19 @@ class Search_DFS(Search):
     def search(self, initial_state=None):
         initial_state = initial_state if initial_state else self.initial_state
         self.stack = []
+        self.history = set()
+        self.history.add(self.state_core(initial_state))
         self.stack.append(initial_state)
         while self.stack:
             state = self.stack.pop()
             if self.is_goal(state):
                 return self.get_result(state)
             for next_state in self.get_next_states(state):
+                core_state = self.state_core(next_state)
+                if core_state in self.history:
+                    continue
                 self.stack.append(next_state)
+                self.history.add(core_state)
 
 
 class Search_DFS_MaxCost(Search):
