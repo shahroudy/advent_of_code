@@ -10,7 +10,8 @@ from multiprocessing import Pool
 
 class Search:
     def __init__(self, **kwargs):
-        self.args = kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     @abstractmethod
     def search(self, initial_state=None):
