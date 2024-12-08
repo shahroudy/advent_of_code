@@ -1,54 +1,31 @@
-import os
-import re
+from pathlib import Path
 
-from myutils.file_reader import read_str_list
 from myutils.io_handler import get_input_data
 
 
-def get_seat_number1(board_code: str):
-    return int(re.sub("B|R", "1", re.sub("F|L", "0", board_code)), 2)
+class BinaryBoarding:
+    def __init__(self, filename):
+        self.numbers = {
+            int("".join(["0" if ch in "FL" else "1" for ch in line]), 2)
+            for line in Path(filename).read_text().splitlines()
+        }
 
+    def maximum_seat_id(self):
+        return max(self.numbers)
 
-def get_seat_number2(board_code):
-    n = 0
-    char_list = list(board_code)
-    for c in char_list:
-        if c.lower() in ["b", "r"]:
-            n = n + 1
-        elif c.lower() in ["f", "l"]:
-            pass
-        else:
-            raise Exception("Invalid boarding code")
-        n = n * 2
-    n = n // 2
-    return n
-
-
-def test_answers():
-    assert get_seat_number1("RRL") == 6
-    assert get_seat_number1("BFRRL") == 22
-    assert get_seat_number1("BFFFBBFRRR") == 567
-    assert get_seat_number1("FFFBBBFRRR") == 119
-    assert get_seat_number1("BBFFBBFRLL") == 820
-    assert get_seat_number2("BFFFBBFRRR") == 567
-    assert get_seat_number2("FFFBBBFRRR") == 119
-    assert get_seat_number2("BBFFBBFRLL") == 820
+    def id_of_my_seat(self):
+        return (set(range(min(self.numbers), max(self.numbers))) - self.numbers).pop()
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test_answers()
 
-    passes = read_str_list(data.input_file)
+    assert BinaryBoarding("sample1.txt").maximum_seat_id() == 357
+    assert BinaryBoarding("sample2.txt").maximum_seat_id() == 820
 
-    minn = pow(2, 20)
-    maxn = 0
-    seats = set()
+    print("Tests passed, starting with the puzzle")
 
-    for p in passes:
-        n = get_seat_number2(p)
-        maxn = max(maxn, n)
-        minn = min(minn, n)
-        seats.add(n)
+    puzzle = BinaryBoarding(data.input_file)
 
-    print(maxn, set(list(range(minn, maxn + 1))) - seats)
+    print(puzzle.maximum_seat_id())
+    print(puzzle.id_of_my_seat())

@@ -33,3 +33,9 @@ Nice one to solve using regular expressions.
 ### Bugs and Issues
 * Forgot to use `^` and `$` in `re` to ensure the string is an exact match.\
 This way I accepted longer strings that start with a matching substrings.
+
+## Day 5: [Binary Boarding](https://adventofcode.com/2020/day/5) &rarr; [Solution](./day05/d05.py)
+All you need to do here is to understand the problem statement.\
+Inputs are binary-like strings and we need to convert them to decimal numbers.\
+In part 1 we need to find the maximum seat ID.\
+In part 2 we need to find the missing seat ID in the input range.

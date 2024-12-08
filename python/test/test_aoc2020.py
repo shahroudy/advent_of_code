@@ -68,3 +68,20 @@ def test_day04():
     test = PassportProcessing(f"{input_folder}/aoc2020_day04.txt")
     assert test.passports_with_required_fields() == 192
     assert test.fully_valid_passports() == 101
+
+
+def test_day05_samples():
+    from aoc2020.day05.d05 import BinaryBoarding
+
+    test = BinaryBoarding("./python/aoc2020/day05/sample1.txt")
+    assert test.maximum_seat_id() == 357
+    test = BinaryBoarding("./python/aoc2020/day05/sample2.txt")
+    assert test.maximum_seat_id() == 820
+
+
+def test_day05():
+    from aoc2020.day05.d05 import BinaryBoarding
+
+    test = BinaryBoarding(f"{input_folder}/aoc2020_day05.txt")
+    assert test.maximum_seat_id() == 991
+    assert test.id_of_my_seat() == 534
