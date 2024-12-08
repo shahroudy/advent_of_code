@@ -114,3 +114,21 @@ def test_day07():
     test = BridgeRepair(f"{input_folder}/aoc2024_day07.txt")
     assert test.total_calibration(2) == 3312271365652
     assert test.total_calibration(3) == 509463489296712
+
+
+def test_day08_samples():
+    from aoc2024.day08.d08 import ResonantCollinearity
+
+    test = ResonantCollinearity("./python/aoc2024/day08/sample1.txt")
+    assert test.count_antinode() == 14
+    assert test.count_antinode(True) == 34
+    test = ResonantCollinearity("./python/aoc2024/day08/sample2.txt")
+    assert test.count_antinode(True) == 9
+
+
+def test_day08():
+    from aoc2024.day08.d08 import ResonantCollinearity
+
+    test = ResonantCollinearity(f"{input_folder}/aoc2024_day08.txt")
+    assert test.count_antinode() == 359
+    assert test.count_antinode(True) == 1293

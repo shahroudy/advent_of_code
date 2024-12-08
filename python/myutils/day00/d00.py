@@ -10,8 +10,10 @@ from typing import override
 
 import numpy as np
 import scipy as sp
+from myutils.geometry import Point, Point3D
 from myutils.io_handler import get_input_data, submit_answer
-from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
+
+# from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
 from myutils.utils import *
 from sympy import Symbol
 from sympy.solvers import solve
@@ -39,7 +41,9 @@ class Puzzle:
         # process_int_list(self)
         # process_int_int_dict(self)
         # process_int_list_dict(self)
-        # process_map(self)
+        # process_map_plain(self)
+        # process_map_dict_of_sets_of_points(self)
+        # process_map_dict_of_sets_of_3D_points(self)
 
         # process()
         # recursive_split(self, "\n:", strip=True)
