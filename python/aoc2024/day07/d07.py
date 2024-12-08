@@ -13,14 +13,23 @@ class MySearch(Search_DFS):
         value, step = state
         if step >= len(self.nums):
             return
+        num = self.nums[step]
         for op in range(self.operations):
             if op == 0:
-                nv = value + self.nums[step]
+                nv = value - num
             elif op == 1:
-                nv = value * self.nums[step]
+                if value % num == 0:
+                    nv = value // num
+                else:
+                    continue
             else:
-                nv = int(str(value) + str(self.nums[step]))
-            if nv <= self.target:
+                value_str = str(value)
+                num_str = str(num)
+                if value_str.endswith(num_str) and len(num_str) < len(value_str):
+                    nv = int(value_str[: -len(num_str)])
+                else:
+                    continue
+            if nv >= self.target:
                 yield State(nv, step + 1)
 
     def is_goal(self, state):
@@ -38,20 +47,12 @@ class BridgeRepair:
         lines = Path(filename).read_text().splitlines()
         self.inp = [list(map(int, re.findall(r"-?\d+", line))) for line in lines]
 
-    def apply_operation(self, left, op, right):
-        if op == 0:
-            return left + right
-        elif op == 1:
-            return left * right
-        else:
-            return int(str(left) + str(right))
-
     def total_calibration(self, operations=2):
         total = 0
         for line in self.inp:
             test_value, first, rest = line[0], line[1], line[2:]
-            search = MySearch(nums=rest, target=test_value, operations=operations)
-            if search.search(initial_state=State(first, 0)):
+            search = MySearch(nums=rest[::-1], target=first, operations=operations)
+            if search.search(initial_state=State(test_value, 0)):
                 total += test_value
         return total
 

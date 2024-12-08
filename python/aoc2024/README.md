@@ -80,6 +80,10 @@ Will we face an extension of this in future days? :thinking:
 ### Optimizations:
 * Since numbers are all positive and greater than 0, we can stop the calculation if the current result is greater than the target number.
 * Alright, DFS search supposed to be and actually is faster than BFS and the `itertools.product` solution; I added the DFS search solution as well.
+* Moving from right to left should limit the search space drastically, since:
+    * `*` operator can get eliminated if the current value would not be divisible by the next number.
+    * `||` operator can get eliminated if the current value would not be a suffix of the next number.
+
 
 ## Day 8: [Resonant Collinearity](https://adventofcode.com/2024/day/8) &rarr; [Solution](./day08/d08.py)
 A simple puzzle of extrapolating pairs of points in a map (with same character) and counting the new extrapolated points which are also in the map.\
