@@ -132,3 +132,19 @@ def test_day08():
     test = ResonantCollinearity(f"{input_folder}/aoc2024_day08.txt")
     assert test.count_antinode() == 359
     assert test.count_antinode(True) == 1293
+
+
+def test_day09_samples():
+    from aoc2024.day09.d09 import DiskFragmenter
+
+    test = DiskFragmenter("./python/aoc2024/day09/sample1.txt")
+    assert test.checksum_after_moving_files() == 1928
+    assert test.checksum_after_moving_files_in_blocks() == 2858
+
+
+def test_day09():
+    from aoc2024.day09.d09 import DiskFragmenter
+
+    test = DiskFragmenter(f"{input_folder}/aoc2024_day09.txt")
+    assert test.checksum_after_moving_files() == 6432869891895
+    assert test.checksum_after_moving_files_in_blocks() == 6467290479134

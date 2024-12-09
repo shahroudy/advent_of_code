@@ -95,3 +95,19 @@ The text was unnecessarily long and confusing, but the problem was simple and ea
 * The provided sample for part 2 was quite tricky! It was showing the final state of the map after the extrapolation!
 * I really needed a `Point` library class to handle the points and operations on them quickly.\
 It's included in my solution now :wink:
+
+## Day 9: [Disk Fragmenter](https://adventofcode.com/2024/day/9) &rarr; [Solution](./day09/d09.py)
+A puzzle of simulating a disk defragmentation.\
+I would say this one was the first puzzle of 2024 that needed some thinking to implement the proper solution.\
+We are provided with a list of digits, odd ordered ones are file sizes and even ordered ones are the free space between files.\
+In part one, we can break the files into unit sizes and moved each unit to the first available free space.\
+In part two, we need to find a free space to move the whole file, if not found, we have to keep the file as is.
+
+### Bugs and Issues:
+* Understating the problem statement was a challenge here as well.\
+In part 2, we have to move the files in the descending order of their IDs, not their locations!
+* Ignoring the consecutive free spaces leads to very hard to catch bugs!
+
+### Optimizations:
+* Using `deque` for part 1, to quickly add/remove parts to the beginning and the end of the disk.
+* Implementing a double linked list for part 2, to quickly insert new nodes in the middle of the list.
