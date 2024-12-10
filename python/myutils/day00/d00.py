@@ -18,15 +18,6 @@ from myutils.utils import *
 from sympy import Symbol
 from sympy.solvers import solve
 
-DIRECTIONS = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
-TURN_LEFT = {"e": "n", "n": "w", "w": "s", "s": "e"}
-TURN_RIGHT = {"e": "s", "s": "w", "w": "n", "n": "e"}
-TURN_REVERSE = {"e": "w", "w": "e", "n": "s", "s": "n"}
-DIR_CHARS = {">": (1, 0), "<": (-1, 0), "^": (0, -1), "v": (0, 1)}
-DIR_CHARS_TURN_LEFT = {">": "^", "^": "<", "<": "v", "v": ">"}
-DIR_CHARS_TURN_RIGHT = {">": "v", "v": "<", "<": "^", "^": ">"}
-DIR_CHARS_TURN_REVERSE = {">": "<", "<": ">", "^": "v", "v": "^"}
-
 
 class Puzzle:
     def __init__(self, filename):
