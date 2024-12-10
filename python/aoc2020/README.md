@@ -39,3 +39,9 @@ All you need to do here is to understand the problem statement.\
 Inputs are binary-like strings and we need to convert them to decimal numbers.\
 In part 1 we need to find the maximum seat ID.\
 In part 2 we need to find the missing seat ID in the input range.
+
+## Day 6: [Custom Customs](https://adventofcode.com/2020/day/6) &rarr; [Solution](./day06/d06.py)
+A simple problem of counting the number of unique characters in groups of strings.\
+In part 1 we need to count the number of unique characters in each group.\
+In part 2 we need to count the number of characters that are present in all strings of each group.\
+Very easy to solve using sets; part 1 is mainly about finding the `union` of characters in each group, and part 2 is about finding the `intersection` of them.

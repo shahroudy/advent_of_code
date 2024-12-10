@@ -85,3 +85,19 @@ def test_day05():
     test = BinaryBoarding(f"{input_folder}/aoc2020_day05.txt")
     assert test.maximum_seat_id() == 991
     assert test.id_of_my_seat() == 534
+
+
+def test_day06_samples():
+    from aoc2020.day06.d06 import CustomCustoms
+
+    test = CustomCustoms("./python/aoc2020/day06/sample1.txt")
+    assert test.count_anyone_answered() == 11
+    assert test.count_everyone_answered() == 6
+
+
+def test_day06():
+    from aoc2020.day06.d06 import CustomCustoms
+
+    test = CustomCustoms(f"{input_folder}/aoc2020_day06.txt")
+    assert test.count_anyone_answered() == 6911
+    assert test.count_everyone_answered() == 3473
