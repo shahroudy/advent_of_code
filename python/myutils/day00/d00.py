@@ -33,10 +33,10 @@ class Puzzle:
         # process_map_dict_of_sets_of_points(self)
         # process_map_dict_of_sets_of_3D_points(self)
 
-        # process()
+        # process(self)
         # recursive_split(self, "\n:", strip=True)
-        # find_all_re()
-        # find_all_per_line_re()
+        # find_all_re(self)
+        # find_all_per_line_re(self)
 
     def calc0(self):
         # s = MySearch()
