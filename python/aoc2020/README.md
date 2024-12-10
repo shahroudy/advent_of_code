@@ -45,3 +45,13 @@ A simple problem of counting the number of unique characters in groups of string
 In part 1 we need to count the number of unique characters in each group.\
 In part 2 we need to count the number of characters that are present in all strings of each group.\
 Very easy to solve using sets; part 1 is mainly about finding the `union` of characters in each group, and part 2 is about finding the `intersection` of them.
+
+## Day 7: [Handy Haversacks](https://adventofcode.com/2020/day/7) &rarr; [Solution](./day07/d07.py)
+We are provided with a set of rules about how many of other colored bags are included in each colored bag.\
+In part 1 we need to find the number of different colored bags that can contain a "shiny gold" bag.\
+In part 2 we need to find the number of bags that are included in a "shiny gold" bag.\
+Recursion with memoization (`@cache`) is a good fit for this problem.
+
+### Bugs and Issues
+* reading the input lines with `re` was a bit tricky here.\
+I ended up having two different regular expressions for the container and the contained bags.

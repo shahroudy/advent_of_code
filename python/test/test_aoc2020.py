@@ -101,3 +101,21 @@ def test_day06():
     test = CustomCustoms(f"{input_folder}/aoc2020_day06.txt")
     assert test.count_anyone_answered() == 6911
     assert test.count_everyone_answered() == 3473
+
+
+def test_day07_samples():
+    from aoc2020.day07.d07 import HandyHaversacks
+
+    test = HandyHaversacks("./python/aoc2020/day07/sample1.txt")
+    assert test.bag_colors_containing_shiny_gold() == 4
+    assert test.number_of_bags_inside_a_shiny_gold() == 32
+    test = HandyHaversacks("./python/aoc2020/day07/sample2.txt")
+    assert test.number_of_bags_inside_a_shiny_gold() == 126
+
+
+def test_day07():
+    from aoc2020.day07.d07 import HandyHaversacks
+
+    test = HandyHaversacks(f"{input_folder}/aoc2020_day07.txt")
+    assert test.bag_colors_containing_shiny_gold() == 372
+    assert test.number_of_bags_inside_a_shiny_gold() == 8015
