@@ -3,7 +3,7 @@ import re
 from collections import defaultdict, namedtuple
 from functools import reduce
 
-from myutils.geometry import Point, Point3D
+from myutils.geometry import *
 from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
 
 State = namedtuple("state", ["x", "y"])

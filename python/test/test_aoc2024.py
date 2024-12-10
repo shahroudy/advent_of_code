@@ -148,3 +148,27 @@ def test_day09():
     test = DiskFragmenter(f"{input_folder}/aoc2024_day09.txt")
     assert test.checksum_after_moving_files() == 6432869891895
     assert test.checksum_after_moving_files_in_blocks() == 6467290479134
+
+
+def test_day10_samples():
+    from aoc2024.day10.d10 import HoofIt
+
+    assert HoofIt("./python/aoc2024/day10/sample1.txt").count_of_all_reachable_targets() == 1
+    assert HoofIt("./python/aoc2024/day10/sample2.txt").count_of_all_reachable_targets() == 2
+    assert HoofIt("./python/aoc2024/day10/sample3.txt").count_of_all_reachable_targets() == 4
+    assert HoofIt("./python/aoc2024/day10/sample4.txt").count_of_all_reachable_targets() == 3
+    assert HoofIt("./python/aoc2024/day10/sample5.txt").count_of_all_reachable_targets() == 36
+
+    assert HoofIt("./python/aoc2024/day10/sample6.txt").sum_of_path_counts() == 3
+    assert HoofIt("./python/aoc2024/day10/sample7.txt").sum_of_path_counts() == 13
+    assert HoofIt("./python/aoc2024/day10/sample8.txt").sum_of_path_counts() == 227
+    assert HoofIt("./python/aoc2024/day10/sample9.txt").sum_of_path_counts() == 81
+
+
+def test_day10():
+    from aoc2024.day10.d10 import HoofIt
+
+    puzzle = HoofIt(f"{input_folder}/aoc2024_day10.txt")
+
+    assert puzzle.count_of_all_reachable_targets() == 652
+    assert puzzle.sum_of_path_counts() == 1432

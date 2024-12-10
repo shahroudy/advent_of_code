@@ -111,3 +111,17 @@ In part 2, we have to move the files in the descending order of their IDs, not t
 ### Optimizations:
 * Using `deque` for part 1, to quickly add/remove parts to the beginning and the end of the disk.
 * Implementing a double linked list for part 2, to quickly insert new nodes in the middle of the list.
+
+## Day 10: [Hoof It](https://adventofcode.com/2024/day/10) &rarr; [Solution](./day10/d10.py)
+A simple path finding puzzle in a grid of digits.\
+Each valid path starts at a cell with value `0`, moves step by step to neighboring cells with strictly `+1` increasing values, and ends at a cell with value `9`.\
+In part 1, we need to find the sum of count of reachable `9`s from all `0`s.\
+In part 2, we need to find the number of all paths from each `0` to each `9`.
+
+### Bugs and Issues:
+* As always, reading and understanding the problem statement was the main challenge to me.\
+I literally implemented part 2 reading part 1 :sweat_smile:
+
+### Optimizations:
+* Today's was a perfect example puzzle to be solved with dynamic programming.\
+Starting from `9`s and moving backward to `0`s, we can find reachable `9`s and calculate the number of paths from each cell.

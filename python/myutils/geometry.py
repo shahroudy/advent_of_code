@@ -1,3 +1,27 @@
+from itertools import product
+
+# 2D Masks for 4, 8, 9 and X directions
+MASK4 = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+MASK8 = [[i, j] for i, j in product(range(-1, 2), repeat=2) if i or j]
+MASK9 = [[i, j] for i, j in product(range(-1, 2), repeat=2)]
+MASKX = [[1, 1], [-1, -1], [1, -1], [-1, 1]]
+
+# 3D Masks for 6, 26, 27 and X directions
+MASK6 = [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]
+MASK26 = [[i, j, k] for i, j, k in product(range(-1, 2), repeat=3) if i or j or k]
+MASK27 = [[i, j, k] for i, j, k in product(range(-1, 2), repeat=3)]
+MASKX3D = [
+    [1, 1, 1],
+    [-1, -1, -1],
+    [1, -1, 1],
+    [-1, 1, -1],
+    [1, 1, -1],
+    [-1, -1, 1],
+    [1, -1, -1],
+    [-1, 1, 1],
+]
+
+
 class Point:
     def __init__(self, x: int, y: int):
         self.x = x
@@ -27,26 +51,33 @@ class Point:
     def is_inside(self, cols, rows):
         return 0 <= self.x < cols and 0 <= self.y < rows
 
+    def neighbors_4(self):
+        return [Point(self.x + dx, self.y + dy) for dx, dy in MASK4]
+
+    def neighbors_8(self):
+        return [Point(self.x + dx, self.y + dy) for dx, dy in MASK8]
+
+    def neighbors_9(self):
+        return [Point(self.x + dx, self.y + dy) for dx, dy in MASK9]
+
+    def neighbors_x(self):
+        return [Point(self.x + dx, self.y + dy) for dx, dy in MASKX]
+
     @property
     def tuple(self):
         return (self.x, self.y)
 
-    # Common grid directions
-    @staticmethod
-    def NORTH():
-        return Point(0, -1)
+    def NORTH(self):
+        return Point(self.x, self.y - 1)
 
-    @staticmethod
-    def SOUTH():
-        return Point(0, 1)
+    def SOUTH(self):
+        return Point(self.x, self.y + 1)
 
-    @staticmethod
-    def EAST():
-        return Point(1, 0)
+    def EAST(self):
+        return Point(self.x + 1, self.y)
 
-    @staticmethod
-    def WEST():
-        return Point(-1, 0)
+    def WEST(self):
+        return Point(self.x - 1, self.y)
 
 
 class Point3D:
@@ -79,31 +110,36 @@ class Point3D:
     def is_inside(self, cols, rows, planes):
         return 0 <= self.x < cols and 0 <= self.y < rows and 0 <= self.z < planes
 
+    def neighbors_6(self):
+        return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASK6]
+
+    def neighbors_26(self):
+        return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASK26]
+
+    def neighbors_27(self):
+        return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASK27]
+
+    def neighbors_x(self):
+        return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASKX3D]
+
     @property
     def tuple(self):
         return (self.x, self.y, self.z)
 
-    # Common grid directions
-    @staticmethod
-    def NORTH():
-        return Point3D(0, -1, 0)
+    def NORTH(self):
+        return Point3D(self.x, self.y - 1, self.z)
 
-    @staticmethod
-    def SOUTH():
-        return Point3D(0, 1, 0)
+    def SOUTH(self):
+        return Point3D(self.x, self.y + 1, self.z)
 
-    @staticmethod
-    def EAST():
-        return Point3D(1, 0, 0)
+    def EAST(self):
+        return Point3D(self.x + 1, self.y, self.z)
 
-    @staticmethod
-    def WEST():
-        return Point3D(-1, 0, 0)
+    def WEST(self):
+        return Point3D(self.x - 1, self.y, self.z)
 
-    @staticmethod
-    def UP():
-        return Point3D(0, 0, 1)
+    def UP(self):
+        return Point3D(self.x, self.y, self.z + 1)
 
-    @staticmethod
-    def DOWN():
-        return Point3D(0, 0, -1)
+    def DOWN(self):
+        return Point3D(self.x, self.y, self.z - 1)

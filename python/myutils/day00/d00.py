@@ -10,7 +10,7 @@ from typing import override
 
 import numpy as np
 import scipy as sp
-from myutils.geometry import Point, Point3D
+from myutils.geometry import *
 from myutils.io_handler import get_input_data, submit_answer
 
 # from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
@@ -18,22 +18,19 @@ from myutils.utils import *
 from sympy import Symbol
 from sympy.solvers import solve
 
+DIRECTIONS = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
+TURN_LEFT = {"e": "n", "n": "w", "w": "s", "s": "e"}
+TURN_RIGHT = {"e": "s", "s": "w", "w": "n", "n": "e"}
+TURN_REVERSE = {"e": "w", "w": "e", "n": "s", "s": "n"}
+DIR_CHARS = {">": (1, 0), "<": (-1, 0), "^": (0, -1), "v": (0, 1)}
+DIR_CHARS_TURN_LEFT = {">": "^", "^": "<", "<": "v", "v": ">"}
+DIR_CHARS_TURN_RIGHT = {">": "v", "v": "<", "<": "^", "^": ">"}
+DIR_CHARS_TURN_REVERSE = {">": "<", "<": ">", "^": "v", "v": "^"}
+
 
 class Puzzle:
     def __init__(self, filename):
         self.input_text = Path(filename).read_text()
-        self.mask4 = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-        self.mask8 = [[i, j] for i in range(-1, 2) for j in range(-1, 2) if i or j]
-        self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
-        self.maskx = [[1, 1], [-1, -1], [1, -1], [-1, 1]]
-        self.directions = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
-        self.turn_left = {"e": "n", "n": "w", "w": "s", "s": "e"}
-        self.turn_right = {"e": "s", "s": "w", "w": "n", "n": "e"}
-        self.turn_reverse = {"e": "w", "w": "e", "n": "s", "s": "n"}
-        self.dir_chars = {">": (1, 0), "<": (-1, 0), "^": (0, -1), "v": (0, 1)}
-        self.dir_chars_turn_left = {">": "^", "^": "<", "<": "v", "v": ">"}
-        self.dir_chars_turn_right = {">": "v", "v": "<", "<": "^", "^": ">"}
-        self.dir_chars_turn_reverse = {">": "<", "<": ">", "^": "v", "v": "^"}
 
         # read_ints(self)
         # read_line_groups(self)
