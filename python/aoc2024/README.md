@@ -125,3 +125,16 @@ I literally implemented part 2 reading part 1 :sweat_smile:
 ### Optimizations:
 * Today's was a perfect example puzzle to be solved with dynamic programming.\
 Starting from `9`s and moving backward to `0`s, we can find reachable `9`s and calculate the number of paths from each cell.
+
+## Day 11: [Plutonian Pebbles](https://adventofcode.com/2024/day/11) &rarr; [Solution](./day11/d11.py)
+We are provided a list of stones with numbers engraved on them.\
+At each time step, stones change based on their own numbers:\
+* If the number is `0`, it turns to `1`.
+* Else if the number has even digits, it split to halves with higher and lower halves of digits, e.g. `1234` -> `12` and `34`.
+* Else the number is multiplied by `2024`!
+We need to find the number of total stones after `25` (`75` in part 2) time steps.
+
+### Optimizations:
+* It's obviously another dynamic programming problem, we can keep the history of number of stones for each number and time steps.\
+This way, we can build the grid of higher step values based on previous step values.\
+Python's `@cache` decorator is a perfect tool for this kind of problems.

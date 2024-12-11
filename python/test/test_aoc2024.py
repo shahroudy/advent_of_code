@@ -172,3 +172,24 @@ def test_day10():
 
     assert puzzle.count_of_all_reachable_targets() == 652
     assert puzzle.sum_of_path_counts() == 1432
+
+
+def test_day11_samples():
+    from aoc2024.day11.d11 import PlutonianPebbles
+
+    assert PlutonianPebbles("./python/aoc2024/day11/sample1.txt").stone_count_after(1) == 3
+    assert PlutonianPebbles("./python/aoc2024/day11/sample1.txt").stone_count_after(2) == 4
+    assert PlutonianPebbles("./python/aoc2024/day11/sample1.txt").stone_count_after(3) == 5
+    assert PlutonianPebbles("./python/aoc2024/day11/sample1.txt").stone_count_after(4) == 9
+    assert PlutonianPebbles("./python/aoc2024/day11/sample1.txt").stone_count_after(5) == 13
+    assert PlutonianPebbles("./python/aoc2024/day11/sample1.txt").stone_count_after(6) == 22
+    assert PlutonianPebbles("./python/aoc2024/day11/sample1.txt").stone_count_after(25) == 55312
+
+
+def test_day11():
+    from aoc2024.day11.d11 import PlutonianPebbles
+
+    data = f"{input_folder}/aoc2024_day11.txt"
+
+    assert PlutonianPebbles(data).stone_count_after(25) == 189092
+    assert PlutonianPebbles(data).stone_count_after(75) == 224869647102559
