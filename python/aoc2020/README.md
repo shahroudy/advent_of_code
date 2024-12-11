@@ -61,3 +61,12 @@ An easy puzzle of simulating an assembly program with a set of instructions.\
 The computer has an accumulator, an instruction pointer, and a set of instructions.\
 In part 1 we need to find the value of the accumulator before the program enters an infinite loop.\
 In part 2 we need to find the value of the accumulator after fixing the program by changing one `nop` to `jmp` or vice versa.
+
+## Day 9: [Encoding Error](https://adventofcode.com/2020/day/9) &rarr; [Solution](./day09/d09.py)
+In this puzzle we are provided with a list of numbers and need to find the first number that is not the sum of any two of the previous 25 numbers.\
+In part 2, we need to find a contiguous set of numbers that sum up to the number found in part 1.\
+A simple sliding window algorithm is enough and tractable to solve this problem with the provided input.
+
+### Optimizations
+* We can improve the runtime of part 2 in orders of magnitude by building an integral sum array and use it to find the summation between each pair of numbers in O(1) time.
+* We can further improve the runtime by indexing the integral sum values to indices and find the end-of-range index for each start-of-range index in O(1) time.

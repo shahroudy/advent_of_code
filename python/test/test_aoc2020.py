@@ -135,3 +135,19 @@ def test_day08():
     test = HandheldHalting(f"{input_folder}/aoc2020_day08.txt")
     assert test.acc_value_before_looping() == 1930
     assert test.acc_value_after_proper_termination() == 1688
+
+
+def test_day09_samples():
+    from aoc2020.day09.d09 import EncodingError
+
+    test = EncodingError("./python/aoc2020/day09/sample1.txt", 5)
+    assert test.first_invalid == 127
+    assert test.encryption_weakness() == 62
+
+
+def test_day09():
+    from aoc2020.day09.d09 import EncodingError
+
+    test = EncodingError(f"{input_folder}/aoc2020_day09.txt")
+    assert test.first_invalid == 400480901
+    assert test.encryption_weakness() == 67587168

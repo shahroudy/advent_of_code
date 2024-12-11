@@ -1,62 +1,47 @@
-import os
-from myutils.file_reader import read_int_list
+from itertools import combinations
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
-class ErrorDetector:
-    def __init__(self, filename):
-        self.nums = read_int_list(filename)
-        self.count = len(self.nums)
-        self.process()
+class EncodingError:
+    def __init__(self, filename, preamble_size=25):
+        self.inp = [int(n) for n in Path(filename).read_text().splitlines()]
+        self.preamble_size = preamble_size
+        self.first_invalid = self.find_first_invalid()
 
-    def process(self):
-        self.integral = dict()
-        self.int_lookup = dict()
+    def find_first_invalid(self):
+        for i in range(self.preamble_size, len(self.inp)):
+            for a, b in combinations(self.inp[i - self.preamble_size : i], 2):
+                if a + b == self.inp[i]:
+                    break
+            else:
+                return self.inp[i]
+
+    def encryption_weakness(self):
+        sum_lookup = dict()
         sum = 0
-        for i in range(self.count):
-            sum += self.nums[i]
-            self.integral[i] = sum
-            self.int_lookup[sum] = i
-
-    def find_invalid(self, window):
-        for i in range(window, self.count):
-            found = False
-            for j in range(i - window, i):
-                for k in range(j + 1, i):
-                    if self.nums[j] + self.nums[k] == self.nums[i]:
-                        found = True
-                        break
-            if not found:
-                return self.nums[i]
-            i += 1
-
-    def find_weakness_brute_force(self, sum):
-        for i in range(len(self.nums)):
-            j = i
-            s = 0
-            while s < sum and j < len(self.nums):
-                s += self.nums[j]
-                j += 1
-            if s == sum:
-                nums = self.nums[i:j]
-                return min(nums) + max(nums)
-
-    def find_weakness(self, sum):
-        for i in range(self.count):
-            j = self.int_lookup.get(sum + self.integral[i], None)
-            if j is not None:
-                nums = self.nums[i + 1 : j + 1]
+        integral = {-1: sum}
+        for i, n in enumerate(self.inp):
+            sum += n
+            integral[i] = sum
+            sum_lookup[sum] = i
+        for i in range(len(self.inp)):
+            if j := sum_lookup.get(integral[i - 1] + self.first_invalid, None):
+                nums = self.inp[i : j + 1]
                 return min(nums) + max(nums)
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = ErrorDetector("test1.txt")
-    assert test1.find_invalid(5) == 127
-    assert test1.find_weakness(127) == 62
-    assert test1.find_weakness_brute_force(127) == 62
 
-    detector = ErrorDetector(data.input_file)
-    inval = detector.find_invalid(25)
-    weakness = detector.find_weakness(inval)
-    print(inval, weakness)
+    test = EncodingError("sample1.txt", 5)
+    assert test.first_invalid == 127
+    assert test.encryption_weakness() == 62
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = EncodingError(data.input_file)
+
+    print(puzzle.first_invalid)
+    print(puzzle.encryption_weakness())
