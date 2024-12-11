@@ -151,3 +151,22 @@ def test_day09():
     test = EncodingError(f"{input_folder}/aoc2020_day09.txt")
     assert test.first_invalid == 400480901
     assert test.encryption_weakness() == 67587168
+
+
+def test_day10_samples():
+    from aoc2020.day10.d10 import AdapterArray
+
+    test = AdapterArray("./python/aoc2020/day10/sample1.txt")
+    assert test.difference_count_multiplications() == 35
+    assert test.count_all_possible_ways() == 8
+    test = AdapterArray("./python/aoc2020/day10/sample2.txt")
+    assert test.difference_count_multiplications() == 220
+    assert test.count_all_possible_ways() == 19208
+
+
+def test_day10():
+    from aoc2020.day10.d10 import AdapterArray
+
+    test = AdapterArray(f"{input_folder}/aoc2020_day10.txt")
+    assert test.difference_count_multiplications() == 2100
+    assert test.count_all_possible_ways() == 16198260678656

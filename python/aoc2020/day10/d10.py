@@ -1,44 +1,39 @@
-import os
-from itertools import combinations
-from myutils.file_reader import read_int_list
+from collections import defaultdict
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
 class AdapterArray:
     def __init__(self, filename):
-        self.nums = read_int_list(filename)
+        adapters = sorted(list(map(int, Path(filename).read_text().splitlines())))
+        self.adapters = adapters + [adapters[-1] + 3]
 
-    def calc_jolt_diffs(self):
-        s = sorted(self.nums)
-        s = [0] + s
-        steps = [0] * 4
-        for i in range(len(s) - 1):
-            steps[s[i + 1] - s[i]] += 1
-        steps[3] += 1
-        return steps[1] * steps[3]
+    def difference_count_multiplications(self):
+        diff_counter = defaultdict(int)
+        for i, j in zip([0] + self.adapters[:-1], self.adapters):
+            diff_counter[j - i] += 1
+        return diff_counter[1] * diff_counter[3]
 
-    def calc_overall_combinations(self):
-        s = [0] + sorted(self.nums)
-        c = [0] * len(s)
-        c[0] = 1
-
-        for i in range(1, len(c)):
-            for j in range(i - 3, i):
-                if j >= 0 and s[j] >= s[i] - 3:
-                    c[i] += c[j]
-        return c[-1]
+    def count_all_possible_ways(self):
+        ways = defaultdict(int)
+        ways[0] = 1
+        for i in self.adapters:
+            ways[i] = sum(ways[i - 1 - j] for j in range(3))
+        return ways[i]
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = AdapterArray("test1.txt")
-    assert test1.calc_jolt_diffs() == 35
-    assert test1.calc_overall_combinations() == 8
 
-    test2 = AdapterArray("test2.txt")
-    assert test2.calc_jolt_diffs() == 220
-    assert test2.calc_overall_combinations() == 19208
+    assert AdapterArray("sample1.txt").difference_count_multiplications() == 35
+    assert AdapterArray("sample2.txt").difference_count_multiplications() == 220
+    assert AdapterArray("sample1.txt").count_all_possible_ways() == 8
+    assert AdapterArray("sample2.txt").count_all_possible_ways() == 19208
 
-    some = AdapterArray(data.input_file)
-    print(some.calc_jolt_diffs())
-    print(some.calc_overall_combinations())
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = AdapterArray(data.input_file)
+
+    print(puzzle.difference_count_multiplications())
+    print(puzzle.count_all_possible_ways())

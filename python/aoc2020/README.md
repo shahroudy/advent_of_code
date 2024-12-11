@@ -70,3 +70,12 @@ A simple sliding window algorithm is enough and tractable to solve this problem 
 ### Optimizations
 * We can improve the runtime of part 2 in orders of magnitude by building an integral sum array and use it to find the summation between each pair of numbers in O(1) time.
 * We can further improve the runtime by indexing the integral sum values to indices and find the end-of-range index for each start-of-range index in O(1) time.
+
+## Day 10: [Adapter Array](https://adventofcode.com/2020/day/10) &rarr; [Solution](./day10/d10.py)
+We are provided with a list of numbers (adapters with different joltages) and need to find way to use them to connect a `0-jolt` outlet to a device with a joltage of `3` higher than the maximum adapter.\
+Each connection can have at most 3 jolts difference.\
+In part 1, we need to find the `1-jolt` and `3-jolt` differences and return their product.\
+Which is easily doable by sorting the input list and counting the differences.\
+In part 2, we need to find all the possible ways to connect the `0-jolt` outlet to the device (with maximum 3 jolts difference) in an efficient way (as stated in the problem statement, there will be trillions of ways!).\
+The obvious way to solve this is **dynamic programming**.\
+Across the sorted list of adapters, we can find the number of ways to connect each adapter to the outlet by summing the number of ways to achieve last 3 joltages!
