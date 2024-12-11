@@ -119,3 +119,19 @@ def test_day07():
     test = HandyHaversacks(f"{input_folder}/aoc2020_day07.txt")
     assert test.bag_colors_containing_shiny_gold() == 372
     assert test.number_of_bags_inside_a_shiny_gold() == 8015
+
+
+def test_day08_samples():
+    from aoc2020.day08.d08 import HandheldHalting
+
+    test = HandheldHalting("./python/aoc2020/day08/sample1.txt")
+    assert test.acc_value_before_looping() == 5
+    assert test.acc_value_after_proper_termination() == 8
+
+
+def test_day08():
+    from aoc2020.day08.d08 import HandheldHalting
+
+    test = HandheldHalting(f"{input_folder}/aoc2020_day08.txt")
+    assert test.acc_value_before_looping() == 1930
+    assert test.acc_value_after_proper_termination() == 1688

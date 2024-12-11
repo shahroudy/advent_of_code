@@ -55,3 +55,9 @@ Recursion with memoization (`@cache`) is a good fit for this problem.
 ### Bugs and Issues
 * reading the input lines with `re` was a bit tricky here.\
 I ended up having two different regular expressions for the container and the contained bags.
+
+## Day 8: [Handheld Halting](https://adventofcode.com/2020/day/8) &rarr; [Solution](./day08/d08.py)
+An easy puzzle of simulating an assembly program with a set of instructions.\
+The computer has an accumulator, an instruction pointer, and a set of instructions.\
+In part 1 we need to find the value of the accumulator before the program enters an infinite loop.\
+In part 2 we need to find the value of the accumulator after fixing the program by changing one `nop` to `jmp` or vice versa.

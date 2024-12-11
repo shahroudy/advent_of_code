@@ -1,84 +1,55 @@
-import os
-from myutils.file_reader import read_lines
+import re
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
-class GameConsole:
+class HandheldHalting:
     def __init__(self, filename):
-        self.lines = read_lines(filename)
-        self.reset()
+        line_re = re.compile(r"(\w+) ([+-]\d+)")
+        self.program = [(cmd, int(arg)) for cmd, arg in line_re.findall(Path(filename).read_text())]
 
-    def reset(self):
-        self.head = 0
-        self.prog = self.lines.copy()
-        self.acc = 0
-        self.hist = []
-        self.terminated = False
-        self.completed = False
+    def run(self, program):
+        acc = 0
+        history = set()
+        head = 0
+        while True:
+            history.add(head)
+            cmd, arg = program[head]
+            if cmd == "acc":
+                acc, head = acc + arg, head + 1
+            elif cmd == "jmp":
+                head += arg
+            else:
+                head += 1
+            if head in history:
+                return acc, True
+            if head >= len(program):
+                return acc, False
 
-    def step(self):
-        if self.head == len(self.prog):
-            self.completed = True
-            self.terminated = True
-            return
-        if self.head in self.hist:
-            self.terminated = True
-            return
-        else:
-            self.hist.append(self.head)
+    def acc_value_before_looping(self):
+        acc, _ = self.run(self.program)
+        return acc
 
-        command = self.prog[self.head]
-        op, operand = self.parse_command(command)
-        self.execute(op, operand)
-        return
-
-    def parse_command(self, command):
-        parts = command.split(" ")
-        op = parts[0]
-        operand = int(parts[1])
-        return op, operand
-
-    def make_command(self, op, operand):
-        return f"{op} {operand}"
-
-    def execute(self, op, operand):
-        if op == "nop":
-            pass
-        elif op == "acc":
-            self.acc += operand
-        elif op == "jmp":
-            self.head += operand
-            return
-        self.head += 1
-        return
-
-    def run(self):
-        while not self.terminated:
-            self.step()
-        return self.acc
-
-    def run_with_correction(self):
-        for mod_line in range(len(self.lines)):
-            self.reset()
-
-            # modify the mod_line command
-            op, operand = self.parse_command(self.prog[mod_line])
-            if op == "jmp":
-                self.prog[mod_line] = self.make_command("nop", operand)
-            elif op == "nop":
-                self.prog[mod_line] = self.make_command("jmp", operand)
-
-            self.run()
-
-            if self.completed:
-                return self.acc
+    def acc_value_after_proper_termination(self):
+        for change_line in [n for n, (cmd, _) in enumerate(self.program) if cmd in ("jmp", "nop")]:
+            program = self.program.copy()
+            cmd, arg = program[change_line]
+            program[change_line] = ("nop" if cmd == "jmp" else "jmp", arg)
+            acc, infinite_loop = self.run(program)
+            if not infinite_loop:
+                return acc
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = GameConsole("test1.txt")
-    assert test1.run() == 5
-    assert test1.run_with_correction() == 8
 
-    console = GameConsole(data.input_file)
-    print(console.run(), console.run_with_correction())
+    assert HandheldHalting("sample1.txt").acc_value_before_looping() == 5
+    assert HandheldHalting("sample1.txt").acc_value_after_proper_termination() == 8
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = HandheldHalting(data.input_file)
+
+    print(puzzle.acc_value_before_looping())
+    print(puzzle.acc_value_after_proper_termination())

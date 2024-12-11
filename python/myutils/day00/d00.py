@@ -35,8 +35,8 @@ class Puzzle:
 
         # process(self)
         # recursive_split(self, "\n:", strip=True)
-        # find_all_re(self)
-        # find_all_per_line_re(self)
+        # find_all_re(self, r"(\d+)")
+        # find_all_per_line_re(self, r"(\d+)")
 
     def calc0(self):
         # s = MySearch()

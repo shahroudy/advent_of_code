@@ -73,13 +73,13 @@ def recursive_split(self, seps, inp=None, strip=True):
     ]
 
 
-def find_all_re(self):
-    pattern = re.compile(r"(\d+)")
+def find_all_re(self, pattern):
+    pattern = re.compile(pattern)
     self.inp = pattern.findall(self.input_text)
 
 
-def find_all_per_line_re(self):
-    pattern = re.compile(r"(\d+)")
+def find_all_per_line_re(self, pattern):
+    pattern = re.compile(pattern)
     self.inp = [pattern.findall(line) for line in self.input_text.splitlines()]
 
 
