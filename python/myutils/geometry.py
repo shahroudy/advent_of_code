@@ -51,10 +51,10 @@ class Point:
         __str__(): String representation of the point
         manhattan_dist(other): Calculate Manhattan distance to another point
         is_inside(cols, rows): Check if point is within given boundaries
-        neighbors_4(): Get 4-connected neighbors (N,S,E,W)
-        neighbors_8(): Get 8-connected neighbors (N,S,E,W,NE,NW,SE,SW)
-        neighbors_9(): Get 9-connected neighbors (includes center point)
-        neighbors_x(): Get diagonal neighbors (NE,NW,SE,SW)
+        n4(): Get 4-connected neighbors (N,S,E,W)
+        n8(): Get 8-connected neighbors (N,S,E,W,NE,NW,SE,SW)
+        n9(): Get 9-connected neighbors (includes center point)
+        nx(): Get diagonal neighbors (NE,NW,SE,SW)
         tuple: Property that returns coordinates as a tuple
         NORTH(): Get adjacent point to the north
         SOUTH(): Get adjacent point to the south
@@ -90,16 +90,16 @@ class Point:
     def is_inside(self, cols, rows):
         return 0 <= self.x < cols and 0 <= self.y < rows
 
-    def neighbors_4(self):
+    def n4(self):
         return [Point(self.x + dx, self.y + dy) for dx, dy in MASK4]
 
-    def neighbors_8(self):
+    def n8(self):
         return [Point(self.x + dx, self.y + dy) for dx, dy in MASK8]
 
-    def neighbors_9(self):
+    def n9(self):
         return [Point(self.x + dx, self.y + dy) for dx, dy in MASK9]
 
-    def neighbors_x(self):
+    def nx(self):
         return [Point(self.x + dx, self.y + dy) for dx, dy in MASKX]
 
     @property
@@ -139,10 +139,10 @@ class Point3D:
         __str__(): String representation of the point
         manhattan_dist(other): Calculate Manhattan distance to another point
         is_inside(cols, rows, planes): Check if point is within given bounds
-        neighbors_6(): Get 6-connected neighbors (face adjacency)
-        neighbors_26(): Get 26-connected neighbors (vertex adjacency)
-        neighbors_27(): Get 27-connected neighbors (including self)
-        neighbors_x(): Get cross-shaped neighbors
+        n6(): Get 6-connected neighbors (face adjacency)
+        n26(): Get 26-connected neighbors (vertex adjacency)
+        n27(): Get 27-connected neighbors (including self)
+        nx(): Get cross-shaped neighbors
         tuple: Property that returns coordinates as tuple
         NORTH(): Get adjacent point to the north (negative y)
         SOUTH(): Get adjacent point to the south (positive y)
@@ -181,16 +181,16 @@ class Point3D:
     def is_inside(self, cols, rows, planes):
         return 0 <= self.x < cols and 0 <= self.y < rows and 0 <= self.z < planes
 
-    def neighbors_6(self):
+    def n6(self):
         return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASK6]
 
-    def neighbors_26(self):
+    def n26(self):
         return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASK26]
 
-    def neighbors_27(self):
+    def n27(self):
         return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASK27]
 
-    def neighbors_x(self):
+    def nx(self):
         return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASKX3D]
 
     @property
@@ -238,7 +238,7 @@ def find_connected_components(input_map, neighbors_func):
     Examples:
         >>> # Example with a grid where neighbors are adjacent cells
         >>> grid = {Point(0,0): 1, Point(0,1): 1, Point(1,0): 1, (1,1): 0}
-        >>> components, mapping = find_connected_components(grid, Point.neighbors_4)
+        >>> components, mapping = find_connected_components(grid, Point.n4)
     """
     components = {}
     components_map = {}
@@ -287,7 +287,7 @@ def outer_border(region, neighbors_func):
 
     Example:
         >>> region = {Point(0,0), Point(1,0)}
-        >>> border = outer_border(region, Point.neighbors_4)
+        >>> border = outer_border(region, Point.n4)
     """
     border = set()
     for point in region:
@@ -311,7 +311,7 @@ def inner_border(region, neighbors_func):
 
     Example:
         >>> region = {Point(0,0), Point(1,0)}
-        >>> border = inner_border(region, Point.neighbors_4)
+        >>> border = inner_border(region, Point.n4)
     """
     border = set()
     for point in region:
@@ -335,6 +335,6 @@ def region_perimeter(region, neighbors_func):
 
     Example:
         >>> region = {Point(0,0), Point(0,1), Point(1,0), Point(1,1)}
-        >>> region_perimeter(region, Point.neighbors_4)
+        >>> region_perimeter(region, Point.n4)
     """
     return len(outer_border(region, neighbors_func))

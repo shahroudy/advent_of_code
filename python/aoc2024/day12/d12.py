@@ -14,20 +14,20 @@ class GardenGroups:
             for col, ch in enumerate(line):
                 plot[Point(col, row)] = ch
 
-        self.regions, self.region_map = find_connected_components(plot, Point.neighbors_4)
+        self.regions, self.region_map = find_connected_components(plot, Point.n4)
 
     def total_price(self):
-        return sum(len(r) * region_perimeter(r, Point.neighbors_4) for r in self.regions.values())
+        return sum(len(r) * region_perimeter(r, Point.n4) for r in self.regions.values())
 
     def total_price_discounted(self):
         res = 0
         for region in self.regions.values():
-            borders = outer_border(region, Point.neighbors_4)
+            borders = outer_border(region, Point.n4)
             side_count = 0
             border_directions = set(direction for point, direction in borders)
             for border_direction in border_directions:
                 points = {point for point, direction in borders if direction == border_direction}
-                connected_borders, _ = find_connected_components(points, Point.neighbors_4)
+                connected_borders, _ = find_connected_components(points, Point.n4)
                 side_count += len(connected_borders)
             res += len(region) * side_count
         return res

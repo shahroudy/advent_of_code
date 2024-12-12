@@ -23,7 +23,7 @@ class HoofIt:
         else:
             self.path_counts[point] = 0
             self.reachable_targets[point] = set()
-            for n in point.neighbors_4():
+            for n in point.n4():
                 if n in self.locations[step + 1]:
                     self.reachable_targets[point].update(self.reachable_targets[n])
                     self.path_counts[point] += self.path_counts[n]
