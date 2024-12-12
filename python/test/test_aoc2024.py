@@ -193,3 +193,25 @@ def test_day11():
 
     assert PlutonianPebbles(data).stone_count_after(25) == 189092
     assert PlutonianPebbles(data).stone_count_after(75) == 224869647102559
+
+
+def test_day12_samples():
+    from aoc2024.day12.d12 import GardenGroups
+
+    assert GardenGroups("./python/aoc2024/day12/sample1.txt").total_price() == 140
+    assert GardenGroups("./python/aoc2024/day12/sample2.txt").total_price() == 772
+    assert GardenGroups("./python/aoc2024/day12/sample3.txt").total_price() == 1930
+
+    assert GardenGroups("./python/aoc2024/day12/sample1.txt").total_price_discounted() == 80
+    assert GardenGroups("./python/aoc2024/day12/sample2.txt").total_price_discounted() == 436
+    assert GardenGroups("./python/aoc2024/day12/sample3.txt").total_price_discounted() == 1206
+    assert GardenGroups("./python/aoc2024/day12/sample4.txt").total_price_discounted() == 368
+
+
+def test_day12():
+    from aoc2024.day12.d12 import GardenGroups
+
+    data = f"{input_folder}/aoc2024_day12.txt"
+
+    assert GardenGroups(data).total_price() == 1421958
+    assert GardenGroups(data).total_price_discounted() == 885394

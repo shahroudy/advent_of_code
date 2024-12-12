@@ -1,6 +1,6 @@
 from itertools import product
 
-# Some usefule direction constants
+# Some useful direction constants
 DIRECTIONS = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
 TURN_LEFT = {"e": "n", "n": "w", "w": "s", "s": "e"}
 TURN_RIGHT = {"e": "s", "s": "w", "w": "n", "n": "e"}
@@ -33,6 +33,35 @@ MASKX3D = [
 
 
 class Point:
+    """A class representing a 2D point with integer coordinates.
+
+    This class provides basic operations for 2D point manipulation including arithmetic
+    operations, distance calculations, and neighbor point generation.
+
+    Attributes:
+        x (int): The x-coordinate of the point
+        y (int): The y-coordinate of the point
+
+    Methods:
+        __add__(other): Add two points coordinate-wise
+        __sub__(other): Subtract two points coordinate-wise
+        __mul__(scalar): Multiply point coordinates by a scalar
+        __eq__(other): Check if two points are equal
+        __hash__(): Generate hash value for the point
+        __str__(): String representation of the point
+        manhattan_dist(other): Calculate Manhattan distance to another point
+        is_inside(cols, rows): Check if point is within given boundaries
+        neighbors_4(): Get 4-connected neighbors (N,S,E,W)
+        neighbors_8(): Get 8-connected neighbors (N,S,E,W,NE,NW,SE,SW)
+        neighbors_9(): Get 9-connected neighbors (includes center point)
+        neighbors_x(): Get diagonal neighbors (NE,NW,SE,SW)
+        tuple: Property that returns coordinates as a tuple
+        NORTH(): Get adjacent point to the north
+        SOUTH(): Get adjacent point to the south
+        EAST(): Get adjacent point to the east
+        WEST(): Get adjacent point to the west
+    """
+
     def __init__(self, x: int, y: int):
         self.x = x
         self.y = y
@@ -91,6 +120,38 @@ class Point:
 
 
 class Point3D:
+    """A class representing a point in 3D space with integer coordinates.
+
+    This class provides basic operations for 3D point manipulation including arithmetic
+    operations, comparison, and various neighbor calculations.
+
+    Attributes:
+        x (int): The x-coordinate
+        y (int): The y-coordinate
+        z (int): The z-coordinate
+
+    Methods:
+        __add__(other): Add two points component-wise
+        __sub__(other): Subtract two points component-wise
+        __mul__(scalar): Multiply point coordinates by a scalar
+        __eq__(other): Check if two points are equal
+        __hash__(): Generate hash value for the point
+        __str__(): String representation of the point
+        manhattan_dist(other): Calculate Manhattan distance to another point
+        is_inside(cols, rows, planes): Check if point is within given bounds
+        neighbors_6(): Get 6-connected neighbors (face adjacency)
+        neighbors_26(): Get 26-connected neighbors (vertex adjacency)
+        neighbors_27(): Get 27-connected neighbors (including self)
+        neighbors_x(): Get cross-shaped neighbors
+        tuple: Property that returns coordinates as tuple
+        NORTH(): Get adjacent point to the north (negative y)
+        SOUTH(): Get adjacent point to the south (positive y)
+        EAST(): Get adjacent point to the east (positive x)
+        WEST(): Get adjacent point to the west (negative x)
+        UP(): Get adjacent point above (positive z)
+        DOWN(): Get adjacent point below (negative z)
+    """
+
     def __init__(self, x: int, y: int, z: int):
         self.x = x
         self.y = y
@@ -153,3 +214,127 @@ class Point3D:
 
     def DOWN(self):
         return Point3D(self.x, self.y, self.z - 1)
+
+
+def find_connected_components(input_map, neighbors_func):
+    """Find connected components in a map using depth-first search.
+
+    This function identifies and labels connected components in either a dictionary or set of
+    points, where connectivity is defined by a custom neighbor function. Points are considered
+    connected if they are neighbors and have the same label value.
+
+    Args:
+        input_map (Union[dict, set, list]): Either a dictionary mapping points to their labels,
+            or a set/list of points (in which case all points are considered to have the same
+            label 0).
+        neighbors_func (Callable): A function that takes a point and returns an iterable of its
+            neighbors.
+
+    Returns:
+        tuple[dict, dict]: A tuple containing:
+            - components (dict): Maps component IDs to sets of points in each component.
+            - components_map (dict): Maps each point to its component ID.
+
+    Examples:
+        >>> # Example with a grid where neighbors are adjacent cells
+        >>> grid = {Point(0,0): 1, Point(0,1): 1, Point(1,0): 1, (1,1): 0}
+        >>> components, mapping = find_connected_components(grid, Point.neighbors_4)
+    """
+    components = {}
+    components_map = {}
+    if isinstance(input_map, dict):
+        labels = input_map
+        points_to_process = set(input_map.keys())
+    else:
+        labels = {k: 0 for k in input_map}
+        points_to_process = set(input_map)
+
+    component_id = 0
+    while points_to_process:
+        current = points_to_process.pop()
+        components_map[current] = component_id
+        current_component = set()
+        current_component.add(current)
+        stack = [current]
+        while stack:
+            current = stack.pop()
+            for neighbor in neighbors_func(current):
+                if (
+                    neighbor in points_to_process
+                    and labels[neighbor] == labels[current]
+                    and neighbor not in current_component
+                ):
+                    points_to_process.remove(neighbor)
+                    current_component.add(neighbor)
+                    components_map[current] = component_id
+                    stack.append(neighbor)
+        components[component_id] = current_component
+        component_id += 1
+    return components, components_map
+
+
+def outer_border(region, neighbors_func):
+    """Calculate the outer border points and their directions relative to a region.
+
+    Args:
+        region (set): A set of points representing a region in space
+        neighbors_func (callable): A function that takes a point and returns its neighboring points
+
+    Returns:
+        set: A set of tuples (point, direction) where:
+            - point: A point adjacent to but outside the region
+            - direction: Vector from the closest region point to this border point
+
+    Example:
+        >>> region = {Point(0,0), Point(1,0)}
+        >>> border = outer_border(region, Point.neighbors_4)
+    """
+    border = set()
+    for point in region:
+        for neighbor in neighbors_func(point):
+            if neighbor not in region:
+                border.add((neighbor, neighbor - point))
+    return border
+
+
+def inner_border(region, neighbors_func):
+    """Calculate the inner border points and their directions relative to a region.
+
+    Args:
+        region (set): A set of points representing a region in space
+        neighbors_func (callable): A function that takes a point and returns its neighboring points
+
+    Returns:
+        set: A set of tuples (point, direction) where:
+            - point: A point adjacent to but outside the region
+            - direction: Vector from the closest region point to this border point
+
+    Example:
+        >>> region = {Point(0,0), Point(1,0)}
+        >>> border = inner_border(region, Point.neighbors_4)
+    """
+    border = set()
+    for point in region:
+        for neighbor in neighbors_func(point):
+            if neighbor not in region:
+                border.add((point, point - neighbor))
+    return border
+
+
+def region_perimeter(region, neighbors_func):
+    """Calculate the perimeter of a region in a 2D grid.
+
+    The perimeter is defined as the number of cells that form the outer border of the region.
+
+    Args:
+        region (set): A set of coordinates representing cells in the region.
+        neighbors_func (callable): A function that takes a coordinate and returns its neighboring coordinates.
+
+    Returns:
+        int: The perimeter of the region, measured in number of border cells.
+
+    Example:
+        >>> region = {Point(0,0), Point(0,1), Point(1,0), Point(1,1)}
+        >>> region_perimeter(region, Point.neighbors_4)
+    """
+    return len(outer_border(region, neighbors_func))

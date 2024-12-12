@@ -4,6 +4,7 @@ from collections import defaultdict, namedtuple
 from functools import reduce
 
 from myutils.geometry import *
+from myutils.geometry import Point, Point3D
 from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
 
 State = namedtuple("state", ["x", "y"])
@@ -85,10 +86,10 @@ def find_all_per_line_re(self, pattern):
 
 def process_map_plain(self):
     lines = self.input_text.splitlines()
-    self.map = dict()
+    self.inp = dict()
     for row, line in enumerate(lines):
         for col, ch in enumerate(line):
-            self.map[(col, row)] = ch
+            self.inp[(col, row)] = ch
     self.rows, self.cols = row + 1, col + 1
 
 
@@ -99,7 +100,7 @@ def process_map_dict_of_sets_of_points(self):
         for col, ch in enumerate(line):
             if ch != ".":
                 sets[ch].add(Point(col, row))
-    self.map = dict(sets)
+    self.inp = dict(sets)
     self.rows, self.cols = row + 1, col + 1
 
 
@@ -110,7 +111,7 @@ def process_map_dict_of_sets_of_3D_points(self):
             for x, ch in enumerate(line):
                 if ch != ".":
                     sets[ch].add(Point3D(x, y, z))
-    self.map = dict(sets)
+    self.inp = dict(sets)
     self.planes, self.rows, self.cols = z + 1, y + 1, x + 1
 
 
