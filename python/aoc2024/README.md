@@ -162,3 +162,22 @@ They return border cells and the direction of the border to the cells.
 For part 2, we simply need to re-use the `find_connected_components` function to group the 4-connected border cells from each border direction.
 
 **This problems seems to be a good candidate for a future day extension, maybe in 3D or even in super-larger scales!**
+
+## Day 13: [Claw Contraption](https://adventofcode.com/2024/day/13) &rarr; [Solution](./day13/d13.py)
+We have a claw machine and two buttons to move the claw right and forward with defined units.\
+We have the location of the prize and we need to find the minimum number of moves to reach the prize.\
+Pushing button `B` costs `1` token and pushing button `A` costs `3` tokens.\
+In part 1, we we are limited to maximum of `100` pushes of each button.\
+In part 2, the prize's location is moved `10000000000000` units to both right and forward!\
+We need to find the minimum number of tokens to collect maximum number of prizes.\
+For some entries, it's impossible to reach the prize, so we shouldn't spend any tokens.\
+This puzzle is actually a system of linear equations, with 2 variables and two equations; so easy to solve using `sympy.solve` library function!\
+We also need to check some criteria on the solutions:
+* The variables should be non-negative,
+* They should be integers,
+* They should be less than or equal to `100` in part 1.
+
+### Bugs and Issues:
+* Again I failed to understand the problem statement properly, and implemented a `MinHeap` search for this!
+* Then I figured out what's requested and got the answer in part 1 with an ad-hoc search over `0-100 x 0-100` space.
+* Reading and understanding the problem statement was the main challenge in this puzzle.

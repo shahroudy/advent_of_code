@@ -215,3 +215,18 @@ def test_day12():
 
     assert GardenGroups(data).total_price() == 1421958
     assert GardenGroups(data).total_price_discounted() == 885394
+
+
+def test_day13_samples():
+    from aoc2024.day13.d13 import ClawContraption
+
+    assert ClawContraption("./python/aoc2024/day13/sample1.txt").min_tokens_for_most_win() == 480
+
+
+def test_day13():
+    from aoc2024.day13.d13 import ClawContraption
+
+    data = f"{input_folder}/aoc2024_day13.txt"
+
+    assert ClawContraption(data).min_tokens_for_most_win() == 25751
+    assert ClawContraption(data).min_tokens_for_most_win(10000000000000) == 108528956728655
