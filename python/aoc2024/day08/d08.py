@@ -23,13 +23,13 @@ class ResonantCollinearity:
             for a, b in combinations(points, 2):
                 delta = b - a
                 p = a - delta
-                while p.is_inside(self.cols, self.rows):
+                while p.is_inside(self):
                     antinode.add(p)
                     p -= delta
                     if not unlimited:
                         break
                 p = b + delta
-                while p.is_inside(self.cols, self.rows):
+                while p.is_inside(self):
                     antinode.add(p)
                     p += delta
                     if not unlimited:

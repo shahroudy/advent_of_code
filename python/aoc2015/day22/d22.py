@@ -22,6 +22,8 @@ class WizardSimulator20XX(Search_MinHeap):
             kwargs["boss_damage"] = boss_damage
 
         super().__init__(**kwargs)
+        if "hard_mode" not in kwargs:
+            self.hard_mode = False
         self.initial_state = initial_state
 
     @override
@@ -32,7 +34,7 @@ class WizardSimulator20XX(Search_MinHeap):
         for action in range(5):
             spent_mana, hit, mana, boss_hit, shield, poison, recharge = state
 
-            if self.args.get("hard_mode", False):
+            if self.hard_mode:
                 hit -= 1
                 if hit <= 0:
                     continue  # player lost
@@ -91,7 +93,7 @@ class WizardSimulator20XX(Search_MinHeap):
             # boss' action
             armor = 7 if shield > 0 else 0
             if boss_hit > 0:
-                hit -= max(1, self.args["boss_damage"] - armor)
+                hit -= max(1, self.boss_damage - armor)
             if hit <= 0:
                 continue  # player lost
             next_states.append(State(spent_mana, hit, mana, boss_hit, shield, poison, recharge))
