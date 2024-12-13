@@ -1,72 +1,66 @@
-import os
-from myutils.file_reader import read_lines
+import re
+from pathlib import Path
+
+from myutils.geometry import Point
 from myutils.io_handler import get_input_data
 
 
-class Navigation:
+class RainRisk:
     def __init__(self, filename):
-        self.lines = read_lines(filename)
-        self.process()
+        self.inp = [
+            (cmd, int(num)) for cmd, num in re.findall(r"(\w)(\d+)", Path(filename).read_text())
+        ]
 
-    def process(self):
-        self.commands = [[line[0], int(line[1:])] for line in self.lines]
+    def move_ship(self):
+        ship = Point(0, 0)
+        dir = Point(1, 0)
+        for cmd, num in self.inp:
+            if cmd == "N":
+                ship += Point(0, -num)
+            elif cmd == "S":
+                ship += Point(0, num)
+            elif cmd == "E":
+                ship += Point(num, 0)
+            elif cmd == "W":
+                ship += Point(-num, 0)
+            elif cmd == "L":
+                dir.rotate(num)
+            elif cmd == "R":
+                dir.rotate(-num)
+            elif cmd == "F":
+                ship += dir * num
+        return ship.manhattan_dist(Point(0, 0))
 
-    def reset(self):
-        self.x, self.y = 0, 0
-
-    def run_command(self, op, num, mode):
-        if op == "L":
-            for _ in range(num // 90):
-                self.wx, self.wy = -self.wy, self.wx
-        elif op == "R":
-            for _ in range(num // 90):
-                self.wx, self.wy = self.wy, -self.wx
-        elif op == "F":
-            self.x += self.wx * num
-            self.y += self.wy * num
-        else:
-            if mode == 1:
-                if op == "N":
-                    self.y += num
-                elif op == "S":
-                    self.y -= num
-                elif op == "E":
-                    self.x += num
-                elif op == "W":
-                    self.x -= num
-            elif mode == 2:
-                if op == "N":
-                    self.wy += num
-                elif op == "S":
-                    self.wy -= num
-                elif op == "E":
-                    self.wx += num
-                elif op == "W":
-                    self.wx -= num
-
-    def manhattan_distance(self):
-        return abs(self.x) + abs(self.y)
-
-    def evade(self, mode):
-        self.reset()
-        if mode == 1:
-            self.wx, self.wy = 1, 0
-        elif mode == 2:
-            self.wx, self.wy = 10, 1
-        else:
-            raise ValueError(f"Invalid mode {mode}")
-
-        for command in self.commands:
-            self.run_command(*command, mode)
-        return self.manhattan_distance()
+    def move_ship_with_waypoint(self):
+        ship = Point(0, 0)
+        waypoint = Point(10, -1)
+        for cmd, num in self.inp:
+            if cmd == "N":
+                waypoint += Point(0, -num)
+            elif cmd == "S":
+                waypoint += Point(0, num)
+            elif cmd == "E":
+                waypoint += Point(num, 0)
+            elif cmd == "W":
+                waypoint += Point(-num, 0)
+            elif cmd == "L":
+                waypoint.rotate(num)
+            elif cmd == "R":
+                waypoint.rotate(-num)
+            elif cmd == "F":
+                ship += waypoint * num
+        return ship.manhattan_dist(Point(0, 0))
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = Navigation("test1.txt")
-    assert test1.evade(mode=1) == 25
-    assert test1.evade(mode=2) == 286
 
-    navigation = Navigation(data.input_file)
-    print(navigation.evade(mode=1))
-    print(navigation.evade(mode=2))
+    assert RainRisk("sample1.txt").move_ship() == 25
+    assert RainRisk("sample1.txt").move_ship_with_waypoint() == 286
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = RainRisk(data.input_file)
+
+    print(puzzle.move_ship())
+    print(puzzle.move_ship_with_waypoint())

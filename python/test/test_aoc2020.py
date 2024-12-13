@@ -186,3 +186,19 @@ def test_day11():
     test = SeatingSystem(f"{input_folder}/aoc2020_day11.txt")
     assert test.occupied_seats_after_equilibrium(False) == 2283
     assert test.occupied_seats_after_equilibrium(True) == 2054
+
+
+def test_day12_samples():
+    from aoc2020.day12.d12 import RainRisk
+
+    test = RainRisk("./python/aoc2020/day12/sample1.txt")
+    assert test.move_ship() == 25
+    assert test.move_ship_with_waypoint() == 286
+
+
+def test_day12():
+    from aoc2020.day12.d12 import RainRisk
+
+    test = RainRisk(f"{input_folder}/aoc2020_day12.txt")
+    assert test.move_ship() == 521
+    assert test.move_ship_with_waypoint() == 22848

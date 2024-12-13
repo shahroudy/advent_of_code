@@ -97,3 +97,10 @@ This way for both parts we can precompute the neighbors of each seat and use the
 I passed the `rows` and `cols` in a wrong order to the function and it took me a while to figure out the bug.\
 To prevent this, I updated the function to take the `self` object and access its `.cols` and `.rows` attributes directly!
 * Once again, avoid single character variable names :sweat_smile:
+
+## Day 12: [Rain Risk](https://adventofcode.com/2020/day/12) &rarr; [Solution](./day12/d12.py)
+A puzzle of 2D translation and rotation.\
+We are provided by a set of movement instructions and need to find the final position of a ship.\
+In part 1, the ship moves in 4 directions (N, E, S, W), rotates in 2 directions (L, R), and moves forward (F).\
+In part 2, all of the above instructions are applied to a waypoint relative to the ship, except for the forward instruction, which moves the ship towards the waypoint.\
+For this, I added the implementation of rotation for `Point` class in my library.

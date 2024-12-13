@@ -1,5 +1,8 @@
+import math
 from itertools import product
 from typing import Callable, Dict, List, Set, Tuple, Union
+
+from numpy import sign
 
 # Some useful direction constants
 DIRECTIONS = {"e": (1, 0), "w": (-1, 0), "n": (0, -1), "s": (0, 1)}
@@ -39,16 +42,19 @@ class Point:
         self.y = y
 
     def __add__(self, other: "Point") -> "Point":
-        return Point(self.x + other.x, self.y + other.y)
+        x, y = (other.x, other.y) if isinstance(other, Point) else other
+        return Point(self.x + x, self.y + y)
 
     def __sub__(self, other: "Point") -> "Point":
-        return Point(self.x - other.x, self.y - other.y)
+        x, y = (other.x, other.y) if isinstance(other, Point) else other
+        return Point(self.x - x, self.y - y)
 
     def __mul__(self, scalar: int) -> "Point":
         return Point(self.x * scalar, self.y * scalar)
 
     def __eq__(self, other: "Point") -> bool:
-        return self.x == other.x and self.y == other.y
+        x, y = (other.x, other.y) if isinstance(other, Point) else other
+        return self.x == x and self.y == y
 
     def __hash__(self) -> int:
         return hash((self.x, self.y))
@@ -57,7 +63,8 @@ class Point:
         return f"({self.x}, {self.y})"
 
     def manhattan_dist(self, other: "Point") -> int:
-        return abs(self.x - other.x) + abs(self.y - other.y)
+        x, y = (other.x, other.y) if isinstance(other, Point) else other
+        return abs(self.x - x) + abs(self.y - y)
 
     def is_inside(self, caller) -> bool:
         return 0 <= self.x < caller.cols and 0 <= self.y < caller.rows
@@ -73,6 +80,37 @@ class Point:
 
     def nx(self) -> List["Point"]:
         return [Point(self.x + dx, self.y + dy) for dx, dy in MASKX]
+
+    def rotate(self, angle: int) -> "Point":
+        if angle in (90, -270):
+            self.x, self.y = self.y, -self.x
+        elif angle in (180, -180):
+            self.x, self.y = -self.x, -self.y
+        elif angle in (270, -90):
+            self.x, self.y = -self.y, self.x
+        else:
+            angle_radians = math.radians(-angle)  # Negative angle because of the coordinate system
+            qx = math.cos(angle_radians) * self.x - math.sin(angle_radians) * self.y
+            qy = math.sin(angle_radians) * self.x + math.cos(angle_radians) * self.y
+            self.x, self.y = qx, qy
+
+    def rotate_around(self, center: "Point", angle: int) -> "Point":
+        cx, cy = (center.x, center.y) if isinstance(center, Point) else center
+        if angle in (90, -270):
+            self.x, self.y = cx - cy + self.y, cy + cx - self.x
+        elif angle in (180, -180):
+            self.x, self.y = 2 * cx - self.x, 2 * cy - self.y
+        elif angle in (270, -90):
+            self.x, self.y = cx + cy - self.y, cy - cx + self.x
+        else:
+            angle_radians = math.radians(-angle)  # Negative angle because of the coordinate system
+            px, py = self.x - cx, self.y - cy
+            qx = cx + math.cos(angle_radians) * px - math.sin(angle_radians) * py
+            qy = cy + math.sin(angle_radians) * px + math.cos(angle_radians) * py
+            self.x, self.y = qx, qy
+
+    def normalize(self) -> "Point":
+        return Point(sign(self.x), sign(self.y))
 
     @property
     def tuple(self) -> Tuple[int, int]:
@@ -98,16 +136,19 @@ class Point3D:
         self.z = z
 
     def __add__(self, other: "Point3D") -> "Point3D":
-        return Point3D(self.x + other.x, self.y + other.y, self.z + other.z)
+        cx, cy, cz = (other.x, other.y, other.z) if isinstance(other, Point3D) else other
+        return Point3D(self.x + cx, self.y + cy, self.z + cz)
 
     def __sub__(self, other: "Point3D") -> "Point3D":
-        return Point3D(self.x - other.x, self.y - other.y, self.z - other.z)
+        cx, cy, cz = (other.x, other.y, other.z) if isinstance(other, Point3D) else other
+        return Point3D(self.x - cx, self.y - cy, self.z - cz)
 
     def __mul__(self, scalar: int) -> "Point3D":
         return Point3D(self.x * scalar, self.y * scalar, self.z * scalar)
 
     def __eq__(self, other: "Point3D") -> bool:
-        return self.x == other.x and self.y == other.y and self.z == other.z
+        cx, cy, cz = (other.x, other.y, other.z) if isinstance(other, Point3D) else other
+        return self.x == cx and self.y == cy and self.z == cz
 
     def __hash__(self) -> int:
         return hash((self.x, self.y, self.z))
@@ -116,7 +157,8 @@ class Point3D:
         return f"({self.x}, {self.y}, {self.z})"
 
     def manhattan_dist(self, other: "Point3D") -> int:
-        return abs(self.x - other.x) + abs(self.y - other.y) + abs(self.z - other.z)
+        cx, cy, cz = (other.x, other.y, other.z) if isinstance(other, Point3D) else other
+        return abs(self.x - cx) + abs(self.y - cy) + abs(self.z - cz)
 
     def is_inside(self, caller) -> bool:
         return (
