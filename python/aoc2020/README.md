@@ -79,3 +79,21 @@ Which is easily doable by sorting the input list and counting the differences.\
 In part 2, we need to find all the possible ways to connect the `0-jolt` outlet to the device (with maximum 3 jolts difference) in an efficient way (as stated in the problem statement, there will be trillions of ways!).\
 The obvious way to solve this is **dynamic programming**.\
 Across the sorted list of adapters, we can find the number of ways to connect each adapter to the outlet by summing the number of ways to achieve last 3 joltages!
+
+## Day 11: [Seating System](https://adventofcode.com/2020/day/11) &rarr; [Solution](./day11/d11.py)
+A cellular-automata-like problem.\
+We are provided with a grid of seats and need to simulate the seating system and find its stable state.\
+Each table's state depends on its current state and the state of its neighbors.\
+In part 1, the neighbors are the 8 adjacent seats.\
+In part 2, the neighbors are the first visible seat in each of the 8 directions (skipping the empty floor `.` tiles ).
+
+### Optimizations
+* The key to optimize here is the fact that neighbors are not actually moving, so for each seat the neighbors are the same across the simulation.\
+The only changing factor will be their state.\
+This way for both parts we can precompute the neighbors of each seat and use them in the simulation.
+
+### Bugs and Issues
+* I used a function in my library that was checking if a point is inside the grid or not.\
+I passed the `rows` and `cols` in a wrong order to the function and it took me a while to figure out the bug.\
+To prevent this, I updated the function to take the `self` object and access its `.cols` and `.rows` attributes directly!
+* Once again, avoid single character variable names :sweat_smile:

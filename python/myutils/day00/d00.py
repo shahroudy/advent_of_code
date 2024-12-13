@@ -13,6 +13,7 @@ import scipy as sp
 from myutils.geometry import *
 from myutils.geometry import (
     Point,
+    Point3D,
     find_connected_components,
     inner_border,
     outer_border,

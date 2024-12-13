@@ -170,3 +170,19 @@ def test_day10():
     test = AdapterArray(f"{input_folder}/aoc2020_day10.txt")
     assert test.difference_count_multiplications() == 2100
     assert test.count_all_possible_ways() == 16198260678656
+
+
+def test_day11_samples():
+    from aoc2020.day11.d11 import SeatingSystem
+
+    test = SeatingSystem("./python/aoc2020/day11/sample1.txt")
+    assert test.occupied_seats_after_equilibrium(False) == 37
+    assert test.occupied_seats_after_equilibrium(True) == 26
+
+
+def test_day11():
+    from aoc2020.day11.d11 import SeatingSystem
+
+    test = SeatingSystem(f"{input_folder}/aoc2020_day11.txt")
+    assert test.occupied_seats_after_equilibrium(False) == 2283
+    assert test.occupied_seats_after_equilibrium(True) == 2054
