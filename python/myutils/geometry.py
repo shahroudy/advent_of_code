@@ -112,6 +112,10 @@ class Point:
     def normalize(self) -> "Point":
         return Point(sign(self.x), sign(self.y))
 
+    def wrap_around(self, caller) -> "Point":
+        self.x %= caller.cols
+        self.y %= caller.rows
+
     @property
     def tuple(self) -> Tuple[int, int]:
         return (self.x, self.y)
@@ -177,6 +181,11 @@ class Point3D:
     def nx(self) -> List["Point3D"]:
         return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASKX3D]
 
+    def wrap_around(self, caller) -> "Point3D":
+        self.x %= caller.cols
+        self.y %= caller.rows
+        self.z %= caller.planes
+
     @property
     def tuple(self) -> Tuple[int, int, int]:
         return (self.x, self.y, self.z)
@@ -198,6 +207,33 @@ class Point3D:
 
     def DOWN(self) -> "Point3D":
         return Point3D(self.x, self.y, self.z - 1)
+
+
+def connected_region(
+    input_map: Union[Dict[Point, int], Set[Point], List[Point]],
+    neighbors_func: Callable[[Point], List[Point]],
+    start: Point,
+) -> Set[Point]:
+    region = set()
+    if isinstance(input_map, dict):
+        labels = input_map
+        points_to_process = set(input_map.keys())
+    else:
+        labels = {k: 0 for k in input_map}
+        points_to_process = set(input_map)
+
+    if start not in points_to_process:
+        return region
+
+    stack = [start]
+    while stack:
+        current = stack.pop()
+        region.add(current)
+        for neighbor in neighbors_func(current):
+            if neighbor in points_to_process and labels[neighbor] == labels[current]:
+                points_to_process.remove(neighbor)
+                stack.append(neighbor)
+    return region
 
 
 def find_connected_components(

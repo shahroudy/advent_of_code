@@ -230,3 +230,19 @@ def test_day13():
 
     assert ClawContraption(data).min_tokens_for_most_win() == 25751
     assert ClawContraption(data).min_tokens_for_most_win(10000000000000) == 108528956728655
+
+
+def test_day14_samples():
+    from aoc2024.day14.d14 import RestroomRedoubt
+
+    test = RestroomRedoubt("./python/aoc2024/day14/sample1.txt", cols=11, rows=7)
+    assert test.safety_factor() == 12
+
+
+def test_day14():
+    from aoc2024.day14.d14 import RestroomRedoubt
+
+    data = f"{input_folder}/aoc2024_day14.txt"
+    puzzle = RestroomRedoubt(data, cols=101, rows=103)
+    assert puzzle.safety_factor() == 215476074
+    assert puzzle.time_to_display_easter_egg(display=False) == 6285

@@ -14,6 +14,7 @@ from myutils.geometry import *
 from myutils.geometry import (
     Point,
     Point3D,
+    connected_region,
     find_connected_components,
     inner_border,
     outer_border,
