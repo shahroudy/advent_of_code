@@ -188,9 +188,15 @@ We need to simulate their motion and find their positions after 100 steps and co
 In part 2, we need to find the minimum step number that the robots form an easter egg pattern of a christmas tree (see below).\
 Since I didn't know what pattern I should expect to find, it took me a long while to formulate the solution.\
 Eventually, filtering the size of the connected robots in the center of the frame did the job for me!
+
 ### Issues and Bugs:
 * In part 2, counting the time from `0`, gave me the `answer - 1` value!
 * I initially though maybe the quadrant concept in part 1 could be a clue for part 2, but it was there to mislead us :sweat_smile: The actual key to solution was hidden in [day 12](https://adventofcode.com/2024/day/12)'s [solution](./day12/d12.py)!
+
+### Optimizations:
+* Knowing the expected pattern and inspired by part 1, I found a simpler way to find the answer in part 2.\
+Counting the robots in the center of the frame (0.25 <= x <= 0.75 and 0.25 <= y <= 0.75) and check if they are more than 50% of all the robots was enough to find the answer!\
+I couldn't imaging such a solution without knowing what I'm expecting to find!
 
 ### The Easter Egg Pattern of the Christmas Tree:
 ```

@@ -40,17 +40,11 @@ class RestroomRedoubt:
         return q0 * q1 * q2 * q3
 
     def time_to_display_easter_egg(self, display=False):
+        wq, hq = self.cols // 4, self.rows // 4
         robots = self.init_robot_positions.copy()
-        center_point = Point(self.cols // 2, self.rows // 2)
         for time in count(1):
             self.move_robots(robots)
-            region = connected_region(robots, Point.n8, center_point)
-            if len(region) > 50:
-                if display:
-                    for y in range(self.rows):
-                        for x in range(self.cols):
-                            print("#" if Point(x, y) in robots else ".", end="")
-                        print()
+            if sum(wq <= p.x <= 3 * wq and hq <= p.y <= 3 * hq for p in robots) / len(robots) > 0.5:
                 return time
 
 
