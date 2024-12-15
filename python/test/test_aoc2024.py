@@ -246,3 +246,22 @@ def test_day14():
     puzzle = RestroomRedoubt(data, cols=101, rows=103)
     assert puzzle.safety_factor() == 215476074
     assert puzzle.time_to_display_easter_egg(display=False) == 6285
+
+
+def test_day15_samples():
+    from aoc2024.day15.d15 import WarehouseWoes
+
+    test = WarehouseWoes("./python/aoc2024/day15/sample1.txt")
+    assert test.move_boxes() == 2028
+    test = WarehouseWoes("./python/aoc2024/day15/sample2.txt")
+    assert test.move_boxes() == 10092
+    assert test.move_boxes(is_second_warehouse=True) == 9021
+
+
+def test_day15():
+    from aoc2024.day15.d15 import WarehouseWoes
+
+    data = f"{input_folder}/aoc2024_day15.txt"
+
+    assert WarehouseWoes(data).move_boxes() == 1429911
+    assert WarehouseWoes(data).move_boxes(is_second_warehouse=True) == 1453087

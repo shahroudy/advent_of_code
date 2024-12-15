@@ -49,8 +49,11 @@ class Point:
         x, y = (other.x, other.y) if isinstance(other, Point) else other
         return Point(self.x - x, self.y - y)
 
-    def __mul__(self, scalar: int) -> "Point":
-        return Point(self.x * scalar, self.y * scalar)
+    def __mul__(self, factor: Union[int, float, "Point"]) -> "Point":
+        if isinstance(factor, Point):
+            return Point(self.x * factor.x, self.y * factor.y)
+        else:
+            return Point(self.x * factor, self.y * factor)
 
     def __eq__(self, other: "Point") -> bool:
         x, y = (other.x, other.y) if isinstance(other, Point) else other
@@ -147,8 +150,11 @@ class Point3D:
         cx, cy, cz = (other.x, other.y, other.z) if isinstance(other, Point3D) else other
         return Point3D(self.x - cx, self.y - cy, self.z - cz)
 
-    def __mul__(self, scalar: int) -> "Point3D":
-        return Point3D(self.x * scalar, self.y * scalar, self.z * scalar)
+    def __mul__(self, factor: Union[int, float, "Point3D"]) -> "Point3D":
+        if isinstance(factor, Point3D):
+            return Point3D(self.x * factor.x, self.y * factor.y, self.z * factor.z)
+        else:
+            return Point3D(self.x * factor, self.y * factor, self.z * factor)
 
     def __eq__(self, other: "Point3D") -> bool:
         cx, cy, cz = (other.x, other.y, other.z) if isinstance(other, Point3D) else other

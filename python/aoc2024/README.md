@@ -304,3 +304,25 @@ I couldn't imaging such a solution without knowing what I'm expecting to find!
 .........................................................................#...........................
 ..........................................#..#.......................................................
 ```
+
+## Day 15: [Warehouse Woes](https://adventofcode.com/2024/day/15) &rarr; [Solution](./day15/d15.py)
+We have a 2D warehouse layout with locations of a robot, some boxes and wall cells, plus a set of movement commands for the robot.\
+If the cell robot wants to move to is occupied with a box (or a set of boxes next to it), it will try to push them forward.\
+The robot and the boxes will move if they have empty space in the direction of the move.\
+In part 2, the grid is widened two times (double number of columns, same number of rows) and each box is two cells wide.\
+We need to find the final layout of the warehouse after all the (possible) moves are done.\
+I got the answer with an ugly implementation; but after re-implementing the solution, I found a much cleaner way to solve the problem:\
+* Keep track of the cells to be occupied in a `set`.
+* Add the new expected location of the robot to the set.
+* While the set is not empty, pop a location and check if any box is there, if so, find the "to be occupied" cell(s) by this box and add it to the set.
+* If the current location is occupied with a box which is already in "moving" set (part 2), don't process it.
+* If any of the locations we are trying to occupy is a wall, we cannot move, so ignore all the moving boxes.
+* If not, and all the "to be occupied" cells are successfully processed, then move the boxes and the robot to the new locations.
+
+Maybe this can be implemented in a cleaner way using `recursion`?
+
+
+### Bugs and Issues:
+* Removing the moved boxes and adding the new ones, one by one is a common mistake!\
+We may overwrite the new boxes with the old ones, and the final layout will be wrong!\
+Especially when you use a `set` to keep the location of the current boxes :sweat_smile:
