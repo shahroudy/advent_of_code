@@ -265,3 +265,23 @@ def test_day15():
 
     assert WarehouseWoes(data).move_boxes() == 1429911
     assert WarehouseWoes(data).move_boxes(is_second_warehouse=True) == 1453087
+
+
+def test_day16_samples():
+    from aoc2024.day16.d16 import ReindeerMaze
+
+    test = ReindeerMaze("./python/aoc2024/day16/sample1.txt")
+    assert test.lowest_score == 7036
+    assert test.best_paths_tile_count == 45
+    test = ReindeerMaze("./python/aoc2024/day16/sample2.txt")
+    assert test.lowest_score == 11048
+    assert test.best_paths_tile_count == 64
+
+
+def test_day16():
+    from aoc2024.day16.d16 import ReindeerMaze
+
+    data = f"{input_folder}/aoc2024_day16.txt"
+    puzzle = ReindeerMaze(data)
+    assert puzzle.lowest_score == 89460
+    assert puzzle.best_paths_tile_count == 504

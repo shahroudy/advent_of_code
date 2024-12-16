@@ -181,7 +181,7 @@ class Search_Dijkstra(Search):
         init_score = self.cost(initial_state)
         min_heap.append(init_score)
         shortest_distance = {self.state_core(initial_state): init_score}
-        backtrace = {self.state_core(initial_state): None}
+        backtrace = defaultdict(set)
         states = defaultdict(list)
         states[init_score].append(initial_state)
         while min_heap:
@@ -192,10 +192,13 @@ class Search_Dijkstra(Search):
             for next_state in self.get_next_states(state):
                 core_state = self.state_core(next_state)
                 next_score = self.cost(next_state)
-                if shortest_distance.get(core_state, float("inf")) <= next_score:
+                if shortest_distance.get(core_state, float("inf")) < next_score:
+                    continue
+                elif shortest_distance.get(core_state, float("inf")) == next_score:
+                    backtrace[core_state].add(self.state_core(state))
                     continue
                 shortest_distance[core_state] = next_score
                 states[next_score].append(next_state)
-                backtrace[core_state] = self.state_core(state)
+                backtrace[core_state] = {self.state_core(state)}
                 hq.heappush(min_heap, next_score)
         return shortest_distance, backtrace
