@@ -5,7 +5,15 @@ from functools import reduce
 
 from myutils.geometry import *
 from myutils.geometry import Point, Point3D
-from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
+from myutils.search import (
+    Search,
+    Search_AStar,
+    Search_BFS,
+    Search_DFS,
+    Search_DFS_MaxCost,
+    Search_Dijkstra,
+    Search_MinHeap,
+)
 
 State = namedtuple("state", ["x", "y"])
 

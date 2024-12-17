@@ -285,3 +285,20 @@ def test_day16():
     puzzle = ReindeerMaze(data)
     assert puzzle.lowest_score == 89460
     assert puzzle.best_paths_tile_count == 504
+
+
+def test_day17_samples():
+    from aoc2024.day17.d17 import ChronospatialComputer
+
+    test = ChronospatialComputer("./python/aoc2024/day17/sample1.txt")
+    assert test.run_the_program() == "4,6,3,5,6,3,5,2,1,0"
+
+
+def test_day17():
+    from aoc2024.day17.d17 import ChronospatialComputer
+
+    data = f"{input_folder}/aoc2024_day17.txt"
+    puzzle = ChronospatialComputer(data)
+
+    assert puzzle.run_the_program() == "1,5,3,0,2,5,2,5,3"
+    assert puzzle.find_min_A_to_output_the_same_program() == 108107566389757

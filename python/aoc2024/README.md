@@ -321,8 +321,39 @@ I got the answer with an ugly implementation; but after re-implementing the solu
 
 Maybe this can be implemented in a cleaner way using `recursion`?
 
-
 ### Bugs and Issues:
 * Removing the moved boxes and adding the new ones, one by one is a common mistake!\
 We may overwrite the new boxes with the old ones, and the final layout will be wrong!\
 Especially when you use a `set` to keep the location of the current boxes :sweat_smile:
+
+## Day 16: [Reindeer Maze](https://adventofcode.com/2024/day/16) &rarr; [Solution](./day16/d16.py)
+We have a maze of open cells and walls.\
+Moving forward costs `1` and turning left or right costs `1000`.\
+All we need to do is to:
+* Find the minimum distance cost from the start (marked as `S`) to the end (marked as `E`).
+* Find all the possible paths with the minimum distance cost.
+
+Apparently, this is a simple shortest path problem, which can be solved with Dijkstra's algorithm.
+
+### Bugs and Issues:
+* Forgetting about `S` and `E` cells to be considered as open tiles!
+* It took me a while to figure out Dijsktra's is the proper algorithm to solve this problem.\
+I started the hard way with A* and a general MinHeap search!\
+Let's say this is what I get when starting to code while I'm sleepy, and without proper thinking and planning :sweat_smile:
+
+## Day 17: [Chronospatial Computer](https://adventofcode.com/2024/day/17) &rarr; [Solution](./day17/d17.py)
+This year's first puzzle of simulating a computer!\
+We have a set of instructions to be executed on a computer with 3 registers (A, B, and C).\
+Part 1 is mainly about simulating the instructions and get the output of the provided program.\
+In part 2, we need to find the minimum initial value of registar `A` to make the program generate the same program sequence in its output :smile:\
+Letting it run in a brute-force search would give us the answer in centuries!\
+So, as expected, we needed to check what the program is doing and find a way to optimize/reverse-engineer it.\
+The program iteratively takes the last 3-bits of `A` register (`A % 8`), process it, generates an output value based on it, and then shifts the register to the right by 3 bits.\
+This way, we can reverse the order of the loop, search for all the remainder values between `b000`=`0` and `b111`=`7` and pick the minimum one that generates the same output as expected.\
+We will get the minimum possible initial value for `A` iteratively, by multiplying the `A` value from the previous iteration by `8` and adding the current possible value or the remainder.\
+But, for some indices, there are no possible value and when this happens, we need to backtrack to the previous indices and pick higher possible values.
+
+### Bugs and Issues:
+* First I tried to fully understand what the actual loop is doing, to simplify it.\
+<b>But like many of the previous years' "Assembly Simulation" puzzles, it was not necessary.\
+Here we still can let the majority of the program run as is, but understand the main loop and model it in a simpler way.</b>
