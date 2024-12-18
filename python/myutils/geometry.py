@@ -65,6 +65,9 @@ class Point:
     def __str__(self) -> str:
         return f"({self.x}, {self.y})"
 
+    def __repr__(self) -> str:
+        return f"Point({self.x}, {self.y})"
+
     def manhattan_dist(self, other: "Point") -> int:
         x, y = (other.x, other.y) if isinstance(other, Point) else other
         return abs(self.x - x) + abs(self.y - y)
@@ -165,6 +168,9 @@ class Point3D:
 
     def __str__(self) -> str:
         return f"({self.x}, {self.y}, {self.z})"
+
+    def __repr__(self) -> str:
+        return f"Point3D({self.x}, {self.y}, {self.z})"
 
     def manhattan_dist(self, other: "Point3D") -> int:
         cx, cy, cz = (other.x, other.y, other.z) if isinstance(other, Point3D) else other
