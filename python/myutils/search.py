@@ -5,8 +5,6 @@ from multiprocessing import Pool
 
 # from queue import Queue
 
-# State = namedtuple("state", ["x","y"])
-
 
 class Search:
     def __init__(self, **kwargs):

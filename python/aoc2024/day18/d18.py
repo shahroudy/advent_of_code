@@ -1,26 +1,9 @@
 import re
-from collections import namedtuple
 from pathlib import Path
 
 from myutils.geometry import Point
 from myutils.io_handler import get_input_data
-from myutils.search import Search_Dijkstra
-
-
-class MinDistSearch(Search_Dijkstra):
-    State = namedtuple("state", ["location", "steps"])
-
-    def get_next_states(self, state):
-        location, steps = state
-        for n in location.n4():
-            if (n not in self.fallen) and (n.is_inside(self)):
-                yield self.State(n, steps + 1)
-
-    def cost(self, state):
-        return state.steps
-
-    def state_core(self, state):
-        return state.location
+from myutils.utils import MapSearch
 
 
 class RAMRun:
@@ -32,13 +15,8 @@ class RAMRun:
         self.cols = self.rows = max_size + 1
 
     def min_steps_to_reach_goal(self, fallen_bytes=1024):
-        search = MinDistSearch(
-            goal=self.goal,
-            fallen=set(self.bytes[:fallen_bytes]),
-            rows=self.rows,
-            cols=self.cols,
-        )
-        min_dist, _ = search.search(initial_state=MinDistSearch.State(self.start, 0))
+        search = MapSearch(walls=set(self.bytes[:fallen_bytes]), rows=self.rows, cols=self.cols)
+        min_dist, _ = search.search(initial_state=MapSearch.State(self.start, 0, 0))
         return min_dist.get(self.goal, None)
 
     def first_blocking_byte(self, init_fallen_bytes=1024):

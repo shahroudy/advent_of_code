@@ -15,10 +15,10 @@ from myutils.search import (
     Search_MinHeap,
 )
 
-State = namedtuple("state", ["x", "y"])
-
 
 class MySearch(Search):
+    State = namedtuple("state", ["x", "y"])
+
     def get_next_states(self, state):
         next_states = []
         # state = State(1, 2)
@@ -49,6 +49,39 @@ class MySearch(Search):
             The immutable core state.
         """
         return state
+
+
+class MapSearch(Search_Dijkstra):
+    State = namedtuple("state", ["point", "steps", "cost"])
+
+    def get_next_states(self, state):
+        point, steps, cost = state
+        for n in point.n4():
+            if hasattr(self, "rows") and hasattr(self, "cols"):
+                if not n.is_inside(self):
+                    continue
+            if hasattr(self, "nodes"):
+                if n not in self.nodes:
+                    continue
+            if hasattr(self, "walls"):
+                if n in self.walls:
+                    continue
+            yield self.State(n, steps + 1, cost + 1)
+
+    def cost(self, state):
+        return state.cost
+
+    def state_core(self, state):
+        return state.point
+
+    # def heuristic(self, state):
+    #     return state.point.manhattan(self.goal)
+
+    # def get_result(self, state):
+    #     return state.cost
+
+    # def is_goal(self, state):
+    #     return state.point == self.goal
 
 
 def multiply(elements):
@@ -165,6 +198,13 @@ def print_with_color(self, text, text_color="#FFFFFF", back_color="#000000", end
     back = bg(back_color)
     reset = attr("reset")
     print(f"{color + back}" + text + f"{reset}", end=end)
+
+
+def get_sample_number(filename):
+    number = re.match(r"sample(\d+).txt", filename)
+    if number:
+        return int(number.group(1))
+    return 0  # actual input file, not a sample test
 
 
 # Example usage

@@ -47,9 +47,23 @@ class Puzzle:
         # find_all_re(self, r"(\d+)")
         # find_all_per_line_re(self, r"(\d+)")
 
+        # for easy setting of different parameters for samples vs real data
+        self.sample_number = get_sample_number(filename)
+        self.parameter = {
+            0: 100,  # real data
+            1: 10,  # sample 1
+            2: 10,  # sample 2
+            3: 10,  # sample 3
+        }[self.sample_number]
+
     def calc0(self):
         # s = MySearch()
         # s.search(initial_state=State(0, 0))
+
+        # s = MapSearch(walls=set(), nodes=set(), rows=100, cols=100)
+        # min_dist, backtrack = s.search(initial_state=MapSearch.State(Point(0, 0), 0, 0))
+        # goal_dist = min_dist.get(Point(goal), None)
+
         # x = Symbol("x")
         # y = Symbol("y")
         # s = solve(x**2 - 1, x)
@@ -92,6 +106,11 @@ if __name__ == "__main__":
     test_samples("sample3.txt", None, None)
     test_samples("sample4.txt", None, None)
     test_samples("sample5.txt", None, None)
+    test_samples("sample6.txt", None, None)
+    test_samples("sample7.txt", None, None)
+    test_samples("sample8.txt", None, None)
+    test_samples("sample9.txt", None, None)
+    test_samples("sample10.txt", None, None)
 
     print("Tests passed, starting with the puzzle")
 
