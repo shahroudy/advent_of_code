@@ -15,34 +15,31 @@ class Search:
 
     @abstractmethod
     def search(self, initial_state=None):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def search_mp(self, initial_state=None, workers=24):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def get_next_states(self, state):
-        next_states = []
-        # state = State(1, 2)
-        # next_states.append(state)
-        return next_states
+        raise NotImplementedError
 
     @abstractmethod
     def is_goal(self, state):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def cost(self, state):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def heuristic(self, state):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def get_result(self, state):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def state_core(self, state):
@@ -56,7 +53,7 @@ class Search:
         Returns:
             The immutable core state.
         """
-        return state
+        raise NotImplementedError
 
 
 class Search_BFS(Search):
