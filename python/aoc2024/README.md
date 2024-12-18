@@ -357,3 +357,15 @@ But, for some indices, there are no possible value and when this happens, we nee
 * First I tried to fully understand what the actual loop is doing, to simplify it.\
 <b>But like many of the previous years' "Assembly Simulation" puzzles, it was not necessary.\
 Here we still can let the majority of the program run as is, but understand the main loop and model it in a simpler way.</b>
+
+## Day 18: [RAM Run](https://adventofcode.com/2024/day/18) &rarr; [Solution](./day18/d18.py)
+Yet another min-distance path finding puzzle!\
+We are provided with the location of the walls (falling bytes) and default start and goal locations.\
+We need to find the minimum distance from the start to the goal, considering only first `N` falling bytes and walls.\
+Out of the box algorithm to solve this is Dijkstra's algorithm.\
+In part 2, we need to add the falling bytes one by one and find the first one which blocks the path from the start to the goal.\
+The ad-hoc looping may take minutes to complete, but we can use a binary search find the answer in logarithmic time.
+
+### Bugs and Issues:
+* Forgot to cast `str` to `int` for `x` and `y` coordinates of the falling bytes!
+* Being low in the global and private leaderboards, hints me that I need more prepared libraries for classic problems like these :smile:

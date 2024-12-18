@@ -302,3 +302,19 @@ def test_day17():
 
     assert puzzle.run_the_program() == "1,5,3,0,2,5,2,5,3"
     assert puzzle.find_min_A_to_output_the_same_program() == 108107566389757
+
+
+def test_day18_samples():
+    from aoc2024.day18.d18 import RAMRun
+
+    assert RAMRun("./python/aoc2024/day18/sample1.txt", 6).min_steps_to_reach_goal(12) == 22
+    assert RAMRun("./python/aoc2024/day18/sample1.txt", 6).first_blocking_byte(12) == "6,1"
+
+
+def test_day18():
+    from aoc2024.day18.d18 import RAMRun
+
+    data = f"{input_folder}/aoc2024_day18.txt"
+
+    assert RAMRun(data, 70).min_steps_to_reach_goal(1024) == 280
+    assert RAMRun(data, 70).first_blocking_byte(1024) == "28,56"
