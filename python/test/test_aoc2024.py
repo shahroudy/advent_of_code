@@ -318,3 +318,20 @@ def test_day18():
 
     assert RAMRun(data, 70).min_steps_to_reach_goal(1024) == 280
     assert RAMRun(data, 70).first_blocking_byte(1024) == "28,56"
+
+
+def test_day19_samples():
+    from aoc2024.day19.d19 import LinenLayout
+
+    test = LinenLayout("./python/aoc2024/day19/sample1.txt")
+    assert test.number_of_possible_patters() == 6
+    assert test.sum_of_all_possible_ways() == 16
+
+
+def test_day19():
+    from aoc2024.day19.d19 import LinenLayout
+
+    data = f"{input_folder}/aoc2024_day19.txt"
+
+    assert LinenLayout(data).number_of_possible_patters() == 313
+    assert LinenLayout(data).sum_of_all_possible_ways() == 666491493769758

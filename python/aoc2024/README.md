@@ -369,3 +369,17 @@ The ad-hoc looping may take minutes to complete, but we can use a binary search 
 ### Bugs and Issues:
 * Forgot to cast `str` to `int` for `x` and `y` coordinates of the falling bytes!
 * Being low in the global and private leaderboards, hints me that I need more prepared libraries for classic problems like these :smile:
+
+## Day 19: [Linen Layout](https://adventofcode.com/2024/day/19) &rarr; [Solution](./day19/d19.py)
+We are provided with a list of available patters (in `str`) and a list of needed designs (in `str`).\
+In part 1 we need to find how many of the needed designs can be composed by the available patterns (with simple concatenation and possible repeating).\
+In part 2, we need to find the sum of all possible ways to do so.\
+This may sound complicated at first, but it's quite easy to implement it with (`@cache`ed) recursion.\
+All we need to do is, for each needed design, iterate over all the and if the design starts with the pattern, call the function recursively with the rest of the design.\
+My implementation for this recursive function is a single line of code in Python:\
+
+```python
+@cache
+def ways(self, d):
+    return sum(self.ways(d[len(p) :]) for p in self.pat if d.startswith(p)) if d else 1
+```
