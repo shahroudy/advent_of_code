@@ -103,26 +103,32 @@ def process(self):
         self.inp.append(parts)
 
 
-def recursive_split(self, seps, inp=None, strip=True):
-    if inp is None:
+def recursive_split(self, seps, text=None, strip=True):
+    if text is None:
         self.inp = recursive_split(self, seps, self.input_text)
         return
     if not seps:
-        return inp
+        return text
     return [
         recursive_split(self, seps[1:], x.strip() if strip else x, strip)
-        for x in inp.split(seps[0])
+        for x in text.split(seps[0])
     ]
 
 
-def find_all_re(self, pattern):
+def find_all_re(self, pattern, text=None):
     pattern = re.compile(pattern)
-    self.inp = pattern.findall(self.input_text)
+    if text is None:
+        self.inp = pattern.findall(self.input_text)
+    else:
+        return pattern.findall(text)
 
 
-def find_all_per_line_re(self, pattern):
+def find_all_per_line_re(self, pattern, text=None):
     pattern = re.compile(pattern)
-    self.inp = [pattern.findall(line) for line in self.input_text.splitlines()]
+    if text is None:
+        self.inp = [pattern.findall(line) for line in self.input_text.splitlines()]
+    else:
+        return [pattern.findall(line) for line in text.splitlines()]
 
 
 def process_map_plain(self):

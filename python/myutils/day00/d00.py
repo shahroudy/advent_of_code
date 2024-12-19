@@ -43,9 +43,15 @@ class Puzzle:
         # process_map_dict_of_sets_of_3D_points(self)
 
         # process(self)
+
         # recursive_split(self, "\n:", strip=True)
+        # inputs = recursive_split(self, "\n:", text=line, strip=True)
+
         # find_all_re(self, r"(\d+)")
+        # inputs = find_all_re(self, r"(\d+)", text=line)
+
         # find_all_per_line_re(self, r"(\d+)")
+        # inputs = find_all_per_line_re(self, r"(\d+)", text=line)
 
         # for easy setting of different parameters for samples vs real data
         self.sample_number = get_sample_number(filename)
@@ -55,6 +61,12 @@ class Puzzle:
             2: 10,  # sample 2
             3: 10,  # sample 3
         }[self.sample_number]
+
+    def calc1(self):
+        return None
+
+    def calc2(self):
+        return None
 
     def calc0(self):
         # s = MySearch()
@@ -68,12 +80,6 @@ class Puzzle:
         # y = Symbol("y")
         # s = solve(x**2 - 1, x)
         pass
-
-    def calc1(self):
-        return None
-
-    def calc2(self):
-        return None
 
 
 def test_samples(filename, answer1, answer2):
