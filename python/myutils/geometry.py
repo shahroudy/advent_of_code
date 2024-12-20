@@ -1,6 +1,6 @@
 import math
 from itertools import product
-from typing import Callable, Dict, List, Set, Tuple, Union
+from typing import Callable, Dict, Generator, List, Set, Tuple, Union
 
 from numpy import sign
 
@@ -68,9 +68,18 @@ class Point:
     def __repr__(self) -> str:
         return f"Point({self.x}, {self.y})"
 
+    def __lt__(self, other: "Point") -> int:
+        other_tuple = other.tuple if isinstance(other, Point) else tuple(other)
+        return self.tuple < other_tuple
+
     def manhattan_dist(self, other: "Point") -> int:
         x, y = (other.x, other.y) if isinstance(other, Point) else other
         return abs(self.x - x) + abs(self.y - y)
+
+    def manhattan_range(self, distance: int) -> Generator["Point", None, None]:
+        for dx in range(-distance, distance + 1):
+            for dy in range(-distance + abs(dx), distance + 1 - abs(dx)):
+                yield Point(self.x + dx, self.y + dy)
 
     def is_inside(self, caller) -> bool:
         return 0 <= self.x < caller.cols and 0 <= self.y < caller.rows
@@ -172,9 +181,19 @@ class Point3D:
     def __repr__(self) -> str:
         return f"Point3D({self.x}, {self.y}, {self.z})"
 
+    def __lt__(self, other: "Point3D") -> int:
+        other_tuple = other.tuple if isinstance(other, Point3D) else tuple(other)
+        return self.tuple < other_tuple
+
     def manhattan_dist(self, other: "Point3D") -> int:
         cx, cy, cz = (other.x, other.y, other.z) if isinstance(other, Point3D) else other
         return abs(self.x - cx) + abs(self.y - cy) + abs(self.z - cz)
+
+    def manhattan_range(self, distance: int) -> Generator["Point3D", None, None]:
+        for dx in range(-distance, distance + 1):
+            for dy in range(-distance + abs(dx), distance + 1 - abs(dx)):
+                for dz in range(-distance + abs(dx) + abs(dy), distance + 1 - abs(dx) - abs(dy)):
+                    yield Point3D(self.x + dx, self.y + dy, self.z + dz)
 
     def is_inside(self, caller) -> bool:
         return (

@@ -383,3 +383,27 @@ My implementation for this recursive function is a single line of code in Python
 def ways(self, d):
     return sum(self.ways(d[len(p) :]) for p in self.pat if d.startswith(p)) if d else 1
 ```
+
+## Day 20: [Race Condition](https://adventofcode.com/2024/day/20) &rarr; [Solution](./day20/d20.py)
+Another shortest-path related puzzle!\
+We are provided with a grid of cells with walls and open tracks, plus start (`S`) and end (`E`) locations.\
+The special rule in this puzzle is that we can cheat and bypass walls now!\
+In part 1, we need to find all the possible 2-step cheats (bypassing one wall) that can shorten the shortest path at least 100 steps.\
+In part 2, we need to find the the possible maximum 20-step cheats that can shorten the shortest path at least 100 steps (not all the steps need to be walls!).\
+The solution was simple:
+* First we need a simple Dijkstra's algorithm to find the shortest distances to start for all the track cells.
+* For part 1, iterate over all the wall cells and check the max and min shortest path values to the start in their neighborhood. If the difference is more than 100, we found one cheat!
+* For part 2, we can iterate over all the possible pairs of track cells and check if cheating between them can shorten the path by at least 100 steps.
+    * The conditions for the cheat are:
+        * The manhattan distance between the pair should be at most `20`.
+        * The difference between their shortest path values to the start should be at least `100`.
+
+The above part 2 solution is also usable for part 1, consider the maximum distance between the pair to be only `2`.
+
+### Bugs and Issues:
+* For part 2, I got my mind locked with my initial solution of part 1; thinking about finding paths between walls!\
+All I needed was to rethink and find the proper yet easy way to solve the problem.
+
+### Optimizations:
+* Instead of iterating over all the pairs of track cells, we can iterate over the range of the manhattan distance for each cell!\
+The implementation will be a bit more complex, but it will be much faster.

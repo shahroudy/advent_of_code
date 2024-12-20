@@ -335,3 +335,21 @@ def test_day19():
 
     assert LinenLayout(data).number_of_possible_patters() == 313
     assert LinenLayout(data).sum_of_all_possible_ways() == 666491493769758
+
+
+def test_day20_samples():
+    from aoc2024.day20.d20 import RaceCondition
+
+    assert RaceCondition("./python/aoc2024/day20/sample1.txt").cheat_count(2, 1) == 44
+    assert RaceCondition("./python/aoc2024/day20/sample1.txt").cheat_count(20, 50) == 285
+
+
+def test_day20():
+    from aoc2024.day20.d20 import RaceCondition
+
+    data = f"{input_folder}/aoc2024_day20.txt"
+
+    puzzle = RaceCondition(data)
+
+    assert puzzle.cheat_count(2, 100) == 1365
+    assert puzzle.cheat_count(20, 100) == 986082
