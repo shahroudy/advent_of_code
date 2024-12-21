@@ -353,3 +353,23 @@ def test_day20():
 
     assert puzzle.cheat_count(2, 100) == 1365
     assert puzzle.cheat_count(20, 100) == 986082
+
+
+def test_day21_samples():
+    from aoc2024.day21.d21 import KeypadConundrum
+
+    assert KeypadConundrum("./python/aoc2024/day21/sample1.txt").sum_of_complexities(2) == 68 * 29
+    assert KeypadConundrum("./python/aoc2024/day21/sample2.txt").sum_of_complexities(2) == 60 * 980
+    assert KeypadConundrum("./python/aoc2024/day21/sample3.txt").sum_of_complexities(2) == 68 * 179
+    assert KeypadConundrum("./python/aoc2024/day21/sample4.txt").sum_of_complexities(2) == 64 * 456
+    assert KeypadConundrum("./python/aoc2024/day21/sample5.txt").sum_of_complexities(2) == 64 * 379
+    assert KeypadConundrum("./python/aoc2024/day21/sample6.txt").sum_of_complexities(2) == 126384
+
+
+def test_day21():
+    from aoc2024.day21.d21 import KeypadConundrum
+
+    data = f"{input_folder}/aoc2024_day21.txt"
+
+    assert KeypadConundrum(data).sum_of_complexities(2) == 222670
+    assert KeypadConundrum(data).sum_of_complexities(25) == 271397390297138

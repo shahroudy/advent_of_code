@@ -407,3 +407,18 @@ All I needed was to rethink and find the proper yet easy way to solve the proble
 ### Optimizations:
 * Instead of iterating over all the pairs of track cells, we can iterate over the range of the manhattan distance for each cell!\
 The implementation will be a bit more complex, but it will be much faster.
+
+## Day 21: [Keypad Conundrum](https://adventofcode.com/2024/day/21) &rarr; [Solution](./day21/d21.py)
+This puzzle was the most challenging one in 2024 so far for me!\
+We have a physical keypad with 10 digits and an `A` button.\
+We need to enter some sequences of digits ending with an `A`.\
+We start at the `A` button and need to find the moves in `<, >, ^, v` directions to reach the desired digit, and the press it.\
+To apply these moves, we have a robot with a different keypad layout (named directional keyboard, including `<, >, ^, v, A` buttons).\
+And we need to find the minim movements on this keyboard to enter the desired sequence in the first physical keyboard.\
+Yet, we have another robot entering the sequence in a similar directional keyboard.\
+So each single move in the first keyboard exapnds to a large sequence for the last keyboard.\
+In part 2, instead of 2 robots, we have 25 robots in the loop!\
+Each input sequence can be entered by more than one sequence in each of these keyboard levels, but we need to find the shortest!\
+They key to solve this puzzle was to calculate the histogram of each of the moves (in a dictionary like data structure) and then expand it step by step for next robot, in a dynamic programming way.\
+I need to get back to this puzzle, refine and explain better here! `TODO` :sweat_smile:
+

@@ -70,7 +70,7 @@ class Puzzle:
 
     def calc0(self):
         # s = MySearch()
-        # s.search(initial_state=State(0, 0))
+        # s.search(initial_state=MySearch.State(0, 0))
 
         # s = MapSearch(walls=set(), nodes=set(), rows=100, cols=100)
         # min_dist, backtrack = s.search(initial_state=MapSearch.State(Point(0, 0), 0, 0))

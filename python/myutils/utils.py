@@ -145,8 +145,7 @@ def process_map_dict_of_sets_of_points(self):
     sets = defaultdict(set)
     for row, line in enumerate(lines):
         for col, ch in enumerate(line):
-            if ch != ".":
-                sets[ch].add(Point(col, row))
+            sets[ch].add(Point(col, row))
     self.inp = dict(sets)
     self.rows, self.cols = row + 1, col + 1
 
@@ -156,8 +155,7 @@ def process_map_dict_of_sets_of_3D_points(self):
     for z, plane in enumerate(self.input_text.split("\n\n")):
         for y, line in enumerate(plane.splitlines()):
             for x, ch in enumerate(line):
-                if ch != ".":
-                    sets[ch].add(Point3D(x, y, z))
+                sets[ch].add(Point3D(x, y, z))
     self.inp = dict(sets)
     self.planes, self.rows, self.cols = z + 1, y + 1, x + 1
 
