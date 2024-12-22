@@ -422,3 +422,14 @@ Each input sequence can be entered by more than one sequence in each of these ke
 They key to solve this puzzle was to calculate the histogram of each of the moves (in a dictionary like data structure) and then expand it step by step for next robot, in a dynamic programming way.\
 I need to get back to this puzzle, refine and explain better here! `TODO` :sweat_smile:
 
+## Day 22: [Monkey Market](https://adventofcode.com/2024/day/22) &rarr; [Solution](./day22/d22.py)
+Rather a break for today!\
+The main challenge in this puzzle was actually to read and understand the problem statement!\
+We are provided with a list of numbers (buyers' secrets).\
+We need to apply a set of operations (including `*, //, ^, %`) to generate next numbers, 2000 times each.\
+In part 1, we need to find the sum of all the numbers after the operations.\
+In part 2, we need to find a pattern that maximizes the prices of banana sales! :monkey:\
+Price at each step (during the 2000 iterations) is the right most digit of the secret number.\
+But we only sell when we see a pattern of 4 numbers in the last 4 price changes.\
+We need to find the best pattern that maximizes the sales, and return that sum of sales.\
+My solution was to use a `deque` of last `4` price changes, a `defaultdict` (keyed on the last 4 changes) to keep the sum of sales for each 4-tuple, and a set to keep the seen 4-tuples per customer (it will be sold on the first seen pattern).

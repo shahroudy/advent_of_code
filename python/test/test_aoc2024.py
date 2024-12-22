@@ -373,3 +373,21 @@ def test_day21():
 
     assert KeypadConundrum(data).sum_of_complexities(2) == 222670
     assert KeypadConundrum(data).sum_of_complexities(25) == 271397390297138
+
+
+def test_day22_samples():
+    from aoc2024.day22.d22 import MonkeyMarket
+
+    assert MonkeyMarket("./python/aoc2024/day22/sample1.txt").sum_of_final_secrets == 37327623
+    assert MonkeyMarket("./python/aoc2024/day22/sample2.txt").most_bananas == 23
+
+
+def test_day22():
+    from aoc2024.day22.d22 import MonkeyMarket
+
+    data = f"{input_folder}/aoc2024_day22.txt"
+
+    puzzle = MonkeyMarket(data)
+
+    assert puzzle.sum_of_final_secrets == 21147129593
+    assert puzzle.most_bananas == 2445
