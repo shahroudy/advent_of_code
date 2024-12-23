@@ -136,7 +136,7 @@ def process_map_plain(self):
     self.inp = dict()
     for row, line in enumerate(lines):
         for col, ch in enumerate(line):
-            self.inp[(col, row)] = ch
+            self.inp[Point(col, row)] = ch
     self.rows, self.cols = row + 1, col + 1
 
 
