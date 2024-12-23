@@ -433,3 +433,12 @@ Price at each step (during the 2000 iterations) is the right most digit of the s
 But we only sell when we see a pattern of 4 numbers in the last 4 price changes.\
 We need to find the best pattern that maximizes the sales, and return that sum of sales.\
 My solution was to use a `deque` of last `4` price changes, a `defaultdict` (keyed on the last 4 changes) to keep the sum of sales for each 4-tuple, and a set to keep the seen 4-tuples per customer (it will be sold on the first seen pattern).
+
+## Day 23: [LAN Party](https://adventofcode.com/2024/day/23) &rarr; [Solution](./day23/d23.py)
+A puzzle of finding the maximal set of all-interconnected nodes in a graph.\
+To do so, I started with the input edges (as level `2`) and iteratively for each new level:
+* Check each group in the previous level and find the common connected nodes between all of them.
+* Build a new group by adding the common nodes to the previous group and add it to this level's groups.
+* Stop when we cannot find any new group in the current level.
+
+To avoid repetitive groups, we need to cast them to tuples of sorted nodes and keep them in a set.

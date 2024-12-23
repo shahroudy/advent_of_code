@@ -12,42 +12,34 @@ class KeypadConundrum:
     def __init__(self, filename):
         self.door_codes = Path(filename).read_text().splitlines()
 
-        ph_kb = ["789", "456", "123", " 0A"]
-        d_kb = [" ^A", "<v>"]
+        ph_kb = ["789", "456", "123", "X0A"]
+        d_kb = ["X^A", "<v>"]
         self.ph_kp = {c: Point(x, y) for y, row in enumerate(ph_kb) for x, c in enumerate(row)}
         self.dir_kp = {c: Point(x, y) for y, line in enumerate(d_kb) for x, c in enumerate(line)}
 
     @cache
     def move_ph(self, current_1, new_1):
-        current = self.ph_kp[current_1] + (0, 0)
-        new = self.ph_kp[new_1] + (0, 0)
-        moves = []
-        while new.x > current.x:
-            moves.append(">")
-            current.x += 1
-        while new.x < current.x:
-            moves.append("<")
-            current.x -= 1
-        while new.y > current.y:
-            moves.append("v")
-            current.y += 1
-        while new.y < current.y:
-            moves.append("^")
-            current.y -= 1
-
+        diff = self.ph_kp[new_1] - self.ph_kp[current_1]
+        moves = ">" * diff.x + "<" * -diff.x + "v" * diff.y + "^" * -diff.y
         per = set(permutations(moves))
         moves = []
         for p in per:
-            current = self.ph_kp[current_1] + (0, 0)
+            current = self.ph_kp[current_1]
             valid = True
             for ch in p:
                 current = current + DIR_CHARS[ch]
-                if current == Point(0, 3):
+                if self.ph_kp["X"] == current:
                     valid = False
                     break
             if valid:
                 moves.append("".join(p) + "A")
-        return moves
+        proper = defaultdict(set)
+        min_possible = float("inf")
+        for m in moves:
+            length = sum(self.moves_in_dir_kb(a, b) for a, b in zip(m[:-1], m[1:]))
+            proper[length].add(m)
+            min_possible = min(min_possible, length)
+        return proper[min_possible]
 
     @cache
     def moves_in_dir_kb(self, current_1, new_1):
@@ -57,30 +49,16 @@ class KeypadConundrum:
 
     @cache
     def move_dir(self, current_1, new_1):
-        current = self.dir_kp[current_1] + (0, 0)
-        new = self.dir_kp[new_1] + (0, 0)
-        moves = []
-        while new.x > current.x:
-            moves.append(">")
-            current.x += 1
-        while new.x < current.x:
-            moves.append("<")
-            current.x -= 1
-        while new.y > current.y:
-            moves.append("v")
-            current.y += 1
-        while new.y < current.y:
-            moves.append("^")
-            current.y -= 1
-
+        diff = self.dir_kp[new_1] - self.dir_kp[current_1]
+        moves = ">" * diff.x + "<" * -diff.x + "v" * diff.y + "^" * -diff.y
         per = set(permutations(moves))
         moves = []
         for p in per:
-            current = self.dir_kp[current_1] + (0, 0)
+            current = self.dir_kp[current_1]
             valid = True
             for ch in p:
                 current = current + DIR_CHARS[ch]
-                if current == Point(0, 0):
+                if self.dir_kp["X"] == current:
                     valid = False
                     break
             if valid:
@@ -94,19 +72,18 @@ class KeypadConundrum:
             min_possible = min(min_possible, length)
         return proper[min_possible]
 
-    def key_in_dir_keyboard(self, text):
-        if isinstance(text, str):
-            atext = "A" + text
-            s = [a + b for a, b in zip(atext[:-1], atext[1:])]
-            d = defaultdict(int)
-            for p in s:
-                d[p] += 1
+    def key_in_dir_keyboard(self, input):
+        if isinstance(input, str):
+            input_frequencies = defaultdict(int)
+            for p in [a + b for a, b in zip(input[:-1], input[1:])]:
+                input_frequencies[p] += 1
+            input_frequencies["A" + input[0]] += 1
         else:
-            d = text
+            input_frequencies = input
 
         result1 = defaultdict(int)
         result2 = defaultdict(int)
-        for k, v in d.items():
+        for k, v in input_frequencies.items():
             moves = list(self.move_dir(k[0], k[1]).copy())
 
             atext = "A" + moves[0]
@@ -122,10 +99,10 @@ class KeypadConundrum:
 
     def sum_of_complexities(self, iterations=2):
         res = 0
-        for text in self.door_codes:
+        for door_code in self.door_codes:
             c1 = "A"
             m1 = {""}
-            for ch in text:
+            for ch in door_code:
                 possible = set()
                 for m, mm in product(m1, self.move_ph(c1, ch)):
                     possible.add(m + mm)
@@ -135,7 +112,7 @@ class KeypadConundrum:
                 ds = [dict(d) for m in m1 for d in self.key_in_dir_keyboard(m)]
                 min_size = min(sum(d.values()) for d in ds)
                 m1 = [d for d in ds if sum(d.values()) == min_size]
-            res += min_size * int(re.findall(r"(\d+)", text)[0])
+            res += min_size * int(re.findall(r"(\d+)", door_code)[0])
 
         return res
 

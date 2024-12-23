@@ -391,3 +391,21 @@ def test_day22():
 
     assert puzzle.sum_of_final_secrets == 21147129593
     assert puzzle.most_bananas == 2445
+
+
+def test_day23_samples():
+    from aoc2024.day23.d23 import LANParty
+
+    assert LANParty("./python/aoc2024/day23/sample1.txt").triple_count_with_t() == 7
+    assert LANParty("./python/aoc2024/day23/sample1.txt").password() == "co,de,ka,ta"
+
+
+def test_day23():
+    from aoc2024.day23.d23 import LANParty
+
+    data = f"{input_folder}/aoc2024_day23.txt"
+
+    puzzle = LANParty(data)
+
+    assert puzzle.triple_count_with_t() == 1173
+    assert puzzle.password() == "cm,de,ez,gv,hg,iy,or,pw,qu,rs,sn,uc,wq"
