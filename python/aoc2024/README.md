@@ -442,3 +442,11 @@ To do so, I started with the input edges (as level `2`) and iteratively for each
 * Stop when we cannot find any new group in the current level.
 
 To avoid repetitive groups, we need to cast them to tuples of sorted nodes and keep them in a set.
+
+## Day 24: [Crossed Wires](https://adventofcode.com/2024/day/24) &rarr; [Solution](./day24/d24.py)
+A puzzle of emulating half-adder and full-adder circuits!\
+We are provided with a set of input binary bits and full-adder connections, but four of the wires are incorrectly connected.\
+We need to find those four wires (four pairs of incorrect connections) and return their sorted names.\
+Today I felt solving it manually (knowing what connections are needed) is much easier than an algorithm to automatically find the pairs.\
+So my solution is specific to my input and cannot be shared here.\
+I'm working on the general solution to be shared here soon! :smile:
