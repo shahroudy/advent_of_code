@@ -409,3 +409,19 @@ def test_day23():
 
     assert puzzle.triple_count_with_t() == 1173
     assert puzzle.password() == "cm,de,ez,gv,hg,iy,or,pw,qu,rs,sn,uc,wq"
+
+
+def test_day25_samples():
+    from aoc2024.day25.d25 import CodeChronicle
+
+    assert CodeChronicle("./python/aoc2024/day25/sample1.txt").count_fit_pairs() == 3
+
+
+def test_day25():
+    from aoc2024.day25.d25 import CodeChronicle
+
+    data = f"{input_folder}/aoc2024_day25.txt"
+
+    puzzle = CodeChronicle(data)
+
+    assert puzzle.count_fit_pairs() == 3116

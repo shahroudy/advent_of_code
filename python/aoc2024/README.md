@@ -450,3 +450,8 @@ We need to find those four wires (four pairs of incorrect connections) and retur
 Today I felt solving it manually (knowing what connections are needed) is much easier than an algorithm to automatically find the pairs.\
 So my solution is specific to my input and cannot be shared here.\
 I'm working on the general solution to be shared here soon! :smile:
+
+## Day 25: [Code Chronicle](https://adventofcode.com/2024/day/25) &rarr; [Solution](./day25/d25.py)
+A very simple puzzle of reading 2D patterns of keys and locks and find the number of fit (non-overlapping) pairs.\
+Locks have their top row filled and keys have their bottom row filled.\
+Solution can be done very simply by turning all the patterns to sets of 2D points and count how many of all the possible pairs don't have any `intersection`.
