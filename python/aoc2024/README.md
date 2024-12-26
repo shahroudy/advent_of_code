@@ -444,12 +444,14 @@ To do so, I started with the input edges (as level `2`) and iteratively for each
 To avoid repetitive groups, we need to cast them to tuples of sorted nodes and keep them in a set.
 
 ## Day 24: [Crossed Wires](https://adventofcode.com/2024/day/24) &rarr; [Solution](./day24/d24.py)
-A puzzle of emulating half-adder and full-adder circuits!\
+A puzzle of emulating some input binary gates of `AND`, `OR` and `XOR` which are connected to some input `0`s and `1`s.
+In part 1 we need to find the value of `z`-named output gates.\
+In part 2, we need to emulate half-adder and full-adder circuits!\
 We are provided with a set of input binary bits and full-adder connections, but four of the wires are incorrectly connected.\
 We need to find those four wires (four pairs of incorrect connections) and return their sorted names.\
-Today I felt solving it manually (knowing what connections are needed) is much easier than an algorithm to automatically find the pairs.\
-So my solution is specific to my input and cannot be shared here.\
-I'm working on the general solution to be shared here soon! :smile:
+I initially solved this puzzle manually (knowing what connections are needed) is much easier than an algorithm to automatically find the pairs.\
+Now the initial implementation of finding those incorrectly connected pairs is done, but it's not very neat yet!\
+Will be refined :wink:
 
 ## Day 25: [Code Chronicle](https://adventofcode.com/2024/day/25) &rarr; [Solution](./day25/d25.py)
 A very simple puzzle of reading 2D patterns of keys and locks and find the number of fit (non-overlapping) pairs.\

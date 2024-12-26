@@ -411,6 +411,24 @@ def test_day23():
     assert puzzle.password() == "cm,de,ez,gv,hg,iy,or,pw,qu,rs,sn,uc,wq"
 
 
+def test_day24_samples():
+    from aoc2024.day24.d24 import CrossedWires
+
+    assert CrossedWires("./python/aoc2024/day24/sample1.txt").generated_output() == 4
+    assert CrossedWires("./python/aoc2024/day24/sample2.txt").generated_output() == 2024
+
+
+def test_day24():
+    from aoc2024.day24.d24 import CrossedWires
+
+    data = f"{input_folder}/aoc2024_day24.txt"
+
+    puzzle = CrossedWires(data)
+
+    assert puzzle.generated_output() == 47666458872582
+    assert puzzle.swapped_wires() == "dnt,gdf,gwc,jst,mcm,z05,z15,z30"
+
+
 def test_day25_samples():
     from aoc2024.day25.d25 import CodeChronicle
 
