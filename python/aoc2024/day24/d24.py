@@ -34,50 +34,36 @@ class CrossedWires:
         z_values = [self.get_value(g) for g in out_gates]
         return reduce(lambda x, y: x * 2 + y, z_values)
 
+    def find_gate_name(self, op, operands, swaps):
+        operands = {swaps.get(o, o) for o in operands}
+        for out_i, (op_i, operands_i) in self.gates.items():
+            if (op == op_i) and (operands & operands_i):
+                if operands != operands_i:
+                    a = (operands_i - operands).pop()
+                    b = (operands - operands_i).pop()
+                    swaps[a] = b
+                    swaps[b] = a
+                return out_i
+
     def swapped_wires(self):
-        swaps = dict()
-
-        def find_gate_name(op, xoy):
-            x, y = xoy
-            if x in swaps:
-                x = swaps[x]
-            if y in swaps:
-                y = swaps[y]
-            for gatei, (opi, xyi) in self.gates.items():
-                if (op == opi) and (x in xyi or y in xyi):
-                    if x not in xyi:
-                        xx = (xyi - {y}).pop()
-                        swaps[x] = xx
-                        swaps[xx] = x
-                    if y not in xyi:
-                        yy = (xyi - {x}).pop()
-                        swaps[y] = yy
-                        swaps[yy] = y
-                    return gatei
-
-        carry_in = None
+        swaps = {}
+        carry_bit = None
         for bit_counter in count():
-            z = f"z{bit_counter:02}"
-            x = f"x{bit_counter:02}"
-            y = f"y{bit_counter:02}"
-
+            x, y, z = f"x{bit_counter:02}", f"y{bit_counter:02}", f"z{bit_counter:02}"
             if x not in self.all_gates:
                 break
-
-            s = find_gate_name("XOR", {x, y})
-            c1 = find_gate_name("AND", {x, y})
-
-            if carry_in is not None:
-                zout = find_gate_name("XOR", {s, carry_in})
-                c2 = find_gate_name("AND", {s, carry_in})
-                carry_in = find_gate_name("OR", {c1, c2})
+            s1 = self.find_gate_name("XOR", {x, y}, swaps)
+            c1 = self.find_gate_name("AND", {x, y}, swaps)
+            if carry_bit is not None:
+                s2 = self.find_gate_name("XOR", {s1, carry_bit}, swaps)
+                c2 = self.find_gate_name("AND", {s1, carry_bit}, swaps)
+                carry_bit = self.find_gate_name("OR", {c1, c2}, swaps)
             else:
-                zout = s
-                carry_in = c1
-
-            if zout != z:
-                swaps[zout] = z
-                swaps[z] = zout
+                s2 = s1
+                carry_bit = c1
+            if s2 != z:
+                swaps[s2] = z
+                swaps[z] = s2
         return ",".join(sorted(swaps.keys()))
 
 
