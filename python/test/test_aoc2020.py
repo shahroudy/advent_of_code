@@ -202,3 +202,23 @@ def test_day12():
     test = RainRisk(f"{input_folder}/aoc2020_day12.txt")
     assert test.move_ship() == 521
     assert test.move_ship_with_waypoint() == 22848
+
+
+def test_day13_samples():
+    from aoc2020.day13.d13 import ShuttleSearch
+
+    assert ShuttleSearch("./python/aoc2020/day13/sample1.txt").earliest_bus() == 295
+    assert ShuttleSearch("./python/aoc2020/day13/sample1.txt").earliest_match_time() == 1068781
+    assert ShuttleSearch("./python/aoc2020/day13/sample2.txt").earliest_match_time() == 3417
+    assert ShuttleSearch("./python/aoc2020/day13/sample3.txt").earliest_match_time() == 754018
+    assert ShuttleSearch("./python/aoc2020/day13/sample4.txt").earliest_match_time() == 779210
+    assert ShuttleSearch("./python/aoc2020/day13/sample5.txt").earliest_match_time() == 1261476
+    assert ShuttleSearch("./python/aoc2020/day13/sample6.txt").earliest_match_time() == 1202161486
+
+
+def test_day13():
+    from aoc2020.day13.d13 import ShuttleSearch
+
+    test = ShuttleSearch(f"{input_folder}/aoc2020_day13.txt")
+    assert test.earliest_bus() == 261
+    assert test.earliest_match_time() == 807435693182510

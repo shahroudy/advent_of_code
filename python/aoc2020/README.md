@@ -104,3 +104,17 @@ We are provided by a set of movement instructions and need to find the final pos
 In part 1, the ship moves in 4 directions (N, E, S, W), rotates in 2 directions (L, R), and moves forward (F).\
 In part 2, all of the above instructions are applied to a waypoint relative to the ship, except for the forward instruction, which moves the ship towards the waypoint.\
 For this, I added the implementation of rotation for `Point` class in my library.
+
+## Day 13: [Shuttle Search](https://adventofcode.com/2020/day/13) &rarr; [Solution](./day13/d13.py)
+We have an ordered list of bus IDs, and a starting time.\
+Each bus arrives at intervals equal to its ID.\
+In part 1, starting from the start time, we need to find the first arriving bus.\
+In part 2, we need to find the earliest timestamp from which all buses arrive at their indexes in the list.\
+In other works, we need to find the smallest number which has provided remainders when divided by the bus IDs.\
+To build this number, we can:
+* Start with time=0 and step=1
+* For each bus, find the next time that satisfies the condition by adding the step to time until the condition is met.
+* Make step the LCM of the previous step and the bus ID (this way the currently met remainders will be preserved).
+
+### Bugs and Issues
+* Understanding the fact that the expected remainer is the negative of the order not its positive value took me a while :sweat_smile:
