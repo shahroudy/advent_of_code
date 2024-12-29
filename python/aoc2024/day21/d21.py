@@ -1,5 +1,5 @@
 import re
-from collections import defaultdict
+from collections import Counter, defaultdict
 from functools import cache
 from itertools import permutations, product
 from pathlib import Path
@@ -12,109 +12,69 @@ class KeypadConundrum:
     def __init__(self, filename):
         self.door_codes = Path(filename).read_text().splitlines()
 
-        ph_kb = ["789", "456", "123", "X0A"]
-        d_kb = ["X^A", "<v>"]
-        self.ph_kp = {c: Point(x, y) for y, row in enumerate(ph_kb) for x, c in enumerate(row)}
-        self.dir_kp = {c: Point(x, y) for y, line in enumerate(d_kb) for x, c in enumerate(line)}
+        self.physical = {
+            ch: Point(x, y)
+            for y, row in enumerate(["789", "456", "123", "X0A"])
+            for x, ch in enumerate(row)
+        }
+        self.directional = {
+            ch: Point(x, y) for y, line in enumerate(["X^A", "<v>"]) for x, ch in enumerate(line)
+        }
 
     @cache
-    def move_ph(self, current_1, new_1):
-        diff = self.ph_kp[new_1] - self.ph_kp[current_1]
-        moves = ">" * diff.x + "<" * -diff.x + "v" * diff.y + "^" * -diff.y
+    def distance_in_dir_kb(self, from_button, to_button):
+        return self.directional[from_button].manhattan_dist(self.directional[to_button])
+
+    @cache
+    def moves_in_keyboard(self, from_button, to_button, is_physical_keyboard=False):
+        keyboard = self.physical if is_physical_keyboard else self.directional
+        delta = keyboard[to_button] - keyboard[from_button]
+        moves = ">" * delta.x + "<" * -delta.x + "v" * delta.y + "^" * -delta.y
         per = set(permutations(moves))
-        moves = []
+        minimal_set, min_length = set(), float("inf")
         for p in per:
-            current = self.ph_kp[current_1]
-            valid = True
+            current = keyboard[from_button]
             for ch in p:
                 current = current + DIR_CHARS[ch]
-                if self.ph_kp["X"] == current:
-                    valid = False
+                if keyboard["X"] == current:
                     break
-            if valid:
-                moves.append("".join(p) + "A")
-        proper = defaultdict(set)
-        min_possible = float("inf")
-        for m in moves:
-            length = sum(self.moves_in_dir_kb(a, b) for a, b in zip(m[:-1], m[1:]))
-            proper[length].add(m)
-            min_possible = min(min_possible, length)
-        return proper[min_possible]
+            else:
+                moves = "".join(p) + "A"
+                length = sum(self.distance_in_dir_kb(a, b) for a, b in zip(moves[:-1], moves[1:]))
+                if length < min_length:
+                    minimal_set, min_length = {moves}, length
+                elif length == min_length:
+                    minimal_set.add(moves)
+        return minimal_set
 
-    @cache
-    def moves_in_dir_kb(self, current_1, new_1):
-        current = self.dir_kp[current_1] + (0, 0)
-        new = self.dir_kp[new_1] + (0, 0)
-        return current.manhattan_dist(new)
+    def change_counter_dict(self, sequence):
+        full_sequence = "A" + sequence
+        return dict(Counter(zip(full_sequence[:-1], full_sequence[1:])))
 
-    @cache
-    def move_dir(self, current_1, new_1):
-        diff = self.dir_kp[new_1] - self.dir_kp[current_1]
-        moves = ">" * diff.x + "<" * -diff.x + "v" * diff.y + "^" * -diff.y
-        per = set(permutations(moves))
-        moves = []
-        for p in per:
-            current = self.dir_kp[current_1]
-            valid = True
-            for ch in p:
-                current = current + DIR_CHARS[ch]
-                if self.dir_kp["X"] == current:
-                    valid = False
-                    break
-            if valid:
-                moves.append("".join(p) + "A")
+    def key_in_keyboard(self, input, is_physical_keyboard=False):
+        input_frequencies = self.change_counter_dict(input) if isinstance(input, str) else input
+        frequencies = [defaultdict(int)]
+        for input_move, input_frequency in input_frequencies.items():
+            next_results = []
+            possible_moves = self.moves_in_keyboard(*input_move, is_physical_keyboard)
+            for so_far_frequencies, needed_move in product(frequencies, possible_moves):
+                new_frequencies = so_far_frequencies.copy()
+                for move, frequency in self.change_counter_dict(needed_move).items():
+                    new_frequencies[move] += input_frequency * frequency
+                next_results.append(new_frequencies)
+            frequencies = next_results
+        return frequencies
 
-        proper = defaultdict(set)
-        min_possible = float("inf")
-        for m in moves:
-            length = sum(self.moves_in_dir_kb(a, b) for a, b in zip(m[:-1], m[1:]))
-            proper[length].add(m)
-            min_possible = min(min_possible, length)
-        return proper[min_possible]
-
-    def key_in_dir_keyboard(self, input):
-        if isinstance(input, str):
-            input_frequencies = defaultdict(int)
-            for p in [a + b for a, b in zip(input[:-1], input[1:])]:
-                input_frequencies[p] += 1
-            input_frequencies["A" + input[0]] += 1
-        else:
-            input_frequencies = input
-
-        result1 = defaultdict(int)
-        result2 = defaultdict(int)
-        for k, v in input_frequencies.items():
-            moves = list(self.move_dir(k[0], k[1]).copy())
-
-            atext = "A" + moves[0]
-            s = [a + b for a, b in zip(atext[:-1], atext[1:])]
-            for p in s:
-                result1[p] += v
-
-            atext = ("A" + moves[1]) if len(moves) > 1 else ("A" + moves[0])
-            s = [a + b for a, b in zip(atext[:-1], atext[1:])]
-            for p in s:
-                result2[p] += v
-        return result1, result2
-
-    def sum_of_complexities(self, iterations=2):
-        res = 0
+    def sum_of_complexities(self, robot_count=2):
+        complexities_sum = 0
         for door_code in self.door_codes:
-            c1 = "A"
-            m1 = {""}
-            for ch in door_code:
-                possible = set()
-                for m, mm in product(m1, self.move_ph(c1, ch)):
-                    possible.add(m + mm)
-                c1 = ch
-                m1 = possible
-            for _ in range(iterations):
-                ds = [dict(d) for m in m1 for d in self.key_in_dir_keyboard(m)]
-                min_size = min(sum(d.values()) for d in ds)
-                m1 = [d for d in ds if sum(d.values()) == min_size]
-            res += min_size * int(re.findall(r"(\d+)", door_code)[0])
-
-        return res
+            frequencies = self.key_in_keyboard(door_code, is_physical_keyboard=True)
+            for _ in range(robot_count):
+                frequencies = [d for m in frequencies for d in self.key_in_keyboard(m)]
+                min_size = min(sum(d.values()) for d in frequencies)
+                frequencies = [d for d in frequencies if sum(d.values()) == min_size]
+            complexities_sum += min_size * int(re.match(r"(\d+)", door_code).group())
+        return complexities_sum
 
 
 if __name__ == "__main__":
