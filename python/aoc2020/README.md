@@ -117,4 +117,29 @@ To build this number, we can:
 * Make step the LCM of the previous step and the bus ID (this way the currently met remainders will be preserved).
 
 ### Bugs and Issues
-* Understanding the fact that the expected remainer is the negative of the order not its positive value took me a while :sweat_smile:
+* Understanding the fact that the expected remainder is the negative of the order not its positive value took me a while :sweat_smile:
+
+## Day 14: [Docking Data](https://adventofcode.com/2020/day/14) &rarr; [Solution](./day14/d14.py)
+A puzzle of bitwise AND/OR masking operations.\
+We are provided with a set of instructions to write values to memory addresses.\
+Mask definition commands update the current mask, which is defined based on 36 bits of `0`s, `1`s, and `X`s.\
+And other commands are write values to addresses with the mask applied to them.\
+In part 1, each value is masked and each `0` and `1` bit in the mask is applied to the value.\
+In part 2, addresses are masked instead, `1` bits set the corresponding bit to `1`, `0` bits leave the corresponding bit unchanged, and `X` bits are floating bits that can be either `0` or `1`.\
+This way each `X` doubles the number of addresses to write to.\
+For both of the parts, we need to return the sum of all set values in memory.\
+The important part here was to properly implement the masking and address generation functions.\
+Good to recall:
+* Bitwise operations to `int`s: (`&`, `|`, `^`)
+* ```f"{value:036b}"``` to convert an integer to a 36-bit binary string.
+* `int(binary_string, 2)` to convert a binary string to an integer.
+* `bin(int_value)[2:]` to convert an integer to a binary string.
+* `value_str.zfill(36)` to pad a string with zeros to the left.
+* `value_str.rjust(36, '0')` to pad a string with zeros to the left.
+* `value_str.ljust(36, '0')` to pad a string with zeros to the right.
+
+### Optimizations
+* Using the actual bitwise `&` and `|` operations on `int` values is much faster than using string manipulation and casting them to `int`.
+
+### Bugs and Issues
+* I first didn't understand the fact that we have more than one mask operations in the input.

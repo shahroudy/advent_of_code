@@ -1,82 +1,52 @@
-import os
 import re
 from collections import defaultdict
 from itertools import product
-from myutils.file_reader import read_lines
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
 class DockingData:
     def __init__(self, filename):
-        self.lines = read_lines(filename)
+        self.lines = [re.findall(r"[\dX]+", cmd) for cmd in Path(filename).read_text().splitlines()]
 
-    def reset(self):
-        self.mask = [0] * 36
-        self.mem = defaultdict(int)
-        return
-
-    def bit_mask(self, value):
-        mask = self.mask
-        bits = list(f"{value:036b}")
-        out = []
-        for i in range(len(mask)):
-            if mask[i] == "X":
-                out.append(bits[i])
-            else:
-                out.append(mask[i])
-        outs = "".join(out)
-        return int(outs, 2)
-
-    def get_addresses(self, addr):
-        mask = self.mask
-        bits = list(f"{int(addr):036b}")
-        out = []
-        for i in range(len(mask)):
-            if mask[i] in ["1", "X"]:
-                out.append(mask[i])
-            else:
-                out.append(bits[i])
-
-        outout = []
-        for xcomb in product("01", repeat=out.count("X")):
-            xlist = list(xcomb)
-            pat = []
-            for j in out:
-                if j == "X":
-                    pat.append(xlist.pop())
-                else:
-                    pat.append(j)
-            outout.append(int("".join(pat), 2))
-        return outout
-
-    def run(self, mode):
-        self.reset()
+    def sum_after_value_decode(self):
+        memory = defaultdict(int)
         for line in self.lines:
-            parts = [p.strip() for p in line.split("=")]
-            if parts[0] == "mask":
-                self.mask = parts[1]
-            elif parts[0][:3].lower() == "mem":
-                left_side = parts[0]
-                left_side = re.sub("mem\[", "", left_side)
-                addr = re.sub("\]", "", left_side)
-                val = int(parts[1])
-                if mode == 1:
-                    self.mem[addr] = self.bit_mask(val)
-                elif mode == 2:
-                    for a in self.get_addresses(addr):
-                        self.mem[a] = val
+            if len(line) == 1:
+                mask = line[0]
+                zero_mask = int(mask.replace("X", "1"), 2)
+                one_mask = int(mask.replace("X", "0"), 2)
             else:
-                raise ValueError("Invalid Command")
-        return sum(self.mem.values())
+                address, value = map(int, line)
+                memory[address] = value & zero_mask | one_mask
+        return sum(memory.values())
+
+    def sum_after_address_decode(self):
+        memory = defaultdict(int)
+        for line in self.lines:
+            if len(line) == 1:
+                mask = line[0]
+                zero_mask = int(mask.replace("0", "1").replace("X", "0"), 2)
+                one_mask = int(mask.replace("X", "0"), 2)
+                x_values = [1 << (35 - i) for i, c in enumerate(mask) if c == "X"]
+            else:
+                address, value = map(int, line)
+                base_address = address & zero_mask | one_mask
+                for bits in product([0, 1], repeat=len(x_values)):
+                    memory[base_address + sum(b * x for b, x in zip(bits, x_values))] = value
+        return sum(memory.values())
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = DockingData("test1.txt")
-    assert test1.run(mode=1) == 165
-    test2 = DockingData("test2.txt")
-    assert test2.run(mode=2) == 208
 
-    dock = DockingData(data.input_file)
-    print(dock.run(mode=1))
-    print(dock.run(mode=2))
+    assert DockingData("sample1.txt").sum_after_value_decode() == 165
+    assert DockingData("sample2.txt").sum_after_address_decode() == 208
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = DockingData(data.input_file)
+
+    print(puzzle.sum_after_value_decode())
+    print(puzzle.sum_after_address_decode())

@@ -222,3 +222,26 @@ def test_day13():
     test = ShuttleSearch(f"{input_folder}/aoc2020_day13.txt")
     assert test.earliest_bus() == 261
     assert test.earliest_match_time() == 807435693182510
+
+
+def test_day14_samples():
+    from aoc2020.day14.d14 import DockingData
+    from aoc2020.day14.d14_str import DockingData as DockingDataStr
+
+    assert DockingData("./python/aoc2020/day14/sample1.txt").sum_after_value_decode() == 165
+    assert DockingData("./python/aoc2020/day14/sample2.txt").sum_after_address_decode() == 208
+
+    assert DockingDataStr("./python/aoc2020/day14/sample1.txt").sum_after_value_decode() == 165
+    assert DockingDataStr("./python/aoc2020/day14/sample2.txt").sum_after_address_decode() == 208
+
+
+def test_day14():
+    from aoc2020.day14.d14 import DockingData
+    from aoc2020.day14.d14_str import DockingData as DockingDataStr
+
+    test = DockingData(f"{input_folder}/aoc2020_day14.txt")
+    assert test.sum_after_value_decode() == 11501064782628
+    assert test.sum_after_address_decode() == 5142195937660
+    test = DockingDataStr(f"{input_folder}/aoc2020_day14.txt")
+    assert test.sum_after_value_decode() == 11501064782628
+    assert test.sum_after_address_decode() == 5142195937660
