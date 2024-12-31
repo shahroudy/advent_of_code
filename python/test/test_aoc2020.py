@@ -245,3 +245,37 @@ def test_day14():
     test = DockingDataStr(f"{input_folder}/aoc2020_day14.txt")
     assert test.sum_after_value_decode() == 11501064782628
     assert test.sum_after_address_decode() == 5142195937660
+
+
+def test_day15_samples():
+    from aoc2020.day15.d15 import RambunctiousRecitation
+
+    test = RambunctiousRecitation("./python/aoc2020/day15/sample1.txt")
+    assert test.whats_nth_spoken_number(2020) == 436
+    assert test.whats_nth_spoken_number(30000000) == 175594
+    test = RambunctiousRecitation("./python/aoc2020/day15/sample2.txt")
+    assert test.whats_nth_spoken_number(2020) == 1
+    assert test.whats_nth_spoken_number(30000000) == 2578
+    test = RambunctiousRecitation("./python/aoc2020/day15/sample3.txt")
+    assert test.whats_nth_spoken_number(2020) == 10
+    assert test.whats_nth_spoken_number(30000000) == 3544142
+    test = RambunctiousRecitation("./python/aoc2020/day15/sample4.txt")
+    assert test.whats_nth_spoken_number(2020) == 27
+    assert test.whats_nth_spoken_number(30000000) == 261214
+    test = RambunctiousRecitation("./python/aoc2020/day15/sample5.txt")
+    assert test.whats_nth_spoken_number(2020) == 78
+    assert test.whats_nth_spoken_number(30000000) == 6895259
+    test = RambunctiousRecitation("./python/aoc2020/day15/sample6.txt")
+    assert test.whats_nth_spoken_number(2020) == 438
+    assert test.whats_nth_spoken_number(30000000) == 18
+    test = RambunctiousRecitation("./python/aoc2020/day15/sample7.txt")
+    assert test.whats_nth_spoken_number(2020) == 1836
+    assert test.whats_nth_spoken_number(30000000) == 362
+
+
+def test_day15():
+    from aoc2020.day15.d15 import RambunctiousRecitation
+
+    test = RambunctiousRecitation(f"{input_folder}/aoc2020_day15.txt")
+    assert test.whats_nth_spoken_number(2020) == 1325
+    assert test.whats_nth_spoken_number(30000000) == 59006

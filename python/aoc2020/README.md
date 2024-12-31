@@ -143,3 +143,16 @@ Good to recall:
 
 ### Bugs and Issues
 * I first didn't understand the fact that we have more than one mask operations in the input.
+
+## Day 15: [Rambunctious Recitation](https://adventofcode.com/2020/day/15) &rarr; [Solution](./day15/d15.py)
+A puzzle of sequence generation.\
+Each new item is generated based on the last item's previous index in the sequence.\
+If it was the first appearance, the next number will be `0`, if not, the next number will be the difference between the last and the previous index.\
+In part 1, we need to find the `2020`th number in the sequence.\
+In part 2, we need to find the `30,000,000`th number in the sequence.\
+The ad-hoc way to build and keep the sequence in a `list`, which is not tractable for part 2.
+
+### Optimizations
+* Using a `dict` to store the last index of each number in the sequence.
+* Using a `list` instead of the `dict` can run two times faster, since it don't need to hash the keys.
+* Running the python code with `pypy` can run the code ~6 times faster here (~0.46s vs ~2.7s).
