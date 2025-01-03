@@ -156,3 +156,15 @@ The ad-hoc way to build and keep the sequence in a `list`, which is not tractabl
 * Using a `dict` to store the last index of each number in the sequence.
 * Using a `list` instead of the `dict` can run two times faster, since it don't need to hash the keys.
 * Running the python code with `pypy` can run the code ~6 times faster here (~0.46s vs ~2.7s).
+
+## Day 16: [Ticket Translation](https://adventofcode.com/2020/day/16) &rarr; [Solution](./day16/d16.py)
+A puzzle of handling combinations of ranges and matching possibly values to ranges.\
+We are provided with:
+* A set of rules, each rule has a name (field name on the tickets) and a combination of valid ranges.
+* A ticket with an ordered list of values.
+* A set of nearby tickets with ordered lists of values.
+
+In part 1, we need to find the nearby tickets which have numbers that are not valid in any of the rules, and return the sum of these numbers.\
+For part 2, first we need to eliminate the invalid tickets, then we need to find the correct order of the fields on the tickets, and then we need to multiply the values of the fields that start with `departure` in our ticket and return the result.\
+The easy approach to solve this was to check possible matches between rules and columns and find the matches one by one.\
+The key to simplify the solution here was to implement a class to handle combinations of ranges and check if a value is valid in the ranges; I now have it in my library as `ExRange` class, and solving this helped me to fix a bug in it :smile:

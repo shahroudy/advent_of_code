@@ -1,3 +1,6 @@
+from functools import reduce
+
+
 def ranges_overlap(r1: range, r2: range):
     return r1.start < r2.stop and r1.stop > r2.start
 
@@ -36,18 +39,28 @@ def ranges_minus(r1: range, r2: range):
 
 class ExRange:
     def __init__(self, *args):
-        assert 0 < len(args) <= 2
-        if len(args) == 1:
+        assert len(args) <= 2
+        if not args:
+            self.ranges = []
+        elif len(args) == 1:
             assert isinstance(args[0], (range, ExRange, list))
             if isinstance(args[0], range):
                 self.ranges = [args[0]]
             elif isinstance(args[0], ExRange):
                 self.ranges = args[0].ranges.copy()
             else:
-                self.ranges = args[0].copy()
+                if isinstance(args[0][0], range):
+                    self.ranges = args[0].copy()
+                elif isinstance(args[0][0], ExRange):
+                    self.ranges = []
+                    for r in args[0]:
+                        self.ranges += r.ranges
         else:
             self.ranges = [range(*args)]
-        self._sort_ranges()
+        self._merge_ranges()
+
+    def __contains__(self, item):
+        return any(item in r for r in self.ranges)
 
     def length(self):
         return sum(len(r) for r in self.ranges)
@@ -60,7 +73,9 @@ class ExRange:
         merged_ranges = []
         for r in self.ranges:
             if merged_ranges and (merged_ranges[-1].stop >= r.start):
-                merged_ranges[-1] = range(merged_ranges[-1].start, r.stop)
+                merged_ranges[-1] = range(
+                    merged_ranges[-1].start, max(r.stop, merged_ranges[-1].stop)
+                )
             else:
                 merged_ranges.append(r)
         self.ranges = merged_ranges
@@ -112,16 +127,22 @@ if __name__ == "__main__":
     assert r.length() == 15
     r.add(20, 30)
     assert r.length() == 25
+    assert 25 in r
+    assert 10 in r
+    assert 17 not in r
     r.add(25, 35)
     assert r.length() == 30
     r.subtract(2, 5)
     assert r.length() == 27
+    r.add(-10, 50)
+    assert r.length() == 60
+
     s = ExRange(9, 21) + ExRange(30, 40)
     s2 = ExRange([range(9, 21), range(30, 40)])
     r2 = r - s
-    assert r2.length() == 15
+    assert r2.length() == 38
     r2 = r - s2
-    assert r2.length() == 15
+    assert r2.length() == 38
     r1 = ExRange(0, 10)
     r1.intersect(5, 15)
     assert r1.length() == 5

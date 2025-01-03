@@ -1,91 +1,64 @@
-import os
-from myutils.file_reader import read_line_groups
-from myutils.matching import find_a_mapping
+import re
+from collections import defaultdict
+from itertools import product
+from pathlib import Path
+
+from myutils.exrange import ExRange
 from myutils.io_handler import get_input_data
+from myutils.utils import multiply
 
 
-class TicketTranslator:
-
+class TicketTranslation:
     def __init__(self, filename):
-        self.process_input(filename)
+        rules_txt, ticket_txt, nearby_txt = Path(filename).read_text().split("\n\n")
+        rules = {
+            re.match(r"^([\w\s]+):", rule).group(): ExRange(
+                [range(int(a), int(b) + 1) for a, b in re.findall(r"(\d+)-(\d+)", rule)]
+            )
+            for rule in rules_txt.splitlines()
+        }
+        ticket = [int(n) for n in re.findall(r"\d+", ticket_txt)]
+        others = [list(map(int, re.findall(r"\d+", t))) for t in nearby_txt.splitlines()[1:]]
 
-    def process_input(self, filename):
-        raw_rules, raw_my_ticket, raw_nearby_tickets = read_line_groups(filename)
+        all_ranges = ExRange(list(rules.values()))
+        self.ticket_scanning_error_rate = 0
+        valid_tickets = []
+        for other in others:
+            valid = True
+            for number in other:
+                if number not in all_ranges:
+                    self.ticket_scanning_error_rate += number
+                    valid = False
+            if valid:
+                valid_tickets.append(other)
 
-        # parse the rules
-        self.rules = []
-        self.rule_names = []
-        for line in raw_rules:
-            parts = line.split(":")
-            rs = parts[1].split("or")
-            cr = []
-            for r in rs:
-                rg = [int(x) for x in r.strip().split("-")]
-                cr.append(rg)
-            self.rules.append(cr)
-            self.rule_names.append(parts[0])
+        match = {}
+        remaining_names = set(rules.keys())
+        remaining_columns = set(range(len(rules)))
+        column_values = [[n[col] for n in valid_tickets] for col in remaining_columns]
+        possible_matches = defaultdict(set)
+        for name, col in product(rules.keys(), remaining_columns):
+            if all(value in rules[name] for value in column_values[col]):
+                possible_matches[name].add(col)
+        while remaining_names:
+            for name in remaining_names:
+                if len(possible_matches[name] & remaining_columns) == 1:
+                    break
+            match[name] = (possible_matches[name] & remaining_columns).pop()
+            remaining_names.remove(name)
+            remaining_columns.remove(match[name])
 
-        # parse my ticket
-        self.my_ticket = [int(n) for n in raw_my_ticket[1].split(",")]
-
-        # parse nearby tickets
-        self.nearby_tickets = []
-        for line in raw_nearby_tickets[1:]:
-            self.nearby_tickets.append([int(n) for n in line.split(",")])
-        return
-
-    def is_valid(self, rule, values):
-        for sub_rule_range in rule:
-            if sub_rule_range[0] <= values <= sub_rule_range[1]:
-                return True
-        return False
-
-    def ticket_scanning_error_rate(self):
-        error_rate = 0
-        self.valid_nearby_tickets = []
-        for nearby_ticket in self.nearby_tickets:
-            nearby_valid = True
-            for value in nearby_ticket:
-                valid = False
-                for rule in self.rules:
-                    if self.is_valid(rule, value):
-                        valid = True
-                        break
-                if not valid:
-                    error_rate += value
-                    nearby_valid = False
-            if nearby_valid:
-                self.valid_nearby_tickets.append(nearby_ticket)
-        return error_rate
-
-    def match_rules(self):
-        # find all the matching columns for each rule
-        matched_columns_per_rule = []
-        for rule_index in range(len(self.rules)):
-            matched_columns = []
-            for column_index in range(len(self.valid_nearby_tickets[0])):
-                for nearby_ticket in self.valid_nearby_tickets:
-                    if not self.is_valid(self.rules[rule_index], nearby_ticket[column_index]):
-                        break
-                else:
-                    matched_columns.append(column_index)
-            matched_columns_per_rule.append([rule_index, matched_columns])
-
-        mapped_column = find_a_mapping(matched_columns_per_rule)
-
-        # find the multiplication of 'departure' related colums in my ticket
-        result = 1
-        for rule in range(len(self.rules)):
-            if "departure" in self.rule_names[rule]:
-                result *= self.my_ticket[mapped_column[rule]]
-        return result
+        self.departure = multiply(ticket[m] for n, m in match.items() if n.startswith("departure"))
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = TicketTranslator("test1.txt")
-    assert test1.ticket_scanning_error_rate() == 71
 
-    ticket_translator = TicketTranslator(data.input_file)
-    print(ticket_translator.ticket_scanning_error_rate())  # 23009
-    print(ticket_translator.match_rules())  # 10458887314153
+    assert TicketTranslation("sample1.txt").ticket_scanning_error_rate == 71
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = TicketTranslation(data.input_file)
+
+    print(puzzle.ticket_scanning_error_rate)
+    print(puzzle.departure)

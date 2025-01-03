@@ -279,3 +279,18 @@ def test_day15():
     test = RambunctiousRecitation(f"{input_folder}/aoc2020_day15.txt")
     assert test.whats_nth_spoken_number(2020) == 1325
     assert test.whats_nth_spoken_number(30000000) == 59006
+
+
+def test_day16_samples():
+    from aoc2020.day16.d16 import TicketTranslation
+
+    test = TicketTranslation("./python/aoc2020/day16/sample1.txt")
+    assert test.ticket_scanning_error_rate == 71
+
+
+def test_day16():
+    from aoc2020.day16.d16 import TicketTranslation
+
+    test = TicketTranslation(f"{input_folder}/aoc2020_day16.txt")
+    assert test.ticket_scanning_error_rate == 23009
+    assert test.departure == 10458887314153
