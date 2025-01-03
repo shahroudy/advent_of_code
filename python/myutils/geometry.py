@@ -35,6 +35,20 @@ MASKX3D = [
     [-1, 1, 1],
 ]
 
+# 4D Masks for 8, 80, 81 directions
+MASK8_4D = [
+    [-1, 0, 0, 0],
+    [1, 0, 0, 0],
+    [0, -1, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, -1, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, -1],
+    [0, 0, 0, 1],
+]
+MASK80 = [[i, j, k, l] for i, j, k, l in product(range(-1, 2), repeat=4) if i or j or k or l]
+MASK81 = [[i, j, k, l] for i, j, k, l in product(range(-1, 2), repeat=4)]
+
 
 class Point:
     def __init__(self, x: int, y: int):
@@ -238,6 +252,103 @@ class Point3D:
 
     def DOWN(self) -> "Point3D":
         return Point3D(self.x, self.y, self.z - 1)
+
+
+class Point4D:
+    def __init__(self, x: int, y: int, z: int, w: int):
+        self.x = x
+        self.y = y
+        self.z = z
+        self.w = w
+
+    def __add__(self, other: "Point4D") -> "Point4D":
+        cx, cy, cz, cw = (
+            (other.x, other.y, other.z, other.w) if isinstance(other, Point4D) else other
+        )
+        return Point4D(self.x + cx, self.y + cy, self.z + cz, self.w + cw)
+
+    def __sub__(self, other: "Point4D") -> "Point4D":
+        cx, cy, cz, cw = (
+            (other.x, other.y, other.z, other.w) if isinstance(other, Point4D) else other
+        )
+        return Point4D(self.x - cx, self.y - cy, self.z - cz, self.w - cw)
+
+    def __mul__(self, factor: Union[int, float, "Point4D"]) -> "Point4D":
+        if isinstance(factor, Point4D):
+            return Point4D(
+                self.x * factor.x, self.y * factor.y, self.z * factor.z, self.w * factor.w
+            )
+        else:
+            return Point4D(self.x * factor, self.y * factor, self.z * factor, self.w * factor)
+
+    def __eq__(self, other: "Point4D") -> bool:
+        cx, cy, cz, cw = (
+            (other.x, other.y, other.z, other.w) if isinstance(other, Point4D) else other
+        )
+        return self.x == cx and self.y == cy and self.z == cz and self.w == cw
+
+    def __hash__(self) -> int:
+        return hash((self.x, self.y, self.z, self.w))
+
+    def __str__(self) -> str:
+        return f"({self.x}, {self.y}, {self.z}, {self.w})"
+
+    def __repr__(self) -> str:
+        return f"Point4D({self.x}, {self.y}, {self.z}, {self.w})"
+
+    def __lt__(self, other: "Point4D") -> int:
+        other_tuple = other.tuple if isinstance(other, Point4D) else tuple(other)
+        return self.tuple < other_tuple
+
+    def manhattan_dist(self, other: "Point4D") -> int:
+        cx, cy, cz, cw = (
+            (other.x, other.y, other.z, other.w) if isinstance(other, Point4D) else other
+        )
+        return abs(self.x - cx) + abs(self.y - cy) + abs(self.z - cz) + abs(self.w - cw)
+
+    def manhattan_range(self, distance: int) -> Generator["Point4D", None, None]:
+        for dx in range(-distance, distance + 1):
+            for dy in range(-distance + abs(dx), distance + 1 - abs(dx)):
+                for dz in range(-distance + abs(dx) + abs(dy), distance + 1 - abs(dx) - abs(dy)):
+                    for dw in range(
+                        -distance + abs(dx) + abs(dy) + abs(dz),
+                        distance + 1 - abs(dx) - abs(dy) - abs(dz),
+                    ):
+                        yield Point4D(self.x + dx, self.y + dy, self.z + dz, self.w + dw)
+
+    def is_inside(self, caller) -> bool:
+        return (
+            0 <= self.x < caller.cols
+            and 0 <= self.y < caller.rows
+            and 0 <= self.z < caller.planes
+            and 0 <= self.w < caller.hyperplanes
+        )
+
+    def n8(self) -> List["Point4D"]:
+        return [
+            Point4D(self.x + dx, self.y + dy, self.z + dz, self.w + dw)
+            for dx, dy, dz, dw in MASK8_4D
+        ]
+
+    def n80(self) -> List["Point4D"]:
+        return [
+            Point4D(self.x + dx, self.y + dy, self.z + dz, self.w + dw) for dx, dy, dz, dw in MASK80
+        ]
+
+    def n81(self) -> List["Point4D"]:
+        return [
+            Point4D(self.x + dx, self.y + dy, self.z + dz, self.w + dw) for dx, dy, dz, dw in MASK81
+        ]
+
+    def wrap_around(self, caller) -> "Point4D":
+        self.x %= caller.cols
+        self.y %= caller.rows
+        self.z %= caller.planes
+        self.w %= caller.hyperplanes
+
+    @property
+    def tuple(self) -> Tuple[int, int, int, int]:
+        return (self.x, self.y, self.z, self.w)
 
 
 def connected_region(

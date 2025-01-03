@@ -294,3 +294,18 @@ def test_day16():
     test = TicketTranslation(f"{input_folder}/aoc2020_day16.txt")
     assert test.ticket_scanning_error_rate == 23009
     assert test.departure == 10458887314153
+
+
+def test_day17_samples():
+    from aoc2020.day17.d17 import ConwayCubes
+
+    assert ConwayCubes("./python/aoc2020/day17/sample1.txt").calculate_active_cubes_in_3D() == 112
+    assert ConwayCubes("./python/aoc2020/day17/sample1.txt").calculate_active_cubes_in_4D() == 848
+
+
+def test_day17():
+    from aoc2020.day17.d17 import ConwayCubes
+
+    test = ConwayCubes(f"{input_folder}/aoc2020_day17.txt")
+    assert test.calculate_active_cubes_in_3D() == 448
+    assert test.calculate_active_cubes_in_4D() == 2400

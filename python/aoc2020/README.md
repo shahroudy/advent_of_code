@@ -168,3 +168,19 @@ In part 1, we need to find the nearby tickets which have numbers that are not va
 For part 2, first we need to eliminate the invalid tickets, then we need to find the correct order of the fields on the tickets, and then we need to multiply the values of the fields that start with `departure` in our ticket and return the result.\
 The easy approach to solve this was to check possible matches between rules and columns and find the matches one by one.\
 The key to simplify the solution here was to implement a class to handle combinations of ranges and check if a value is valid in the ranges; I now have it in my library as `ExRange` class, and solving this helped me to fix a bug in it :smile:
+
+## Day 17: [Conway Cubes](https://adventofcode.com/2020/day/17) &rarr; [Solution](./day17/d17.py)
+A cellular automata puzzle with expanding boundaries in 3D and 4D space.\
+We are provided with the initial 2D grid of active (`.`) and inactive (`#`) cubes.\
+The rules are simple:
+* If a cube is active and exactly 2 or 3 of its neighbors are also active, the cube remains active. Otherwise, the cube becomes inactive.
+* If a cube is inactive but exactly 3 of its neighbors are active, the cube becomes active. Otherwise, the cube remains inactive.
+
+The diagonal neighbors are also considered here; so in 3D space, each cube has 26 neighbors, and in 4D space, each cube has 80 neighbors.\
+In part 1, we need to simulate the 3D cellular automata for 6 cycles and return the number of active cubes.\
+In part 2, we do the same in 4D space.
+
+### Optimizations
+* Keeping only the active cubes in a set and iterating over them only can save a lot of time and memory.
+* At each iteration, we only need to check the neighbors of the active cubes, not all the cubes in the space.
+* Having a library of 2D, 3D, and 4D points can be very helpful in these kind of problems.
