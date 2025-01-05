@@ -309,3 +309,26 @@ def test_day17():
     test = ConwayCubes(f"{input_folder}/aoc2020_day17.txt")
     assert test.calculate_active_cubes_in_3D() == 448
     assert test.calculate_active_cubes_in_4D() == 2400
+
+
+def test_day18_samples():
+    from aoc2020.day18.d18 import OperationOrder
+
+    assert OperationOrder("./python/aoc2020/day18/sample1.txt").homework() == 71
+    assert OperationOrder("./python/aoc2020/day18/sample1.txt").homework_advanced() == 231
+    assert OperationOrder("./python/aoc2020/day18/sample2.txt").homework() == 26
+    assert OperationOrder("./python/aoc2020/day18/sample2.txt").homework_advanced() == 46
+    assert OperationOrder("./python/aoc2020/day18/sample3.txt").homework() == 437
+    assert OperationOrder("./python/aoc2020/day18/sample3.txt").homework_advanced() == 1445
+    assert OperationOrder("./python/aoc2020/day18/sample4.txt").homework() == 12240
+    assert OperationOrder("./python/aoc2020/day18/sample4.txt").homework_advanced() == 669060
+    assert OperationOrder("./python/aoc2020/day18/sample5.txt").homework() == 13632
+    assert OperationOrder("./python/aoc2020/day18/sample5.txt").homework_advanced() == 23340
+
+
+def test_day18():
+    from aoc2020.day18.d18 import OperationOrder
+
+    test = OperationOrder(f"{input_folder}/aoc2020_day18.txt")
+    assert test.homework() == 650217205854
+    assert test.homework_advanced() == 20394514442037

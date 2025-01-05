@@ -184,3 +184,22 @@ In part 2, we do the same in 4D space.
 * Keeping only the active cubes in a set and iterating over them only can save a lot of time and memory.
 * At each iteration, we only need to check the neighbors of the active cubes, not all the cubes in the space.
 * Having a library of 2D, 3D, and 4D points can be very helpful in these kind of problems.
+
+## Day 18: [Operation Order](https://adventofcode.com/2020/day/18) &rarr; [Solution](./day18/d18.py)
+A puzzle of evaluating input math expressions but with customized operator precedence.\
+We are provided with a set of expressions consisting of numbers, `+, *` operators, and parentheses.\
+
+In part 1, we need to evaluate based on:
+* `+` and `*` have the same precedence, and are evaluated from left to right.
+* Parentheses are evaluated first.
+
+In part 2, we need to evaluate based on:
+* `+` has higher precedence than `*`.
+* Parentheses are evaluated first.
+
+My solution was to implement recursive functions to evaluate the expressions based on the rules.
+
+### Bugs and Issues
+* Using `str.replace()` to replace evaluated sub-expressions with their results is risky, since it replaces all occurrences of the sub-expression in the expression.\
+It leads to wrong answers in part 1, when we have multiple occurrences of the left-most sub-expression!\
+But the solution is simple, just replace the first occurrence of the sub-expression: `expr.replace(sub_expr, str(eval(sub_expr)), 1)`.

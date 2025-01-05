@@ -1,95 +1,65 @@
-import os
 import re
-from myutils.file_reader import read_lines
+from itertools import count
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
 class OperationOrder:
-    def __init__(self, filename: str):
-        self.lines = [re.sub(r"\s", "", line) for line in read_lines(filename)]
+    def __init__(self, filename):
+        self.inp = [re.sub(r"\s", "", exp) for exp in Path(filename).read_text().splitlines()]
 
-    def read_arg(self, exp, i):
-        if exp[i].isnumeric():
-            openn = i
-            i += 1
-            while i < len(exp) and exp[openn : i + 1].isnumeric():
-                i += 1
-            return int(exp[openn:i]), i
-        elif exp[i] == "(":
-            openp = i
-            pc = 1
-            i += 1
-            while pc > 0:
-                if exp[i] == "(":
-                    pc += 1
-                if exp[i] == ")":
-                    pc -= 1
-                i += 1
-            return self.eval_exp(exp[openp + 1 : i - 1]), i
+    def find_first_matching_parenthesis(self, expr: str) -> str:
+        if "(" not in expr:
+            return None
+        depth, left = 1, expr.index("(")
+        for right in count(left + 1):
+            depth += {"(": 1, ")": -1}.get(expr[right], 0)
+            if depth == 0:
+                return expr[left : right + 1]
 
-    def read_op(self, exp, i):
-        if exp[i] in "+*":
-            op = exp[i]
-            i += 1
-        return op, i
+    def eval1(self, expr: str) -> int:
+        if expr.isnumeric():
+            return int(expr)
+        if sub := self.find_first_matching_parenthesis(expr):
+            return self.eval1(expr.replace(sub, str(self.eval1(sub[1:-1]))))
+        left_most = re.match(r"(\d+[+*]\d+)", expr).group()
+        return self.eval1(expr.replace(left_most, str(eval(left_most)), 1))
 
-    def eval_exp_plain(self, inpexp):
-        i = 0
-        n, i = self.read_arg(inpexp, i)
-        while i < len(inpexp):
-            op, i = self.read_op(inpexp, i)
-            m, i = self.read_arg(inpexp, i)
-            if op == "+":
-                n += m
-            if op == "*":
-                n *= m
-        return n
+    def eval2(self, expr: str) -> int:
+        if expr.isnumeric():
+            return int(expr)
+        if sub := self.find_first_matching_parenthesis(expr):
+            return self.eval2(expr.replace(sub, str(self.eval2(sub[1:-1]))))
+        if m := re.search(r"(\d+\+\d+)", expr):
+            return self.eval2(expr.replace(m.group(), str(eval(m.group()))))
+        return eval(expr)
 
-    def eval_exp_sum_precedence(self, inpexp):
-        stack = []
-        i = 0
-        n, i = self.read_arg(inpexp, i)
-        stack.append(n)
-        while i < len(inpexp):
-            op, i = self.read_op(inpexp, i)
-            m, i = self.read_arg(inpexp, i)
-            if op == "+":
-                stack.append(m + stack.pop())
-            if op == "*":
-                stack.append(m)
-        n = 1
-        for v in stack:
-            n *= v
-        return n
+    def homework(self):
+        return sum(map(self.eval1, self.inp))
 
-    def eval_exp(self, inexp):
-        if self.mode == 1:
-            return self.eval_exp_plain(inexp)
-        elif self.mode == 2:
-            return self.eval_exp_sum_precedence(inexp)
-
-    def evaluate_sum_exps(self, mode: int):
-        if mode in [1, 2]:
-            self.mode = mode
-        else:
-            raise ValueError(f"Mode {mode} is not supported")
-
-        sum = 0
-        for line in self.lines:
-            sum += self.eval_exp(line)
-        return sum
+    def homework_advanced(self):
+        return sum(map(self.eval2, self.inp))
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = OperationOrder("test1.txt")
-    assert test1.evaluate_sum_exps(mode=1) == 71
-    assert test1.evaluate_sum_exps(mode=2) == 231
-    test2 = OperationOrder("test2.txt")
-    assert test2.evaluate_sum_exps(mode=1) == 51
-    test3 = OperationOrder("test3.txt")
-    assert test3.evaluate_sum_exps(mode=2) == 23340
 
-    op_order = OperationOrder(data.input_file)
-    print(op_order.evaluate_sum_exps(mode=1))
-    print(op_order.evaluate_sum_exps(mode=2))
+    assert OperationOrder("sample1.txt").homework() == 71
+    assert OperationOrder("sample2.txt").homework() == 26
+    assert OperationOrder("sample3.txt").homework() == 437
+    assert OperationOrder("sample4.txt").homework() == 12240
+    assert OperationOrder("sample5.txt").homework() == 13632
+
+    assert OperationOrder("sample1.txt").homework_advanced() == 231
+    assert OperationOrder("sample2.txt").homework_advanced() == 46
+    assert OperationOrder("sample3.txt").homework_advanced() == 1445
+    assert OperationOrder("sample4.txt").homework_advanced() == 669060
+    assert OperationOrder("sample5.txt").homework_advanced() == 23340
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = OperationOrder(data.input_file)
+
+    print(puzzle.homework())
+    print(puzzle.homework_advanced())
