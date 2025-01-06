@@ -332,3 +332,31 @@ def test_day18():
     test = OperationOrder(f"{input_folder}/aoc2020_day18.txt")
     assert test.homework() == 650217205854
     assert test.homework_advanced() == 20394514442037
+
+
+def test_day19_samples():
+    from aoc2020.day19.d19 import MonsterMessages
+
+    assert MonsterMessages("./python/aoc2020/day19/sample1.txt").count_matching_simple() == 2
+    assert MonsterMessages("./python/aoc2020/day19/sample2.txt").count_matching_simple() == 3
+    assert MonsterMessages("./python/aoc2020/day19/sample2.txt").count_matching_looped() == 12
+
+    from aoc2020.day19.d19_lark import MonsterMessages as MonsterMessagesLark
+
+    assert MonsterMessagesLark("./python/aoc2020/day19/sample1.txt").count_matching_simple() == 2
+    assert MonsterMessagesLark("./python/aoc2020/day19/sample2.txt").count_matching_simple() == 3
+    assert MonsterMessagesLark("./python/aoc2020/day19/sample2.txt").count_matching_looped() == 12
+
+
+def test_day19():
+    from aoc2020.day19.d19 import MonsterMessages
+
+    test = MonsterMessages(f"{input_folder}/aoc2020_day19.txt")
+    assert test.count_matching_simple() == 142
+    assert test.count_matching_looped() == 294
+
+    from aoc2020.day19.d19_lark import MonsterMessages as MonsterMessagesLark
+
+    test = MonsterMessagesLark(f"{input_folder}/aoc2020_day19.txt")
+    assert test.count_matching_simple() == 142
+    assert test.count_matching_looped() == 294

@@ -1,80 +1,67 @@
-import os
 import re
-from collections import *
-from itertools import *
-from myutils.file_reader import *
+from pathlib import Path
 
-MAX_REPEAT = 10
 from myutils.io_handler import get_input_data
 
 
 class MonsterMessages:
     def __init__(self, filename):
-        groups = read_line_groups(filename)
-        self.rules = groups[0]
-        self.lines = groups[1]
+        rules_txt, inputs_txt = Path(filename).read_text().split("\n\n")
+        self.inp = inputs_txt.splitlines()
 
-    def parse_rules(self, mode: int):
-        self.regex = defaultdict(str)
-        while not self.regex[0]:
-            if mode == 2:
-                if self.regex[42]:
-                    self.regex[8] = f"({self.regex[42]}+)"
-                    if self.regex[31]:
-                        r11 = str()
-                        for i in range(MAX_REPEAT):
-                            istr = "{" + str(i + 1) + "}"
-                            r11 += self.regex[42] + istr + self.regex[31] + istr + "|"
-                        self.regex[11] = "(" + r11[:-1] + ")"
-            for line in self.rules:
-                sides = line.split(":")
-                n = int(sides[0])
-                if self.regex[n]:
-                    continue
-                rhs = sides[1].strip()
-                if rhs[0] == '"':
-                    self.regex[n] = re.sub('"', "", rhs)
-                    continue
-                terms = sides[1].split("|")
-                is_ready = True
-                regx = "("
-                for term in terms:
-                    factors = term.strip().split(" ")
-                    for factor in factors:
-                        factor = int(factor.strip())
-                        if self.regex[factor]:
-                            regx += self.regex[factor]
-                        else:
-                            is_ready = False
-                            break
-                    if is_ready:
-                        regx += "|"
-                    else:
-                        continue
-                if is_ready:
-                    if len(terms) > 1:
-                        self.regex[n] = regx[:-1] + ")"
-                    else:
-                        self.regex[n] = regx[1:-1]
+        self.expressions = {}
+        line_re = re.compile(r"(\d+): (.*)")
+        for line in rules_txt.splitlines():
+            rule_id, rule = line_re.match(line).groups()
+            rule_id = int(rule_id)
+            if rule.startswith('"'):
+                self.expressions[rule_id] = rule.replace('"', "")
+                continue
+            self.expressions[rule_id] = [list(map(int, term.split())) for term in rule.split(" | ")]
 
-    def count_valid_lines(self, mode: int):
-        self.parse_rules(mode)
-        regex = re.compile("^" + self.regex[0] + "$")
-        c = 0
-        for line in self.lines:
-            if regex.match(line):
-                c += 1
-        return c
+        remaining_ids = set(self.expressions.keys())
+        self.re_rules = {}
+        for id, rule in self.expressions.items():
+            if isinstance(rule, str):
+                self.re_rules[id] = rule
+                remaining_ids.remove(id)
+        while 0 in remaining_ids:
+            for id in remaining_ids:
+                rule = self.expressions[id]
+                if all(all(n in self.re_rules for n in ns) for ns in rule):
+                    this_one_rule = []
+                    for rule_option in rule:
+                        term = "".join(self.re_rules[n] for n in rule_option)
+                        this_one_rule.append(f"({term})")
+                    self.re_rules[id] = "(" + "|".join(this_one_rule) + ")"
+                    break
+            remaining_ids.remove(id)
+
+    def count_matching_simple(self):
+        root_rule = re.compile(f"^{self.re_rules[0]}$")
+        return sum(bool(root_rule.match(t)) for t in self.inp)
+
+    def count_matching_looped(self):
+        re_rule_8 = f"({self.re_rules[42]})+"
+        r11 = []
+        for i in range(1, 5):
+            r11.append(f"({self.re_rules[42]}){{{i}}}({self.re_rules[31]}){{{i}}}")
+        re_rule_11 = "(" + "|".join(r11) + ")"
+        re_rule_0 = f"({re_rule_8})({re_rule_11})"
+        root_rule = re.compile(f"^{re_rule_0}$")
+        return sum(bool(root_rule.match(t)) for t in self.inp)
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = MonsterMessages("test1.txt")
-    assert test1.count_valid_lines(1) == 2
-    test2 = MonsterMessages("test2.txt")
-    assert test2.count_valid_lines(1) == 3
-    assert test2.count_valid_lines(2) == 12
 
-    monster = MonsterMessages(data.input_file)
-    print(monster.count_valid_lines(1))
-    print(monster.count_valid_lines(2))
+    assert MonsterMessages("sample1.txt").count_matching_simple() == 2
+    assert MonsterMessages("sample2.txt").count_matching_simple() == 3
+    assert MonsterMessages("sample2.txt").count_matching_looped() == 12
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = MonsterMessages(data.input_file)
+
+    print(puzzle.count_matching_simple())
+    print(puzzle.count_matching_looped())

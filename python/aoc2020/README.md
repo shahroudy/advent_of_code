@@ -203,3 +203,23 @@ My solution was to implement recursive functions to evaluate the expressions bas
 * Using `str.replace()` to replace evaluated sub-expressions with their results is risky, since it replaces all occurrences of the sub-expression in the expression.\
 It leads to wrong answers in part 1, when we have multiple occurrences of the left-most sub-expression!\
 But the solution is simple, just replace the first occurrence of the sub-expression: `expr.replace(sub_expr, str(eval(sub_expr)), 1)`.
+* Not about the difference between `re.match` and `re.search` in `re` module:
+    * `re.match` matches the pattern from the beginning of the string.
+    * `re.search` matches the pattern anywhere in the string.
+
+## Day 19: [Monster Messages](https://adventofcode.com/2020/day/19) &rarr; [Solution](./day19/d19.py)
+A puzzle of grammars and parsing input expressions.\
+We are provided with a grammar (set of rules) and a set of messages to parse with the grammar.\
+In part 1, we need to find the number of messages that match rule `0`.\
+<b>Starting from terminals and building `re`s for each term, part 1 would be easy to solve since the input grammar is a regular grammar (everybody knows Eric loves regular expressions! :smile:).</b>\
+In part 2, the grammar is updated with two rules:
+* `8: 42 | 42 8`
+* `11: 42 31 | 42 11 31`\
+Which makes the grammar context-free and not so easy to solve with regular expressions.\
+Updated `rule 8` can still be converted to a regular expression (like `(r42)+`), but `rule 11` can't.\
+Looking at the very limited sizes of the input expressions, my solution was to limit the recursion to a limited depth (5 was enough for the input) and define the updated `rule 11` as a combination of `1, 2, 3, 4, and 5` repetitions of `r42` and `r31`.
+
+### Optimizations
+* <b>The `Lark` library can be used to parse context-free grammars.</b>
+* This makes the implementation of the solution kind of trivial :sweet_smile:
+* I added an alternative solution using `Lark` in the `day19` folder, and a related utility function to my library.

@@ -17,3 +17,4 @@ networkx
 colored
 scipy
 advent-of-code-data
+lark
