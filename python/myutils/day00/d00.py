@@ -2,9 +2,12 @@ import cProfile
 import os
 import re
 from collections import *
+from collections import Counter, defaultdict, deque, namedtuple
 from copy import deepcopy
+from functools import *
 from functools import cache, cmp_to_key, reduce
 from itertools import *
+from itertools import combinations, combinations_with_replacement, permutations, product
 from pathlib import Path
 from typing import override
 
@@ -22,9 +25,26 @@ from myutils.geometry import (
 )
 from myutils.grammar import count_matching_inputs
 from myutils.io_handler import get_input_data, submit_answer
+from myutils.matrix import (
+    concat_2d_matrices,
+    find_all_points_with_value,
+    flip,
+    hstack,
+    mirror,
+    rotate,
+    rotate_90,
+    rotate_180,
+    rotate_270,
+    sub_matrix,
+    tile_side,
+    transpose,
+    tuple_matrix,
+    vstack,
+)
 
 # from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
 from myutils.utils import *
+from myutils.utils import multiply, str_to_np_array
 from sympy import Symbol
 from sympy.solvers import solve
 

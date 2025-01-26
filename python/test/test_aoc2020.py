@@ -360,3 +360,19 @@ def test_day19():
     test = MonsterMessagesLark(f"{input_folder}/aoc2020_day19.txt")
     assert test.count_matching_simple() == 142
     assert test.count_matching_looped() == 294
+
+
+def test_day20_samples():
+    from aoc2020.day20.d20 import JurassicJigsaw
+
+    test = JurassicJigsaw("./python/aoc2020/day20/sample1.txt")
+    assert test.find_corner_ids() == 20899048083289
+    assert test.habitats_water_roughness() == 273
+
+
+def test_day20():
+    from aoc2020.day20.d20 import JurassicJigsaw
+
+    test = JurassicJigsaw(f"{input_folder}/aoc2020_day20.txt")
+    assert test.find_corner_ids() == 7901522557967
+    assert test.habitats_water_roughness() == 2476

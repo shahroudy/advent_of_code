@@ -1,232 +1,99 @@
-import os
 import re
-from collections import *
-from itertools import *
+from collections import Counter, defaultdict
+from itertools import product
+from pathlib import Path
 
-from myutils.file_reader import *
+from myutils.geometry import Point
 from myutils.io_handler import get_input_data
-
-# TODO: Code cleanup :D
-
-
-def listtonum(s):
-    s = list(s)
-    n1 = int("".join(s), 2)
-    s.reverse()
-    n2 = int("".join(s), 2)
-    return min(n1, n2)
+from myutils.matrix import find_all_points_with_value, flip, rotate, sub_matrix, tile_side
+from myutils.utils import multiply
 
 
-data = get_input_data(__file__)
+class JurassicJigsaw:
+    def __init__(self, filename):
+        self.tiles = {}
+        for tile_text in Path(filename).read_text().split("\n\n"):
+            id = int(re.search(r"(\d+)", tile_text).group(1))
+            self.tiles[id] = tuple(tile_text.splitlines()[1:])
+        self.sea_monster = (
+            "                  # ",
+            "#    ##    ##    ###",
+            " #  #  #  #  #  #   ",
+        )
+        self.side_length = int(len(self.tiles) ** 0.5)
+        self.grid = {}
 
-gr = read_line_groups(data.input_file)
-# gr = read_line_groups('test1.txt')
+    def find_corner_ids(self):
+        self.side_ids = defaultdict(set)
+        for (id, tile), side_no in product(self.tiles.items(), range(4)):
+            self.side_ids[tile_side(tile, side_no, canonical=True)].add(id)
+        ids_of_unique_sides = [ids.copy().pop() for ids in self.side_ids.values() if len(ids) == 1]
+        unique_side_count_for_ids = Counter(ids_of_unique_sides)
+        self.corner_ids = [id for id, c in unique_side_count_for_ids.items() if c == 2]
+        assert len(self.corner_ids) == 4
+        return multiply(self.corner_ids)
 
-tileedges = defaultdict(list)
-edges = defaultdict(int)
-tiles = dict()
-
-for g in gr:
-    tileno = int(g[0][5:-1])
-    tilelist = []
-    for line in g[1:]:
-        line = re.sub("#", "1", line)
-        line = re.sub("\.", "0", line)
-        # line = list(map(int, line))
-        tilelist.append(line)
-    n1 = listtonum(tilelist[0])
-    n2 = listtonum(tilelist[-1])
-    ttt = [t[0] for t in tilelist]
-    tt = [t[-1] for t in tilelist]
-    n3 = listtonum([t[0] for t in tilelist])
-    n4 = listtonum([t[-1] for t in tilelist])
-    tileedges[tileno] = [n1, n4, n2, n3]
-    edges[n1] += 1
-    edges[n2] += 1
-    edges[n3] += 1
-    edges[n4] += 1
-
-    tiles[tileno] = tilelist
-
-m = 1
-c1 = 0
-for k, v in tileedges.items():
-    cc = 0
-    for n in v:
-        if edges[n] == 1:
-            cc += 1
-    if cc == 2:
-        c1 = k
-        m *= k
-
-print(m)
-
-
-def fliph_img(t):
-    new = []
-    for r in t:
-        r = r[::-1]
-        new.append(r)
-    return new
-
-
-def fliph(tileno):
-    tiles[tileno] = fliph_img(tiles[tileno])
-    e = tileedges[tileno]
-    tileedges[tileno] = [e[0], e[3], e[2], e[1]]
-
-
-def flipv_img(t):
-    t.reverse()
-    return t
-
-
-def flipv(tileno):
-    tiles[tileno] = flipv_img(tiles[tileno])
-    e = tileedges[tileno]
-    tileedges[tileno] = [e[2], e[1], e[0], e[3]]
-
-
-def rotate_img(t):
-    new = []
-    for c in range(len(t[0])):
-        col = [row[c] for row in t]
-        new.append(col)
-    return fliph_img(new)
-
-
-def rotate(tileno):
-    tiles[tileno] = rotate_img(tiles[tileno])
-    e = tileedges[tileno]
-    tileedges[tileno] = [e[3], e[0], e[1], e[2]]
-
-
-def rot_and_flip(tileno, topedge, leftedge):
-    i = 0
-    while True:
-        topOK = False
-        leftOK = False
-        if topedge < 0:
-            if edges[tileedges[tileno][0]] == 1:
-                topOK = True
-        else:
-            if tileedges[tileno][0] == topedge:
-                topOK = True
-        if leftedge < 0:
-            if edges[tileedges[tileno][-1]] == 1:
-                leftOK = True
-        else:
-            if tileedges[tileno][-1] == leftedge:
-                leftOK = True
-        if topOK and leftOK:
+    def set_grid_tile(self, row, col):
+        if row == 0 and col == 0:
+            tl = self.corner_ids[0]
+            self.grid[col, row] = tl
+            # rotate the top left tile so that the unique sides are on the top and left
+            while max(len(self.side_ids[tile_side(self.tiles[tl], s, True)]) for s in [0, 3]) > 1:
+                self.tiles[tl] = rotate(self.tiles[tl])
             return
-        i += 1
-        if i != 4:
-            rotate(tileno)
-        else:
-            fliph(tileno)
-        if i > 8:
-            raise Exception("Tile does not match here!")
-
-
-imgtiles = [[c1]]
-taken = {c1}
-# rotate the corner tile to be top-left
-rot_and_flip(c1, -1, -1)
-redge = tileedges[c1][1]
-
-# first row
-while edges[redge] > 1:
-    for t, ted in tileedges.items():
-        if t not in taken and redge in ted:
-            ct = t
-            break
-    rot_and_flip(ct, -1, redge)
-    imgtiles[-1].append(ct)
-    taken.add(ct)
-    redge = tileedges[ct][1]
-
-# all other rows
-while edges[tileedges[imgtiles[-1][0]][2]] > 1:
-    imgtiles.append([])
-    col = 0
-    redge = -1
-    while redge < 0 or edges[redge] > 1:
-        bedge = tileedges[imgtiles[-2][col]][2]
-        ct = None
-        for t, ted in tileedges.items():
-            if (t not in taken) and (redge < 0 or redge in ted) and bedge in ted:
-                ct = t
+        ref_id, side_no = (self.grid[col, row - 1], 0) if col == 0 else (self.grid[col - 1, row], 3)
+        ref_tile = tile_side(self.tiles[ref_id], (side_no + 2) % 4)
+        ids = self.side_ids.get(ref_tile, self.side_ids[ref_tile[::-1]])
+        id = (ids - {ref_id}).pop()
+        self.grid[col, row] = id
+        for rotate_times, flipped in product(range(4), [False, True]):
+            rotated = rotate(self.tiles[id], rotate_times)
+            if flipped:
+                rotated = flip(rotated)
+            if tile_side(rotated, side_no) == ref_tile:
+                self.tiles[id] = rotated
                 break
 
-        rot_and_flip(ct, bedge, redge)
-        imgtiles[-1].append(ct)
-        taken.add(ct)
-        redge = tileedges[ct][1]
-        col += 1
+    def habitats_water_roughness(self):
+        if not hasattr(self, "corner_ids"):
+            self.find_corner_ids()
 
-# make the full image
-img = []
-for row in imgtiles:
-    rowimg = None
-    for col in row:
-        t = tiles[col]
-        crop = [list(r[1:-1]) for r in t[1:-1]]
-        if rowimg:
-            for i, r in enumerate(crop):
-                rowimg[i].extend(r)
-        else:
-            rowimg = crop
-    img.extend(rowimg)
+        for row, col in product(range(self.side_length), repeat=2):
+            self.set_grid_tile(row, col)
 
-pattern = ["                  # ", "#    ##    ##    ###", " #  #  #  #  #  #   "]
+        full_image_points = set()
+        cut_tile_side_len = len(self.tiles[self.corner_ids[0]]) - 2
+        for row, col in product(range(self.side_length), repeat=2):
+            tile = sub_matrix(self.tiles[self.grid[col, row]], 1, -1, 1, -1)
+            for p in find_all_points_with_value(tile, "#"):
+                full_image_points.add(p + Point(col * cut_tile_side_len, row * cut_tile_side_len))
 
-matches = []
-iteration = 0
-while not matches:
-    imgh = len(img)
-    imgw = len(img[0])
-    ptrh = len(pattern)
-    ptrw = len(pattern[0])
-    # find monsters
-    for r in range(imgh - ptrh + 1):
-        for c in range(imgw - ptrw + 1):
-            match = True
-            for pr in range(ptrh):
-                for pc in range(ptrw):
-                    if pattern[pr][pc] == "#":
-                        if img[r + pr][c + pc] != "1":
-                            match = False
-                            break
-                if not match:
-                    break
-            if match:
-                matches.append([r, c])
+        monster_pattern_points = []
+        for rotate_times, flipped in product(range(4), [False, True]):
+            rotated = rotate(self.sea_monster, rotate_times)
+            if flipped:
+                rotated = flip(rotated)
+            s = find_all_points_with_value(rotated, "#")
+            monster_pattern_points.append(s)
 
-    if not matches:
-        iteration += 1
-        if iteration > 8:
-            raise Exception("Cannot find monsters!")
-        if iteration != 4:
-            img = rotate_img(img)
-        else:
-            img = fliph_img(img)
+        monster_points = set()
+        for monster_tile in monster_pattern_points:
+            for row, col in product(range(cut_tile_side_len * self.side_length), repeat=2):
+                c = Point(col, row)
+                if all(c + p in full_image_points for p in monster_tile):
+                    monster_points.update(p + c for p in monster_tile)
+        return len(full_image_points) - len(monster_points)
 
 
-# print(matches)
+if __name__ == "__main__":
+    data = get_input_data(__file__)
 
-# clear monsters
-for match in matches:
-    r, c = match
-    for pr in range(ptrh):
-        for pc in range(ptrw):
-            if pattern[pr][pc] == "#":
-                img[r + pr][c + pc] = "-1"
+    assert JurassicJigsaw("sample1.txt").find_corner_ids() == 20899048083289
+    assert JurassicJigsaw("sample1.txt").habitats_water_roughness() == 273
 
-count = 0
-for r in img:
-    for c in r:
-        if c == "1":
-            count += 1
+    print("Tests passed, starting with the puzzle")
 
-print(count)
+    puzzle = JurassicJigsaw(data.input_file)
+
+    print(puzzle.find_corner_ids())
+    print(puzzle.habitats_water_roughness())

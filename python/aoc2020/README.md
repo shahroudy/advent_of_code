@@ -223,3 +223,18 @@ Looking at the very limited sizes of the input expressions, my solution was to l
 * <b>The `Lark` library can be used to parse context-free grammars.</b>
 * This makes the implementation of the solution kind of trivial :sweet_smile:
 * I added an alternative solution using `Lark` in the `day19` folder, and a related utility function to my library.
+
+## Day 20: [Jurassic Jigsaw](https://adventofcode.com/2020/day/20) &rarr; [Solution](./day20/d20.py)
+We are provided with a set of 2D binary patterns with IDs and need to find the correct arrangement of the patterns.\
+Each tile can be rotated and flipped, and the final neighbor tiles should have matching 1D patterns on their common edges.\
+To build the final image, first we need to find the matching sides and then get rid of the borders of each tile, merge them all together, and find the sea monsters in the final image.\
+Provided sea monster pattern is also a 2D binary pattern that can be rotated and flipped as well.\
+Part 1 of the puzzle is actually a very nice hint of finding the corner tiles by counting the number of matching sides.\
+For part 2, we need to start with any of the corners and build the final image by matching the sides of the tiles, one by one.\
+To handle the 2D patterns, one can use `numpy` 2D arrays, and to handle the rotations and flips, one can use `numpy.rot90` and `numpy.flip` functions.\
+But I preferred to implement my own functions to handle these operations.\
+To represent the 2D patterns, I used `tuple`s of `str`s.\
+For quicker operations in part 2, I built the final image as a `set` of 2D `Point`s.\
+I added a number of funcions to my `myutils.matrix` library to handle needed operations:\
+`find_all_points_with_value`, `flip`, `rotate`, `sub_matrix`, `tile_side`.\
+Overall, this puzzle sounds to be the most complex one in this year's AoC.
