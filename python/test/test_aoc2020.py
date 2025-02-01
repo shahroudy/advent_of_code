@@ -376,3 +376,22 @@ def test_day20():
     test = JurassicJigsaw(f"{input_folder}/aoc2020_day20.txt")
     assert test.find_corner_ids() == 7901522557967
     assert test.habitats_water_roughness() == 2476
+
+
+def test_day21_samples():
+    from aoc2020.day21.d21 import AllergenAssessment
+
+    test = AllergenAssessment("./python/aoc2020/day21/sample1.txt")
+    assert test.no_allergen_ingredient_count() == 5
+    assert test.canonical_dangerous_ingredient_list() == "mxmxvkd,sqjhc,fvjkl"
+
+
+def test_day21():
+    from aoc2020.day21.d21 import AllergenAssessment
+
+    test = AllergenAssessment(f"{input_folder}/aoc2020_day21.txt")
+    assert test.no_allergen_ingredient_count() == 2098
+    assert (
+        test.canonical_dangerous_ingredient_list()
+        == "ppdplc,gkcplx,ktlh,msfmt,dqsbql,mvqkdj,ggsz,hbhsx"
+    )

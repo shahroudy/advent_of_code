@@ -25,6 +25,7 @@ from myutils.geometry import (
 )
 from myutils.grammar import count_matching_inputs
 from myutils.io_handler import get_input_data, submit_answer
+from myutils.matching import find_match_dict
 from myutils.matrix import (
     concat_2d_matrices,
     find_all_points_with_value,
@@ -43,8 +44,26 @@ from myutils.matrix import (
 )
 
 # from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
-from myutils.utils import *
-from myutils.utils import multiply, str_to_np_array
+from myutils.utils import (
+    MapSearch,
+    MySearch,
+    find_all_per_line_re,
+    find_all_re,
+    get_sample_number,
+    multiply,
+    print_with_color,
+    process,
+    process_int_int_dict,
+    process_int_list,
+    process_int_list_dict,
+    process_map_dict_of_sets_of_3D_points,
+    process_map_dict_of_sets_of_points,
+    process_map_plain,
+    read_int_line_groups,
+    read_ints,
+    read_line_groups,
+    recursive_split,
+)
 from sympy import Symbol
 from sympy.solvers import solve
 

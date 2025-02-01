@@ -238,3 +238,10 @@ For quicker operations in part 2, I built the final image as a `set` of 2D `Poin
 I added a number of funcions to my `myutils.matrix` library to handle needed operations:\
 `find_all_points_with_value`, `flip`, `rotate`, `sub_matrix`, `tile_side`.\
 Overall, this puzzle sounds to be the most complex one in this year's AoC.
+
+## Day 21: [Allergen Assessment](https://adventofcode.com/2020/day/21) &rarr; [Solution](./day21/d21.py)
+The input is a set of lines, each include a list of ingredients and the list of all allergens they have.\
+In part 1, we need to find the number of times the ingredients that can't have allergens appear in the list.\
+In part 2, we need to find the exact one ingredient for each allergen.\
+I had a match finding function that does the job for part 2 and obviously solves part 1 as well.\
+So the only challenge was to quickly parse the input and build the needed data structures.

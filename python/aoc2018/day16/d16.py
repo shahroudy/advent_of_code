@@ -3,8 +3,8 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-from myutils.matching import find_a_mapping_dic
 from myutils.io_handler import get_input_data
+from myutils.matching import find_match_dict
 
 
 class ChronalClassification:
@@ -68,7 +68,7 @@ class ChronalClassification:
     def run_opcode_program(self):
         if len(self.matches) == 0:
             self.find_matches()
-        opcode_matching = find_a_mapping_dic(self.matches)
+        opcode_matching = find_match_dict(self.matches)
         registers = [0] * 4
         for command in self.program:
             command[0] = opcode_matching[command[0]]
