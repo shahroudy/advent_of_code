@@ -25,10 +25,10 @@
     "editor.renderWhitespace": "all",
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": true
     },
     "[plaintext]": {
-        "editor.fontLigatures": false,
+        "editor.fontLigatures": false
     },
     "cSpell.words": [
         "exrange",
@@ -43,9 +43,9 @@
     "python.testing.pytestEnabled": true,
     "flake8.args": [
         "--ignore=E203,E731",
-        "--max-line-length=100",
+        "--max-line-length=100"
     ],
     "black-formatter.args": [
-        "--line-length=100",
-    ],
+        "--line-length=100"
+    ]
 }

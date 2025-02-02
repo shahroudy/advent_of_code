@@ -395,3 +395,19 @@ def test_day21():
         test.canonical_dangerous_ingredient_list()
         == "ppdplc,gkcplx,ktlh,msfmt,dqsbql,mvqkdj,ggsz,hbhsx"
     )
+
+
+def test_day22_samples():
+    from aoc2020.day22.d22 import CrabCombat
+
+    test = CrabCombat("./python/aoc2020/day22/sample1.txt")
+    assert test.result_of_combat() == 306
+    assert test.result_of_combat(recursive=True) == 291
+
+
+def test_day22():
+    from aoc2020.day22.d22 import CrabCombat
+
+    test = CrabCombat(f"{input_folder}/aoc2020_day22.txt")
+    assert test.result_of_combat() == 35013
+    assert test.result_of_combat(recursive=True) == 32806

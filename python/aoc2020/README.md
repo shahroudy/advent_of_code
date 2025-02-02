@@ -245,3 +245,16 @@ In part 1, we need to find the number of times the ingredients that can't have a
 In part 2, we need to find the exact one ingredient for each allergen.\
 I had a match finding function that does the job for part 2 and obviously solves part 1 as well.\
 So the only challenge was to quickly parse the input and build the needed data structures.
+
+## Day 22: [Crab Combat](https://adventofcode.com/2020/day/22) &rarr; [Solution](./day22/d22.py)
+A card game puzzle.\
+We are provided with two decks of cards and need to simulate a card game.\
+In each round, the top card of each deck is compared, and the winner takes both cards and puts them at the bottom of their deck.\
+In part 2, if the top card of each deck has a value less than or equal to the number of cards remaining in the deck, a recursive game is played.\
+The winner of the round is the winner of the recursive game.\
+The game ends when one of the decks is empty, or a configuration is repeated (if so player 1 wins).\
+Nothing special here, the only challenge was to read the problem statement, understand the mechanics of the game and implement it.
+
+### Optimizations
+* Using `deque` to represent the decks.
+* Using `tuple` to represent the game state and `set` to keep track of seen states.
