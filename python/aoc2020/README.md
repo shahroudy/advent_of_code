@@ -258,3 +258,12 @@ Nothing special here, the only challenge was to read the problem statement, unde
 ### Optimizations
 * Using `deque` to represent the decks.
 * Using `tuple` to represent the game state and `set` to keep track of seen states.
+
+## Day 23: [Crab Cups](https://adventofcode.com/2020/day/23) &rarr; [Solution](./day23/d23.py)
+An interesting puzzle of rearranging a circular list of numbers.\
+We are provided with a list of numbers and need to simulate an iterative process of rearranging the numbers in the cycle.\
+In part one, we need to find the final arrangement of the numbers after 100 iterations.\
+But in part two, the number of iterations is increased to 10,000,000, and the number of elements is increased to 1,000,000, so no ad-hoc solution is tractable.
+
+### Optimizations
+* Using a `dict` to represent the circular list and keep track of the next number for each number is the key to optimize the solution.

@@ -411,3 +411,20 @@ def test_day22():
     test = CrabCombat(f"{input_folder}/aoc2020_day22.txt")
     assert test.result_of_combat() == 35013
     assert test.result_of_combat(recursive=True) == 32806
+
+
+def test_day23_samples():
+    from aoc2020.day23.d23 import CrabCups
+
+    test = CrabCups("./python/aoc2020/day23/sample1.txt")
+    assert test.crab_mix_simple(10) == 92658374
+    assert test.crab_mix_simple() == 67384529
+    assert test.crab_mix_many() == 149245887792
+
+
+def test_day23():
+    from aoc2020.day23.d23 import CrabCups
+
+    test = CrabCups(f"{input_folder}/aoc2020_day23.txt")
+    assert test.crab_mix_simple() == 49576328
+    assert test.crab_mix_many() == 511780369955
