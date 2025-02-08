@@ -25,7 +25,7 @@
     "editor.renderWhitespace": "all",
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
     },
     "[plaintext]": {
         "editor.fontLigatures": false
@@ -46,6 +46,10 @@
         "--max-line-length=100"
     ],
     "black-formatter.args": [
-        "--line-length=100"
+        "--line-length=100",
+        "--target-version=py312"
+    ],
+    "isort.args": [
+        "--profile=black"
     ]
 }

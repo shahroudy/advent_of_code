@@ -267,3 +267,30 @@ But in part two, the number of iterations is increased to 10,000,000, and the nu
 
 ### Optimizations
 * Using a `dict` to represent the circular list and keep track of the next number for each number is the key to optimize the solution.
+
+## Day 24: [Lobby Layout](https://adventofcode.com/2020/day/24) &rarr; [Solution](./day24/d24.py)
+A puzzle of moving on a hexagonal grid of tiles.\
+We are provided with a set of instructions to move on the grid (from the center tile, at each line of input file), and flip (between white and black sides) the tile at the final position (default is white).\
+Steps are in 6 possible directions: `e`, `se`, `sw`, `w`, `nw`, and `ne`.\
+In part 1, we need to find the number of black tiles after the given instructions.\ 
+Double flipping each tile will turn it back to white.\
+In part 2, we need to simulate a cellular automata on the grid, which is based on the current state of the tile and the number of black tiles around it.\
+I solved this puzzle by:
+* Modelling the moves on the hexagonal grid as 2D moves: 
+```python
+directions = {
+    "e": Point(2, 0),
+    "ne": Point(1, -2),
+    "se": Point(1, 2),
+    "w": Point(-2, 0),
+    "nw": Point(-1, -2),
+    "sw": Point(-1, 2),
+}
+```
+* Using a `set` to keep track of only the black (flipped) tiles.
+
+### Bugs and Issues
+* I misinterpreted the problem in variety of different aspects:
+    * Instead of starting from the center tile for each new line of instruction, I was continuing from the last position.
+    * Instead of flipping only the end tile, I was flipping all the tiles in the path.
+    * And in part 2, I misread the rules of the cellular automata!

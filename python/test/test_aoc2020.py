@@ -428,3 +428,19 @@ def test_day23():
     test = CrabCups(f"{input_folder}/aoc2020_day23.txt")
     assert test.crab_mix_simple() == 49576328
     assert test.crab_mix_many() == 511780369955
+
+
+def test_day24_samples():
+    from aoc2020.day24.d24 import LobbyLayout
+
+    test = LobbyLayout("./python/aoc2020/day24/sample1.txt")
+    assert test.black_count_after_instructions() == 10
+    assert test.black_count_after_100_days() == 2208
+
+
+def test_day24():
+    from aoc2020.day24.d24 import LobbyLayout
+
+    test = LobbyLayout(f"{input_folder}/aoc2020_day24.txt")
+    assert test.black_count_after_instructions() == 377
+    assert test.black_count_after_100_days() == 4231

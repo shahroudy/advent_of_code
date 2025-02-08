@@ -1,90 +1,67 @@
-import os
-from collections import defaultdict, deque
-from myutils.file_reader import read_lines
+from itertools import product
+from pathlib import Path
+
+from myutils.geometry import Point
 from myutils.io_handler import get_input_data
+
+directions = {
+    "e": Point(2, 0),
+    "ne": Point(1, -2),
+    "se": Point(1, 2),
+    "w": Point(-2, 0),
+    "nw": Point(-1, -2),
+    "sw": Point(-1, 2),
+}
 
 
 class LobbyLayout:
     def __init__(self, filename):
-        self.process(filename)
+        self.instructions = Path(filename).read_text().splitlines()
 
-    def process(self, filename):
-        lines = read_lines(filename)
-        self.tiles = defaultdict(bool)  # white is False
-        for line in lines:
-            q = deque(line)
-            x, y = 0, 0
-            while q:
-                d = q.popleft()
-                if d in "ns":
-                    d = d + q.popleft()
-                if d == "e":
-                    x += 2
-                elif d == "w":
-                    x -= 2
-                elif d == "ne":
-                    x += 1
-                    y += 1
-                elif d == "nw":
-                    x -= 1
-                    y += 1
-                elif d == "se":
-                    x += 1
-                    y -= 1
-                elif d == "sw":
-                    x -= 1
-                    y -= 1
-            self.tiles[(x, y)] = not self.tiles[(x, y)]
+    def black_count_after_instructions(self):
+        self.blacks = set()
+        for instruction in self.instructions:
+            remaining_instructions = instruction
+            current = Point(0, 0)
+            while remaining_instructions:
+                for direction, delta in directions.items():
+                    if remaining_instructions.startswith(direction):
+                        current += delta
+                        remaining_instructions = remaining_instructions[len(direction) :]
+                        break
+            if current in self.blacks:
+                self.blacks.remove(current)
+            else:
+                self.blacks.add(current)
+        return len(self.blacks)
 
-    def count_black_tiles(self):
-        return sum(self.tiles.values())
+    def black_count_after_100_days(self):
+        if not hasattr(self, "blacks"):
+            self.black_count_after_instructions()
 
-    @staticmethod
-    def adjacent_tiles(x, y):
-        return {
-            (x - 2, y),
-            (x + 2, y),
-            (x - 1, y - 1),
-            (x - 1, y + 1),
-            (x + 1, y - 1),
-            (x + 1, y + 1),
-        }
-
-    def count_black_afte_flipping(self, days):
-        tiles = self.tiles.copy()
-        for _ in range(days):
-            tilestocheck = set()
-            for t in tiles.keys():
-                tilestocheck.add(t)
-                tilestocheck.update(self.adjacent_tiles(*t))
-
-            newtiles = defaultdict(bool)
-            for t in tilestocheck:
-                black_adjacents = sum([tiles[n] for n in self.adjacent_tiles(*t)])
-                if tiles[t]:
-                    if black_adjacents == 0 or black_adjacents > 2:
-                        newtiles[t] = False
-                    else:
-                        newtiles[t] = True
+        for _ in range(100):
+            new_blacks = set()
+            for tile in self.blacks | {f + d for f, d in product(self.blacks, directions.values())}:
+                flipped_neighbors = sum(tile + d in self.blacks for d in directions.values())
+                if tile in self.blacks:
+                    if flipped_neighbors in {1, 2}:
+                        new_blacks.add(tile)
                 else:
-                    if black_adjacents == 2:
-                        newtiles[t] = True
-                    else:
-                        newtiles[t] = False
-
-            tiles = newtiles
-
-        return sum(tiles.values())
+                    if flipped_neighbors == 2:
+                        new_blacks.add(tile)
+            self.blacks = new_blacks
+        return len(self.blacks)
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = LobbyLayout("test1.txt")
-    assert test1.count_black_tiles() == 10
-    assert test1.count_black_afte_flipping(1) == 15
-    assert test1.count_black_afte_flipping(10) == 37
-    assert test1.count_black_afte_flipping(100) == 2208
 
-    lobby_layout = LobbyLayout(data.input_file)
-    print(lobby_layout.count_black_tiles())
-    print(lobby_layout.count_black_afte_flipping(100))
+    assert LobbyLayout("sample1.txt").black_count_after_instructions() == 10
+    assert LobbyLayout("sample1.txt").black_count_after_100_days() == 2208
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = LobbyLayout(data.input_file)
+
+    print(puzzle.black_count_after_instructions())
+    print(puzzle.black_count_after_100_days())
