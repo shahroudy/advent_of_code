@@ -1,51 +1,38 @@
-import os
-from myutils.file_reader import read_int_list
+import re
+from itertools import count
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
-
-
-class RFID:
-    def __init__(self, subject_no):
-        self.subject_no = subject_no
-        self.reset()
-
-    def reset(self):
-        self.value = 1
-
-    def transform_once(self):
-        self.value = self.value * self.subject_no % 20201227
-
-    def calc_loop_size(self, public_key):
-        self.reset()
-        loop = 0
-        while self.value != public_key:
-            loop += 1
-            self.transform_once()
-        self.subject_no = public_key
-        return loop
-
-    def encrypt(self, loop_size):
-        self.reset()
-        for _ in range(loop_size):
-            self.transform_once()
-        return self.value
 
 
 class ComboBreaker:
     def __init__(self, filename):
-        input = read_int_list(filename)
-        self.card_public_key, self.door_public_key = input[0], input[1]
+        self.public_keys = [int(n) for n in re.findall(r"[+-]?\d+", Path(filename).read_text())]
 
-    def calc_handshake_encryption_key(self):
-        card, door = RFID(7), RFID(7)
-        card_loop_size = card.calc_loop_size(self.card_public_key)
-        door_loop_size = door.calc_loop_size(self.door_public_key)
-        return card.encrypt(door_loop_size)
+    def encryption_key(self):
+        card_public_key, door_public_key = self.public_keys
+        card_loop_size = door_loop_size = 0
+        m = 20201227
+        value = 1
+        for counter in count(1):
+            value = (value * 7) % m
+            if value == card_public_key and card_loop_size == 0:
+                card_loop_size = counter
+            if value == door_public_key and door_loop_size == 0:
+                door_loop_size = counter
+            if card_loop_size and door_loop_size:
+                break
+        assert pow(door_public_key, card_loop_size, m) == pow(card_public_key, door_loop_size, m)
+        return pow(door_public_key, card_loop_size, m)
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = ComboBreaker("test1.txt")
-    assert test1.calc_handshake_encryption_key() == 14897079
 
-    handshake = ComboBreaker(data.input_file)
-    print(handshake.calc_handshake_encryption_key())
+    assert ComboBreaker("sample1.txt").encryption_key() == 14897079
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = ComboBreaker(data.input_file)
+
+    print(puzzle.encryption_key())

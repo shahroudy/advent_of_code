@@ -444,3 +444,17 @@ def test_day24():
     test = LobbyLayout(f"{input_folder}/aoc2020_day24.txt")
     assert test.black_count_after_instructions() == 377
     assert test.black_count_after_100_days() == 4231
+
+
+def test_day25_samples():
+    from aoc2020.day25.d25 import ComboBreaker
+
+    test = ComboBreaker("./python/aoc2020/day25/sample1.txt")
+    assert test.encryption_key() == 14897079
+
+
+def test_day25():
+    from aoc2020.day25.d25 import ComboBreaker
+
+    test = ComboBreaker(f"{input_folder}/aoc2020_day25.txt")
+    assert test.encryption_key() == 6011069

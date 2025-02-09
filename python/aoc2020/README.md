@@ -294,3 +294,14 @@ directions = {
     * Instead of starting from the center tile for each new line of instruction, I was continuing from the last position.
     * Instead of flipping only the end tile, I was flipping all the tiles in the path.
     * And in part 2, I misread the rules of the cellular automata!
+
+## Day 25: [Combo Breaker](https://adventofcode.com/2020/day/25) &rarr; [Solution](./day25/d25.py)
+A modular arithmetic puzzle.\
+We have two modular exponentiation operators.\
+For each (card and door) we know the result of the operation (inputs), base (`7`), and the modulus (`20201227`).\
+We need to find the exponent of each operator (a.k.a. the secret loop size) to find the encryption key.\
+The ad-hoc way of looping over exponent values to find the matching ones is tractable for the inputs.\
+To find the final answer (encryption key), we need to calculate another modular exponentiation operation with base value of card's public key, exponent of door's loop size, and the same modulus of `20201227`.\
+As mentioned in the puzzle statement, modular exponentiation of door's public key with card's loop size will give the same result!
+
+* It's good to remember, `pow(base, exponent, modulus)` is a built-in function in Python to calculate modular exponentiation.

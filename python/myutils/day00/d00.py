@@ -100,6 +100,12 @@ class Puzzle:
             1: 10,  # sample 1
             2: 10,  # sample 2
             3: 10,  # sample 3
+            4: 10,  # sample 4
+            5: 10,  # sample 5
+            6: 10,  # sample 6
+            7: 10,  # sample 7
+            8: 10,  # sample 8
+            9: 10,  # sample 9
         }[self.sample_number]
 
     def calc1(self):
@@ -139,12 +145,20 @@ if __name__ == "__main__":
     # assert Puzzle("sample3.txt").calc1() == 0
     # assert Puzzle("sample4.txt").calc1() == 0
     # assert Puzzle("sample5.txt").calc1() == 0
+    # assert Puzzle("sample6.txt").calc1() == 0
+    # assert Puzzle("sample7.txt").calc1() == 0
+    # assert Puzzle("sample8.txt").calc1() == 0
+    # assert Puzzle("sample9.txt").calc1() == 0
 
     # assert Puzzle("sample1.txt").calc2() == 0
     # assert Puzzle("sample2.txt").calc2() == 0
     # assert Puzzle("sample3.txt").calc2() == 0
     # assert Puzzle("sample4.txt").calc2() == 0
     # assert Puzzle("sample5.txt").calc2() == 0
+    # assert Puzzle("sample6.txt").calc2() == 0
+    # assert Puzzle("sample7.txt").calc2() == 0
+    # assert Puzzle("sample8.txt").calc2() == 0
+    # assert Puzzle("sample9.txt").calc2() == 0
     # endregion
 
     test_samples("sample1.txt", None, None)
@@ -156,7 +170,6 @@ if __name__ == "__main__":
     test_samples("sample7.txt", None, None)
     test_samples("sample8.txt", None, None)
     test_samples("sample9.txt", None, None)
-    test_samples("sample10.txt", None, None)
 
     print("Tests passed, starting with the puzzle")
 
