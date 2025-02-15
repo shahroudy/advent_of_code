@@ -1,48 +1,40 @@
-import os
-from myutils.file_reader import read_lines
+from pathlib import Path
+
+from myutils.geometry import Point, Point3D
 from myutils.io_handler import get_input_data
 
 
 class Dive:
     def __init__(self, filename):
-        self.lines = read_lines(filename)
+        text = Path(filename).read_text().splitlines()
+        self.inp = [(cmd, int(val)) for cmd, val in (line.split() for line in text)]
 
-    def position(self):
-        depth, horizontal = 0, 0
-        for line in self.lines:
-            terms = line.split()
-            command = terms[0]
-            value = int(terms[1])
-            if command == "forward":
-                horizontal += value
-            elif command == "up":
-                depth -= value
-            elif command == "down":
-                depth += value
-        return depth * horizontal
+    def final_depth(self):
+        moves = {"up": Point(0, -1), "down": Point(0, 1), "forward": Point(1, 0)}
+        current = Point(0, 0)
+        for cmd, val in self.inp:
+            current += moves[cmd] * val
+        return abs(current.x) * abs(current.y)
 
-    def position_with_aim(self):
-        depth, horizontal, aim = 0, 0, 0
-        for line in self.lines:
-            terms = line.split()
-            command = terms[0]
-            value = int(terms[1])
-            if command == "forward":
-                horizontal += value
-                depth += aim * value
-            elif command == "up":
-                aim -= value
-            elif command == "down":
-                aim += value
-        return depth * horizontal
+    def final_depth_with_aim(self):
+        moves = {"up": Point3D(0, 0, -1), "down": Point3D(0, 0, 1), "forward": Point3D(1, 0, 0)}
+        current = Point3D(0, 0, 0)
+        for cmd, val in self.inp:
+            current += moves[cmd] * val
+            if cmd == "forward":
+                current.y += val * current.z
+        return abs(current.x) * abs(current.y)
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = Dive("test1.txt")
-    assert test1.position() == 150
-    assert test1.position_with_aim() == 900
 
-    dive = Dive(data.input_file)
-    print(dive.position())
-    print(dive.position_with_aim())
+    assert Dive("sample1.txt").final_depth() == 150
+    assert Dive("sample1.txt").final_depth_with_aim() == 900
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = Dive(data.input_file)
+
+    print(puzzle.final_depth())
+    print(puzzle.final_depth_with_aim())
