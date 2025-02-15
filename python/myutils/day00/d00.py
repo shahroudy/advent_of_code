@@ -175,16 +175,20 @@ if __name__ == "__main__":
 
     puzzle = Puzzle(data.input_file)
 
-    submit_answers = True
-    # cProfile.run("print(answer1 := puzzle.calc1())")
-    print(answer1 := puzzle.calc1())
-    if submit_answers and answer1 is not None:
-        submit_answer(answer1, "a", data)
-    # cProfile.run("print(answer2 := puzzle.calc2())")
-    print(answer2 := puzzle.calc2())
-    if submit_answers and answer2 is not None:
-        submit_answer(answer2, "b", data)
-    exit()
+    # submit_answers = True
+    # # cProfile.run("print(answer1 := puzzle.calc1())")
+    # print(answer1 := puzzle.calc1())
+    # if submit_answers and answer1 is not None:
+    #     submit_answer(answer1, "a", data)
+    # # cProfile.run("print(answer2 := puzzle.calc2())")
+    # print(answer2 := puzzle.calc2())
+    # if submit_answers and answer2 is not None:
+    #     submit_answer(answer2, "b", data)
+    # exit()
 
     print(puzzle.calc1())
     print(puzzle.calc2())
+
+    from datetime import datetime
+
+    print("Current system time:", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
