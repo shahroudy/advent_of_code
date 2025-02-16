@@ -33,3 +33,19 @@ def test_day02():
     test = Dive(f"{input_folder}/aoc2021_day02.txt")
     assert test.final_depth() == 1989014
     assert test.final_depth_with_aim() == 2006917119
+
+
+def test_day03_samples():
+    from aoc2021.day03.d03 import BinaryDiagnostic
+
+    test = BinaryDiagnostic("./python/aoc2021/day03/sample1.txt")
+    assert test.power_consumption() == 198
+    assert test.life_support_rating() == 230
+
+
+def test_day03():
+    from aoc2021.day03.d03 import BinaryDiagnostic
+
+    test = BinaryDiagnostic(f"{input_folder}/aoc2021_day03.txt")
+    assert test.power_consumption() == 3847100
+    assert test.life_support_rating() == 4105235
