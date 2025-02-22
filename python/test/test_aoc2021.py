@@ -49,3 +49,19 @@ def test_day03():
     test = BinaryDiagnostic(f"{input_folder}/aoc2021_day03.txt")
     assert test.power_consumption() == 3847100
     assert test.life_support_rating() == 4105235
+
+
+def test_day04_samples():
+    from aoc2021.day04.d04 import GiantSquid
+
+    test = GiantSquid("./python/aoc2021/day04/sample1.txt")
+    assert test.first_winning_board_score() == 4512
+    assert test.last_winning_board_score() == 1924
+
+
+def test_day04():
+    from aoc2021.day04.d04 import GiantSquid
+
+    test = GiantSquid(f"{input_folder}/aoc2021_day04.txt")
+    assert test.first_winning_board_score() == 28082
+    assert test.last_winning_board_score() == 8224

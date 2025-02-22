@@ -31,3 +31,11 @@ I preferred to implement the logic myself, mainly using `str` values directly.
 
 ### Optimizations:
 * In part 1, the least common bits are actually the complement of the most common bits, so we don't need to calculate them separately.
+
+## Day 4: [Giant Squid](https://adventofcode.com/2021/day/4) &rarr; [Solution](./day04/d04.py)
+Simulating a game of Bingo!.\
+We are provided with a list of integers, and a set of 2D boards of numbers.\
+The input numbers will be read in order, and we need to find the first winning board.\
+A winning board is a board where all the numbers in a row or a column are already read.\
+We need to find the first and last winning boards.\
+This puzzle is mainly a warm-up on handing 2D arrays and lists.
