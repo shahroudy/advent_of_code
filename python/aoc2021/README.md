@@ -39,3 +39,16 @@ The input numbers will be read in order, and we need to find the first winning b
 A winning board is a board where all the numbers in a row or a column are already read.\
 We need to find the first and last winning boards.\
 This puzzle is mainly a warm-up on handing 2D arrays and lists.
+
+## Day 5: [Hydrothermal Venture](https://adventofcode.com/2021/day/5) &rarr; [Solution](./day05/d05.py)
+We are provided with the two ends of a number of line segments and need to find the number of overlap points between them.\
+Lines are either horizontal, vertical, or 45-degree diagonal.\
+In part 1, we only consider horizontal and vertical lines.\
+In part 2, we also consider diagonal lines.
+
+### Optimizations:
+* The fact that the diagonal lines are always at 45 degrees simplifies the calculations a lot.
+* Data structures needed here are two sets of point-coordinates for visited and overlapping points.
+
+### Bugs and Issues:
+* For part 2, I implemented a very general solution that can handle any angle of diagonal lines, which was not needed!

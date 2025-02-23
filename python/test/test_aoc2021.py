@@ -65,3 +65,19 @@ def test_day04():
     test = GiantSquid(f"{input_folder}/aoc2021_day04.txt")
     assert test.first_winning_board_score() == 28082
     assert test.last_winning_board_score() == 8224
+
+
+def test_day05_samples():
+    from aoc2021.day05.d05 import HydrothermalVenture
+
+    test = HydrothermalVenture("./python/aoc2021/day05/sample1.txt")
+    assert test.count_overlaps(keep_diag=False) == 5
+    assert test.count_overlaps(keep_diag=True) == 12
+
+
+def test_day05():
+    from aoc2021.day05.d05 import HydrothermalVenture
+
+    test = HydrothermalVenture(f"{input_folder}/aoc2021_day05.txt")
+    assert test.count_overlaps(keep_diag=False) == 5698
+    assert test.count_overlaps(keep_diag=True) == 15463
