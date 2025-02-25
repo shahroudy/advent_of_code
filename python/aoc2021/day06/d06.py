@@ -1,33 +1,31 @@
-import os
-from collections import defaultdict
-from myutils.file_reader import read_int_list
+import re
+from collections import Counter
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
 class Lanternfish:
     def __init__(self, filename):
-        self.nums = list(map(int, read_int_list(filename)))
+        self.nums = list(map(int, re.findall(r"(\d+)", Path(filename).read_text())))
 
-    def simulate(self, steps):
-        count = defaultdict(int)
-        for n in self.nums:
-            count[n] += 1
-        for _ in range(steps):
-            zeros = count[0]
-            for v in range(8):
-                count[v] = count[v + 1]
-            count[8] = zeros
-            count[6] += zeros
+    def lanternfish_count(self, days):
+        count = Counter(self.nums)
+        for _ in range(days):
+            count = {age: count[(age + 1) % 9] for age in range(9)}
+            count[6] += count[8]
         return sum(count.values())
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = Lanternfish("test1.txt")
-    assert test1.simulate(18) == 26
-    assert test1.simulate(80) == 5934
-    assert test1.simulate(256) == 26984457539
 
-    lanternfish = Lanternfish(data.input_file)
-    print(lanternfish.simulate(80))
-    print(lanternfish.simulate(256))
+    assert Lanternfish("sample1.txt").lanternfish_count(18) == 26
+    assert Lanternfish("sample1.txt").lanternfish_count(80) == 5934
+    assert Lanternfish("sample1.txt").lanternfish_count(256) == 26984457539
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = Lanternfish(data.input_file)
+    print(puzzle.lanternfish_count(80))
+    print(puzzle.lanternfish_count(256))

@@ -52,3 +52,12 @@ In part 2, we also consider diagonal lines.
 
 ### Bugs and Issues:
 * For part 2, I implemented a very general solution that can handle any angle of diagonal lines, which was not needed!
+
+## Day 6: [Lanternfish](https://adventofcode.com/2021/day/6) &rarr; [Solution](./day06/d06.py)
+We are provided with a list of numbers, representing the remaining days each lanternfish creates another one.\
+Each lanternfish, at each step (say a day) gets its timer value decreased by 1.\
+If the timer value is `0`, it will reset to `6` and create a new lanternfish with remaining `8` days.\
+We need to find the number of lanternfish after a given number of days (`80` and `256` days in parts 1 and 2 respectively).
+
+### Optimizations:
+* We don't care about any order or individual fish, so we can simply keep track of the number of lanternfish with each timer value at each time step!

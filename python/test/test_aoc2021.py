@@ -81,3 +81,20 @@ def test_day05():
     test = HydrothermalVenture(f"{input_folder}/aoc2021_day05.txt")
     assert test.count_overlaps(keep_diag=False) == 5698
     assert test.count_overlaps(keep_diag=True) == 15463
+
+
+def test_day06_samples():
+    from aoc2021.day06.d06 import Lanternfish
+
+    test = Lanternfish("./python/aoc2021/day06/sample1.txt")
+    assert test.lanternfish_count(18) == 26
+    assert test.lanternfish_count(80) == 5934
+    assert test.lanternfish_count(256) == 26984457539
+
+
+def test_day06():
+    from aoc2021.day06.d06 import Lanternfish
+
+    test = Lanternfish(f"{input_folder}/aoc2021_day06.txt")
+    assert test.lanternfish_count(80) == 396210
+    assert test.lanternfish_count(256) == 1770823541496
