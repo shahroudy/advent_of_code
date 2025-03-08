@@ -98,3 +98,19 @@ def test_day06():
     test = Lanternfish(f"{input_folder}/aoc2021_day06.txt")
     assert test.lanternfish_count(80) == 396210
     assert test.lanternfish_count(256) == 1770823541496
+
+
+def test_day07_samples():
+    from aoc2021.day07.d07 import TreacheryOfWhales
+
+    test = TreacheryOfWhales("./python/aoc2021/day07/sample1.txt")
+    assert test.least_needed_fuel_to_align(constant_rate=True) == 37
+    assert test.least_needed_fuel_to_align(constant_rate=False) == 168
+
+
+def test_day07():
+    from aoc2021.day07.d07 import TreacheryOfWhales
+
+    test = TreacheryOfWhales(f"{input_folder}/aoc2021_day07.txt")
+    assert test.least_needed_fuel_to_align(constant_rate=True) == 356992
+    assert test.least_needed_fuel_to_align(constant_rate=False) == 101268110

@@ -1,48 +1,31 @@
-import os
-from myutils.file_reader import read_int_list
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
-class TheTreacheryOfWhales:
+class TreacheryOfWhales:
     def __init__(self, filename):
-        self.nums = read_int_list(filename)
-        self.process_fuel_needed()
+        self.positions = list(map(int, Path(filename).read_text().split(",")))
 
-    def simple_align(self):
-        min_fuel = -1
-        for i in self.nums:
-            fuel = 0
-            for j in self.nums:
-                fuel += abs(i - j)
-            min_fuel = min(min_fuel, fuel) if min_fuel >= 0 else fuel
-        return min_fuel
-
-    def process_fuel_needed(self):
-        self.dist_fuel = dict()
-        max_dist = max(self.nums) - min(self.nums)
-        acc = 0
-        for i in range(max_dist + 1):
-            acc += i
-            self.dist_fuel[i] = acc
-
-    def full_align(self):
-        min_fuel = -1
-        for i in range(max(self.nums)):
-            fuel = 0
-            for j in self.nums:
-                fuel += self.dist_fuel[abs(i - j)]
-                if 0 <= min_fuel < fuel:
-                    break
-            min_fuel = min(min_fuel, fuel) if min_fuel >= 0 else fuel
-        return min_fuel
+    def least_needed_fuel_to_align(self, constant_rate=True):
+        needed_fuel = [0]
+        for steps in range(1, max(self.positions) + 1):
+            needed_fuel.append(needed_fuel[-1] + (1 if constant_rate else steps))
+        return min(
+            sum(needed_fuel[abs(p - f)] for p in self.positions)
+            for f in range(min(self.positions), max(self.positions) + 1)
+        )
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = TheTreacheryOfWhales("test1.txt")
-    assert test1.simple_align() == 37
-    assert test1.full_align() == 168
 
-    treachery = TheTreacheryOfWhales(data.input_file)
-    print(treachery.simple_align())
-    print(treachery.full_align())
+    assert TreacheryOfWhales("sample1.txt").least_needed_fuel_to_align(constant_rate=True) == 37
+    assert TreacheryOfWhales("sample1.txt").least_needed_fuel_to_align(constant_rate=False) == 168
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = TreacheryOfWhales(data.input_file)
+
+    print(puzzle.least_needed_fuel_to_align(constant_rate=True))
+    print(puzzle.least_needed_fuel_to_align(constant_rate=False))

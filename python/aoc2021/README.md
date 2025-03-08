@@ -61,3 +61,35 @@ We need to find the number of lanternfish after a given number of days (`80` and
 
 ### Optimizations:
 * We don't care about any order or individual fish, so we can simply keep track of the number of lanternfish with each timer value at each time step!
+
+## Day 7: [The Treachery of Whales](https://adventofcode.com/2021/day/7) &rarr; [Solution](./day07/d07.py)
+We have a list of integers representing the horizontal positions of crabs.\
+We need to find the horizontal position that minimizes the sum of distances to all crabs.\
+In part 2, each step of a move will increase the needed fuel by one.
+
+### Optimizations:
+* For part 2, we can pre-calculate the needed fuel for each distance value and store it in a list/dict.
+
+
+
+
+
+## Day 8: [Seven Segment Search](https://adventofcode.com/2021/day/8) &rarr; [Solution](./day08/d08.py)
+## Day 9: [Smoke Basin](https://adventofcode.com/2021/day/9) &rarr; [Solution](./day09/d09.py)
+## Day 10: [Syntax Scoring](https://adventofcode.com/2021/day/10) &rarr; [Solution](./day10/d10.py)
+## Day 11: [Dumbo Octopus](https://adventofcode.com/2021/day/11) &rarr; [Solution](./day11/d11.py)
+## Day 12: [Passage Pathing](https://adventofcode.com/2021/day/12) &rarr; [Solution](./day12/d12.py)
+## Day 13: [Transparent Origami](https://adventofcode.com/2021/day/13) &rarr; [Solution](./day13/d13.py)
+## Day 14: [Extended Polymerization](https://adventofcode.com/2021/day/14) &rarr; [Solution](./day14/d14.py)
+## Day 15: [Chiton](https://adventofcode.com/2021/day/15) &rarr; [Solution](./day15/d15.py)
+## Day 16: [Packet Decoder](https://adventofcode.com/2021/day/16) &rarr; [Solution](./day16/d16.py)
+## Day 17: [Trick Shot](https://adventofcode.com/2021/day/17) &rarr; [Solution](./day17/d17.py)
+## Day 18: [Snailfish](https://adventofcode.com/2021/day/18) &rarr; [Solution](./day18/d18.py)
+## Day 19: [Beacon Scanner](https://adventofcode.com/2021/day/19) &rarr; [Solution](./day19/d19.py)
+## Day 20: [Trench Map](https://adventofcode.com/2021/day/20) &rarr; [Solution](./day20/d20.py)
+## Day 21: [Dirac Dice](https://adventofcode.com/2021/day/21) &rarr; [Solution](./day21/d21.py)
+## Day 22: [Reactor Reboot](https://adventofcode.com/2021/day/22) &rarr; [Solution](./day22/d22.py)
+## Day 23: [Amphipod](https://adventofcode.com/2021/day/23) &rarr; [Solution](./day23/d23.py)
+## Day 24: [Arithmetic Logic Unit](https://adventofcode.com/2021/day/24) &rarr; [Solution](./day24/d24.py)
+## Day 25: [Sea Cucumber](https://adventofcode.com/2021/day/25) &rarr; [Solution](./day25/d25.py)
+
