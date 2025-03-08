@@ -1,6 +1,6 @@
 # Advent of Code 2023
 
-## Day 1: [Trebuchet](https://adventofcode.com/2023/day/1)
+## Day 1: [Trebuchet](https://adventofcode.com/2023/day/1) &rarr; [Solution](./day01/d01.py)
 Finding sub-strings of digits (in digital and alphabetic) in each line.\
 This was sort of challenging due to:
 * Overlapping alphabetic digits in each line
@@ -19,24 +19,24 @@ This was sort of challenging due to:
 * `str[::-1]` gives the reverse of the `str`
 * Now I feel stupid :sweat_smile:
 
-## Day 2: [Cube Conundrum](https://adventofcode.com/2023/day/2)
+## Day 2: [Cube Conundrum](https://adventofcode.com/2023/day/2) &rarr; [Solution](./day02/d02.py)
 This puzzle was mainly about reading the description carefully and implement it accordingly.
 Warming up on:
 * `collections.defaultdict`
 * `str.split()`
 
-## Day 3: [Gear Ratios](https://adventofcode.com/2023/day/3)
+## Day 3: [Gear Ratios](https://adventofcode.com/2023/day/3) &rarr; [Solution](./day03/d03.py)
 The only challenge here was to properly parse the input and find numbers, symbols and their locations.
 ### Bugs and issues:
 * A possible bug that may happen in such inputs is to forget the final number in each line, since it is not followed by a symbol.
 
-## Day 4: [Scratchcards](https://adventofcode.com/2023/day/4)
+## Day 4: [Scratchcards](https://adventofcode.com/2023/day/4) &rarr; [Solution](./day04/d04.py)
 Again the only challenge here was to understand the puzzle statement and properly parse the input.
 ### Optimizations:
 * Using `set.intersection` 
 * Finding the match counts in the parsing step
 
-## Day 5: [If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5)
+## Day 5: [If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5) &rarr; [Solution](./day05/d05.py)
 First real challenge of 2023!\
 We have 7 layers of one-to-one mappings, and we need to find the final state of the seed (location) after applying all the mappings.
 Part one was very easy, just to parse the input properly and apply the mappings one by one.\
@@ -45,7 +45,7 @@ Part two was the challenge, running the mappings on all the input numbers was to
 * My first implementation was to iterate over the locations from 0 (since we need to find the minimum) and apply the reverse mappings to check if the initial seed was in the list or not.
 * The much faster implementation is to process the ranges instead of numbers.
 
-## Day 6: [Wait For It](https://adventofcode.com/2023/day/6)
+## Day 6: [Wait For It](https://adventofcode.com/2023/day/6) &rarr; [Solution](./day06/d06.py)
 Nothing challenging here, just reading the puzzle statement, parsing inputs and calculating the different ways!\
 Well, the title "Wait For It" may suggest we will see this puzzle again in the future!\
 So, let's optimize it further.
@@ -53,20 +53,20 @@ So, let's optimize it further.
   Finding waiting times which meet `(time - t) * t > distance` are actually the integers between the two roots of the equation: `time*t - t^2 - distance = 0`.\
   So we can solve this quadratic equation and find the roots, then find the integers between them.
 
-## Day 7: [Camel Cards](https://adventofcode.com/2023/day/7)
+## Day 7: [Camel Cards](https://adventofcode.com/2023/day/7) &rarr; [Solution](./day07/d07.py)
 Alright! Ranking poker hands! This one was my favorite!\
 But where are the suits? :spades: :hearts: :clubs: :diamonds:\
 Anyways, using `collections.Counter` was the key here.\
 Using `functools.cache` could also help to speed up the running time.
 
-## Day 8: [Haunted Wasteland](https://adventofcode.com/2023/day/8)
+## Day 8: [Haunted Wasteland](https://adventofcode.com/2023/day/8) &rarr; [Solution](./day08/d08.py)
 Another easy part1 and a little tricky part2.\
 Brute force search will take a very long time to complete.
 ### Optimizations:
 * Find needed steps for each starting node, and find `math.lcm` (least-common-multiplier) of all.
 * It's the same trick for 2022 Day 11 Part2: [Monkey In The Middle](https://adventofcode.com/2022/day/11)
 
-## Day 9: [Mirage Maintenance](https://adventofcode.com/2023/day/9)
+## Day 9: [Mirage Maintenance](https://adventofcode.com/2023/day/9) &rarr; [Solution](./day09/d09.py)
 Simple numeric implementation of extrapolation of a sequence of numbers in an unknown degree polynomials .\
 Very long description of the statement, was there to skip reading :laughing:.\
 My first quick yet working implementation was to build and keep all the difference steps and build the needed numbers based on the first and last items of difference values.\
@@ -92,7 +92,7 @@ My first quick yet working implementation was to build and keep all the differen
         self.sum_firsts += first * sign
 ```
 
-## Day 10: [Pipe Maze](https://adventofcode.com/2023/day/10)
+## Day 10: [Pipe Maze](https://adventofcode.com/2023/day/10) &rarr; [Solution](./day10/d10.py)
 I got really stuck on this one!\
 I had obvious wrong assumptions about the starting point.\
 So I implemented a BFS search to find the farthest point from the starting point.\
@@ -110,12 +110,12 @@ The more efficient solution is to process each row and count the inner tiles.\
 Along the row, you need to check if you're in or out of the contour and count the inner tiles accordingly.\
 It's actually implemented in Day 18: [Lavaduct Lagoon](https://adventofcode.com/2023/day/18).
 
-## Day 11: [Cosmic Expansion](https://adventofcode.com/2023/day/11)
+## Day 11: [Cosmic Expansion](https://adventofcode.com/2023/day/11) &rarr; [Solution](./day11/d11.py)
 This ones was easy; the efficient implementation was actually easier than the brute force one!\
 Keeping track of missing rows and columns and derive a mapping of indices according to the expansion factor was the key here.\
 After some cleanup, my whole solution is ~30 lines of code yet very efficient in Python!
 
-## Day 12: [Hot Springs](https://adventofcode.com/2023/day/12)
+## Day 12: [Hot Springs](https://adventofcode.com/2023/day/12) &rarr; [Solution](./day12/d12.py)
 Now a really challenging puzzle!\
 We need to find all the possible ways of matching an input string to a given pattern of consecutive damaged springs.\
 The input string has 3 possible characters: `.` (operational), `#` (damaged), `?` (unknown).\
@@ -132,7 +132,7 @@ So I used a recursive function to find all the possible ways of matching the inp
 
 **So, I think this can be a clue for other puzzles: whenever dynamic programming sounds like a possible solution, try to use a recursive function with `@cache` and see if it works!**
 
-## Day 13: [Point of Incidence](https://adventofcode.com/2023/day/13)
+## Day 13: [Point of Incidence](https://adventofcode.com/2023/day/13) &rarr; [Solution](./day13/d13.py)
 A rather easy puzzle.\
 The only trick is to do the looping correctly.
 
@@ -140,18 +140,18 @@ The only trick is to do the looping correctly.
 * Counting the differences between the lines was the repetitive pattern that can be simply `@cache`d. My yesterday's experience helped me to find this optimization quickly.
 * For finding the reflections across columns, I rotated the mirrors by 90 degrees and then applied the same logic as the rows: `list(zip(*mirror))`. This makes the `@cache`d function to be used on both rows and columns.
 
-## Day 14: [Parabolic Reflector Dish](https://adventofcode.com/2023/day/14)
+## Day 14: [Parabolic Reflector Dish](https://adventofcode.com/2023/day/14) &rarr; [Solution](./day14/d14.py)
 Simulating the rolling of balls towards a direction and finding the final location of the balls.
 
 ### Optimizations:
 * Part 2 needs a history keeping trick to find the period of repetition of ball patterns and fast-forwarding accordingly.
 
-## Day 15: [Lens Library](https://adventofcode.com/2023/day/15)
+## Day 15: [Lens Library](https://adventofcode.com/2023/day/15) &rarr; [Solution](./day15/d15.py)
 Not my favorite type of puzzle!\
 I had to read the puzzle statement several times (part 2) to understand what is going on!\
 Beyond that there was nothing challenging here.
 
-## Day 16: [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)
+## Day 16: [The Floor Will Be Lava](https://adventofcode.com/2023/day/16) &rarr; [Solution](./day16/d16.py)
 Interesting puzzle!\
 It highly depends how you optimize the solution.\
 My initial implementation was to keep the history of current full state and stop if it repeats.
@@ -160,7 +160,7 @@ My initial implementation was to keep the history of current full state and stop
 * Keep the history of each beam `(x, y, direction)` and eliminate the seen ones instead of keeping the history of all the beams at the same time.
 * `@cache` the next state function to speed up the search.
 
-## Day 17: [Clumsy Crucible](https://adventofcode.com/2023/day/17)
+## Day 17: [Clumsy Crucible](https://adventofcode.com/2023/day/17) &rarr; [Solution](./day17/d17.py)
 This was a typical puzzle to be solved by Dijkstra's algorithm.\
 The only important trick was to avoid repetitive states by keeping the history of the visited states.\
 Using a minimum heap was also a good trick to speed up the search.
@@ -173,7 +173,7 @@ Warming up on:
 ### Bugs and issues:
 * I misunderstood the termination condition for the second part. The minimum straight steps was needed on the terminal state as well.
 
-## Day 18: [Lavaduct Lagoon](https://adventofcode.com/2023/day/18)
+## Day 18: [Lavaduct Lagoon](https://adventofcode.com/2023/day/18) &rarr; [Solution](./day18/d18.py)
 Weakest day for me so far in AoC 2023!\
 It took me a long while to find efficient solutions for today's puzzles.\
 It was a very simple problem statement, counting edge and inner points of a 2D contour which can be drastically large!\
@@ -188,7 +188,7 @@ Along the row, you need to check if you're in or out of the contour and count th
 ### Bugs and issues:
 * Using `-1` as the default value for last observed line/corner point was an issue which took me a couple of hours to fix! :sweat_smile: I was considering `value < 0` as not-yet-set, but in the actual input, we have plenty of negative values!
 
-## Day 19: [Aplenty](https://adventofcode.com/2023/day/19)
+## Day 19: [Aplenty](https://adventofcode.com/2023/day/19) &rarr; [Solution](./day19/d19.py)
 Nice puzzle!\
 It provides a list of items each with its values for 4 categories `x,m,a,s`!\
 To solve part one, you need to feed each item to the set of workflows (each consists of a set of rules, based on category values) and find the finally accepted items.\
@@ -204,7 +204,7 @@ After solving this puzzle, I now feel a util class of handling ranges will be ha
 * I had a bug of starting the full ranges from 0 instead of 1! :sweat_smile:
 
 
-## Day 20: [Pulse Propagation](https://adventofcode.com/2023/day/20)
+## Day 20: [Pulse Propagation](https://adventofcode.com/2023/day/20) &rarr; [Solution](./day20/d20.py)
 Simulating the propagation of pulses in a network of flip-flops and conjunction modules.\
 They all work in negative logic, so it was a bit tricky to implement.\
 Anyways, part one was mainly about implementing the mechanics of the molules and simulating the propagation of pulses.\
@@ -216,7 +216,7 @@ To do so, we need to find the activation time for all the layer-3 conjunction mo
 ### Optimizations:
 * Similar to Day 8: [Haunted Wasteland](https://adventofcode.com/2023/day/8), we need to find the least-common-multiplier of all the cycles.\
 
-## Day 21: [Step Counter](https://adventofcode.com/2023/day/21)
+## Day 21: [Step Counter](https://adventofcode.com/2023/day/21) &rarr; [Solution](./day21/d21.py)
 Alright! Today's was a very tricky puzzle!\
 The sample input is a normal example which is not feasible to solve at all with millions of steps!\
 The provided input is a very specific map: the starting point is in the very center of the map, and its row and column are all `.`s.\
@@ -228,14 +228,14 @@ Which will be exactil `202300` full tiles to top, bottom, left and right of the 
 One last trick is to handle even and odd tiles separately, like a chessboard!\
 These assumptions, makes my solution very specific to the input, but it works efficiently with my input! :sweat_smile:
 
-## Day 22: [Sand Slabs](https://adventofcode.com/2023/day/22)
+## Day 22: [Sand Slabs](https://adventofcode.com/2023/day/22) &rarr; [Solution](./day22/d22.py)
 Sand Slabs was rather an easy puzzle, in comparison to the previous ones.\
 It way mainly about properly understand the puzzle statement (Jenga like mechanics) and implement it accordingly.
 
 ### Optimizations:
 * A simple sort of the bricks based on their minimum `z` value made my implementation ~12 times faster!
 
-## Day 23: [A Long Walk](https://adventofcode.com/2023/day/23)
+## Day 23: [A Long Walk](https://adventofcode.com/2023/day/23) &rarr; [Solution](./day23/d23.py)
 This one took a very long time from me to optimize (part two).\
 The problem is simply finding the longest path (with no revisiting nodes) between two nodes in a graph with cycles.\
 The time I submitted my solution, my code was still running trying to find longer paths!\
@@ -252,7 +252,7 @@ This avoids the paths with this final node in their early steps and makes the se
 It seems impossible to find the longest path in a graph with cycles using dynamic programming.\
 Brute-force is the only possible way!?
 
-## Day 24: [Never Tell Me The Odds](https://adventofcode.com/2023/day/24)
+## Day 24: [Never Tell Me The Odds](https://adventofcode.com/2023/day/24) &rarr; [Solution](./day24/d24.py)
 First challenge was to read and understand the puzzle statement!\
 In part one, for each pair of hailstones, we need to find the 2D intersection the two linear trajectories:
 * `x = x1 + dx1 * t1 = x2 + dx2 * t2`
@@ -278,7 +278,7 @@ We have `6+n` unknowns and `3n` equations, considering `n` hailstones.\
 So in a well-defined system we should be able to solve with only `3` hailstones.\
 And if not well-defined, we can try with more hailstones!
 
-## Day 25: [Snowverload](https://adventofcode.com/2023/day/25)
+## Day 25: [Snowverload](https://adventofcode.com/2023/day/25) &rarr; [Solution](./day25/d25.py)
 Alright, after trying some brute-force search, I realized the solution is nothing but a classic minimum-cut algorithm!\
 So, let's try some library functions to solve it!\
 I tried `minimum_cut` function from `networkx` library and it did the job.

@@ -1,5 +1,6 @@
 # Advent of Code 2022
-## Day 1: [Calorie Counting](https://adventofcode.com/2022/day/1)
+
+## Day 1: [Calorie Counting](https://adventofcode.com/2022/day/1) &rarr; [Solution](./day01/d01.py)
 Warming up on:
 * loading input files (group of integer lines)
 * summing them up
@@ -9,12 +10,12 @@ Warming up on:
 * sort(values) sorts the input list (ascending order)
 * sort(values, **reverse=True**) sorts the input list in descending order
 
-## Day 2: [Rock Paper Scissors](https://adventofcode.com/2022/day/2)
+## Day 2: [Rock Paper Scissors](https://adventofcode.com/2022/day/2) &rarr; [Solution](./day02/d02.py)
 The only challenge was to read and understand the problem!
 ### Optimizations:
 * using **ord** function
 
-## Day 3: [Rucksack Reorganization](https://adventofcode.com/2022/day/3)
+## Day 3: [Rucksack Reorganization](https://adventofcode.com/2022/day/3) &rarr; [Solution](./day03/d03.py)
 A perfect puzzle to be solved by sets.
 ### Optimizations:
 * using sets and their intersections
@@ -24,7 +25,7 @@ A perfect puzzle to be solved by sets.
    set.intersection(*(set(rucksack) for rucksack in rucksacks))
   ```
 
-## Day 4: [Camp Cleanup](https://adventofcode.com/2022/day/4)
+## Day 4: [Camp Cleanup](https://adventofcode.com/2022/day/4) &rarr; [Solution](./day04/d04.py)
 For a quick result, I used **set**s (ranges casted to sets) and set operations:
 * **<=** and **>=** operations on sets for subset and superset
 * **&** operation on sets for intersection (and cast it to bool).
@@ -41,7 +42,7 @@ which are quite common in later days.
     def overlapping_count(self):
         return sum([not (c < a and d < a or c > b and d > b) for a, b, c, d in self.ranges])
     ```
-## Day 5: [Supply Stacks](https://adventofcode.com/2022/day/5)
+## Day 5: [Supply Stacks](https://adventofcode.com/2022/day/5) &rarr; [Solution](./day05/d05.py)
 The problem statement was easy to clear: implement some stack functionality.<br>
 For this we have **list** with **append** and **pop**.<br>
 The only challenge here was to program the input reading for the current stack status.<br>
@@ -55,11 +56,11 @@ hard-coded**.<br>
 * My solution for the second part (obviously) was to use a temporary stack to push to and pop from,
   in order to keep the order of the items.
 
-## Day 6: [Tuning Trouble](https://adventofcode.com/2022/day/6)
+## Day 6: [Tuning Trouble](https://adventofcode.com/2022/day/6) &rarr; [Solution](./day06/d06.py)
 Another puzzle which solves easily using sets.<br>
 The only challenge here was to read and understand the problem quickly :smile:
 
-## Day 7: [No Space Left On Device](https://adventofcode.com/2022/day/7)
+## Day 7: [No Space Left On Device](https://adventofcode.com/2022/day/7) &rarr; [Solution](./day07/d07.py)
 It took me a while to decide on the data structure I want to use to store the data.
 Eventually I decided to represent each file/directory as a tuple of subdir names and keep their
 sizes in a `defaultdict` of `int`.<br>
@@ -67,25 +68,28 @@ I also used another `defaultdict` of `list` to keep track of subdirectories of e
 ### Bugs and issues:
 * Forgot one of the mentioned line templates!
 
-## Day 8: [Treetop Tree House](https://adventofcode.com/2022/day/8)
+## Day 8: [Treetop Tree House](https://adventofcode.com/2022/day/8) &rarr; [Solution](./day08/d08.py)
 For part A, I scanned from each direction once and counted the visible ones,
 instead of checking every tree!
-## Day 9: [Rope Bridge](https://adventofcode.com/2022/day/9)
+
+## Day 9: [Rope Bridge](https://adventofcode.com/2022/day/9) &rarr; [Solution](./day09/d09.py)
 The only twist in this problem was to clearly understand when and how a trailing knot moves.
-## Day 10: [Cathode Ray Tube](https://adventofcode.com/2022/day/10)
+
+## Day 10: [Cathode Ray Tube](https://adventofcode.com/2022/day/10) &rarr; [Solution](./day10/d10.py)
 Once again a puzzle with hard-to-understand problem statement :smile:.
 
-## Day 11: [Monkey In The Middle](https://adventofcode.com/2022/day/11)
+## Day 11: [Monkey In The Middle](https://adventofcode.com/2022/day/11) &rarr; [Solution](./day11/d11.py)
 It was an easy to solve puzzle, if you know how to cope with the big numbers in part B.
 ### Optimizations:
 * Using eval function was an advantage here.
 * To prevent the numbers to grow out of control, we have to use the remainders of the numbers to the
   least-common-multiplier of the divisors.
 * Using `math.lcm` function to calculate least-common-multiplier of inputs.
-## Day 12: [Hill Climbing Algorithm](https://adventofcode.com/2022/day/12)
+
+## Day 12: [Hill Climbing Algorithm](https://adventofcode.com/2022/day/12) &rarr; [Solution](./day12/d12.py)
 A typical puzzle to be solved by BFS.
 
-## Day 13: [Distress Signal](https://adventofcode.com/2022/day/13)
+## Day 13: [Distress Signal](https://adventofcode.com/2022/day/13) &rarr; [Solution](./day13/d13.py)
 A recursive approach of comparing the two sides did the job.
 ### Bugs and issues:
 * At first I mistakenly compared the plain lists together and took me a while to find the proper
@@ -102,37 +106,38 @@ A recursive approach of comparing the two sides did the job.
   q.sort(key=cmp_to_key(self.compare))
   ```
 
-## Day 14: [Regolith Reservoir](https://adventofcode.com/2022/day/14)
+## Day 14: [Regolith Reservoir](https://adventofcode.com/2022/day/14) &rarr; [Solution](./day14/d14.py)
 Reading the input and formulating the solution was challenging here.
 
-## Day 15: [Beacon Exclusion Zone](https://adventofcode.com/2022/day/15)
+## Day 15: [Beacon Exclusion Zone](https://adventofcode.com/2022/day/15) &rarr; [Solution](./day15/d15.py)
 Once nice and fun to solve puzzle today (part B).
 ### Optimizations:
 * Brute-force search fails awfully for part B.
   Proper understanding of the problem gives you the clue.
   There is only one undetected point, so it must be located on the border of one (or more) beacons.
   This limits the search space drastically!
-## Day 16: [??](https://adventofcode.com/2022/day/16)
+
+## Day 16: [Proboscidea Volcanium](https://adventofcode.com/2022/day/16) &rarr; [Solution](./day16/d16.py)
 ### Bugs and issues:
 ### Optimizations:
 
-## Day 17: [Pyroclastic Flow](https://adventofcode.com/2022/day/17)
+## Day 17: [Pyroclastic Flow](https://adventofcode.com/2022/day/17) &rarr; [Solution](./day17/d17.py)
 The first challenge in this puzzle was to implement the mechanics of the Tetris-like game.
 Second was to find a trick to avoid another brute-force search/simulation of the game.
 ### Optimizations:
 * Finding the repeating patterns after a number of iterations and fast-forwarding accordingly.
 
-## Day 18: [Boiling Boulders](https://adventofcode.com/2022/day/18)
+## Day 18: [Boiling Boulders](https://adventofcode.com/2022/day/18) &rarr; [Solution](./day18/d18.py)
 It was mainly about how to solve the puzzle quickly
 For part B, I calculated the outer 3D region first and solved the puzzle based on that.
 ### Optimizations:
 * Using `functools.cache` for repeatedly called functions.
 
-## Day 19: [??](https://adventofcode.com/2022/day/19)
+## Day 19: [Not Enough Minerals](https://adventofcode.com/2022/day/19) &rarr; [Solution](./day19/d19.py)
 ### Bugs and issues:
 ### Optimizations:
 
-## Day 20: [Grove Positioning System](https://adventofcode.com/2022/day/20)
+## Day 20: [Grove Positioning System](https://adventofcode.com/2022/day/20) &rarr; [Solution](./day20/d20.py)
 My initial solution was actually the working one.<br>
 Using double hash tables to keep the positions of values and values in each position.
 ### Bugs and issues:
@@ -153,11 +158,11 @@ Using double hash tables to keep the positions of values and values in each posi
           num += 0.001
   ```
 
-## Day 21: [Monkey Math](https://adventofcode.com/2022/day/21)
+## Day 21: [Monkey Math](https://adventofcode.com/2022/day/21) &rarr; [Solution](./day21/d21.py)
 This puzzle made me explore and revisit how to use `sympy` package in Python.<br>
 Using it together with `exec` command, my solution ended up very succinct.
 
-## Day 22: [Monkey Map](https://adventofcode.com/2022/day/22)
+## Day 22: [Monkey Map](https://adventofcode.com/2022/day/22) &rarr; [Solution](./day22/d22.py)
 The first part of the puzzle was an easy one,
 but the second needed a while to think on how to solve!<br>
 My final solution has hard-coded implementation of the folding for my input,
@@ -196,15 +201,14 @@ L 6 6 6 E . . . . . . . . . .
   It worked at the end of the day, but took me hours to get the right answer.
   I reimplemented it in 2D which let to a way shorter and easier to read code!
 
-## Day 23: [Unstable Diffusion](https://adventofcode.com/2022/day/23)
+## Day 23: [Unstable Diffusion](https://adventofcode.com/2022/day/23) &rarr; [Solution](./day23/d23.py)
 Once again a puzzle with a number of rules to be implemented.<br>
 The main challenge was to ensure you've implemented all the rules in the proper order
 ### Optimizations:
 * Using `set`s for elves' locations.
 * Using `collections.Counter` for finding unique destinations.
 
-
-## Day 24: [Blizzard Basin](https://adventofcode.com/2022/day/24)
+## Day 24: [Blizzard Basin](https://adventofcode.com/2022/day/24) &rarr; [Solution](./day24/d24.py)
 This problem was a perfect fit to be solved by an **A<sup>*</sup> algorithm**.<p>
 Using a min-heap and keeping a list of states for each cost function value did the job.
 ### Bugs and issues:
@@ -216,7 +220,7 @@ repetitive states and making the program running out of memory!
 * Caching the open ground locations for each iteration and using them to find valid child nodes
 instead of blizzards locations/states.
 
-## Day 25: [Full Of Hot Air](https://adventofcode.com/2022/day/25)
+## Day 25: [Full Of Hot Air](https://adventofcode.com/2022/day/25) &rarr; [Solution](./day25/d25.py)
 A problem of changing numbers to a base 5 with positive and negative digits!
 * 1&harr;1
 * 2&harr;2
