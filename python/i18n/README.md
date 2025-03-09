@@ -27,3 +27,8 @@ Useful libraries, functions and tools:
         * As the second argument, it can take a timezone object to convert the timestamp to a specific timezone. In this puzzle, the needed timezone is `datetime.UTC`.
 * `collections.Counter` class in python was handy to find the frequency of each time.
     * `Counter.most_common()` function can be used to find the most common elements in a list.
+
+## Day 3: [Unicode Passwords](https://i18n-puzzles.com/puzzle/3/) &rarr; [Solution](./day03/d03.py)
+We have a list of unicode passwords and need to find the one that is valid.\
+A valid password is at least 4 and at most 12 characters, has at least one digit, one lowercase, one uppercase, and one accented letter.\
+To find the the accented letters, I simply used `ord(ch) >= 128` condition; maybe this will be proved to be a naive solution in future days, but was enough for this puzzle. By the way, one may need to consider the char to be `ch.isalpha()` as well.
