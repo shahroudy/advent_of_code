@@ -1,16 +1,21 @@
+import concurrent.futures
 import cProfile
 import os
 import re
 from collections import *
 from collections import Counter, defaultdict, deque, namedtuple
 from copy import deepcopy
+from datetime import UTC, datetime, timedelta
 from functools import *
 from functools import cache, cmp_to_key, reduce
 from itertools import *
 from itertools import combinations, combinations_with_replacement, permutations, product
 from pathlib import Path
 from typing import override
+from unicodedata import normalize
+from zoneinfo import ZoneInfo
 
+import bcrypt
 import numpy as np
 import scipy as sp
 from myutils.geometry import *
@@ -94,23 +99,8 @@ class Puzzle:
         # find_all_per_line_re(self, r"(\d+)")
         # inputs = find_all_per_line_re(self, r"(\d+)", text=line)
 
-        # for easy setting of different parameters for samples vs real data
-        self.sample_number = get_sample_number(filename)
-        self.parameter = {
-            0: 100,  # real data
-            1: 10,  # sample 1
-            2: 10,  # sample 2
-            3: 10,  # sample 3
-            4: 10,  # sample 4
-            5: 10,  # sample 5
-            6: 10,  # sample 6
-            7: 10,  # sample 7
-            8: 10,  # sample 8
-            9: 10,  # sample 9
-        }[self.sample_number]
-
     def calc(self):
-        return None
+        return 0
 
     def calc0(self):
         # s = MySearch()
@@ -126,39 +116,7 @@ class Puzzle:
         pass
 
 
-def test_samples(filename, answer):
-    if answer is None:
-        return
-    test = Puzzle(filename)
-    assert test.calc() == answer
-
-
 if __name__ == "__main__":
-
-    # region Tests
-    # assert Puzzle("test-input").calc() == 0
-    # assert Puzzle("test-input").calc() == 0
-    # assert Puzzle("test-input").calc() == 0
-    # assert Puzzle("test-input").calc() == 0
-    # assert Puzzle("test-input").calc() == 0
-    # assert Puzzle("test-input").calc() == 0
-    # assert Puzzle("test-input").calc() == 0
-    # assert Puzzle("test-input").calc() == 0
-    # assert Puzzle("test-input").calc() == 0
-    # endregion
-
-    test_samples("test-input", None)
-    test_samples("test-input", None)
-    test_samples("test-input", None)
-    test_samples("test-input", None)
-    test_samples("test-input", None)
-    test_samples("test-input", None)
-    test_samples("test-input", None)
-    test_samples("test-input", None)
-    test_samples("test-input", None)
-
+    assert Puzzle("test-input").calc() == 0
     print("Tests passed, starting with the puzzle")
-
-    puzzle = Puzzle("input")
-
-    print(puzzle.calc())
+    print(Puzzle("input").calc())
