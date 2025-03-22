@@ -18,3 +18,5 @@ colored
 scipy
 advent-of-code-data
 lark
+bcrypt
+kanjize
