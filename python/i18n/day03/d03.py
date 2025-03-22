@@ -1,11 +1,11 @@
 from pathlib import Path
 
 
-class Unicodepasswords:
+class UnicodePasswords:
     def __init__(self, filename):
         self.passwords = Path(filename).read_text().splitlines()
 
-    def calc(self):
+    def count_valid_passwords(self):
         return sum(
             4 <= len(password) <= 12
             and any(ch.isdigit() for ch in password)
@@ -17,11 +17,6 @@ class Unicodepasswords:
 
 
 if __name__ == "__main__":
-
-    assert Unicodepasswords("test-input").calc() == 2
-
+    assert UnicodePasswords("test-input").count_valid_passwords() == 2
     print("Tests passed, starting with the puzzle")
-
-    puzzle = Unicodepasswords("input")
-
-    print(puzzle.calc())
+    print(UnicodePasswords("input").count_valid_passwords())

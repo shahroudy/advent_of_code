@@ -14,11 +14,6 @@ class LengthLimitsOnMessagingPlatforms:
 
 
 if __name__ == "__main__":
-
     assert LengthLimitsOnMessagingPlatforms("test-input").total_cost() == 31
-
     print("Tests passed, starting with the puzzle")
-
-    puzzle = LengthLimitsOnMessagingPlatforms("input")
-
-    print(puzzle.total_cost())
+    print(LengthLimitsOnMessagingPlatforms("input").total_cost())
