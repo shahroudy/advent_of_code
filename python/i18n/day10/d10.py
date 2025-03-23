@@ -1,4 +1,5 @@
 import concurrent.futures
+import os
 from functools import cache
 from pathlib import Path
 from unicodedata import normalize
@@ -36,6 +37,7 @@ class UnicodePasswordsStrikeBack:
 
 
 if __name__ == "__main__":
-    assert UnicodePasswordsStrikeBack("test-input").no_of_valid_attempts() == 4
+    assert UnicodePasswordsStrikeBack("test-input.txt").no_of_valid_attempts() == 4
     print("Tests passed, starting with the puzzle")
-    print(UnicodePasswordsStrikeBack("input").no_of_valid_attempts())
+    input_folder = os.environ.get("i18n_inputs")
+    print(UnicodePasswordsStrikeBack(f"{input_folder}/i18n2025_day10.txt").no_of_valid_attempts())

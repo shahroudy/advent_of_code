@@ -1,3 +1,4 @@
+import os
 from functools import cache
 from pathlib import Path
 
@@ -98,6 +99,7 @@ class EightBitUnboxing:
 
 
 if __name__ == "__main__":
-    assert EightBitUnboxing("test-input").needed_rotations(True) == 34
+    assert EightBitUnboxing("test-input.txt").needed_rotations(True) == 34
     print("Tests passed, starting with the puzzle")
-    print(EightBitUnboxing("input").needed_rotations(False))
+    input_folder = os.environ.get("i18n_inputs")
+    print(EightBitUnboxing(f"{input_folder}/i18n2025_day16.txt").needed_rotations(False))

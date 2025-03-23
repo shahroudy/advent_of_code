@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -19,6 +20,7 @@ class ATripAroundTheWorld:
 
 
 if __name__ == "__main__":
-    assert ATripAroundTheWorld("test-input").sum_of_travel_time() == 3143
+    assert ATripAroundTheWorld("test-input.txt").sum_of_travel_time() == 3143
     print("Tests passed, starting with the puzzle")
-    print(ATripAroundTheWorld("input").sum_of_travel_time())
+    input_folder = os.environ.get("i18n_inputs")
+    print(ATripAroundTheWorld(f"{input_folder}/i18n2025_day04.txt").sum_of_travel_time())

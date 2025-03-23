@@ -1,3 +1,4 @@
+import os
 import re
 from pathlib import Path
 
@@ -19,6 +20,11 @@ class MojibakePuzzleDictionary:
 
 
 if __name__ == "__main__":
-    assert MojibakePuzzleDictionary("test-input").sum_of_line_numbers_of_fitting_words() == 50
+    assert MojibakePuzzleDictionary("test-input.txt").sum_of_line_numbers_of_fitting_words() == 50
     print("Tests passed, starting with the puzzle")
-    print(MojibakePuzzleDictionary("input").sum_of_line_numbers_of_fitting_words())
+    input_folder = os.environ.get("i18n_inputs")
+    print(
+        MojibakePuzzleDictionary(
+            f"{input_folder}/i18n2025_day06.txt"
+        ).sum_of_line_numbers_of_fitting_words()
+    )

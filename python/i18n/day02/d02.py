@@ -1,3 +1,4 @@
+import os
 from collections import Counter
 from datetime import UTC, datetime
 from pathlib import Path
@@ -13,6 +14,9 @@ class DetectingGravitationalWaves:
 
 
 if __name__ == "__main__":
-    assert DetectingGravitationalWaves("test-input").most_common() == "2019-06-05T12:15:00+00:00"
+    assert (
+        DetectingGravitationalWaves("test-input.txt").most_common() == "2019-06-05T12:15:00+00:00"
+    )
     print("Tests passed, starting with the puzzle")
-    print(DetectingGravitationalWaves("input").most_common())
+    input_folder = os.environ.get("i18n_inputs")
+    print(DetectingGravitationalWaves(f"{input_folder}/i18n2025_day02.txt").most_common())

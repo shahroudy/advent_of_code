@@ -1,3 +1,4 @@
+import os
 import re
 from pathlib import Path
 
@@ -20,13 +21,14 @@ class MetrificationInJapan:
         }
 
     def get_length(self, input):
-        return int(self.d[input[-1]] * kanjize.kanji2number(input[:-1]) * 10.0 / 33.0)
+        return self.d[input[-1]] * kanjize.kanji2number(input[:-1]) * 10.0 / 33.0
 
     def calc(self):
-        return sum(self.get_length(x) * self.get_length(y) for x, y in self.inp)
+        return int(sum(self.get_length(x) * self.get_length(y) for x, y in self.inp))
 
 
 if __name__ == "__main__":
-    assert MetrificationInJapan("test-input").calc() == 2177741195
+    assert MetrificationInJapan("test-input.txt").calc() == 2177741195
     print("Tests passed, starting with the puzzle")
-    print(MetrificationInJapan("input").calc())
+    input_folder = os.environ.get("i18n_inputs")
+    print(MetrificationInJapan(f"{input_folder}/i18n2025_day14.txt").calc())

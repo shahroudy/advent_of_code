@@ -1,3 +1,4 @@
+import os
 from functools import cache
 from pathlib import Path
 
@@ -31,6 +32,7 @@ class HomersCipher:
 
 
 if __name__ == "__main__":
-    assert HomersCipher("test-input").sum_of_all_shifts() == 19
+    assert HomersCipher("test-input.txt").sum_of_all_shifts() == 19
     print("Tests passed, starting with the puzzle")
-    print(HomersCipher("input").sum_of_all_shifts())
+    input_folder = os.environ.get("i18n_inputs")
+    print(HomersCipher(f"{input_folder}/i18n2025_day11.txt").sum_of_all_shifts())

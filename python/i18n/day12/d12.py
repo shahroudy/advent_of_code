@@ -1,3 +1,4 @@
+import os
 import re
 from pathlib import Path
 from unicodedata import normalize
@@ -43,6 +44,7 @@ class SortingItOut:
 
 
 if __name__ == "__main__":
-    assert SortingItOut("test-input").product_of_three_middle_numbers() == 1885816494308838
+    assert SortingItOut("test-input.txt").product_of_three_middle_numbers() == 1885816494308838
     print("Tests passed, starting with the puzzle")
-    print(SortingItOut("input").product_of_three_middle_numbers())
+    input_folder = os.environ.get("i18n_inputs")
+    print(SortingItOut(f"{input_folder}/i18n2025_day12.txt").product_of_three_middle_numbers())

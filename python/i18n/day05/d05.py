@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 
@@ -16,6 +17,7 @@ class DontStepInIt:
 
 
 if __name__ == "__main__":
-    assert DontStepInIt("test-input").times_of_stepping_in_poo() == 2
+    assert DontStepInIt("test-input.txt").times_of_stepping_in_poo() == 2
     print("Tests passed, starting with the puzzle")
-    print(DontStepInIt("input").times_of_stepping_in_poo())
+    input_folder = os.environ.get("i18n_inputs")
+    print(DontStepInIt(f"{input_folder}/i18n2025_day05.txt").times_of_stepping_in_poo())

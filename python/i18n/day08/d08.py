@@ -1,3 +1,4 @@
+import os
 from collections import Counter
 from pathlib import Path
 from unicodedata import normalize
@@ -23,6 +24,7 @@ class UnicodePasswordsRedux:
 
 
 if __name__ == "__main__":
-    assert UnicodePasswordsRedux("test-input").count_valid_passwords() == 2
+    assert UnicodePasswordsRedux("test-input.txt").count_valid_passwords() == 2
     print("Tests passed, starting with the puzzle")
-    print(UnicodePasswordsRedux("input").count_valid_passwords())
+    input_folder = os.environ.get("i18n_inputs")
+    print(UnicodePasswordsRedux(f"{input_folder}/i18n2025_day08.txt").count_valid_passwords())

@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 
@@ -14,6 +15,7 @@ class LengthLimitsOnMessagingPlatforms:
 
 
 if __name__ == "__main__":
-    assert LengthLimitsOnMessagingPlatforms("test-input").total_cost() == 31
+    assert LengthLimitsOnMessagingPlatforms("test-input.txt").total_cost() == 31
     print("Tests passed, starting with the puzzle")
-    print(LengthLimitsOnMessagingPlatforms("input").total_cost())
+    input_folder = os.environ.get("i18n_inputs")
+    print(LengthLimitsOnMessagingPlatforms(f"{input_folder}/i18n2025_day01.txt").total_cost())

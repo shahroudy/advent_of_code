@@ -1,3 +1,4 @@
+import os
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -25,6 +26,7 @@ class TheAuditTrailFixer:
 
 
 if __name__ == "__main__":
-    assert TheAuditTrailFixer("test-input").calc() == 866
+    assert TheAuditTrailFixer("test-input.txt").calc() == 866
     print("Tests passed, starting with the puzzle")
-    print(TheAuditTrailFixer("input").calc())
+    input_folder = os.environ.get("i18n_inputs")
+    print(TheAuditTrailFixer(f"{input_folder}/i18n2025_day07.txt").calc())

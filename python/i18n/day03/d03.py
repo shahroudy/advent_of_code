@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 
@@ -17,6 +18,7 @@ class UnicodePasswords:
 
 
 if __name__ == "__main__":
-    assert UnicodePasswords("test-input").count_valid_passwords() == 2
+    assert UnicodePasswords("test-input.txt").count_valid_passwords() == 2
     print("Tests passed, starting with the puzzle")
-    print(UnicodePasswords("input").count_valid_passwords())
+    input_folder = os.environ.get("i18n_inputs")
+    print(UnicodePasswords(f"{input_folder}/i18n2025_day03.txt").count_valid_passwords())

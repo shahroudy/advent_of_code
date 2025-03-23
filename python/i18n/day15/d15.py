@@ -1,3 +1,4 @@
+import os
 import re
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -108,6 +109,7 @@ class Puzzle:
 
 
 if __name__ == "__main__":
-    assert Puzzle("test-input").calc() == 3030
+    assert Puzzle("test-input.txt").calc() == 3030
     print("Tests passed, starting with the puzzle")
-    print(Puzzle("input").calc())
+    input_folder = os.environ.get("i18n_inputs")
+    print(Puzzle(f"{input_folder}/i18n2025_day15.txt").calc())

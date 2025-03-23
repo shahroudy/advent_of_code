@@ -1,3 +1,4 @@
+import os
 import re
 from collections import defaultdict
 from datetime import datetime
@@ -33,6 +34,7 @@ class NineEleven:
 
 if __name__ == "__main__":
 
-    assert NineEleven("test-input").calc() == "Margot Peter"
+    assert NineEleven("test-input.txt").calc() == "Margot Peter"
     print("Tests passed, starting with the puzzle")
-    print(NineEleven("input").calc())
+    input_folder = os.environ.get("i18n_inputs")
+    print(NineEleven(f"{input_folder}/i18n2025_day09.txt").calc())

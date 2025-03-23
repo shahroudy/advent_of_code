@@ -1,3 +1,4 @@
+import os
 import re
 from pathlib import Path
 
@@ -33,6 +34,7 @@ class GulliversPuzzleDictionary:
 
 
 if __name__ == "__main__":
-    assert GulliversPuzzleDictionary("test-input").solve() == 47
+    assert GulliversPuzzleDictionary("test-input.txt").solve() == 47
     print("Tests passed, starting with the puzzle")
-    print(GulliversPuzzleDictionary("input").solve())
+    input_folder = os.environ.get("i18n_inputs")
+    print(GulliversPuzzleDictionary(f"{input_folder}/i18n2025_day13.txt").solve())
