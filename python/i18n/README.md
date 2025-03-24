@@ -223,6 +223,20 @@ Tiles consist of hexadecimal strings, when all put together properly, interprete
 
 TODO: Refine my code and the description here for this day!
 
-## Day 18: [](https://i18n-puzzles.com/puzzle/18/) &rarr; [Solution](./day18/d18.py)
+## Day 18: [Rex To Lynx](https://i18n-puzzles.com/puzzle/18/) &rarr; [Solution](./day18/d18.py)
+An interesting puzzle of handling bi-directional text with `RLI` (right-to-left isolate), `LRI` (left-to-right isolate), and `PDI` (pop directional isolate) unicode characters.\
+The puzzle statement provides an easy to understand explanation of the BiDi algorithm and how to implement it.\
+The only tricky point which is not explicitly mentioned in the puzzle is:
+* The `PDI` character pops the latest `RLI` or `LRI`, so it decreases the current embedding level by one.
+
+Python's `eval` was very handy today to evaluate the expression and get the result.
+
+### Bugs and Issues:
+* Casting the evaluation result to `int` will truncate the decimal part and may lead to wrong results, since we have division operations and may get minor imprecise values. Thus we need to round the values first:
+```python
+int(5850.999999999999) -> 5850
+int(round(5850.999999999999)) -> 5851
+```
+
 ## Day 19: [](https://i18n-puzzles.com/puzzle/19/) &rarr; [Solution](./day19/d19.py)
 ## Day 20: [](https://i18n-puzzles.com/puzzle/20/) &rarr; [Solution](./day20/d20.py)
