@@ -4,8 +4,6 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from myutils.exrange import ExRange
-
 
 class Puzzle:
     def __init__(self, filename):
@@ -29,9 +27,9 @@ class Puzzle:
         end_origin = datetime(year=2023, month=1, day=1, hour=0, minute=0, second=0, tzinfo=UTC)
         startm = int((origin - origin).total_seconds() // 60)
         endm = int((end_origin - origin).total_seconds() // 60)
-        ref_minutes = range(int(startm), int(endm))
+        ref_minutes = set(range(int(startm), int(endm)))
 
-        service_minutes = ExRange()
+        service_minutes = set()
         for tz, holidays in self.service:
             timezone = ZoneInfo(tz)
             h = []
@@ -69,10 +67,7 @@ class Puzzle:
                         ).astimezone(UTC)
                         startm = int((start - origin).total_seconds() // 60)
                         stopm = int((stop - origin).total_seconds() // 60)
-
-                        # with open("correct.txt", "a") as f:
-                        #     f.write(f"{startm} {stopm}\n")
-                        service_minutes.add(range(int(startm), int(stopm)))
+                        service_minutes.update(set(range(int(startm), int(stopm))))
 
         diffs = []
         for tz, holidays in self.office:
@@ -81,7 +76,7 @@ class Puzzle:
             for holiday in holidays:
                 date = datetime.strptime(holiday, "%d %B %Y").replace(tzinfo=timezone)
                 h.append(date)
-            office_minutes = ExRange()
+            office_minutes = set()
             for year in range(2021, 2024):
                 for month in range(1, 13):
                     for day in range(1, 32):
@@ -105,10 +100,9 @@ class Puzzle:
                         stop = start + timedelta(days=1)
                         startm = int((start - origin).total_seconds() // 60)
                         stopm = int((stop - origin).total_seconds() // 60)
-                        office_minutes.add(range(int(startm), int(stopm)))
-            office_minutes.intersect(ref_minutes)
-            office_minutes -= service_minutes
-            diff = office_minutes.length()
+                        office_minutes.update(set(range(int(startm), int(stopm))))
+            mmm = office_minutes & ref_minutes
+            diff = len(mmm - service_minutes)
             diffs.append(diff)
 
         return max(diffs) - min(diffs)
