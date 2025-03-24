@@ -200,6 +200,8 @@ The key to solve this puzzle is to:
     * This can be done by iterating over minute values and handle all the minutes in `set`s.
     * Consider ranges of minutes and add/substract them to/from the set.
 
+TODO: I still need to further refine my code for this day!
+
 ## Day 16: [8-bit unboxing](https://i18n-puzzles.com/puzzle/16/) &rarr; [Solution](./day16/d16.py)
 We are provided a grid of misaligned 8-bit "pipe" characters in `CP437` (MS-DOS) encoding (e.g. "╕╣║).\
 We need to find the number of needed rotations to align all the pipes in the grid.\
@@ -215,7 +217,12 @@ To solve this, I had to build a dictionary to keep the number of connections on 
 This way, we can simply map each character to a quadraple of 4 values (connection count on right, down, left, and up) and check if the number of connections is equal to the number of connections on the other side.\
 Fortunately, the solution was easy to achieve and didn't need any backtracking.
 
-## Day 17: [](https://i18n-puzzles.com/puzzle/17/) &rarr; [Solution](./day17/d17.py)
+## Day 17: [╳ marks the spot](https://i18n-puzzles.com/puzzle/17/) &rarr; [Solution](./day17/d17.py)
+A jig-saw puzzle of finding the right pieces to fit in a grid.\
+Tiles consist of hexadecimal strings, when all put together properly, interpreted as byte arrays and decoded as 'utf-8', represent a map of characters with pipe characters in the borders.\
+
+TODO: Refine my code and the description here for this day!
+
 ## Day 18: [](https://i18n-puzzles.com/puzzle/18/) &rarr; [Solution](./day18/d18.py)
 ## Day 19: [](https://i18n-puzzles.com/puzzle/19/) &rarr; [Solution](./day19/d19.py)
 ## Day 20: [](https://i18n-puzzles.com/puzzle/20/) &rarr; [Solution](./day20/d20.py)

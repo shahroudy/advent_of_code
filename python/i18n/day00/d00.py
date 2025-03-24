@@ -119,5 +119,6 @@ class Puzzle:
 if __name__ == "__main__":
     assert Puzzle("test-input.txt").calc() == 0
     print("Tests passed, starting with the puzzle")
-    input_folder = os.environ.get("i18n_inputs")
-    print(Puzzle("input").calc())
+    # input_folder = os.environ.get("i18n_inputs")
+    # print(Puzzle(f"{input_folder}/i18n2025_day00.txt").calc())
+    print(Puzzle("i18n2025_day00.txt").calc())
