@@ -231,6 +231,11 @@ The only tricky point which is not explicitly mentioned in the puzzle is:
 
 Python's `eval` was very handy today to evaluate the expression and get the result.
 
+TODO:
+* There should be a way to do the BiDi part in a single pass, instead of two passes.
+* I would like to implement the `eval()` function as well.
+* There should be a library to handle the BiDi algorithm out-of-the box.
+
 ### Bugs and Issues:
 * Casting the evaluation result to `int` will truncate the decimal part and may lead to wrong results, since we have division operations and may get minor imprecise values. Thus we need to round the values first:
 ```python
