@@ -10,8 +10,8 @@ class BinaryDiagnostic:
         self.code_len = len(self.inp[0])
 
     def power_consumption(self):
-        half = len(self.inp) // 2
-        most_common = [int(sum(n[i] == "1" for n in self.inp) > half) for i in range(self.code_len)]
+        avg = len(self.inp) // 2
+        most_common = [int(sum(n[i] == "1" for n in self.inp) > avg) for i in range(self.code_len)]
         oxygen_generator_rating = reduce(lambda x, y: 2 * x + y, most_common)
         co2_scrubber_rating = 2**self.code_len - 1 - oxygen_generator_rating
         return oxygen_generator_rating * co2_scrubber_rating

@@ -38,7 +38,7 @@ We are provided with a list of integers, and a set of 2D boards of numbers.\
 The input numbers will be read in order, and we need to find the first winning board.\
 A winning board is a board where all the numbers in a row or a column are already read.\
 We need to find the first and last winning boards.\
-This puzzle is mainly a warm-up on handing 2D arrays and lists.
+This puzzle is mainly a warm-up on handling 2D arrays and lists.
 
 ## Day 5: [Hydrothermal Venture](https://adventofcode.com/2021/day/5) &rarr; [Solution](./day05/d05.py)
 We are provided with the two ends of a number of line segments and need to find the number of overlap points between them.\
@@ -68,7 +68,7 @@ We need to find the horizontal position that minimizes the sum of distances to a
 In part 2, each step of a move will increase the needed fuel by one.
 
 ### Optimizations:
-* For part 2, we can pre-calculate the needed fuel for each distance value and store it in a list/dict.
+* For part 2, we can find the needed fuel analytically by using the formula for the sum of the first n integers: `n * (n + 1) // 2`.
 
 
 

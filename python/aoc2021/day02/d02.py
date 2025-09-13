@@ -10,6 +10,7 @@ class Dive:
         self.inp = [(cmd, int(val)) for cmd, val in (line.split() for line in text)]
 
     def final_depth(self):
+        """Represent the current position in 2D space (x:horizontal, y:depth)"""
         moves = {"up": Point(0, -1), "down": Point(0, 1), "forward": Point(1, 0)}
         current = Point(0, 0)
         for cmd, val in self.inp:
@@ -17,6 +18,7 @@ class Dive:
         return abs(current.x) * abs(current.y)
 
     def final_depth_with_aim(self):
+        """Represent the current position in 3D space (x:horizontal, y:depth, z:aim)"""
         moves = {"up": Point3D(0, 0, -1), "down": Point3D(0, 0, 1), "forward": Point3D(1, 0, 0)}
         current = Point3D(0, 0, 0)
         for cmd, val in self.inp:
