@@ -51,15 +51,5 @@
     ],
     "isort.args": [
         "--profile=black"
-    ],
-    "python-envs.pythonProjects": [
-        {
-            "path": "",
-            "envManager": "ms-python.python:venv",
-            "packageManager": "ms-python.python:pip"
-        }
-    ],
-    "python.defaultInterpreterPath": "${workspaceFolder}/python/.venv/bin/python",
-    "python.terminal.activateEnvironment": true,
-    "jupyter.interactiveWindow.textEditor.executeSelection": true,
+    ]
 }
