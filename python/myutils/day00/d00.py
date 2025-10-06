@@ -85,7 +85,7 @@ class Puzzle:
         # process(self)
 
         # recursive_split(self, "\n:", strip=True)
-        # inputs = recursive_split(self, "\n:", text=line, strip=True)
+        # self.inp = recursive_split(self.input_text, "\n:", strip=True)
 
         # find_all_re(self, r"(\d+)")
         # inputs = find_all_re(self, r"(\d+)", text=line)
