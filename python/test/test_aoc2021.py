@@ -114,3 +114,22 @@ def test_day07():
     test = TreacheryOfWhales(f"{input_folder}/aoc2021_day07.txt")
     assert test.least_needed_fuel_to_align(constant_rate=True) == 356992
     assert test.least_needed_fuel_to_align(constant_rate=False) == 101268110
+
+
+def test_day08_samples():
+    from aoc2021.day08.d08 import SevenSegmentSearch
+
+    test = SevenSegmentSearch("./python/aoc2021/day08/sample2.txt")
+    assert test.count_simple_digits() == 26
+    test = SevenSegmentSearch("./python/aoc2021/day08/sample1.txt")
+    assert test.sum_of_all_output_values() == 5353
+    test = SevenSegmentSearch("./python/aoc2021/day08/sample2.txt")
+    assert test.sum_of_all_output_values() == 61229
+
+
+def test_day08():
+    from aoc2021.day08.d08 import SevenSegmentSearch
+
+    test = SevenSegmentSearch(f"{input_folder}/aoc2021_day08.txt")
+    assert test.count_simple_digits() == 383
+    assert test.sum_of_all_output_values() == 998900

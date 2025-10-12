@@ -103,12 +103,13 @@ def process(self):
         self.inp.append(parts)
 
 
-def recursive_split(text, seps, strip=True):
+def recursive_split(text, separators, strip=True):
     if strip:
         text = text.strip()
-    if not seps:
+    if not separators:
         return text
-    return [recursive_split(x, seps[1:], strip) for x in text.split(seps[0])]
+    separator, future_separators = separators[0], separators[1:]
+    return [recursive_split(x, future_separators, strip) for x in text.split(separator)]
 
 
 def find_all_re(self, pattern, text=None):
