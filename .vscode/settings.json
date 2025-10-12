@@ -1,55 +1,75 @@
 {
+    // UI and editor preferences
     "workbench.iconTheme": "vscode-icons",
-    "json.format.enable": true,
-    "files.associations": {
-        "string": "cpp"
-    },
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#fff24060",
         "editorWhitespace.foreground": "#99dee02d"
     },
+    "json.format.enable": true,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
     "editor.insertSpaces": true,
+    "editor.renderWhitespace": "all",
+    "editor.rulers": [
+        100
+    ],
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    // Code actions: keep as workspace default, but Python-specific actions are scoped below
     "editor.codeActionsOnSave": {
         "source.fixAll": "always",
         "source.organizeImports": "always"
     },
-    "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "file",
-    "editor.fontFamily": "Fira Code",
-    "editor.fontLigatures": true,
+    // File associations and C/C++ settings
+    "files.associations": {
+        "string": "cpp"
+    },
     "C_Cpp.formatting": "clangFormat",
     "C_Cpp.clang_format_path": "src/.clang-format",
-    "editor.rulers": [
-        100
-    ],
-    "editor.renderWhitespace": "all",
+    // Python-specific editor settings
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "always",
+            "source.organizeImports": "always"
+        }
     },
+    // Plaintext
     "[plaintext]": {
         "editor.fontLigatures": false
     },
+    // Spelling exceptions
     "cSpell.words": [
         "exrange",
         "hstack",
         "myutils",
         "popleft"
     ],
+    // Testing
     "python.testing.pytestArgs": [
         "python"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
+    // Formatting: use Black as the workspace Python formatter and avoid provider conflicts
+    "black-formatter.importStrategy": "useBundled",
+    "black-formatter.args": [
+        "--line-length",
+        "100"
+    ],
+    // Linting and imports
     "flake8.args": [
         "--ignore=E203,E731",
         "--max-line-length=100"
     ],
-    "black-formatter.args": [
-        "--line-length=100",
-        "--target-version=py312"
-    ],
     "isort.args": [
         "--profile=black"
-    ]
+    ],
+    // Workspace Python interpreter (optional; helps VS Code pick the right env)
+    "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+    // File hygiene
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true
 }
