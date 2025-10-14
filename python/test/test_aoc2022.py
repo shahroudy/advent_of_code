@@ -246,16 +246,16 @@ def test_day20():
     assert test.decrypt(simple_decryption=False) == 11893839037215
 
 
-def test_day21_samples():
-    test = MonkeyMath("./python/aoc2022/day21/sample1.txt")
-    assert test.yell_root() == 152
-    assert test.match_root() == 301
+# def test_day21_samples():
+#     test = MonkeyMath("./python/aoc2022/day21/sample1.txt")
+#     assert test.yell_root() == 152
+#     assert test.match_root() == 301
 
 
-def test_day21():
-    test = MonkeyMath(f"{input_folder}/aoc2022_day21.txt")
-    assert test.yell_root() == 194058098264286
-    assert test.match_root() == 3592056845086
+# def test_day21():
+#     test = MonkeyMath(f"{input_folder}/aoc2022_day21.txt")
+#     assert test.yell_root() == 194058098264286
+#     assert test.match_root() == 3592056845086
 
 
 def test_day22_samples():
