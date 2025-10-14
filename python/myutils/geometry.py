@@ -354,6 +354,7 @@ class Point4D:
 def connected_region(
     input_map: Union[Dict[Point, int], Set[Point], List[Point]],
     neighbors_func: Callable[[Point], List[Point]],
+    connectivity_func: Callable[[Point, Point], bool],
     start: Point,
 ) -> Set[Point]:
     region = set()
@@ -372,7 +373,7 @@ def connected_region(
         current = stack.pop()
         region.add(current)
         for neighbor in neighbors_func(current):
-            if neighbor in points_to_process and labels[neighbor] == labels[current]:
+            if neighbor in points_to_process and connectivity_func(current, neighbor):
                 points_to_process.remove(neighbor)
                 stack.append(neighbor)
     return region

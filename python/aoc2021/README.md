@@ -136,7 +136,7 @@ In the original (not shuffled) segments, we have these segments in common for ea
 Alright, now we can find the segments one by one:
 * Segment `a` is in length 3 but not in length 2.
 * Segment `b` is in length 6 but not in length 5 and not in 2
-* Segment `c` is in length 2 but not in legnth 6.
+* Segment `c` is in length 2 but not in length 6.
 * Segment `d` is in the only one in both length 4 and length 5.
 * Segment `e` is in length 7 but not in lengths 6, 5, and 2.
 * Segment `f` is the one in both lengths 2 and 6.
@@ -145,6 +145,13 @@ Alright, now we can find the segments one by one:
 This way one can easily find the segment mapping and then decode the output digits.
 
 ## Day 9: [Smoke Basin](https://adventofcode.com/2021/day/9) &rarr; [Solution](./day09/d09.py)
+An easy puzzle of handling 2D array of digits to find local minima and their connected basins.\
+In part 1, we need to find all the points which are lower than all of their adjacent points (in 4 directions).\
+In part 2, we need to find the sizes of the basins connected to these low points.\
+A basin is defined as all the points that are connected to a low point and are not `9`.\
+For this puzzle, my library class `Point`, its `n4` method, and
+the library function `connected_region` were very handy.
+
 ## Day 10: [Syntax Scoring](https://adventofcode.com/2021/day/10) &rarr; [Solution](./day10/d10.py)
 ## Day 11: [Dumbo Octopus](https://adventofcode.com/2021/day/11) &rarr; [Solution](./day11/d11.py)
 ## Day 12: [Passage Pathing](https://adventofcode.com/2021/day/12) &rarr; [Solution](./day12/d12.py)

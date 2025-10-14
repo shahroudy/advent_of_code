@@ -58,6 +58,7 @@ from myutils.utils import (
     process_int_list_dict,
     process_map_dict_of_sets_of_3D_points,
     process_map_dict_of_sets_of_points,
+    process_map_digits,
     process_map_plain,
     read_int_line_groups,
     read_ints,
@@ -78,13 +79,13 @@ class Puzzle:
         # process_int_list(self)
         # process_int_int_dict(self)
         # process_int_list_dict(self)
-        # process_map_plain(self)
+        # self.inp, self.rows, self.cols = process_map_plain(self.input_text)
+        # self.inp, self.rows, self.cols = process_map_digits(self.input_text)
         # process_map_dict_of_sets_of_points(self)
         # process_map_dict_of_sets_of_3D_points(self)
 
         # process(self)
 
-        # recursive_split(self, "\n:", strip=True)
         # self.inp = recursive_split(self.input_text, "\n:", strip=True)
 
         # find_all_re(self, r"(\d+)")

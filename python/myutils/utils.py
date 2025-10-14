@@ -128,13 +128,19 @@ def find_all_per_line_re(self, pattern, text=None):
         return [pattern.findall(line) for line in text.splitlines()]
 
 
-def process_map_plain(self):
-    lines = self.input_text.splitlines()
-    self.inp = dict()
+def process_map_plain(text):
+    lines = text.splitlines()
+    char_map = dict()
     for row, line in enumerate(lines):
         for col, ch in enumerate(line):
-            self.inp[Point(col, row)] = ch
-    self.rows, self.cols = row + 1, col + 1
+            char_map[Point(col, row)] = ch
+    return char_map, row + 1, col + 1
+
+
+def process_map_digits(text):
+    char_map, rows, cols = process_map_plain(text)
+    int_map = {k: int(v) for k, v in char_map.items()}
+    return int_map, rows, cols
 
 
 def process_map_dict_of_sets_of_points(self):

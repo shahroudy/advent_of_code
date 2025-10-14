@@ -1,84 +1,43 @@
-import os
-from numpy import product
-from collections import defaultdict
-from myutils.file_reader import read_lines
+from pathlib import Path
+
+from myutils.geometry import Point, connected_region
 from myutils.io_handler import get_input_data
+from myutils.utils import process_map_digits
 
 
 class SmokeBasin:
     def __init__(self, filename):
-        self.lines = read_lines(filename)
-        self.process()
+        self.height_map, _, _ = process_map_digits(Path(filename).read_text())
 
-    def process(self):
-        row = 0
-        self.map = defaultdict(lambda: 9)
-        self.rows, self.cols = 0, 0
-        for line in self.lines:
-            col = 0
-            for ch in line:
-                self.map[(row, col)] = int(ch)
-                col += 1
-            if row == 0:
-                self.cols = col
-            col = 0
-            row += 1
-        self.rows = row
+    def sum_of_low_point_risk_levels(self):
+        self.low_points = {
+            point
+            for point, height in self.height_map.items()
+            if all(self.height_map.get(n, 10) > height for n in point.n4())
+        }
+        return sum(self.height_map[p] + 1 for p in self.low_points)
 
-        self.mask = [[-1, 0], [1, 0], [0, 1], [0, -1]]
+    def find_basin(self, low_point):
+        return connected_region(
+            self.height_map, Point.n4, lambda _, n: self.height_map.get(n, 9) != 9, start=low_point
+        )
 
-    def low_points(self):
-        sum = 0
-        for row in range(self.rows):
-            for col in range(self.cols):
-                current = self.map[(row, col)]
-                for n in self.mask:
-                    neighbor = self.map[(row + n[0], col + n[1])]
-                    if neighbor <= current:
-                        break
-                else:
-                    sum += current + 1
-        return sum
-
-    def largest_basins(self):
-        basin_sizes = list()
-
-        found = True
-        while found:
-            found = False
-            for start_row in range(self.rows):
-                for start_col in range(self.cols):
-                    if self.map[(start_row, start_col)] != 9:
-                        found = True
-                        break
-                if found:
-                    break
-            else:
-                break
-
-            stack = [(start_row, start_col)]
-            self.map[(start_row, start_col)] = 9
-            curbassize = 1
-            while stack:
-                current_row, current_col = stack.pop()
-                for n in self.mask:
-                    neighbor_loc = (current_row + n[0], current_col + n[1])
-                    if self.map[neighbor_loc] != 9:
-                        stack.append(neighbor_loc)
-                        self.map[neighbor_loc] = 9
-                        curbassize += 1
-            basin_sizes.append(curbassize)
-
-        basin_sizes.sort(reverse=True)
-        return product(basin_sizes[0:3])
+    def three_largest_basins(self):
+        basins = [self.find_basin(lp) for lp in self.low_points]
+        basins.sort(key=len, reverse=True)
+        return len(basins[0]) * len(basins[1]) * len(basins[2])
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = SmokeBasin("test1.txt")
-    assert test1.low_points() == 15
-    assert test1.largest_basins() == 1134
 
-    smoke_basin = SmokeBasin(data.input_file)
-    print(smoke_basin.low_points())
-    print(smoke_basin.largest_basins())
+    test1 = SmokeBasin("sample1.txt")
+    assert test1.sum_of_low_point_risk_levels() == 15
+    assert test1.three_largest_basins() == 1134
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = SmokeBasin(data.input_file)
+
+    print(puzzle.sum_of_low_point_risk_levels())
+    print(puzzle.three_largest_basins())

@@ -133,3 +133,19 @@ def test_day08():
     test = SevenSegmentSearch(f"{input_folder}/aoc2021_day08.txt")
     assert test.count_simple_digits() == 383
     assert test.sum_of_all_output_values() == 998900
+
+
+def test_day09_samples():
+    from aoc2021.day09.d09 import SmokeBasin
+
+    test = SmokeBasin("./python/aoc2021/day09/sample1.txt")
+    assert test.sum_of_low_point_risk_levels() == 15
+    assert test.three_largest_basins() == 1134
+
+
+def test_day09():
+    from aoc2021.day09.d09 import SmokeBasin
+
+    test = SmokeBasin(f"{input_folder}/aoc2021_day09.txt")
+    assert test.sum_of_low_point_risk_levels() == 444
+    assert test.three_largest_basins() == 1168440

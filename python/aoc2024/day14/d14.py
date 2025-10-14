@@ -2,7 +2,7 @@ import re
 from itertools import count
 from pathlib import Path
 
-from myutils.geometry import Point, connected_region
+from myutils.geometry import Point
 from myutils.io_handler import get_input_data
 
 
