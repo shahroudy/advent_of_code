@@ -1,48 +1,51 @@
-import os
-from myutils.file_reader import read_lines
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
 class SyntaxScoring:
     def __init__(self, filename):
-        self.lines = read_lines(filename)
+        self.illegal_chars, self.incomplete_stacks = [], []
+        self._process_lines(Path(filename).read_text().splitlines())
 
-    def find_scores(self):
-        syntax_error_score = 0
-        incomplete_scores = []
-        illegal_points = {")": 3, "]": 57, r"}": 1197, ">": 25137}
-        incomplete_points = {"(": 1, "[": 2, r"{": 3, "<": 4}
+    def _process_lines(self, lines):
+        for line in lines:
+            self._process_line(line)
 
-        for line in self.lines:
-            stack = list()
-            for ch in line:
-                if ch in "([{<":
-                    stack.append(ch)
-                else:
-                    o = stack.pop()
-                    if o + ch in ["()", "[]", r"{}", "<>"]:
-                        continue
-                    else:
-                        syntax_error_score += illegal_points[ch]
-                        stack.clear()
-                        break
+    def _process_line(self, line):
+        stack = []
+        closing = {"(": ")", "[": "]", "{": "}", "<": ">"}
+        for current_char in line:
+            if current_char in closing.keys():
+                stack.append(current_char)
             else:
-                incomplete_score = 0
-                while stack:
-                    o = stack.pop()
-                    incomplete_score = incomplete_score * 5 + incomplete_points[o]
-                incomplete_scores.append(incomplete_score)
-        incomplete_scores.sort()
-        return (
-            syntax_error_score,
-            incomplete_scores[len(incomplete_scores) // 2],
-        )
+                if not stack or current_char != closing[stack.pop()]:
+                    self.illegal_chars.append(current_char)
+                    return
+        self.incomplete_stacks.append(stack)
+
+    def _get_stack_score(self, stack):
+        points = {"(": 1, "[": 2, "{": 3, "<": 4}
+        return sum(points[character] * (5**index) for index, character in enumerate(stack))
+
+    def total_syntax_error_score(self):
+        error_points = {")": 3, "]": 57, "}": 1197, ">": 25137}
+        return sum(error_points[illegal_char] for illegal_char in self.illegal_chars)
+
+    def middle_incomplete_score(self):
+        scores = sorted([self._get_stack_score(stack) for stack in self.incomplete_stacks])
+        return scores[len(scores) // 2]
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = SyntaxScoring("test1.txt")
-    assert test1.find_scores() == (26397, 288957)
 
-    syntax_scoring = SyntaxScoring(data.input_file)
-    print(syntax_scoring.find_scores())
+    assert SyntaxScoring("sample1.txt").total_syntax_error_score() == 26397
+    assert SyntaxScoring("sample1.txt").middle_incomplete_score() == 288957
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = SyntaxScoring(data.input_file)
+
+    print(puzzle.total_syntax_error_score())
+    print(puzzle.middle_incomplete_score())

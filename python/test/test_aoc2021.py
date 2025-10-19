@@ -149,3 +149,19 @@ def test_day09():
     test = SmokeBasin(f"{input_folder}/aoc2021_day09.txt")
     assert test.sum_of_low_point_risk_levels() == 444
     assert test.three_largest_basins() == 1168440
+
+
+def test_day10_samples():
+    from aoc2021.day10.d10 import SyntaxScoring
+
+    test = SyntaxScoring("./python/aoc2021/day10/sample1.txt")
+    assert test.total_syntax_error_score() == 26397
+    assert test.middle_incomplete_score() == 288957
+
+
+def test_day10():
+    from aoc2021.day10.d10 import SyntaxScoring
+
+    test = SyntaxScoring(f"{input_folder}/aoc2021_day10.txt")
+    assert test.total_syntax_error_score() == 367059
+    assert test.middle_incomplete_score() == 1952146692

@@ -153,6 +153,15 @@ For this puzzle, my library class `Point`, its `n4` method, and
 the library function `connected_region` were very handy.
 
 ## Day 10: [Syntax Scoring](https://adventofcode.com/2021/day/10) &rarr; [Solution](./day10/d10.py)
+Handling nested blocks of brackets of four different types: `()`, `[]`, `{}`, and `<>`.\
+The input consists of multiple lines of these characters.\
+In part 1, we need to find the invalid lines, where a closing bracket does not match the most recent
+opening one.\
+In part 2, we need to list the missing closing brackets for the incomplete lines and calculate
+an score based on that.\
+The solution for this puzzle is to keep the opening brackets in a stack and check the top of the
+stack when we observe a closing bracket.
+
 ## Day 11: [Dumbo Octopus](https://adventofcode.com/2021/day/11) &rarr; [Solution](./day11/d11.py)
 ## Day 12: [Passage Pathing](https://adventofcode.com/2021/day/12) &rarr; [Solution](./day12/d12.py)
 ## Day 13: [Transparent Origami](https://adventofcode.com/2021/day/13) &rarr; [Solution](./day13/d13.py)
