@@ -163,6 +163,19 @@ The solution for this puzzle is to keep the opening brackets in a stack and chec
 stack when we observe a closing bracket.
 
 ## Day 11: [Dumbo Octopus](https://adventofcode.com/2021/day/11) &rarr; [Solution](./day11/d11.py)
+The first cellular automaton puzzle of the year!\
+The input is a 2D grid of digits representing the energy levels of octopuses.\
+At each step, the energy level of each octopus increases by 1.\
+Octopuses with energy level above 9 flash and their energy level is reset to 0.\
+Each flash also causes adjacent octopuses (in 8 directions) to get their energy levels increased
+by 1 as well (only the ones which has not flashed in this step).\
+In part 1, we need to find the total number of flashes after `100` steps.\
+In part 2, we need to find the first step where all octopuses flash together.\
+The Pythonic solution here is to use `dict` to represent the 2D grid, where keys are
+`Point` objects and values are the energy levels.\
+The library class `Point` and its `n8` method were very useful here.\
+The brute-force simulation is straightforward and efficient enough for this puzzle.
+
 ## Day 12: [Passage Pathing](https://adventofcode.com/2021/day/12) &rarr; [Solution](./day12/d12.py)
 ## Day 13: [Transparent Origami](https://adventofcode.com/2021/day/13) &rarr; [Solution](./day13/d13.py)
 ## Day 14: [Extended Polymerization](https://adventofcode.com/2021/day/14) &rarr; [Solution](./day14/d14.py)

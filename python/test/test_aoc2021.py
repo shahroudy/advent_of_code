@@ -165,3 +165,22 @@ def test_day10():
     test = SyntaxScoring(f"{input_folder}/aoc2021_day10.txt")
     assert test.total_syntax_error_score() == 367059
     assert test.middle_incomplete_score() == 1952146692
+
+
+def test_day11_samples():
+    from aoc2021.day11.d11 import DumboOctopus
+
+    test = DumboOctopus("./python/aoc2021/day11/sample1.txt")
+    assert test.flash_count(step_count=2) == 9
+
+    test = DumboOctopus("./python/aoc2021/day11/sample2.txt")
+    assert test.flash_count() == 1656
+    assert test.first_step_of_all_flash() == 195
+
+
+def test_day11():
+    from aoc2021.day11.d11 import DumboOctopus
+
+    test = DumboOctopus(f"{input_folder}/aoc2021_day11.txt")
+    assert test.flash_count() == 1705
+    assert test.first_step_of_all_flash() == 265

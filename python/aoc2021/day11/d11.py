@@ -1,69 +1,57 @@
-import os
-from myutils.file_reader import read_lines
+from itertools import count
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
+from myutils.utils import process_map_digits
 
 
 class DumboOctopus:
     def __init__(self, filename):
-        self.lines = read_lines(filename)
-        self.process()
+        self.input_text = Path(filename).read_text()
+        self.energy_levels, _, _ = process_map_digits(self.input_text)
 
-    def process(self):
-        self.map = dict()
-        row = 0
-        for line in self.lines:
-            col = 0
-            for ch in line:
-                self.map[(row, col)] = int(ch)
-                col += 1
-            if row == 0:
-                self.cols = col
-            col = 0
-            row += 1
-        self.rows = row
-
-    def analyse_flashes(self):
-        flash_count = 0
-        sync_flash_step = 0
-        step = 0
-        while step < 100 or not sync_flash_step:
-            step += 1
-            flashing = set()
-            flashed = set()
-            for i in range(self.rows):
-                for j in range(self.cols):
-                    self.map[(i, j)] += 1
-                    if self.map[(i, j)] > 9:
-                        flashing.add((i, j))
-            while flashing:
-                f = flashing.pop()
-                flashed.add(f)
-                if step <= 100:
-                    flash_count += 1
-                i, j = f
-
-                for x in range(i - 1, i + 2):
-                    for y in range(j - 1, j + 2):
-                        n = (x, y)
-                        if n in self.map:
-                            self.map[n] += 1
-                            if self.map[n] > 9:
-                                if n not in flashed:
-                                    flashing.add(n)
-
-            if not sync_flash_step and len(flashed) == self.rows * self.cols:
-                sync_flash_step = step
-
+    def _run_step(self, energy_levels):
+        new_energy_levels = {octopus: energy + 1 for octopus, energy in energy_levels.items()}
+        all_flashed = set()
+        while True:
+            flashed = {k for k, v in new_energy_levels.items() if v > 9 and k not in all_flashed}
+            if not flashed:
+                break
+            all_flashed.update(flashed)
             for f in flashed:
-                self.map[f] = 0
+                for n in f.n8():
+                    if n in new_energy_levels and n not in all_flashed:
+                        new_energy_levels[n] += 1
+        for f in all_flashed:
+            new_energy_levels[f] = 0
+        return new_energy_levels, len(all_flashed)
 
-        return flash_count, sync_flash_step
+    def flash_count(self, step_count=100):
+        energy_levels = self.energy_levels.copy()
+        flashes = 0
+        for _ in range(step_count):
+            energy_levels, step_flashes = self._run_step(energy_levels)
+            flashes += step_flashes
+        return flashes
+
+    def first_step_of_all_flash(self):
+        energy_levels = self.energy_levels.copy()
+        for step in count(1):
+            energy_levels, step_flashes = self._run_step(energy_levels)
+            if step_flashes == len(energy_levels):
+                return step
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = DumboOctopus("test1.txt")
-    assert test1.analyse_flashes() == (1656, 195)
 
-    dumbo_octopus = DumboOctopus(data.input_file)
-    print(dumbo_octopus.analyse_flashes())
+    assert DumboOctopus("sample1.txt").flash_count(step_count=2) == 9
+    assert DumboOctopus("sample2.txt").flash_count() == 1656
+    assert DumboOctopus("sample2.txt").first_step_of_all_flash() == 195
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = DumboOctopus(data.input_file)
+
+    print(puzzle.flash_count())
+    print(puzzle.first_step_of_all_flash())
