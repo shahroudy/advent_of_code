@@ -1,55 +1,56 @@
-import os
-from collections import defaultdict, deque, Counter
-from myutils.file_reader import read_lines
+from collections import defaultdict, namedtuple
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
+from myutils.search import Search_All_Goals
+from myutils.utils import find_all_re
+
+
+class PathSearch(Search_All_Goals):
+    State = namedtuple("state", ["repeated_count", "path"])
+
+    def get_next_states(self, state):
+        current = state.path[-1]
+        for next in self.connections[current] - {"start"}:
+            if next.islower() and next in state.path:
+                if state.repeated_count < self.allowed_repeats:
+                    yield PathSearch.State(state.repeated_count + 1, state.path + (next,))
+            else:
+                yield PathSearch.State(state.repeated_count, state.path + (next,))
+
+    def get_result(self, state):
+        return "-".join(state.path)
+
+    def is_goal(self, state):
+        return state.path[-1] == "end"
 
 
 class PassagePathing:
     def __init__(self, filename):
-        self.lines = read_lines(filename)
-        self.process()
+        self.connections = defaultdict(set)
+        for a, b in find_all_re(r"(\w+)-(\w+)", text=Path(filename).read_text()):
+            self.connections[a].add(b)
+            self.connections[b].add(a)
 
-    def process(self):
-        self.dest = defaultdict(list)
-        for line in self.lines:
-            left, right = line.split("-")
-            for source, dest in [[left, right], [right, left]]:
-                if dest != "start" and source != "end":
-                    self.dest[source].append(dest)
-
-    def count_paths(self, single_small_twice=False):
-        queue = deque()
-        queue.append(["start"])
-        paths = 0
-        while queue:
-            current_path = queue.popleft()
-            for cave in self.dest[current_path[-1]]:
-                if cave == "end":
-                    paths += 1
-                    continue
-                if cave.islower() and cave in current_path:
-                    if single_small_twice:
-                        lower_counts = Counter([c for c in current_path if c.islower()])
-                        if max(lower_counts.values()) > 1:
-                            continue
-                    else:
-                        continue
-                queue.append(current_path + [cave])
-        return paths
+    def path_count(self, allowed_repeats=0):
+        search = PathSearch(connections=self.connections, allowed_repeats=allowed_repeats)
+        return len(search.search(initial_state=PathSearch.State(0, ("start",))))
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = PassagePathing("test1.txt")
-    assert test1.count_paths() == 10
-    assert test1.count_paths(single_small_twice=True) == 36
-    test2 = PassagePathing("test2.txt")
-    assert test2.count_paths() == 19
-    assert test2.count_paths(single_small_twice=True) == 103
-    test3 = PassagePathing("test3.txt")
-    assert test3.count_paths() == 226
-    assert test3.count_paths(single_small_twice=True) == 3509
 
-    passage_pathing = PassagePathing(data.input_file)
-    print(passage_pathing.count_paths())
-    print(passage_pathing.count_paths(True))
+    assert PassagePathing("sample1.txt").path_count(allowed_repeats=0) == 10
+    assert PassagePathing("sample2.txt").path_count(allowed_repeats=0) == 19
+    assert PassagePathing("sample3.txt").path_count(allowed_repeats=0) == 226
+
+    assert PassagePathing("sample1.txt").path_count(allowed_repeats=1) == 36
+    assert PassagePathing("sample2.txt").path_count(allowed_repeats=1) == 103
+    assert PassagePathing("sample3.txt").path_count(allowed_repeats=1) == 3509
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = PassagePathing(data.input_file)
+
+    print(puzzle.path_count(allowed_repeats=0))
+    print(puzzle.path_count(allowed_repeats=1))

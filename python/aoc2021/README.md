@@ -177,6 +177,19 @@ The library class `Point` and its `n8` method were very useful here.\
 The brute-force simulation is straightforward and efficient enough for this puzzle.
 
 ## Day 12: [Passage Pathing](https://adventofcode.com/2021/day/12) &rarr; [Solution](./day12/d12.py)
+This is a must-read-carefully puzzle about finding paths through a graph with specific rules.\
+The input gives us the edges of an undirected graph, where nodes are named with
+upper-case or lower-case strings.\
+Upper-case nodes can be visited any number of times, while lower-case nodes can be visited
+at most once (in part 1) or at most twice for only one of them (in part 2).\
+We need to count all the paths from the `start` node to the `end` node (without revisiting
+either of the two).\
+To solve this puzzle, I added a new variant to my `Search` library named `Search_All_Goals` that
+finds all the possible solutions.\
+The rest for this puzzle is to override the `get_next_states` method to implement the specific rules
+of this puzzle.
+
+
 ## Day 13: [Transparent Origami](https://adventofcode.com/2021/day/13) &rarr; [Solution](./day13/d13.py)
 ## Day 14: [Extended Polymerization](https://adventofcode.com/2021/day/14) &rarr; [Solution](./day14/d14.py)
 ## Day 15: [Chiton](https://adventofcode.com/2021/day/15) &rarr; [Solution](./day15/d15.py)

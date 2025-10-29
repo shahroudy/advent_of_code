@@ -184,3 +184,27 @@ def test_day11():
     test = DumboOctopus(f"{input_folder}/aoc2021_day11.txt")
     assert test.flash_count() == 1705
     assert test.first_step_of_all_flash() == 265
+
+
+def test_day12_samples():
+    from aoc2021.day12.d12 import PassagePathing
+
+    test = PassagePathing("./python/aoc2021/day12/sample1.txt")
+    assert test.path_count(allowed_repeats=0) == 10
+    assert test.path_count(allowed_repeats=1) == 36
+
+    test = PassagePathing("./python/aoc2021/day12/sample2.txt")
+    assert test.path_count(allowed_repeats=0) == 19
+    assert test.path_count(allowed_repeats=1) == 103
+
+    test = PassagePathing("./python/aoc2021/day12/sample3.txt")
+    assert test.path_count(allowed_repeats=0) == 226
+    assert test.path_count(allowed_repeats=1) == 3509
+
+
+def test_day12():
+    from aoc2021.day12.d12 import PassagePathing
+
+    test = PassagePathing(f"{input_folder}/aoc2021_day12.txt")
+    assert test.path_count(allowed_repeats=0) == 4970
+    assert test.path_count(allowed_repeats=1) == 137948

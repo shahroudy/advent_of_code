@@ -197,3 +197,19 @@ class Search_Dijkstra(Search):
                 backtrace[core_state] = {self.state_core(state)}
                 hq.heappush(min_heap, next_score)
         return shortest_distance, backtrace
+
+
+class Search_All_Goals(Search):
+    def search(self, initial_state=None):
+        initial_state = initial_state if initial_state else self.initial_state
+        self.stack = []
+        solutions = set()
+        self.stack.append(initial_state)
+        while self.stack:
+            state = self.stack.pop()
+            for next_state in self.get_next_states(state):
+                if self.is_goal(next_state):
+                    solutions.add(self.get_result(next_state))
+                else:
+                    self.stack.append(next_state)
+        return solutions

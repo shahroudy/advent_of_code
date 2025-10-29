@@ -42,11 +42,17 @@ from myutils.matrix import (
     tuple_matrix,
     vstack,
 )
-
-# from myutils.search import Search, Search_AStar, Search_BFS, Search_DFS, Search_MinHeap
+from myutils.search import (
+    Search,
+    Search_All_Goals,
+    Search_AStar,
+    Search_BFS,
+    Search_DFS,
+    Search_DFS_MaxCost,
+    Search_Dijkstra,
+    Search_MinHeap,
+)
 from myutils.utils import (
-    MapSearch,
-    MySearch,
     find_all_per_line_re,
     find_all_re,
     get_sample_number,
@@ -69,6 +75,73 @@ from sympy import Symbol
 from sympy.solvers import solve
 
 
+class MySearch(Search):
+
+    def get_next_states(self, state):
+        raise NotImplementedError
+
+    def is_goal(self, state):
+        raise NotImplementedError
+
+    def cost(self, state):
+        raise NotImplementedError
+
+    def heuristic(self, state):
+        raise NotImplementedError
+
+    def get_result(self, state):
+        raise NotImplementedError
+
+    def state_core(self, state):
+        """
+        Core presentation of the state, in an immutable form.
+        Used to avoid repetition of the same state in the search.
+
+        Args:
+            state: The state to be processed.
+
+        Returns:
+            The immutable core state.
+        """
+        raise NotImplementedError
+
+    # def search(self, initial_state=None):
+    #     raise NotImplementedError
+
+
+class MapSearch(Search_Dijkstra):
+    State = namedtuple("state", ["point", "steps", "cost"])
+
+    def get_next_states(self, state):
+        point, steps, cost = state
+        for n in point.n4():
+            if hasattr(self, "rows") and hasattr(self, "cols"):
+                if not n.is_inside(self):
+                    continue
+            if hasattr(self, "nodes"):
+                if n not in self.nodes:
+                    continue
+            if hasattr(self, "walls"):
+                if n in self.walls:
+                    continue
+            yield self.State(n, steps + 1, cost + 1)
+
+    def cost(self, state):
+        return state.cost
+
+    def state_core(self, state):
+        return state.point
+
+    # def heuristic(self, state):
+    #     return state.point.manhattan(self.goal)
+
+    # def get_result(self, state):
+    #     return state.cost
+
+    # def is_goal(self, state):
+    #     return state.point == self.goal
+
+
 class Puzzle:
     def __init__(self, filename):
         self.input_text = Path(filename).read_text()
@@ -87,12 +160,8 @@ class Puzzle:
         # process(self)
 
         # self.inp = recursive_split(self.input_text, "\n:", strip=True)
-
-        # find_all_re(self, r"(\d+)")
-        # inputs = find_all_re(self, r"(\d+)", text=line)
-
-        # find_all_per_line_re(self, r"(\d+)")
-        # inputs = find_all_per_line_re(self, r"(\d+)", text=line)
+        # self.inp = find_all_re(r"(\d+)", text=self.input_text)
+        # self.inp = find_all_per_line_re(r"(\d+)", text=self.input_text)
 
         # for easy setting of different parameters for samples vs real data
         self.sample_number = get_sample_number(filename)
