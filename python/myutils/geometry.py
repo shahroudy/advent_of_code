@@ -145,6 +145,20 @@ class Point:
         self.x %= caller.cols
         self.y %= caller.rows
 
+    def reflect(self, **kwargs) -> "Point":
+        reflected = Point(self.x, self.y)
+        if "x" in kwargs:
+            axis_x = kwargs["x"]
+            reflected.x = axis_x - (reflected.x - axis_x)
+        if "y" in kwargs:
+            axis_y = kwargs["y"]
+            reflected.y = axis_y - (reflected.y - axis_y)
+        if "p" in kwargs:
+            axis_point = kwargs["p"]
+            px, py = (axis_point.x, axis_point.y)
+            reflected.x, reflected.y = px - (reflected.x - px), py - (reflected.y - py)
+        return reflected
+
     @property
     def tuple(self) -> Tuple[int, int]:
         return (self.x, self.y)
@@ -230,6 +244,27 @@ class Point3D:
         self.x %= caller.cols
         self.y %= caller.rows
         self.z %= caller.planes
+
+    def reflect(self, **kwargs) -> "Point3D":
+        reflected = Point3D(self.x, self.y, self.z)
+        if "x" in kwargs:
+            axis_x = kwargs["x"]
+            reflected.x = axis_x - (reflected.x - axis_x)
+        if "y" in kwargs:
+            axis_y = kwargs["y"]
+            reflected.y = axis_y - (reflected.y - axis_y)
+        if "z" in kwargs:
+            axis_z = kwargs["z"]
+            reflected.z = axis_z - (reflected.z - axis_z)
+        if "p" in kwargs:
+            axis_point = kwargs["p"]
+            px, py, pz = (axis_point.x, axis_point.y, axis_point.z)
+            reflected.x, reflected.y, reflected.z = (
+                px - (reflected.x - px),
+                py - (reflected.y - py),
+                pz - (reflected.z - pz),
+            )
+        return reflected
 
     @property
     def tuple(self) -> Tuple[int, int, int]:
@@ -345,6 +380,31 @@ class Point4D:
         self.y %= caller.rows
         self.z %= caller.planes
         self.w %= caller.hyperplanes
+
+    def reflect(self, **kwargs) -> "Point4D":
+        reflected = Point4D(self.x, self.y, self.z, self.w)
+        if "x" in kwargs:
+            axis_x = kwargs["x"]
+            reflected.x = axis_x - (reflected.x - axis_x)
+        if "y" in kwargs:
+            axis_y = kwargs["y"]
+            reflected.y = axis_y - (reflected.y - axis_y)
+        if "z" in kwargs:
+            axis_z = kwargs["z"]
+            reflected.z = axis_z - (reflected.z - axis_z)
+        if "w" in kwargs:
+            axis_w = kwargs["w"]
+            reflected.w = axis_w - (reflected.w - axis_w)
+        if "p" in kwargs:
+            axis_point = kwargs["p"]
+            px, py, pz, pw = (axis_point.x, axis_point.y, axis_point.z, axis_point.w)
+            reflected.x, reflected.y, reflected.z, reflected.w = (
+                px - (reflected.x - px),
+                py - (reflected.y - py),
+                pz - (reflected.z - pz),
+                pw - (reflected.w - pw),
+            )
+        return reflected
 
     @property
     def tuple(self) -> Tuple[int, int, int, int]:

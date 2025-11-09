@@ -208,3 +208,26 @@ def test_day12():
     test = PassagePathing(f"{input_folder}/aoc2021_day12.txt")
     assert test.path_count(allowed_repeats=0) == 4970
     assert test.path_count(allowed_repeats=1) == 137948
+
+
+def test_day13_samples():
+    from aoc2021.day13.d13 import TransparentOrigami
+
+    test = TransparentOrigami("./python/aoc2021/day13/sample1.txt")
+    assert test.point_count_after_first_fold() == 17
+    assert test.code_after_all_folds() == "#####\n#...#\n#...#\n#...#\n#####"
+
+
+def test_day13():
+    from aoc2021.day13.d13 import TransparentOrigami
+
+    test = TransparentOrigami(f"{input_folder}/aoc2021_day13.txt")
+    assert test.point_count_after_first_fold() == 664
+    assert test.code_after_all_folds() == (
+        "####.####...##.#..#.####.#....###..#...\n"
+        "#....#.......#.#.#.....#.#....#..#.#...\n"
+        "###..###.....#.##.....#..#....###..#...\n"
+        "#....#.......#.#.#...#...#....#..#.#...\n"
+        "#....#....#..#.#.#..#....#....#..#.#...\n"
+        "####.#.....##..#..#.####.####.###..####"
+    )

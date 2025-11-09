@@ -189,8 +189,18 @@ finds all the possible solutions.\
 The rest for this puzzle is to override the `get_next_states` method to implement the specific rules
 of this puzzle.
 
-
 ## Day 13: [Transparent Origami](https://adventofcode.com/2021/day/13) &rarr; [Solution](./day13/d13.py)
+A puzzle of folding a transparent origami paper.\
+We are provided with a set of points on a 2D grid, and a set of fold instructions
+(along `x` or `y`).\
+We need to simulate the folding of the paper and:
+* find the number of points after the first fold (part 1)
+* find the code formed by the points after all folds (part 2)
+
+### Bugs and Issues:
+* Note the difference between this fold operation and the 2D reflection.
+In folding here, if the point is on the left/top side of the fold line, it remains unchanged.
+
 ## Day 14: [Extended Polymerization](https://adventofcode.com/2021/day/14) &rarr; [Solution](./day14/d14.py)
 ## Day 15: [Chiton](https://adventofcode.com/2021/day/15) &rarr; [Solution](./day15/d15.py)
 ## Day 16: [Packet Decoder](https://adventofcode.com/2021/day/16) &rarr; [Solution](./day16/d16.py)
