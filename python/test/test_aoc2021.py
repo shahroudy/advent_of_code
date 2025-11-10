@@ -231,3 +231,21 @@ def test_day13():
         "#....#....#..#.#.#..#....#....#..#.#...\n"
         "####.#.....##..#..#.####.####.###..####"
     )
+
+
+def test_day14_samples():
+    from aoc2021.day14.d14 import ExtendedPolymerization
+
+    test = ExtendedPolymerization("./python/aoc2021/day14/sample1.txt")
+    assert test.quantity_difference_between_most_and_least_common(steps=0) == 1
+    assert test.quantity_difference_between_most_and_least_common(steps=1) == 1
+    assert test.quantity_difference_between_most_and_least_common(steps=10) == 1588
+    assert test.quantity_difference_between_most_and_least_common(steps=40) == 2188189693529
+
+
+def test_day14():
+    from aoc2021.day14.d14 import ExtendedPolymerization
+
+    test = ExtendedPolymerization(f"{input_folder}/aoc2021_day14.txt")
+    assert test.quantity_difference_between_most_and_least_common(steps=10) == 2975
+    assert test.quantity_difference_between_most_and_least_common(steps=40) == 3015383850689

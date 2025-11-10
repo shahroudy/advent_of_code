@@ -202,6 +202,23 @@ We need to simulate the folding of the paper and:
 In folding here, if the point is on the left/top side of the fold line, it remains unchanged.
 
 ## Day 14: [Extended Polymerization](https://adventofcode.com/2021/day/14) &rarr; [Solution](./day14/d14.py)
+In this puzzle, we have to count the number of each element's quantity after a number of
+polymerization steps.\
+The input consists of a polymer template (string) and a set of polymerization rules
+(pair insertion).\
+At each step, every pair of elements may insert another element between them according to the
+polymerization rules.\
+In part 1, we need to run this for `10` steps, and in part 2 for `40` steps.\
+The brute-force implementation of the polymerization process works for part 1, but is not tractable
+for part 2.
+
+### Optimizations:
+* Instead of keeping track of the entire polymer string, we can keep track of the counts of each
+pair of elements. At each step, we can update the counts of pairs based on the polymerization rules.
+* There is still a tweak needed to calculate the quantity of each element from the counts of pairs:
+  * Each element (except the first and the last ones) is counted twice, once in each pair.
+  * So we need to divide the counts by 2, and add 1 to the counts of the first and last elements.
+
 ## Day 15: [Chiton](https://adventofcode.com/2021/day/15) &rarr; [Solution](./day15/d15.py)
 ## Day 16: [Packet Decoder](https://adventofcode.com/2021/day/16) &rarr; [Solution](./day16/d16.py)
 ## Day 17: [Trick Shot](https://adventofcode.com/2021/day/17) &rarr; [Solution](./day17/d17.py)

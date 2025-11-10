@@ -1,50 +1,60 @@
-import os
 from collections import defaultdict
-from myutils.file_reader import read_line_groups
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
 class ExtendedPolymerization:
     def __init__(self, filename):
-        self.lg = read_line_groups(filename)
-        self.process()
+        lines = Path(filename).read_text().splitlines()
+        self.polymer = lines[0]
+        self.rules = {a: b for a, b in [line.split(" -> ") for line in lines[2:]]}
 
-    def process(self):
-        self.polymer_template = self.lg[0][0]
-        self.reactions = dict()
-        for line in self.lg[1]:
-            left, _, right = line.split()
-            self.reactions[left] = right
+    def reset_pairs(self):
+        self.pairs = defaultdict(int)
+        for left, right in zip(self.polymer, self.polymer[1:]):
+            self.pairs[left + right] += 1
 
-    def simulate_polymerization(self, steps):
-        # count the elements and polymers
-        counter = defaultdict(int)
-        for i in range(len(self.polymer_template) - 1):
-            counter[self.polymer_template[i : i + 2]] += 1
-            counter[self.polymer_template[i]] += 1
-        counter[self.polymer_template[-1]] += 1
+    def polymerize(self):
+        new_pairs = defaultdict(int)
+        for pair, quantity in self.pairs.items():
+            if pair in self.rules:
+                inserted_element = self.rules[pair]
+                left, right = pair
+                new_pairs[left + inserted_element] += quantity
+                new_pairs[inserted_element + right] += quantity
+            else:
+                new_pairs[pair] += quantity
+        self.pairs = new_pairs
 
+    def get_element_counts(self):
+        double_counts = defaultdict(int)
+        double_counts[self.polymer[0]] = double_counts[self.polymer[-1]] = 1
+        for (left, right), quantity in self.pairs.items():
+            double_counts[left] += quantity
+            double_counts[right] += quantity
+        return {element: count // 2 for element, count in double_counts.items()}
+
+    def quantity_difference_between_most_and_least_common(self, steps=40):
+        self.reset_pairs()
         for _ in range(steps):
-            # update the counts based on reactions
-            new_counter = counter.copy()
-            for left, right in self.reactions.items():
-                new_counter[left[0] + right] += counter[left]
-                new_counter[right + left[1]] += counter[left]
-                new_counter[right] += counter[left]
-                new_counter[left] -= counter[left]
-            counter = new_counter
-
-        element_counts = [count for (polymer, count) in counter.items() if len(polymer) == 1]
-        return max(element_counts) - min(element_counts)
+            self.polymerize()
+        counts = self.get_element_counts().values()
+        return max(counts) - min(counts)
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
 
-    test1 = ExtendedPolymerization("test1.txt")
-    assert test1.simulate_polymerization(steps=10) == 1588
-    assert test1.simulate_polymerization(steps=40) == 2188189693529
+    test = ExtendedPolymerization("sample1.txt")
+    assert test.quantity_difference_between_most_and_least_common(steps=0) == 1
+    assert test.quantity_difference_between_most_and_least_common(steps=1) == 1
+    assert test.quantity_difference_between_most_and_least_common(steps=10) == 1588
+    assert test.quantity_difference_between_most_and_least_common(steps=40) == 2188189693529
 
-    extended_polymerization = ExtendedPolymerization(data.input_file)
-    print(extended_polymerization.simulate_polymerization(steps=10))
-    print(extended_polymerization.simulate_polymerization(steps=40))
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = ExtendedPolymerization(data.input_file)
+
+    print(puzzle.quantity_difference_between_most_and_least_common(steps=10))
+    print(puzzle.quantity_difference_between_most_and_least_common(steps=40))
