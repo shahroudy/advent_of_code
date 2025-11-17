@@ -249,3 +249,19 @@ def test_day14():
     test = ExtendedPolymerization(f"{input_folder}/aoc2021_day14.txt")
     assert test.quantity_difference_between_most_and_least_common(steps=10) == 2975
     assert test.quantity_difference_between_most_and_least_common(steps=40) == 3015383850689
+
+
+def test_day15_samples():
+    from aoc2021.day15.d15 import Chiton
+
+    test = Chiton("./python/aoc2021/day15/sample1.txt")
+    assert test.lowest_total_risk(extend_map=False) == 40
+    assert test.lowest_total_risk(extend_map=True) == 315
+
+
+def test_day15():
+    from aoc2021.day15.d15 import Chiton
+
+    test = Chiton(f"{input_folder}/aoc2021_day15.txt")
+    assert test.lowest_total_risk(extend_map=False) == 562
+    assert test.lowest_total_risk(extend_map=True) == 2874

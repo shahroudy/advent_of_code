@@ -13,7 +13,6 @@
     "editor.rulers": [
         100
     ],
-    "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file",
     // Code actions: keep as workspace default, but Python-specific actions are scoped below
     "editor.codeActionsOnSave": {
@@ -37,7 +36,8 @@
     },
     // Plaintext
     "[plaintext]": {
-        "editor.fontLigatures": false
+        "editor.fontLigatures": false,
+        "editor.formatOnSave": false
     },
     // Spelling exceptions
     "cSpell.words": [

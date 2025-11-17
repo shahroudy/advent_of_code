@@ -220,6 +220,16 @@ pair of elements. At each step, we can update the counts of pairs based on the p
   * So we need to divide the counts by 2, and add 1 to the counts of the first and last elements.
 
 ## Day 15: [Chiton](https://adventofcode.com/2021/day/15) &rarr; [Solution](./day15/d15.py)
+A typical shortest-path puzzle on a 2D map of digits.\
+Each digit represents a risk level and we need to find the minimum-risk path from the top-left to
+the bottom-right corner.\
+In part 2, the map is extended 5 times in each direction with a twist in the calculation of the
+risk levels.\
+Having `DijkstraSearch` class in my `Search` library made this puzzle very straightforward to
+implement.\
+And to read the input, I had the `read_map_of_digits` function in `myutils.utils` as well.
+
+
 ## Day 16: [Packet Decoder](https://adventofcode.com/2021/day/16) &rarr; [Solution](./day16/d16.py)
 ## Day 17: [Trick Shot](https://adventofcode.com/2021/day/17) &rarr; [Solution](./day17/d17.py)
 ## Day 18: [Snailfish](https://adventofcode.com/2021/day/18) &rarr; [Solution](./day18/d18.py)
