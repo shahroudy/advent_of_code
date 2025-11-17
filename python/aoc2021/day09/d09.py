@@ -2,12 +2,12 @@ from pathlib import Path
 
 from myutils.geometry import Point, connected_region
 from myutils.io_handler import get_input_data
-from myutils.utils import process_map_digits
+from myutils.utils import read_map_of_digits
 
 
 class SmokeBasin:
     def __init__(self, filename):
-        self.height_map, _, _ = process_map_digits(Path(filename).read_text())
+        self.height_map, _, _ = read_map_of_digits(Path(filename).read_text())
 
     def sum_of_low_point_risk_levels(self):
         self.low_points = {

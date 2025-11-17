@@ -45,7 +45,7 @@ def find_all_per_line_re(pattern, text=None):
     return [pattern.findall(line) for line in text.splitlines()]
 
 
-def process_map_plain(text):
+def read_plain_map(text):
     lines = text.splitlines()
     char_map = dict()
     for row, line in enumerate(lines):
@@ -54,13 +54,13 @@ def process_map_plain(text):
     return char_map, row + 1, col + 1
 
 
-def process_map_digits(text):
-    char_map, rows, cols = process_map_plain(text)
+def read_map_of_digits(text):
+    char_map, rows, cols = read_plain_map(text)
     int_map = {k: int(v) for k, v in char_map.items()}
     return int_map, rows, cols
 
 
-def process_map_dict_of_sets_of_points(self):
+def read_map_dict_of_sets_of_points(self):
     lines = self.input_text.splitlines()
     sets = defaultdict(set)
     for row, line in enumerate(lines):
@@ -70,7 +70,7 @@ def process_map_dict_of_sets_of_points(self):
     self.rows, self.cols = row + 1, col + 1
 
 
-def process_map_dict_of_sets_of_3D_points(self):
+def read_map_dict_of_sets_of_3D_points(self):
     sets = defaultdict(set)
     for z, plane in enumerate(self.input_text.split("\n\n")):
         for y, line in enumerate(plane.splitlines()):

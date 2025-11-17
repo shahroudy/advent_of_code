@@ -2,13 +2,13 @@ from itertools import count
 from pathlib import Path
 
 from myutils.io_handler import get_input_data
-from myutils.utils import process_map_digits
+from myutils.utils import read_map_of_digits
 
 
 class DumboOctopus:
     def __init__(self, filename):
         self.input_text = Path(filename).read_text()
-        self.energy_levels, _, _ = process_map_digits(self.input_text)
+        self.energy_levels, _, _ = read_map_of_digits(self.input_text)
 
     def _run_step(self, energy_levels):
         new_energy_levels = {octopus: energy + 1 for octopus, energy in energy_levels.items()}

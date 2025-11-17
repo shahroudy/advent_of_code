@@ -62,13 +62,13 @@ from myutils.utils import (
     process_int_int_dict,
     process_int_list,
     process_int_list_dict,
-    process_map_dict_of_sets_of_3D_points,
-    process_map_dict_of_sets_of_points,
-    process_map_digits,
-    process_map_plain,
     read_int_line_groups,
     read_ints,
     read_line_groups,
+    read_map_dict_of_sets_of_3D_points,
+    read_map_dict_of_sets_of_points,
+    read_map_of_digits,
+    read_plain_map,
     recursive_split,
 )
 from sympy import Symbol
@@ -152,10 +152,10 @@ class Puzzle:
         # process_int_list(self)
         # process_int_int_dict(self)
         # process_int_list_dict(self)
-        # self.inp, self.rows, self.cols = process_map_plain(self.input_text)
-        # self.inp, self.rows, self.cols = process_map_digits(self.input_text)
-        # process_map_dict_of_sets_of_points(self)
-        # process_map_dict_of_sets_of_3D_points(self)
+        # self.inp, self.rows, self.cols = read_plain_map(self.input_text)
+        # self.inp, self.rows, self.cols = read_map_of_digits(self.input_text)
+        # read_map_dict_of_sets_of_points(self)
+        # read_map_dict_of_sets_of_3D_points(self)
 
         # process(self)
 
