@@ -229,8 +229,20 @@ Having `DijkstraSearch` class in my `Search` library made this puzzle very strai
 implement.\
 And to read the input, I had the `read_map_of_digits` function in `myutils.utils` as well.
 
-
 ## Day 16: [Packet Decoder](https://adventofcode.com/2021/day/16) &rarr; [Solution](./day16/d16.py)
+In this puzzle, we are provided with a hexadecimal string of digits (that must be converted to
+binary) and need to parse it to a graph of numbers (packets) based on the given rules.\
+Each packet has three parts:
+* version (3 bits)
+* type ID (3 bits)
+* value or sub-packets (variable length)
+In part 1, we need to fully parse the graph of packets and find the sum of all version numbers.\
+In part 2, we need to evaluate the value of the root packet based on the given operation rules
+(sum, product, min, max, etc.).\
+
+The key idea to solve this puzzle is to implement a recursive function that receives the binary
+string and the starting index, and returns the value of the parsed packet.
+
 ## Day 17: [Trick Shot](https://adventofcode.com/2021/day/17) &rarr; [Solution](./day17/d17.py)
 ## Day 18: [Snailfish](https://adventofcode.com/2021/day/18) &rarr; [Solution](./day18/d18.py)
 ## Day 19: [Beacon Scanner](https://adventofcode.com/2021/day/19) &rarr; [Solution](./day19/d19.py)

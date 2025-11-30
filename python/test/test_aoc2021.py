@@ -265,3 +265,31 @@ def test_day15():
     test = Chiton(f"{input_folder}/aoc2021_day15.txt")
     assert test.lowest_total_risk(extend_map=False) == 562
     assert test.lowest_total_risk(extend_map=True) == 2874
+
+
+def test_day16_samples():
+    from aoc2021.day16.d16 import PacketDecoder
+
+    assert PacketDecoder("./python/aoc2021/day16/sample1.txt").sum_of_packet_versions == 6
+    assert PacketDecoder("./python/aoc2021/day16/sample2.txt").sum_of_packet_versions == 16
+    assert PacketDecoder("./python/aoc2021/day16/sample3.txt").sum_of_packet_versions == 12
+    assert PacketDecoder("./python/aoc2021/day16/sample4.txt").sum_of_packet_versions == 23
+    assert PacketDecoder("./python/aoc2021/day16/sample5.txt").sum_of_packet_versions == 31
+
+    assert PacketDecoder("./python/aoc2021/day16/sample1.txt").root_packet_value() == 2021
+    assert PacketDecoder("./python/aoc2021/day16/sample6.txt").root_packet_value() == 3
+    assert PacketDecoder("./python/aoc2021/day16/sample7.txt").root_packet_value() == 54
+    assert PacketDecoder("./python/aoc2021/day16/sample8.txt").root_packet_value() == 7
+    assert PacketDecoder("./python/aoc2021/day16/sample9.txt").root_packet_value() == 9
+    assert PacketDecoder("./python/aoc2021/day16/sample10.txt").root_packet_value() == 1
+    assert PacketDecoder("./python/aoc2021/day16/sample11.txt").root_packet_value() == 0
+    assert PacketDecoder("./python/aoc2021/day16/sample12.txt").root_packet_value() == 0
+    assert PacketDecoder("./python/aoc2021/day16/sample13.txt").root_packet_value() == 1
+
+
+def test_day16():
+    from aoc2021.day16.d16 import PacketDecoder
+
+    test = PacketDecoder(f"{input_folder}/aoc2021_day16.txt")
+    assert test.sum_of_packet_versions == 883
+    assert test.root_packet_value() == 1675198555015
