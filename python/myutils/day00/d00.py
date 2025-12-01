@@ -145,7 +145,7 @@ class MapSearch(Search_Dijkstra):
 class Puzzle:
     def __init__(self, filename):
         self.input_text = Path(filename).read_text()
-
+        # self.inp = self.input_text.splitlines()
         # read_ints(self)
         # read_line_groups(self)
         # read_int_line_groups(self)
@@ -154,8 +154,8 @@ class Puzzle:
         # process_int_list_dict(self)
         # self.inp, self.rows, self.cols = read_plain_map(self.input_text)
         # self.inp, self.rows, self.cols = read_map_of_digits(self.input_text)
-        # read_map_dict_of_sets_of_points(self)
-        # read_map_dict_of_sets_of_3D_points(self)
+        # self.inp, self.rows, self.cols = read_map_dict_of_sets_of_points(self.input_text)
+        # self.inp, self.planes, self.rows, self.cols = read_map_dict_of_sets_of_3D_points(self.input_text)
 
         # process(self)
 

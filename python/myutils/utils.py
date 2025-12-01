@@ -60,24 +60,22 @@ def read_map_of_digits(text):
     return int_map, rows, cols
 
 
-def read_map_dict_of_sets_of_points(self):
-    lines = self.input_text.splitlines()
+def read_map_dict_of_sets_of_points(text):
+    lines = text.splitlines()
     sets = defaultdict(set)
     for row, line in enumerate(lines):
         for col, ch in enumerate(line):
             sets[ch].add(Point(col, row))
-    self.inp = dict(sets)
-    self.rows, self.cols = row + 1, col + 1
+    return dict(sets), row + 1, col + 1
 
 
-def read_map_dict_of_sets_of_3D_points(self):
+def read_map_dict_of_sets_of_3D_points(text):
     sets = defaultdict(set)
-    for z, plane in enumerate(self.input_text.split("\n\n")):
+    for z, plane in enumerate(text.split("\n\n")):
         for y, line in enumerate(plane.splitlines()):
             for x, ch in enumerate(line):
                 sets[ch].add(Point3D(x, y, z))
-    self.inp = dict(sets)
-    self.planes, self.rows, self.cols = z + 1, y + 1, x + 1
+    return dict(sets), z + 1, y + 1, x + 1
 
 
 def read_ints(self):

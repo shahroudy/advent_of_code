@@ -9,6 +9,10 @@ To be able to run the scripts, you may need to install the provided code as a pa
 cd advent_of_code/python
 python3 -m pip install -e .
 ```
+And set an environment variable `aoc_inputs` to point to the folder where you have stored your
+input files.\
+Each input file should be named `aocYYYY_dayDD.txt`, e.g. `aoc2015_day01.txt`.
+
 Then you need to `cd` to each folder and run the scripts from there, e.g.
 ```
 cd aoc2015/day01
@@ -25,3 +29,4 @@ python3 d01.py
 ## [Advent of Code 2022 Solutions](./python/aoc2022/README.md)
 ## [Advent of Code 2023 Solutions](./python/aoc2023/README.md)
 ## [Advent of Code 2024 Solutions](./python/aoc2024/README.md)
+## [Advent of Code 2025 Solutions](./python/aoc2025/README.md)
