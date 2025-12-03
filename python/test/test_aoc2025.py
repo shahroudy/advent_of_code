@@ -33,3 +33,19 @@ def test_day02():
     test = GiftShop(f"{input_folder}/aoc2025_day02.txt")
     assert test.sum_of_invalid_ids(only_twice=True) == 28846518423
     assert test.sum_of_invalid_ids(only_twice=False) == 31578210022
+
+
+def test_day03_samples():
+    from aoc2025.day03.d03 import Lobby
+
+    test = Lobby("./python/aoc2025/day03/sample1.txt")
+    assert test.maximum_joltage(2) == 357
+    assert test.maximum_joltage(12) == 3121910778619
+
+
+def test_day03():
+    from aoc2025.day03.d03 import Lobby
+
+    test = Lobby(f"{input_folder}/aoc2025_day03.txt")
+    assert test.maximum_joltage(2) == 17100
+    assert test.maximum_joltage(12) == 170418192256861

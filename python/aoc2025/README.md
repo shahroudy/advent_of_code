@@ -25,3 +25,18 @@ fall within the given ranges, instead of checking each ID in the ranges.\
 This improves the performance two orders of magnitude and leads to a simpler implementation.\
 The only tricky part here will be to eliminate duplicates when generating the invalid IDs.\
 For this solution my utility `ExRange` class was helpful.
+
+## Day 3: [Lobby](https://adventofcode.com/2025/day/3) &rarr; [Solution](./day03/d03.py)
+We have sequences of digits (a.k.a. banks of batteries) and we want to find the maximum possible
+n-digit "joltage" number (n is 2 and 12 in parts 1 and 2 respectively) by picking n digits from
+each sequence keeping their relative order.\
+One can think of some ad-hoc solutions for n=2 (part 1), but for n=12 (part 2) such
+solutions will not be tractable.
+
+My solution was to pick the maximum digit considering the number of other needed digits:
+* Split the sequence into two parts: the first `len(sequence)-n` digits (current) and the
+  last `n` digits (upcoming),
+* Move the first digit of the upcoming part to the end of the current part,
+* Find the first digit as the maximum digit in the current part,
+* Trim the current sequence to start just after the found digit,
+* Repeat n times (technically till there is no more upcoming digits).
