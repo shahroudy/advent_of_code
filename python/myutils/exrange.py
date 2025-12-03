@@ -60,7 +60,17 @@ class ExRange:
         self._merge_ranges()
 
     def __contains__(self, item):
-        return any(item in r for r in self.ranges)
+        if len(self.ranges) == 0 or item < self.ranges[0].start or item >= self.ranges[-1].stop:
+            return False
+        start, end = 0, len(self.ranges) - 1
+        while start <= end:
+            mid = (start + end) // 2
+            if item in self.ranges[mid]:
+                return True
+            elif item < self.ranges[mid].start:
+                end = mid - 1
+            else:
+                start = mid + 1
 
     def length(self):
         return sum(len(r) for r in self.ranges)
