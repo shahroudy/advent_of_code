@@ -23,8 +23,11 @@ To solve this, one can iterate over all the given ranges and check if:
 To optimize the solution, we can try to generate all the possible invalid IDs and check if they
 fall within the given ranges, instead of checking each ID in the ranges.\
 This improves the performance two orders of magnitude and leads to a simpler implementation.\
-The only tricky part here will be to eliminate duplicates when generating the invalid IDs.\
-For this solution my utility `ExRange` class was helpful.
+The only tricky part here will be to eliminate duplicates when generating the invalid IDs.
+
+For this solution my utility `ExRange` class was helpful.\
+It also made me optimize the `contains` method in `ExRange` to use binary search for better
+performance.
 
 ## Day 3: [Lobby](https://adventofcode.com/2025/day/3) &rarr; [Solution](./day03/d03.py)
 We have sequences of digits (a.k.a. banks of batteries) and we want to find the maximum possible
