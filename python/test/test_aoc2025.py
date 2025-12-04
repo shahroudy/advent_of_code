@@ -49,3 +49,19 @@ def test_day03():
     test = Lobby(f"{input_folder}/aoc2025_day03.txt")
     assert test.maximum_joltage(2) == 17100
     assert test.maximum_joltage(12) == 170418192256861
+
+
+def test_day04_samples():
+    from aoc2025.day04.d04 import PrintingDepartment
+
+    test = PrintingDepartment("./python/aoc2025/day04/sample1.txt")
+    assert test.number_of_accessible_rolls() == 13
+    assert test.number_of_removed_rolls() == 43
+
+
+def test_day04():
+    from aoc2025.day04.d04 import PrintingDepartment
+
+    test = PrintingDepartment(f"{input_folder}/aoc2025_day04.txt")
+    assert test.number_of_accessible_rolls() == 1344
+    assert test.number_of_removed_rolls() == 8112

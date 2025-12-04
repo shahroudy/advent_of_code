@@ -43,3 +43,18 @@ My solution was to pick the maximum digit considering the number of other needed
 * Find the first digit as the maximum digit in the current part,
 * Trim the current sequence to start just after the found digit,
 * Repeat n times (technically till there is no more upcoming digits).
+
+## Day 4: [Printing Department](https://adventofcode.com/2025/day/4) &rarr; [Solution](./day04/d04.py)
+In this puzzle, we have a 2D map of points showing the location of paper rolls.\
+In part 1, we need to count the number of removable rolls that have less than 4 neighboring rolls
+(considering 8-neighborhood).\
+In part 2, we need to iteratively remove the removable rolls and count the total number of removed
+rolls.
+
+## Optimizations
+To solve this efficiently, we can represent the current state as a set of points containing rolls.\
+Then, for each point in the set, we can count its neighboring points that are also in the set.\
+This way we can iteratively find removable rolls and remove them from the set until no more
+removable rolls are found.\
+At the end, we can simply compare the size of the original set with the final set to get the
+number of removed rolls.

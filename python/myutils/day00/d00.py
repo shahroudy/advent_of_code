@@ -76,6 +76,7 @@ from sympy.solvers import solve
 
 
 class MySearch(Search):
+    State = namedtuple("state", ["point", "cost"])
 
     def get_next_states(self, state):
         raise NotImplementedError
