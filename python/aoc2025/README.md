@@ -8,6 +8,15 @@ In part 1, we need to count the number of times we end up at value `0` after eac
 In part 2, we need to find all the times we pass or end up at value `0`.\
 Both parts can be solved in a brute-force manner by simulating each step one by one.
 
+## Optimizations
+To optimize part 2, instead of simulating each step one by one, we can:
+* Find the number of steps needed to reach `0` from the current dial value in the given direction,
+* If the number of steps is less than to-zero steps, we only update the dial value and continue,
+* Otherwise, we count one pass to `0`, reduce the number of steps by to-zero steps, and then count
+  the number of full cycles (each cycle has 100 steps) in the remaining steps.
+* The only remaining tricky part is when we start at `0`, in which case we shouldn't count a pass
+  at the beginning.
+
 ## Day 2: [Gift Shop](https://adventofcode.com/2025/day/2) &rarr; [Solution](./day02/d02.py)
 In this puzzle, we are given a list of ranges of gift IDs available in a shop, and we need to
 find all the invalid gift IDs within the given ranges, find their sum.\

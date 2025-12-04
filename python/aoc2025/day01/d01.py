@@ -5,28 +5,27 @@ from myutils.io_handler import get_input_data
 
 class SecretEntrance:
     def __init__(self, filename):
-        self.inp = [
-            (1 if t[0] == "R" else -1, int(t[1:])) for t in Path(filename).read_text().splitlines()
-        ]
+        text = Path(filename).read_text()
+        self.inp = [(1 if t[0] == "R" else -1, int(t[1:])) for t in text.splitlines()]
 
     def count_zero_ends(self):
-        dial = 50
-        zero_counts = 0
-        for sign, number in self.inp:
-            dial = (dial + sign * number) % 100
-            if dial == 0:
-                zero_counts += 1
+        dial, zero_counts = 50, 0
+        for sign, clicks in self.inp:
+            dial = (dial + sign * clicks) % 100
+            zero_counts += dial == 0
         return zero_counts
 
     def count_zero_passes(self):
-        dial = 50
-        zero_count = 0
-        for sign, number in self.inp:
-            for _ in range(number):
-                dial = (dial + sign) % 100
-                if dial == 0:
-                    zero_count += 1
-        return zero_count
+        dial, zero_counts = 50, 0
+        for sign, clicks in self.inp:
+            clicks_till_zero = (sign * (100 - dial)) % 100
+            if clicks >= clicks_till_zero:
+                remaining_clicks = clicks - clicks_till_zero
+                zero_counts += remaining_clicks // 100 + (clicks_till_zero > 0)
+                dial = sign * remaining_clicks % 100
+            else:
+                dial += sign * clicks
+        return zero_counts
 
 
 if __name__ == "__main__":
