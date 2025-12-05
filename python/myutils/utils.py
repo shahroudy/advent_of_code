@@ -3,6 +3,7 @@ import re
 from collections import defaultdict, namedtuple
 from functools import reduce
 
+from myutils.exrange import ExRange
 from myutils.geometry import *
 from myutils.geometry import Point, Point3D
 
@@ -11,11 +12,11 @@ def multiply(elements):
     return reduce(operator.mul, elements, 1)
 
 
-def process(self):
-    lines = self.input_text.splitlines()
-    self.inp = []
+def process(text: str):
+    lines = text.splitlines()
+    inp = []
 
-    # self.inp = [tuple(map(int, re.split(r"\D", line))) for line in self.lines]
+    # inp = [tuple(map(int, re.split(r"\D", line))) for line in lines]
 
     # line_re = re.compile(r"(\d+)\s*(\d+):(\d+).*")
     for line in lines:
@@ -23,7 +24,8 @@ def process(self):
         parts = re.split(r"-, ", line)
         # a = parts[0].strip().split(" ")
         # a = list(map(int, re.findall(r"\d+", parts[0])))
-        self.inp.append(parts)
+        inp.append(parts)
+    return inp
 
 
 def recursive_split(text, separators, strip=True):
@@ -78,39 +80,49 @@ def read_map_dict_of_sets_of_3D_points(text):
     return dict(sets), z + 1, y + 1, x + 1
 
 
-def read_ints(self):
-    self.inp = [int(n) for n in re.findall(r"[+-]?\d+", self.input_text)]
+def read_ints(text: str):
+    return [int(n) for n in re.findall(r"[+-]?\d+", text)]
 
 
-def read_line_groups(self):
-    self.inp = [re.split("\n", g) for g in re.split("\n\n", self.input_text.strip())]
+def read_line_groups(text: str):
+    return [re.split("\n", g) for g in re.split("\n\n", text.strip())]
 
 
-def read_int_line_groups(self):
-    self.inp = [
-        [int(n) for n in re.split("\n", g)] for g in re.split("\n\n", self.input_text.strip())
-    ]
+def read_int_line_groups(text: str):
+    return [[int(n) for n in re.split("\n", g)] for g in re.split("\n\n", text.strip())]
 
 
-def process_int_list(self):
-    lines = self.input_text.splitlines()
-    self.inp = [list(map(int, re.findall(r"-?\d+", line))) for line in lines]
+def process_int_list(text: str):
+    lines = text.splitlines()
+    return [list(map(int, re.findall(r"-?\d+", line))) for line in lines]
 
 
-def process_int_int_dict(self):
-    lines = self.input_text.splitlines()
-    self.inp = {}
+def process_int_int_dict(text: str):
+    lines = text.splitlines()
+    inp = {}
     for line in lines:
         parts = list(map(int, re.findall(r"-?\d+", line)))
-        self.inp[parts[0]] = parts[1]
+        inp[parts[0]] = parts[1:]
+    return inp
 
 
-def process_int_list_dict(self):
-    lines = self.input_text.splitlines()
-    self.inp = {}
+def process_int_list_dict(text: str):
+    lines = text.splitlines()
+    inp = {}
     for line in lines:
         parts = list(map(int, re.findall(r"-?\d+", line)))
-        self.inp[parts[0]] = parts[1:]
+        inp[parts[0]] = parts[1:]
+    return inp
+
+
+def read_ranges(text: str, range_sep="\n", bounds_sep="-", end_inclusive=True):
+    ranges = ExRange()
+    for line in text.split(range_sep):
+        a, b = map(int, line.split(bounds_sep))
+        if end_inclusive:
+            b += 1
+        ranges.add(range(a, b))
+    return ranges
 
 
 def print_with_color(self, text, text_color="#FFFFFF", back_color="#000000", end="\n"):

@@ -70,6 +70,7 @@ from myutils.utils import (
     read_map_dict_of_sets_of_points,
     read_map_of_digits,
     read_plain_map,
+    read_ranges,
     recursive_split,
 )
 from sympy import Symbol
@@ -148,18 +149,22 @@ class Puzzle:
     def __init__(self, filename):
         self.input_text = Path(filename).read_text()
         # self.inp = self.input_text.splitlines()
-        # read_ints(self)
-        # read_line_groups(self)
-        # read_int_line_groups(self)
-        # process_int_list(self)
-        # process_int_int_dict(self)
-        # process_int_list_dict(self)
+        # first, second = self.input_text.split("\n\n")
+
+        # self.inp = read_ints(text=self.input_text)
+        # self.inp = read_line_groups(text=self.input_text)
+        # self.inp = read_int_line_groups(text=self.input_text)
+        # self.inp = process_int_list(text=self.input_text)
+        # self.inp = process_int_int_dict(text=self.input_text)
+        # self.inp = process_int_list_dict(text=self.input_text)
         # self.inp, self.rows, self.cols = read_plain_map(self.input_text)
         # self.inp, self.rows, self.cols = read_map_of_digits(self.input_text)
         # self.inp, self.rows, self.cols = read_map_dict_of_sets_of_points(self.input_text)
         # self.inp, self.planes, self.rows, self.cols = read_map_dict_of_sets_of_3D_points(self.input_text)
 
-        # process(self)
+        # self.ranges = read_ranges(text=first, range_sep="\n", bounds_sep="-", end_inclusive=True)
+
+        # self.inp = process(text=self.input_text)
 
         # self.inp = recursive_split(self.input_text, "\n:", strip=True)
         # self.inp = find_all_re(r"(\d+)", text=self.input_text)

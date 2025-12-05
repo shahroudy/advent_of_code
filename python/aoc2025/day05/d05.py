@@ -1,16 +1,14 @@
 from pathlib import Path
 
-from myutils.exrange import ExRange
 from myutils.io_handler import get_input_data
+from myutils.utils import read_ints, read_ranges
 
 
 class Cafeteria:
     def __init__(self, filename):
-        ranges, ids = Path(filename).read_text().split("\n\n")
-        self.ranges = ExRange(
-            [range(int(a), int(b) + 1) for a, b in (r.split("-") for r in ranges.splitlines())]
-        )
-        self.ids = [int(i) for i in ids.splitlines()]
+        ranges_text, ids_text = Path(filename).read_text().split("\n\n")
+        self.ids = read_ints(ids_text)
+        self.ranges = read_ranges(ranges_text)
 
     def available_fresh_ingredients_count(self):
         return sum(id in self.ranges for id in self.ids)
