@@ -13,6 +13,7 @@ from typing import override
 
 import numpy as np
 import scipy as sp
+from myutils.exrange import ExRange
 from myutils.geometry import *
 from myutils.geometry import (
     Point,

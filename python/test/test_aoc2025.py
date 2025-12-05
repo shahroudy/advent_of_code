@@ -65,3 +65,19 @@ def test_day04():
     test = PrintingDepartment(f"{input_folder}/aoc2025_day04.txt")
     assert test.number_of_accessible_rolls() == 1344
     assert test.number_of_removed_rolls() == 8112
+
+
+def test_day05_samples():
+    from aoc2025.day05.d05 import Cafeteria
+
+    test = Cafeteria("./python/aoc2025/day05/sample1.txt")
+    assert test.available_fresh_ingredients_count() == 3
+    assert test.all_fresh_ingredients_count() == 14
+
+
+def test_day05():
+    from aoc2025.day05.d05 import Cafeteria
+
+    test = Cafeteria(f"{input_folder}/aoc2025_day05.txt")
+    assert test.available_fresh_ingredients_count() == 623
+    assert test.all_fresh_ingredients_count() == 353507173555373

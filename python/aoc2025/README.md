@@ -67,3 +67,16 @@ This way we can iteratively find removable rolls and remove them from the set un
 removable rolls are found.\
 At the end, we can simply compare the size of the original set with the final set to get the
 number of removed rolls.
+
+## Day 5: [Cafetaria](https://adventofcode.com/2025/day/5) &rarr; [Solution](./day05/d05.py)
+A puzzle of handling long ranges and checking membership of numbers in those ranges.\
+We are provided a list of long and overlapping ranges, and a list of IDs.\
+
+In part 1, we need to count how many IDs fall within any of the given ranges.\
+This can simply be done by cross-checking each ID with all the ranges.
+
+In part 2, we need to find the total size of the union of the given ranges.\
+This part due to the sizes of the ranges provided is not doable in a brute-force manner.\
+We need to merge the overlapping ranges first, and then sum up the sizes of the merged ranges.\
+Good news for me here was that I had already implemented such functionality in my `ExRange` utility
+class, which made the implementation very straightforward.
