@@ -80,3 +80,22 @@ This part due to the sizes of the ranges provided is not doable in a brute-force
 We need to merge the overlapping ranges first, and then sum up the sizes of the merged ranges.\
 Good news for me here was that I had already implemented such functionality in my `ExRange` utility
 class, which made the implementation very straightforward.
+
+## Day 6: [Trash Compactor](https://adventofcode.com/2025/day/6) &rarr; [Solution](./day06/d06.py)
+In this puzzle, we are provided groups of sets of numbers and a math operator (`+` or `*`).\
+We need to apply each operator between all the numbers in the same column and sum up the results.\
+In part 1, numbers are simply space-separated in rows.\
+In part 2, numbers are written in columns (top to bottom).
+
+For both of these, we need to use the `transpose` operation to get the columns:
+* In part 1, we can first read a 2D list of numbers and then transpose it.
+* In part 2, we need to first transpose the 2D array of characters in the input string and then cast
+  them to a 2D list of numbers.
+
+For both parts, my pre-implemented `transpose` utility function was very helpful.
+
+### Bugs and Issues:
+* My code editor's auto-formatting removed some trailing spaces in the input text made part 2
+  harder to handle.\
+  I had to disable `trimTrailingWhitespace` for plaintext files to fix this.\
+  This problem made my initial implementation of part 2 kind of complicated!

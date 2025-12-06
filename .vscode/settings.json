@@ -37,7 +37,8 @@
     // Plaintext
     "[plaintext]": {
         "editor.fontLigatures": false,
-        "editor.formatOnSave": false
+        "editor.formatOnSave": false,
+        "files.trimTrailingWhitespace": false
     },
     // Spelling exceptions
     "cSpell.words": [

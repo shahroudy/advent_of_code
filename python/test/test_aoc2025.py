@@ -81,3 +81,19 @@ def test_day05():
     test = Cafeteria(f"{input_folder}/aoc2025_day05.txt")
     assert test.available_fresh_ingredients_count() == 623
     assert test.all_fresh_ingredients_count() == 353507173555373
+
+
+def test_day06_samples():
+    from aoc2025.day06.d06 import TrashCompactor
+
+    test = TrashCompactor("./python/aoc2025/day06/sample1.txt")
+    assert test.grand_total(False) == 4277556
+    assert test.grand_total(True) == 3263827
+
+
+def test_day06():
+    from aoc2025.day06.d06 import TrashCompactor
+
+    test = TrashCompactor(f"{input_folder}/aoc2025_day06.txt")
+    assert test.grand_total(False) == 4693159084994
+    assert test.grand_total(True) == 11643736116335
