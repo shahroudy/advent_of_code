@@ -24,8 +24,8 @@ class TrashCompactor:
 if __name__ == "__main__":
     data = get_input_data(__file__)
 
-    assert TrashCompactor("sample1.txt").grand_total(False) == 4277556
-    assert TrashCompactor("sample1.txt").grand_total(True) == 3263827
+    assert TrashCompactor("sample1.txt").grand_total(cephalopod_math=False) == 4277556
+    assert TrashCompactor("sample1.txt").grand_total(cephalopod_math=True) == 3263827
 
     print("Tests passed, starting with the puzzle")
 
