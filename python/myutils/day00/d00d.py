@@ -127,6 +127,8 @@ class MapSearch(Search_Dijkstra):
             if hasattr(self, "walls"):
                 if n in self.walls:
                     continue
+            cv = self.nodes[point]
+            nv = self.nodes[n]
             yield self.State(n, steps + 1, cost + 1)
 
     def cost(self, state):
@@ -158,7 +160,7 @@ class Puzzle:
         # self.inp = process_int_int_dict(text=self.input_text)
         # self.inp = process_int_list_dict(text=self.input_text)
         # self.inp, self.rows, self.cols = read_plain_map(self.input_text)
-        # self.inp, self.rows, self.cols = read_map_of_digits(self.input_text)
+        self.inp, self.rows, self.cols = read_map_of_digits(self.input_text)
         # self.inp, self.rows, self.cols = read_map_dict_of_sets_of_points(self.input_text)
         # self.inp, self.planes, self.rows, self.cols = read_map_dict_of_sets_of_3D_points(self.input_text)
 
@@ -186,7 +188,12 @@ class Puzzle:
         }[self.sample_number]
 
     def calc1(self):
-        return None
+        # s = MapSearch(walls=set())
+        s = MapSearch(nodes=self.inp)
+        # s = MapSearch(rows=100, cols=100)
+        min_dist, backtrack = s.search(initial_state=MapSearch.State(Point(0, 0), 0, 0))
+        goal_dist = min_dist.get(Point(self.cols - 1, self.rows - 1), None)
+        return goal_dist
 
     def calc2(self):
         return None

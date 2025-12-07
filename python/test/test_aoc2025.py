@@ -97,3 +97,19 @@ def test_day06():
     test = TrashCompactor(f"{input_folder}/aoc2025_day06.txt")
     assert test.grand_total(False) == 4693159084994
     assert test.grand_total(True) == 11643736116335
+
+
+def test_day07_samples():
+    from aoc2025.day07.d07 import Laboratories
+
+    test = Laboratories("./python/aoc2025/day07/sample1.txt")
+    assert test.splits == 21
+    assert test.total_paths == 40
+
+
+def test_day07():
+    from aoc2025.day07.d07 import Laboratories
+
+    test = Laboratories(f"{input_folder}/aoc2025_day07.txt")
+    assert test.splits == 1562
+    assert test.total_paths == 24292631346665

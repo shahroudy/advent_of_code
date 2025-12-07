@@ -99,3 +99,23 @@ For both parts, my pre-implemented `transpose` utility function was very helpful
   harder to handle.\
   I had to disable `trimTrailingWhitespace` for plaintext files to fix this.\
   This problem made my initial implementation of part 2 kind of complicated!
+
+## Day 7: [Laboratories](https://adventofcode.com/2025/day/7) &rarr; [Solution](./day07/d07.py)
+The first Dynamic Programming puzzle of the year!\
+We have a 2D map of points representing beam splitters (`^`).\
+A beam of light starts to travel down from the `S` point on the top row, and each time it hits a splitter, it splits into two beams to the right and left of the splitter.\
+The beams continue to travel down until they reach the bottom row.\
+In part 1, we need to count the total number of times the beam splits.\
+In part 2, we need to count the total number of possible paths from the start point to the bottom row.\
+This is typical `dynamic programming` problem where we can process the points in the map from top
+to bottom, and for each point, we can calculate:
+* If a split happens here,
+* The number of ways to reach this point from the starting point.
+
+Both of these values directly depend on the values of the points in the previous row and if each
+point is next to a splitter or not.
+
+### Optimizations
+* We can optimize the implementation using `sets` and `dicts` to efficiently track and update the state of the beams and splitters.
+* It's easier to look at the current row values and build the next row values by implementing the
+  split logic, rather than trying to calculate each value by looking at the previous row!
