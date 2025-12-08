@@ -113,3 +113,19 @@ def test_day07():
     test = Laboratories(f"{input_folder}/aoc2025_day07.txt")
     assert test.splits == 1562
     assert test.total_paths == 24292631346665
+
+
+def test_day08_samples():
+    from aoc2025.day08.d08 import Playground
+
+    test = Playground("./python/aoc2025/day08/sample1.txt", observe_at_step=10)
+    assert test.three_largest_sizes == 40
+    assert test.last_connection == 25272
+
+
+def test_day08():
+    from aoc2025.day08.d08 import Playground
+
+    test = Playground(f"{input_folder}/aoc2025_day08.txt", observe_at_step=1000)
+    assert test.three_largest_sizes == 133574
+    assert test.last_connection == 2435100380

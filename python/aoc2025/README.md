@@ -119,3 +119,18 @@ point is next to a splitter or not.
 * We can optimize the implementation using `sets` and `dicts` to efficiently track and update the state of the beams and splitters.
 * It's easier to look at the current row values and build the next row values by implementing the
   split logic, rather than trying to calculate each value by looking at the previous row!
+
+## Day 8: [Playground](https://adventofcode.com/2025/day/8) &rarr; [Solution](./day08/d08.py)
+A Minimum Spanning Tree (MST) puzzle!\
+We are provided with a list of 3D coordinates of boxes in a playground.\
+And we need to connect them step by step in the order of ascending Euclidean distances of pairs.\
+This is actually the Kruskal's algorithm for finding the MST of a graph.\
+In part 1, we need to find the number of connected components after a given number of steps.\
+In part 2, we need to find the connection which makes all boxes connected.
+
+The only tricky point for part 1 is to count the skipped connections when two boxes are already
+connected.
+
+### Optimizations
+* Using a `dict` of `set` to track connected boxes to each box made it easy to merge connected
+  components.

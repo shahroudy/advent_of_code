@@ -86,6 +86,13 @@ class Point:
         other_tuple = other.tuple if isinstance(other, Point) else tuple(other)
         return self.tuple < other_tuple
 
+    def distance_squared(self, other: "Point") -> int:
+        x, y = (other.x, other.y) if isinstance(other, Point) else other
+        return (self.x - x) ** 2 + (self.y - y) ** 2
+
+    def distance(self, other: "Point") -> float:
+        return self.distance_squared(other) ** 0.5
+
     def manhattan_dist(self, other: "Point") -> int:
         x, y = (other.x, other.y) if isinstance(other, Point) else other
         return abs(self.x - x) + abs(self.y - y)
@@ -213,6 +220,13 @@ class Point3D:
         other_tuple = other.tuple if isinstance(other, Point3D) else tuple(other)
         return self.tuple < other_tuple
 
+    def distance_squared(self, other: "Point3D") -> int:
+        cx, cy, cz = (other.x, other.y, other.z) if isinstance(other, Point3D) else other
+        return (self.x - cx) ** 2 + (self.y - cy) ** 2 + (self.z - cz) ** 2
+
+    def distance(self, other: "Point3D") -> float:
+        return self.distance_squared(other) ** 0.5
+
     def manhattan_dist(self, other: "Point3D") -> int:
         cx, cy, cz = (other.x, other.y, other.z) if isinstance(other, Point3D) else other
         return abs(self.x - cx) + abs(self.y - cy) + abs(self.z - cz)
@@ -334,6 +348,15 @@ class Point4D:
     def __lt__(self, other: "Point4D") -> int:
         other_tuple = other.tuple if isinstance(other, Point4D) else tuple(other)
         return self.tuple < other_tuple
+
+    def distance_squared(self, other: "Point4D") -> int:
+        cx, cy, cz, cw = (
+            (other.x, other.y, other.z, other.w) if isinstance(other, Point4D) else other
+        )
+        return (self.x - cx) ** 2 + (self.y - cy) ** 2 + (self.z - cz) ** 2 + (self.w - cw) ** 2
+
+    def distance(self, other: "Point4D") -> float:
+        return self.distance_squared(other) ** 0.5
 
     def manhattan_dist(self, other: "Point4D") -> int:
         cx, cy, cz, cw = (
