@@ -129,3 +129,19 @@ def test_day08():
     test = Playground(f"{input_folder}/aoc2025_day08.txt", observe_at_step=1000)
     assert test.three_largest_sizes == 133574
     assert test.last_connection == 2435100380
+
+
+def test_day09_samples():
+    from aoc2025.day09.d09 import MovieTheater
+
+    test = MovieTheater("./python/aoc2025/day09/sample1.txt")
+    assert test.largest_rectangle() == 50
+    assert test.largest_rectangle_within_contour() == 24
+
+
+def test_day09():
+    from aoc2025.day09.d09 import MovieTheater
+
+    test = MovieTheater(f"{input_folder}/aoc2025_day09.txt")
+    assert test.largest_rectangle() == 4790063600
+    assert test.largest_rectangle_within_contour() == 1516172795

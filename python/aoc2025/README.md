@@ -134,3 +134,21 @@ connected.
 ### Optimizations
 * Using a `dict` of `set` to track connected boxes to each box made it easy to merge connected
   components.
+
+## Day 9: [Movie Theater](https://adventofcode.com/2025/day/9) &rarr; [Solution](./day09/d09.py)
+We have a list of 2D corner points, each consecutive pair of corners represent the start and end of
+a vertical or horizontal line, which all together form a closed shape.\
+In part 1, we need to find the maximum area of the rectangles drawn between any two corner points.
+In part 2, we need to only consider rectangles that fully lie within the closed shape (including the
+border).\
+The ad-hoc solution for part 2 is intractable, because the distance between the 2D points are very
+large; so we need a more efficient approach.
+
+## Optimizations
+The enclosed shape inside the border can be shrunk to a smaller grid.\
+We can find all the cutting lines in both x and y directions, and then map the original 2D
+rectangles to 1x1 cells in the new miniature grid.\
+Then a flood-fill algorithm can be used to find the outer area, and any cell not reachable from
+outside is considered inside the shape.\
+Finally, we can check all pairs of corner points in the miniature grid to check if they are fully
+inside the shape or not.
