@@ -1,5 +1,6 @@
 import math
 from itertools import product
+from math import prod
 from typing import Callable, Dict, Generator, List, Set, Tuple, Union
 
 from numpy import sign
@@ -148,6 +149,9 @@ class Point:
     def normalize(self) -> "Point":
         return Point(sign(self.x), sign(self.y))
 
+    def area(self, other: "Point", inclusive=False) -> int:
+        return prod(abs(a - b) + int(inclusive) for a, b in zip(self.tuple, other.tuple))
+
     def wrap_around(self, caller) -> "Point":
         self.x %= caller.cols
         self.y %= caller.rows
@@ -253,6 +257,9 @@ class Point3D:
 
     def nx(self) -> List["Point3D"]:
         return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASKX3D]
+
+    def volume(self, other: "Point3D", inclusive=False) -> int:
+        return prod(abs(a - b) + int(inclusive) for a, b in zip(self.tuple, other.tuple))
 
     def wrap_around(self, caller) -> "Point3D":
         self.x %= caller.cols
@@ -397,6 +404,9 @@ class Point4D:
         return [
             Point4D(self.x + dx, self.y + dy, self.z + dz, self.w + dw) for dx, dy, dz, dw in MASK81
         ]
+
+    def volume(self, other: "Point4D", inclusive=False) -> int:
+        return prod(abs(a - b) + int(inclusive) for a, b in zip(self.tuple, other.tuple))
 
     def wrap_around(self, caller) -> "Point4D":
         self.x %= caller.cols

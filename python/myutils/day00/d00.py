@@ -8,6 +8,7 @@ from functools import *
 from functools import cache, cmp_to_key, reduce
 from itertools import *
 from itertools import combinations, combinations_with_replacement, permutations, product
+from math import prod
 from pathlib import Path
 from typing import override
 
@@ -70,8 +71,10 @@ from myutils.utils import (
     read_map_dict_of_sets_of_points,
     read_map_of_digits,
     read_plain_map,
+    read_points_per_line,
     read_ranges,
     recursive_split,
+    save_image,
 )
 from sympy import Symbol
 from sympy.solvers import solve
@@ -157,6 +160,7 @@ class Puzzle:
         # self.inp = process_int_list(text=self.input_text)
         # self.inp = process_int_int_dict(text=self.input_text)
         # self.inp = process_int_list_dict(text=self.input_text)
+        # self.inp = read_points_per_line(self.input_text)
         # self.inp, self.rows, self.cols = read_plain_map(self.input_text)
         # self.inp, self.rows, self.cols = read_map_of_digits(self.input_text)
         # self.inp, self.rows, self.cols = read_map_dict_of_sets_of_points(self.input_text)

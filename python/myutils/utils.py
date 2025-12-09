@@ -4,8 +4,7 @@ from collections import defaultdict, namedtuple
 from functools import reduce
 
 from myutils.exrange import ExRange
-from myutils.geometry import *
-from myutils.geometry import Point, Point3D
+from myutils.geometry import Point, Point3D, Point4D
 
 
 def multiply(elements):
@@ -125,7 +124,23 @@ def read_ranges(text: str, range_sep="\n", bounds_sep="-", end_inclusive=True):
     return ranges
 
 
-def print_with_color(self, text, text_color="#FFFFFF", back_color="#000000", end="\n"):
+def read_points_per_line(text: str):
+    points = []
+    for line in text.splitlines():
+        nums = list(map(int, re.findall(r"-?\d+", line)))
+        match len(nums):
+            case 2:
+                points.append(Point(*nums))
+            case 3:
+                points.append(Point3D(*nums))
+            case 4:
+                points.append(Point4D(*nums))
+            case _:
+                raise ValueError("Unsupported number of coordinates in line")
+    return points
+
+
+def print_with_color(text, text_color="#FFFFFF", back_color="#000000", end="\n"):
     from colored import attr, bg, fg
 
     color = fg(text_color)
@@ -139,6 +154,48 @@ def get_sample_number(filename):
     if number:
         return int(number.group(1))
     return 0  # actual input file, not a sample test
+
+
+def save_image(point_groups, board=[], filename="output.png"):
+    """
+    Save an image representing different groups of points in different colors.
+
+    :param point_groups: group of group of points to plot, each group will be drawn in a
+    different color; more important groups should come later in the list because they will be
+    drawn on top of earlier groups
+    :param board: optional base set of points to include in the image
+    :param filename: image filename to save the output to
+    """
+    import numpy as np
+    from PIL import Image
+
+    all_points = set(board) | {point for group in point_groups for point in group}
+    minx = min(p.x for p in all_points)
+    maxx = max(p.x for p in all_points)
+    miny = min(p.y for p in all_points)
+    maxy = max(p.y for p in all_points)
+    colors = [
+        [255, 0, 0],
+        [0, 255, 0],
+        [0, 0, 255],
+        [255, 255, 0],
+        [0, 255, 255],
+        [255, 0, 255],
+        [255, 255, 255],
+        [192, 192, 192],
+        [128, 0, 0],
+        [128, 128, 0],
+        [0, 128, 0],
+        [128, 0, 128],
+        [0, 0, 128],
+    ]
+
+    img = np.zeros((maxy - miny + 1, maxx - minx + 1, 3), dtype=np.uint8)
+    for group, color in zip(point_groups, colors):
+        for p in group:
+            img[p.y - miny, p.x - minx] = color
+    image = Image.fromarray(img, mode="RGB")
+    image.save(filename)
 
 
 # Example usage
