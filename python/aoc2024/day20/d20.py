@@ -1,8 +1,25 @@
+from collections import namedtuple
 from pathlib import Path
 
 from myutils.geometry import Point
 from myutils.io_handler import get_input_data
-from myutils.utils import MapSearch
+from myutils.search import Search_Dijkstra
+
+
+class MapSearch(Search_Dijkstra):
+    State = namedtuple("state", ["point", "steps", "cost"])
+
+    def get_next_states(self, state):
+        point, steps, cost = state
+        for n in point.n4():
+            if n in self.nodes:
+                yield self.State(n, steps + 1, cost + 1)
+
+    def cost(self, state):
+        return state.cost
+
+    def state_core(self, state):
+        return state.point
 
 
 class RaceCondition:
