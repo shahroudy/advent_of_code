@@ -152,3 +152,44 @@ Then a flood-fill algorithm can be used to find the outer area, and any cell not
 outside is considered inside the shape.\
 Finally, we can check all pairs of corner points in the miniature grid to check if they are fully
 inside the shape or not.
+
+## Day 10: [Factory](https://adventofcode.com/2025/day/10) &rarr; [Solution](./day10/d10.py)
+In this puzzle, we have a number of machines, each with:
+* An expected indicator light values (list of booleans),
+* A list of button combinations (list of list of booleans),
+* An expected list of joltage values (list of integers).
+
+In part 1, each press of "button combination" toggles the corresponding indicator lights, and we
+need to find the minimum number of presses to reach the expected indicator light values.
+
+In part 2, each press of "button combination" adds the corresponding joltage value to the current
+joltage, and we need to find the minimum number of presses to reach the expected joltage values.
+
+In both of the parts, the starting state is all lights off (False) and all joltage levels 0.
+
+The out of the box solution for part 1 is to use BFS to explore all possible states of the
+indicator lights until we reach the expected state, which gets to the answer very quickly.
+
+But Part 2, though theoretically possible, cannot be solved by BFS in a reasonable time due to the
+large state space.
+
+### Optimizations
+The Part 2 of this puzzle is is actually an Integer Linear Programming (ILP) problem.\
+For each machine, we solve for:
+
+$$
+\begin{aligned}
+	{minimize}\quad & \sum_{i=1}^{m} x_i \\
+	{subject\,to}\quad & A x = b \\
+& x_i \in \mathbb{Z}_{\ge 0}
+\end{aligned}
+$$
+
+Where:
+* $A$ is a matrix where each row represents a button combination and each column tracks how it
+  affects a joltage position,
+* $x$ is a vector of unknowns representing how many times each button combination is pressed,
+* $b$ is the target joltage vector for the machine.
+* The objective $\sum x_i$ is the total number of button presses we want to minimize.
+
+We can use the `pulp` library to model and solve this problem efficiently.

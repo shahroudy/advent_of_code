@@ -145,3 +145,19 @@ def test_day09():
     test = MovieTheater(f"{input_folder}/aoc2025_day09.txt")
     assert test.largest_rectangle() == 4790063600
     assert test.largest_rectangle_within_contour() == 1516172795
+
+
+def test_day10_samples():
+    from aoc2025.day10.d10 import Factory
+
+    test = Factory("./python/aoc2025/day10/sample1.txt")
+    assert test.configure_the_indicator_lights() == 7
+    assert test.configure_the_joltage() == 33
+
+
+def test_day10():
+    from aoc2025.day10.d10 import Factory
+
+    test = Factory(f"{input_folder}/aoc2025_day10.txt")
+    assert test.configure_the_indicator_lights() == 428
+    assert test.configure_the_joltage() == 16613
