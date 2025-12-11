@@ -161,3 +161,20 @@ def test_day10():
     test = Factory(f"{input_folder}/aoc2025_day10.txt")
     assert test.configure_the_indicator_lights() == 428
     assert test.configure_the_joltage() == 16613
+
+
+def test_day11_samples():
+    from aoc2025.day11.d11 import Reactor
+
+    test = Reactor("./python/aoc2025/day11/sample1.txt")
+    assert test.you_to_out_paths() == 5
+    test = Reactor("./python/aoc2025/day11/sample2.txt")
+    assert test.svr_to_out_paths_through_fft_dac() == 2
+
+
+def test_day11():
+    from aoc2025.day11.d11 import Reactor
+
+    test = Reactor(f"{input_folder}/aoc2025_day11.txt")
+    assert test.you_to_out_paths() == 786
+    assert test.svr_to_out_paths_through_fft_dac() == 495845045016588

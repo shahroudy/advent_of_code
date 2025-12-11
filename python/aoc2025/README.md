@@ -193,3 +193,38 @@ Where:
 * The objective $\sum x_i$ is the total number of button presses we want to minimize.
 
 We can use the `pulp` library to model and solve this problem efficiently.
+
+## Day 11: [Reactor](https://adventofcode.com/2025/day/11) &rarr; [Solution](./day11/d11.py)
+We have a directional graph and we need to find the number of possible paths from a start node to
+an end node.\
+In part 1, we simply need to count paths from `you` to `out`.\
+In part 2, we need to count paths from `svr` to `out` that pass through both `dac` and `fft`.
+
+Part 1 can be solved using variety of different search algorithms, but part 2 is not tractable for
+a search algorithm.
+
+### Optimizations
+**Whenever we want to find the number of possible ways, we should think of Dynamic Programming!**\
+And in Python, we can implement the "number of ways" with a function and use `cache` decorator to
+easily memoize our recursive function.
+
+In part 2, we can extend the function to consider "avoid" nodes that we should not pass through.\
+Then we can call the multiple times to find ways.
+
+First we need to find the number of paths the go: `svr->dac->fft->out` by calling the function three
+times:
+* From `svr` to `dac` avoiding `fft`, `out`,
+* from `dac` to `fft` avoiding `svr`, `out`,
+* from `fft` to `out` avoiding `svr`, `dac`,
+
+and multiply the results together.
+
+There is a second group of paths that go: `svr->fft->dac->out`, which can be found similarly by
+calling:
+* From `svr` to `fft` avoiding `dac`, `out`,
+* from `fft` to `dac` avoiding `svr`, `out`,
+* from `dac` to `out` avoiding `svr`, `fft`,
+
+and multiplying the results together.
+
+Finally, we can add the two groups of paths to get the final result.
