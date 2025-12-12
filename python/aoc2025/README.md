@@ -237,4 +237,4 @@ Alright, it's not a problem one can solve efficiently, at least nothing I could 
 But, it's the last day, so there should be some trick to it!\
 The trick is, unlike the provided sample, for the actual input, presents can always fit if the sum
 of their areas is less than or equal to the area of the region!\
-So the solution simplifies to a simply math problem :sweet_smile:.
+So the solution simplifies to a simple math problem :sweet_smile:.
