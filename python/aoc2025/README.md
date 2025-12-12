@@ -228,3 +228,13 @@ calling:
 and multiplying the results together.
 
 Finally, we can add the two groups of paths to get the final result.
+
+## Day 12: [Christmas Tree Farm](https://adventofcode.com/2025/day/12) &rarr; [Solution](./day12/d12.py)
+In this puzzle, we have a list of presents, each with a width and height and a 2D pattern.\
+We also have a list of regions, each with a width and height and a count of each type of present.\
+We need to count the number of regions all the regions that can fit all the presents in them.\
+Alright, it's not a problem one can solve efficiently, at least nothing I could think of.\
+But, it's the last day, so there should be some trick to it!\
+The trick is, unlike the provided sample, for the actual input, presents can always fit if the sum
+of their areas is less than or equal to the area of the region!\
+So the solution simplifies to a simply math problem :sweet_smile:.

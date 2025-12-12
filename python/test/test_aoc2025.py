@@ -178,3 +178,14 @@ def test_day11():
     test = Reactor(f"{input_folder}/aoc2025_day11.txt")
     assert test.you_to_out_paths() == 786
     assert test.svr_to_out_paths_through_fft_dac() == 495845045016588
+
+
+def test_day12_samples():
+    pass
+
+
+def test_day12():
+    from aoc2025.day12.d12 import ChristmasTreeFarm
+
+    test = ChristmasTreeFarm(f"{input_folder}/aoc2025_day12.txt")
+    assert test.fitable_regions() == 565
