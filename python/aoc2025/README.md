@@ -153,6 +153,10 @@ outside is considered inside the shape.\
 Finally, we can check all pairs of corner points in the miniature grid to check if they are fully
 inside the shape or not.
 
+## Further Improvements
+* Reading others solutions, I found that using the `Polygon` class from `shapely` library can make
+  the implementation much simpler by leveraging its geometric operations to check if a rectangle is fully inside the shape or not (`Polygon.contains` method).
+
 ## Day 10: [Factory](https://adventofcode.com/2025/day/10) &rarr; [Solution](./day10/d10.py)
 In this puzzle, we have a number of machines, each with:
 * An expected indicator light values (list of booleans),
