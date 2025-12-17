@@ -264,7 +264,7 @@ if __name__ == "__main__":
 
     puzzle = Puzzle(data.input_file)
 
-    submit_answers = True
+    submit_answers = False
     # cProfile.run("print(answer1 := puzzle.calc1())")
     print(answer1 := puzzle.calc1())
     if submit_answers and answer1 is not None:
