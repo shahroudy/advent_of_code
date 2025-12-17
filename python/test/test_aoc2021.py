@@ -293,3 +293,19 @@ def test_day16():
     test = PacketDecoder(f"{input_folder}/aoc2021_day16.txt")
     assert test.sum_of_packet_versions == 883
     assert test.root_packet_value() == 1675198555015
+
+
+def test_day17_samples():
+    from aoc2021.day17.d17 import TrickShot
+
+    test = TrickShot("./python/aoc2021/day17/sample1.txt")
+    assert test.highest_y == 45
+    assert test.shot_count == 112
+
+
+def test_day17():
+    from aoc2021.day17.d17 import TrickShot
+
+    test = TrickShot(f"{input_folder}/aoc2021_day17.txt")
+    assert test.highest_y == 3916
+    assert test.shot_count == 2986

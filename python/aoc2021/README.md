@@ -244,6 +244,31 @@ The key idea to solve this puzzle is to implement a recursive function that rece
 string and the starting index, and returns the value of the parsed packet.
 
 ## Day 17: [Trick Shot](https://adventofcode.com/2021/day/17) &rarr; [Solution](./day17/d17.py)
+This puzzle is about simulating a "Two-Dimensional Projectile Motion" with acceleration in both of
+the axes.\
+In the input, we are provided with a target area defined by a rectangle in 2D space.\
+And we need to find all the possible initial velocity values that will cause the projectile to
+land/pass the target area (starting at the origin).\
+In part 1, we need to find the highest `y` position reached by any of these valid trajectories.\
+In part 2, we need to find the number of all valid initial velocity values.
+
+I implemented a brute-force simulation of all possible initial velocity values within a reasonable
+range.\
+Good news is that there are points that can relax the problem:
+* The initial `x` velocity should always be positive (to reach the target area on the right side).
+* The initial `y` velocity can be negative, but its absolute value cannot be more than the absolute
+value of the lower `y` boundary of the target area (otherwise it will overshoot the target area on
+the way down).
+* The maximum initial `x` velocity can be the upper `x` boundary of the target area (otherwise it
+will overshoot the target area in the first step).
+* The minimum initial `x` velocity can be found by solving a quadratic equation based on the fact
+  that `x` velocity decreases by `1` at each step until it reaches `0`. Then the `x` position
+  remains constant.
+
+### Possible Improvements:
+* There is room to further optimize the solution by finding the `y=f(x)` trajectory equation and
+  solve in a more analytical way. But I preferred to keep the brute-force simulation for simplicity.
+
 ## Day 18: [Snailfish](https://adventofcode.com/2021/day/18) &rarr; [Solution](./day18/d18.py)
 ## Day 19: [Beacon Scanner](https://adventofcode.com/2021/day/19) &rarr; [Solution](./day19/d19.py)
 ## Day 20: [Trench Map](https://adventofcode.com/2021/day/20) &rarr; [Solution](./day20/d20.py)
