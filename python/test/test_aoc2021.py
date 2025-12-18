@@ -309,3 +309,19 @@ def test_day17():
     test = TrickShot(f"{input_folder}/aoc2021_day17.txt")
     assert test.highest_y == 3916
     assert test.shot_count == 2986
+
+
+def test_day18_samples():
+    from aoc2021.day18.d18 import Snailfish
+
+    test = Snailfish("./python/aoc2021/day18/sample1.txt")
+    assert test.final_sum() == 4140
+    assert test.max_sum_of_pairs() == 3993
+
+
+def test_day18():
+    from aoc2021.day18.d18 import Snailfish
+
+    test = Snailfish(f"{input_folder}/aoc2021_day18.txt")
+    assert test.final_sum() == 4008
+    assert test.max_sum_of_pairs() == 4667

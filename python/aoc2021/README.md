@@ -270,6 +270,28 @@ will overshoot the target area in the first step).
   solve in a more analytical way. But I preferred to keep the brute-force simulation for simplicity.
 
 ## Day 18: [Snailfish](https://adventofcode.com/2021/day/18) &rarr; [Solution](./day18/d18.py)
+We are provided with a list of snailfish.\
+Each snailfish is either an integer or a pair of two other snailfish.\
+There are two reduction operations defined on snailfish:
+* Explosion: If any pair is nested inside four pairs, the leftmost such pair explodes.
+* Split: If any regular number is 10 or greater, the leftmost such regular number splits.
+More details on how to explode and split can be found in the puzzle description (linked above).\
+In part 1, we need to sum all the snailfish in the input list, added one by one, by pairing to a new
+snailfish and then reducing it.\
+In part 2, we need to find the maximum magnitude (with defined recursive formula) of the sum of any
+two snailfish from the input list.
+
+The plain representation of snailfish as nested lists makes it easy to implement the operations
+recursively, and is efficient enough for this puzzle (runs in less than a second).\
+The key to implement the defined operations is to divide them into multiple recursive functions.
+
+Since there are not much of repeating patterns, caching the results of operations is not helping
+much; so we can keep the representation as lists instead of converting to tuples for caching.
+
+### Possible Improvements:
+* I think we can optimize the implementation by representing the snailfish as a tree structure
+instead of nested lists. But I preferred to keep the simpler representation for now.
+
 ## Day 19: [Beacon Scanner](https://adventofcode.com/2021/day/19) &rarr; [Solution](./day19/d19.py)
 ## Day 20: [Trench Map](https://adventofcode.com/2021/day/20) &rarr; [Solution](./day20/d20.py)
 ## Day 21: [Dirac Dice](https://adventofcode.com/2021/day/21) &rarr; [Solution](./day21/d21.py)

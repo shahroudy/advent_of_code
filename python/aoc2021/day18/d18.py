@@ -1,190 +1,119 @@
-import os
+from itertools import permutations
 from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
 class Snailfish:
-    def __init__(self, input=None):
-        if not input:
-            self.sequence = []
-        elif isinstance(input, list):
-            self.sequence = input.copy()
-        else:
-            self.snailfishes = Path(input).read_text().strip().split("\n")
+    def __init__(self, filename):
+        self.snailfish = [eval(line) for line in Path(filename).read_text().splitlines()]
 
-    def append(self, sequence):
-        self.sequence = sequence if not self.sequence else [self.sequence, sequence]
-
-    def transmit(self, s, value, direction):
-        if isinstance(s[direction], int):
-            s[direction] += value
-        else:
-            self.transmit(s[direction], value, direction)
-
-    def explode_recursive(self, s, depth=0):
-        if isinstance(s, int):
-            return None
+    def explode(self, snailfish, depth=0):
+        """
+        Returns:
+            new_snailfish: list,
+            value_to_be_added_left: int or None,
+            value_to_be_added_right: int or None,
+            exploded: bool
+        """
+        if isinstance(snailfish, int):
+            return snailfish, None, None, False
+        left, right = snailfish
         if depth == 4:
-            self.exploded = True
-            return s
-        for i in [0, 1]:
-            if self.exploded:
-                return None
-            if isinstance(s[i], list):
-                parts = self.explode_recursive(s[i], depth + 1)
-                if parts:
-                    if depth == 3:
-                        s[i] = 0
-                    if isinstance(s[1 - i], int):
-                        s[1 - i] += parts[1 - i]
-                        parts[1 - i] = 0
-                    else:
-                        self.transmit(s[1 - i], parts[1 - i], i)
-                        parts[1 - i] = 0
-                    return parts
+            return 0, left, right, True
 
-    def explode(self, input=None):
-        if input:
-            self.sequence = input
-        self.exploded = False
-        self.explode_recursive(self.sequence)
-        return self.sequence
+        # check if the left side can explode
+        new_left, num_to_add_left, num_to_add_right, exploded = self.explode(left, depth + 1)
+        if exploded:
+            new_right = self.add_number(right, num_to_add_right, to_left=True)
+            return (new_left, new_right), num_to_add_left, None, True
 
-    def split_recursive(self, s):
-        for i in [0, 1]:
-            if self.splitted:
-                return
-            if isinstance(s[i], int):
-                if s[i] > 9:
-                    left = s[i] // 2
-                    right = s[i] - left
-                    self.splitted = True
-                    s[i] = [left, right]
-                    return
-            else:
-                self.split_recursive(s[i])
+        # check if the right side can explode
+        new_right, num_to_add_left, num_to_add_right, exploded = self.explode(right, depth + 1)
+        if exploded:
+            new_left = self.add_number(left, num_to_add_left, to_left=False)
+            return (new_left, new_right), None, num_to_add_right, True
 
-    def split(self):
-        self.splitted = False
-        self.split_recursive(self.sequence)
-        return self.sequence
+        # no explosion available
+        return snailfish, None, None, False
 
-    def reduce(self):
-        while True:
-            self.explode()
-            if self.exploded:
-                continue
-            self.split()
-            if self.splitted:
-                continue
-            return self.sequence
-
-    def magnitude_recursive(self, s):
-        if isinstance(s, int):
-            return s
+    def add_number(self, snailfish, value, to_left=True):
+        if not value:
+            return snailfish
+        if isinstance(snailfish, int):
+            return snailfish + value
+        left, right = snailfish
+        if to_left:
+            return [self.add_number(left, value, to_left=True), right]
         else:
-            return self.magnitude_recursive(s[0]) * 3 + self.magnitude_recursive(s[1]) * 2
+            return [left, self.add_number(right, value, to_left=False)]
 
-    def magnitude(self):
-        return self.magnitude_recursive(self.sequence)
+    def split(self, snailfish):
+        """
+        Returns:
+            new_snailfish: list,
+            splitted: bool
+        """
+        if isinstance(snailfish, int):
+            if snailfish >= 10:
+                return [snailfish // 2, (snailfish + 1) // 2], True
+            else:
+                return snailfish, False
 
-    def reduce_lines(self):
-        self.snailsum = Snailfish()
-        for snailfish_str in self.snailfishes:
-            self.snailsum.append(eval(snailfish_str))
-            self.snailsum.reduce()
-        return self.snailsum.sequence
+        left, right = snailfish
 
-    def final_sum_magnitude(self):
-        self.reduce_lines()
-        return self.snailsum.magnitude()
+        # try to split the left side
+        new_left, splitted = self.split(left)
+        if splitted:
+            return (new_left, right), True
 
-    def max_pairwise_sum_magnitude(self):
-        max_magnitude = 0
-        for snailfish1 in self.snailfishes:
-            for snailfish2 in self.snailfishes:
-                if snailfish1 == snailfish2:
-                    continue
-                snailsum = Snailfish([eval(snailfish1), eval(snailfish2)])
-                snailsum.reduce()
-                max_magnitude = max(max_magnitude, snailsum.magnitude())
-        return max_magnitude
+        # try to split the right side
+        new_right, splitted = self.split(right)
+        if splitted:
+            return [left, new_right], True
+
+        # no split available
+        return snailfish, False
+
+    def reduce_snailfish(self, snailfish):
+        while True:
+            snailfish, _, _, exploded = self.explode(snailfish)
+            if exploded:
+                continue
+            snailfish, splitted = self.split(snailfish)
+            if splitted:
+                continue
+            return snailfish
+
+    def magnitude(self, snailfish):
+        if isinstance(snailfish, int):
+            return snailfish
+        left, right = snailfish
+        return 3 * self.magnitude(left) + 2 * self.magnitude(right)
+
+    def final_sum(self):
+        snailfish = self.snailfish[0]
+        for next_snailfish in self.snailfish[1:]:
+            snailfish = self.reduce_snailfish([snailfish, next_snailfish])
+        return self.magnitude(snailfish)
+
+    def max_sum_of_pairs(self):
+        return max(
+            self.magnitude(self.reduce_snailfish([left, right]))
+            for left, right in permutations(self.snailfish, 2)
+        )
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
 
-    # Test Explode Funcion
-    assert Snailfish([[[[[9, 8], 1], 2], 3], 4]).explode() == [
-        [[[0, 9], 2], 3],
-        4,
-    ]
-    assert Snailfish([7, [6, [5, [4, [3, 2]]]]]).explode() == [
-        7,
-        [6, [5, [7, 0]]],
-    ]
-    assert Snailfish([[6, [5, [4, [3, 2]]]], 1]).explode() == [
-        [6, [5, [7, 0]]],
-        3,
-    ]
-    assert Snailfish([[3, [2, [1, [7, 3]]]], [6, [5, [4, [3, 2]]]]]).explode() == [
-        [3, [2, [8, 0]]],
-        [9, [5, [4, [3, 2]]]],
-    ]
-    assert Snailfish([[3, [2, [8, 0]]], [9, [5, [4, [3, 2]]]]]).explode() == [
-        [3, [2, [8, 0]]],
-        [9, [5, [7, 0]]],
-    ]
+    test = Snailfish("sample1.txt")
+    assert test.final_sum() == 4140
+    assert test.max_sum_of_pairs() == 3993
 
-    # Test Reduce Function
-    assert Snailfish([[[[[4, 3], 4], 4], [7, [[8, 4], 9]]], [1, 1]]).reduce() == [
-        [[[0, 7], 4], [[7, 8], [6, 0]]],
-        [8, 1],
-    ]
+    print("Tests passed, starting with the puzzle")
 
-    assert Snailfish("test1.txt").reduce_lines() == [
-        [[[1, 1], [2, 2]], [3, 3]],
-        [4, 4],
-    ]
+    puzzle = Snailfish(data.input_file)
 
-    assert Snailfish("test2.txt").reduce_lines() == [
-        [[[3, 0], [5, 3]], [4, 4]],
-        [5, 5],
-    ]
-
-    assert Snailfish("test3.txt").reduce_lines() == [
-        [[[5, 0], [7, 4]], [5, 5]],
-        [6, 6],
-    ]
-
-    assert Snailfish("test4.txt").reduce_lines() == [
-        [[[8, 7], [7, 7]], [[8, 6], [7, 7]]],
-        [[[0, 7], [6, 6]], [8, 7]],
-    ]
-
-    # Test Magnitude Function
-    assert Snailfish([9, 1]).magnitude() == 29
-    assert Snailfish([[9, 1], [1, 9]]).magnitude() == 129
-    assert Snailfish([[1, 2], [[3, 4], 5]]).magnitude() == 143
-    assert Snailfish([[[[0, 7], 4], [[7, 8], [6, 0]]], [8, 1]]).magnitude() == 1384
-    assert Snailfish([[[[1, 1], [2, 2]], [3, 3]], [4, 4]]).magnitude() == 445
-    assert Snailfish([[[[3, 0], [5, 3]], [4, 4]], [5, 5]]).magnitude() == 791
-    assert Snailfish([[[[5, 0], [7, 4]], [5, 5]], [6, 6]]).magnitude() == 1137
-    assert (
-        Snailfish([[[[8, 7], [7, 7]], [[8, 6], [7, 7]]], [[[0, 7], [6, 6]], [8, 7]]]).magnitude()
-        == 3488
-    )
-
-    # Test Example Homework
-    test5 = Snailfish("test5.txt")
-    assert test5.reduce_lines() == [
-        [[[6, 6], [7, 6]], [[7, 7], [7, 0]]],
-        [[[7, 7], [7, 7]], [[7, 8], [9, 9]]],
-    ]
-    assert test5.final_sum_magnitude() == 4140
-    assert test5.max_pairwise_sum_magnitude() == 3993
-
-    # Solve the Puzzle Input
-    snailfish = Snailfish(data.input_file)
-    print(snailfish.final_sum_magnitude())
-    print(snailfish.max_pairwise_sum_magnitude())
+    print(puzzle.final_sum())
+    print(puzzle.max_sum_of_pairs())
