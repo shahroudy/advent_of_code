@@ -1,150 +1,104 @@
-import os
-import numpy as np
-from collections import defaultdict
-from myutils.file_reader import read_line_groups
-from time import time
+from dataclasses import dataclass, field
+from itertools import combinations, product
+from pathlib import Path
 
-rot24 = np.array(
-    [
-        [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
-        [[1, 0, 0], [0, 0, -1], [0, 1, 0]],
-        [[1, 0, 0], [0, -1, 0], [0, 0, -1]],
-        [[1, 0, 0], [0, 0, 1], [0, -1, 0]],
-        [[0, -1, 0], [1, 0, 0], [0, 0, 1]],
-        [[0, 0, 1], [1, 0, 0], [0, 1, 0]],
-        [[0, 1, 0], [1, 0, 0], [0, 0, -1]],
-        [[0, 0, -1], [1, 0, 0], [0, -1, 0]],
-        [[-1, 0, 0], [0, -1, 0], [0, 0, 1]],
-        [[-1, 0, 0], [0, 0, -1], [0, -1, 0]],
-        [[-1, 0, 0], [0, 1, 0], [0, 0, -1]],
-        [[-1, 0, 0], [0, 0, 1], [0, 1, 0]],
-        [[0, 1, 0], [-1, 0, 0], [0, 0, 1]],
-        [[0, 0, 1], [-1, 0, 0], [0, -1, 0]],
-        [[0, -1, 0], [-1, 0, 0], [0, 0, -1]],
-        [[0, 0, -1], [-1, 0, 0], [0, 1, 0]],
-        [[0, 0, -1], [0, 1, 0], [1, 0, 0]],
-        [[0, 1, 0], [0, 0, 1], [1, 0, 0]],
-        [[0, 0, 1], [0, -1, 0], [1, 0, 0]],
-        [[0, -1, 0], [0, 0, -1], [1, 0, 0]],
-        [[0, 0, -1], [0, -1, 0], [-1, 0, 0]],
-        [[0, -1, 0], [0, 0, 1], [-1, 0, 0]],
-        [[0, 0, 1], [0, 1, 0], [-1, 0, 0]],
-        [[0, 1, 0], [0, 0, -1], [-1, 0, 0]],
-    ]
-)
+from myutils.geometry import Point3D
 from myutils.io_handler import get_input_data
+from myutils.optimization import apply_transformation, find_Nd_to_Nd_transformation
+
+
+@dataclass
+class Beacon:
+    position: Point3D
+    distances: set[int] = field(default_factory=set)
+    matches: dict[int, "Beacon"] = field(default_factory=dict)
+    real_position: Point3D | None = None
+
+
+@dataclass
+class Scanner:
+    id: int
+    beacons: list[Beacon]
+    overlapping_scanners: set[int] = field(default_factory=set)
+    position: Point3D | None = None
 
 
 class BeaconScanner:
     def __init__(self, filename):
-        self.line_groups = read_line_groups(filename)
-        self.process()
-
-    def process(self):
-        self.detections = []
-        self.scanner_count = 0
-        for lg in self.line_groups:
-            det = []
-            for line in lg[1:]:
-                coor = line.split(",")
-                coor = list(map(int, coor))
-                det.append(coor)
-            self.detections.append(np.array(det))
-            self.scanner_count += 1
-
-    def set_pairwise_beacon_distances(self):
-        self.pairwise_beacon_distances = defaultdict(list)
-        for scanner in range(self.scanner_count):
-            detections = self.detections[scanner]
-            for i in range(len(detections)):
-                dists = set()
-                for j in range(len(detections)):
-                    if j != i:
-                        d = np.sum((detections[i] - detections[j]) ** 2)
-                        dists.add(d)
-                assert len(dists) == len(detections) - 1
-                self.pairwise_beacon_distances[scanner].append(dists)
-
-    def align_scanner_pair(self, ref_scanner, cur_scanner):
-        ref_detections = self.detections[ref_scanner]
-        cur_detections = self.detections[cur_scanner]
-        match = self.matching_beacons[(ref_scanner, cur_scanner)]
-
-        for rotation in rot24:
-            transformed = np.dot(cur_detections, rotation)
-            frompoint = transformed[match[0][0]]
-            topoint = ref_detections[match[0][1]]
-            delta = topoint - frompoint
-            transformed = transformed + delta
-
-            for mc, mr in match:
-                if np.sum(np.abs(transformed[mc] - ref_detections[mr])) > 0:
-                    break  # not the correct rotation
-            else:  # found
-                self.detections[cur_scanner] = transformed
-                self.scanner_coordinations[cur_scanner] = delta
-                return
-
-    def find_matched_beacons(self, ref_scanner, cur_scanner):
-        ref_distances = self.pairwise_beacon_distances[ref_scanner]
-        cur_distances = self.pairwise_beacon_distances[cur_scanner]
-
-        match = []
-        for i in range(len(cur_distances)):
-            for j in range(len(ref_distances)):
-                if len(cur_distances[i] & ref_distances[j]) == 11:
-                    match.append([i, j])
-                    break
-        return match
-
-    def find_matching_scanners(self):
-        self.matching_scanners = defaultdict(list)
-        self.matching_beacons = {}
-        for i in range(self.scanner_count):
-            for j in range(i, self.scanner_count):
-                match = self.find_matched_beacons(i, j)
-                if len(match) < 12:
-                    continue
-                self.matching_scanners[i].append(j)
-                self.matching_scanners[j].append(i)
-                self.matching_beacons[(i, j)] = match
-                self.matching_beacons[(j, i)] = [(y, x) for (x, y) in match]
-
-    def count_all_beacons(self):
-        beacons = set()
-        for d in self.detections:
-            for p in d:
-                beacons.add(tuple((p[0], p[1], p[2])))
-        return len(beacons)
-
-    def max_distance_between_scanners(self):
-        max_distance = 0
-        for i in self.scanner_coordinations.values():
-            for j in self.scanner_coordinations.values():
-                max_distance = max(max_distance, np.sum(np.abs(i - j)))
-        return max_distance
-
-    def align_all_scanners(self):
+        self.scanners = self.load_scanners(filename)
         self.set_pairwise_beacon_distances()
         self.find_matching_scanners()
+        self.find_scanners_and_beacons_positions()
 
-        self.scanner_coordinations = {0: np.array([0, 0, 0])}
+    def load_scanners(self, filename):
+        scanners = []
+        for id, scanner in enumerate(Path(filename).read_text().split("\n\n")):
+            beacons = [
+                Beacon(position=Point3D(*map(int, beacon.split(","))))
+                for beacon in scanner.splitlines()[1:]
+            ]
+            scanners.append(Scanner(id=id, beacons=beacons))
+        return scanners
+
+    def set_pairwise_beacon_distances(self):
+        for scanner in self.scanners:
+            for beacon1, beacon2 in combinations(scanner.beacons, 2):
+                distance = beacon1.position.distance_squared(beacon2.position)
+                beacon1.distances.add(distance)
+                beacon2.distances.add(distance)
+
+    def find_matching_scanners(self):
+        for scanner1, scanner2 in combinations(self.scanners, 2):
+            s1_id, s2_id = scanner1.id, scanner2.id
+            beacon_match_count = 0
+            for beacon1, beacon2 in product(scanner1.beacons, scanner2.beacons):
+                if len(beacon1.distances & beacon2.distances) >= 11:
+                    beacon_match_count += 1
+                    beacon1.matches[s2_id] = beacon2
+                    beacon2.matches[s1_id] = beacon1
+            if beacon_match_count >= 12:
+                scanner1.overlapping_scanners.add(s2_id)
+                scanner2.overlapping_scanners.add(s1_id)
+
+    def find_scanners_and_beacons_positions(self):
+        for beacon in self.scanners[0].beacons:
+            beacon.real_position = beacon.position
+        self.scanners[0].position = Point3D(0, 0, 0)
         matched = {0}
-        queue = [0]
-        while queue:
-            ref_scanner = queue.pop()
-            for cur_scanner in self.matching_scanners[ref_scanner]:
-                if cur_scanner not in matched:
-                    self.align_scanner_pair(ref_scanner, cur_scanner)
-                    queue.append(cur_scanner)
-                    matched.add(cur_scanner)
+        to_be_matched = [0]
+        while to_be_matched:
+            ref_scanner = self.scanners[to_be_matched.pop()]
+            for cur_scanner_id in ref_scanner.overlapping_scanners - matched:
+                cur_scanner = self.scanners[cur_scanner_id]
+                self.align_scanner_pair(ref_scanner, cur_scanner)
+                to_be_matched.append(cur_scanner_id)
+                matched.add(cur_scanner_id)
 
-        return (self.count_all_beacons(), self.max_distance_between_scanners())
+    def align_scanner_pair(self, ref_scanner, cur_scanner):
+        beacons = [beacon for beacon in cur_scanner.beacons if ref_scanner.id in beacon.matches]
+        from_matrix = [beacon.position for beacon in beacons]
+        to_matrix = [beacon.matches[ref_scanner.id].real_position for beacon in beacons]
+        transformation = find_Nd_to_Nd_transformation(from_matrix, to_matrix)
+        for beacon in cur_scanner.beacons:
+            beacon.real_position = apply_transformation(beacon.position, transformation).round()
+        cur_scanner.position = apply_transformation(Point3D(0, 0, 0), transformation).round()
+
+    def count_all_beacons(self):
+        return len({b.real_position for s in self.scanners for b in s.beacons})
+
+    def max_distance_between_scanners(self):
+        return max(i.position.manhattan_dist(j.position) for i, j in combinations(self.scanners, 2))
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
+
     test1 = BeaconScanner("test1.txt")
-    assert test1.align_all_scanners() == (79, 3621)
+    assert test1.count_all_beacons() == 79
+    assert test1.max_distance_between_scanners() == 3621
+
+    print("Tests passed, starting with the puzzle")
+
     beacon_scanner = BeaconScanner(data.input_file)
-    print(beacon_scanner.align_all_scanners())
+    print(beacon_scanner.count_all_beacons())
+    print(beacon_scanner.max_distance_between_scanners())

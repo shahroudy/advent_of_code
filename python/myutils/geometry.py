@@ -87,6 +87,12 @@ class Point:
         other_tuple = other.tuple if isinstance(other, Point) else tuple(other)
         return self.tuple < other_tuple
 
+    def round(self, digits=0) -> "Point":
+        if digits == 0:
+            return Point(int(round(self.x)), int(round(self.y)))
+        else:
+            return Point(round(float(self.x), digits), round(float(self.y), digits))
+
     def distance_squared(self, other: "Point") -> int:
         x, y = (other.x, other.y) if isinstance(other, Point) else other
         return (self.x - x) ** 2 + (self.y - y) ** 2
@@ -224,6 +230,16 @@ class Point3D:
         other_tuple = other.tuple if isinstance(other, Point3D) else tuple(other)
         return self.tuple < other_tuple
 
+    def round(self, digits=0) -> "Point3D":
+        if digits == 0:
+            return Point3D(int(round(self.x)), int(round(self.y)), int(round(self.z)))
+        else:
+            return Point3D(
+                round(float(self.x), digits),
+                round(float(self.y), digits),
+                round(float(self.z), digits),
+            )
+
     def distance_squared(self, other: "Point3D") -> int:
         cx, cy, cz = (other.x, other.y, other.z) if isinstance(other, Point3D) else other
         return (self.x - cx) ** 2 + (self.y - cy) ** 2 + (self.z - cz) ** 2
@@ -355,6 +371,19 @@ class Point4D:
     def __lt__(self, other: "Point4D") -> int:
         other_tuple = other.tuple if isinstance(other, Point4D) else tuple(other)
         return self.tuple < other_tuple
+
+    def round(self, digits=0) -> "Point4D":
+        if digits == 0:
+            return Point4D(
+                int(round(self.x)), int(round(self.y)), int(round(self.z)), int(round(self.w))
+            )
+        else:
+            return Point4D(
+                round(float(self.x), digits),
+                round(float(self.y), digits),
+                round(float(self.z), digits),
+                round(float(self.w), digits),
+            )
 
     def distance_squared(self, other: "Point4D") -> int:
         cx, cy, cz, cw = (

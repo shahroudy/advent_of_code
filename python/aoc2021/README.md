@@ -293,6 +293,34 @@ much; so we can keep the representation as lists instead of converting to tuples
 instead of nested lists. But I preferred to keep the simpler representation for now.
 
 ## Day 19: [Beacon Scanner](https://adventofcode.com/2021/day/19) &rarr; [Solution](./day19/d19.py)
+We are provided with a list of 3D scanners, each with a list of detected beacons in 3D space.\
+What we know is:
+* Each scanner has its own coordinate system (unknown position and orientation).
+* Scanners can overlap, if they do, they will have at least 12 beacons in common, but with different
+coordinates.
+* If we call two overlapping scanners as connected, all scanners will form a connected graph.
+
+What we need to do, is to find the 3D position of all the scanners and their detected beacons in a
+common coordinate system (e.g. in scanner 0's coordinate system).
+
+In part 1, we need to find the total number of unique beacons.\
+In part 2, we need to find the maximum Manhattan distance between any two scanners.
+
+**The key idea to solve this puzzle is to find the 3D distances between all pairs of beacons for
+each scanner.\
+Then, for each pair of scanners, we can find the beacons that have at least 11 distances in
+common.**
+
+The number 12 (for overlapping beacons) gives us a clue: finding the 3D to 3D transformation is
+possible with 12 pairs of points (beacons), because the transformation has 12 degrees of freedom
+(3 for rotation, 3 for translation, and 6 for the choice of which axes map to which), which can be
+represented with a 4x3 matrix.
+
+I implemented a function in my `myutils.optimization` library named
+`find_Nd_to_Nd_transformation` that finds the transformation matrix between two sets of N-D points,
+which uses the least-squares solution to a linear matrix equation: `numpy.linalg.lstsq`.
+
+
 ## Day 20: [Trench Map](https://adventofcode.com/2021/day/20) &rarr; [Solution](./day20/d20.py)
 ## Day 21: [Dirac Dice](https://adventofcode.com/2021/day/21) &rarr; [Solution](./day21/d21.py)
 ## Day 22: [Reactor Reboot](https://adventofcode.com/2021/day/22) &rarr; [Solution](./day22/d22.py)

@@ -325,3 +325,19 @@ def test_day18():
     test = Snailfish(f"{input_folder}/aoc2021_day18.txt")
     assert test.final_sum() == 4008
     assert test.max_sum_of_pairs() == 4667
+
+
+def test_day19_samples():
+    from aoc2021.day19.d19 import BeaconScanner
+
+    test1 = BeaconScanner("./python/aoc2021/day19/test1.txt")
+    assert test1.count_all_beacons() == 79
+    assert test1.max_distance_between_scanners() == 3621
+
+
+def test_day19():
+    from aoc2021.day19.d19 import BeaconScanner
+
+    test1 = BeaconScanner(f"{input_folder}/aoc2021_day19.txt")
+    assert test1.count_all_beacons() == 313
+    assert test1.max_distance_between_scanners() == 10656
