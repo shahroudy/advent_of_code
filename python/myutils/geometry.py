@@ -17,14 +17,16 @@ DIR_CHARS_TURN_REVERSE = {">": "<", "<": ">", "^": "v", "v": "^"}
 
 # 2D Masks for 4, 8, 9 and X directions
 MASK4 = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-MASK8 = [[i, j] for i, j in product(range(-1, 2), repeat=2) if i or j]
-MASK9 = [[i, j] for i, j in product(range(-1, 2), repeat=2)]
+MASK8 = [[i, j] for j, i in product(range(-1, 2), repeat=2) if i or j]
+MASK9 = [[i, j] for j, i in product(range(-1, 2), repeat=2)]
+MASK25 = [[i, j] for j, i in product(range(-2, 3), repeat=2)]
 MASKX = [[1, 1], [-1, -1], [1, -1], [-1, 1]]
 
 # 3D Masks for 6, 26, 27 and X directions
 MASK6 = [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]
-MASK26 = [[i, j, k] for i, j, k in product(range(-1, 2), repeat=3) if i or j or k]
-MASK27 = [[i, j, k] for i, j, k in product(range(-1, 2), repeat=3)]
+MASK26 = [[i, j, k] for k, j, i in product(range(-1, 2), repeat=3) if i or j or k]
+MASK27 = [[i, j, k] for k, j, i in product(range(-1, 2), repeat=3)]
+MASK125 = [[i, j, k] for k, j, i in product(range(-2, 3), repeat=3)]
 MASKX3D = [
     [1, 1, 1],
     [-1, -1, -1],
@@ -47,8 +49,9 @@ MASK8_4D = [
     [0, 0, 0, -1],
     [0, 0, 0, 1],
 ]
-MASK80 = [[i, j, k, l] for i, j, k, l in product(range(-1, 2), repeat=4) if i or j or k or l]
-MASK81 = [[i, j, k, l] for i, j, k, l in product(range(-1, 2), repeat=4)]
+MASK80 = [[i, j, k, l] for l, k, j, i in product(range(-1, 2), repeat=4) if i or j or k or l]
+MASK81 = [[i, j, k, l] for l, k, j, i in product(range(-1, 2), repeat=4)]
+MASK625 = [[i, j, k, l] for l, k, j, i in product(range(-2, 3), repeat=4)]
 
 
 class Point:
@@ -121,6 +124,9 @@ class Point:
     def n9(self) -> List["Point"]:
         return [Point(self.x + dx, self.y + dy) for dx, dy in MASK9]
 
+    def n25(self) -> List["Point"]:
+        return [Point(self.x + dx, self.y + dy) for dx, dy in MASK25]
+
     def nx(self) -> List["Point"]:
         return [Point(self.x + dx, self.y + dy) for dx, dy in MASKX]
 
@@ -191,6 +197,12 @@ class Point:
 
     def WEST(self) -> "Point":
         return Point(self.x - 1, self.y)
+
+    @classmethod
+    def loop(cls, x0, x1, y0, y1) -> Generator["Point", None, None]:
+        for y in range(y0, y1):
+            for x in range(x0, x1):
+                yield cls(x, y)
 
 
 class Point3D:
@@ -271,6 +283,9 @@ class Point3D:
     def n27(self) -> List["Point3D"]:
         return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASK27]
 
+    def n125(self) -> List["Point3D"]:
+        return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASK125]
+
     def nx(self) -> List["Point3D"]:
         return [Point3D(self.x + dx, self.y + dy, self.z + dz) for dx, dy, dz in MASKX3D]
 
@@ -324,6 +339,13 @@ class Point3D:
 
     def DOWN(self) -> "Point3D":
         return Point3D(self.x, self.y, self.z - 1)
+
+    @classmethod
+    def loop(cls, x0, x1, y0, y1, z0, z1) -> Generator["Point3D", None, None]:
+        for z in range(z0, z1):
+            for y in range(y0, y1):
+                for x in range(x0, x1):
+                    yield cls(x, y, z)
 
 
 class Point4D:
@@ -434,6 +456,12 @@ class Point4D:
             Point4D(self.x + dx, self.y + dy, self.z + dz, self.w + dw) for dx, dy, dz, dw in MASK81
         ]
 
+    def n625(self) -> List["Point4D"]:
+        return [
+            Point4D(self.x + dx, self.y + dy, self.z + dz, self.w + dw)
+            for dx, dy, dz, dw in MASK625
+        ]
+
     def volume(self, other: "Point4D", inclusive=False) -> int:
         return prod(abs(a - b) + int(inclusive) for a, b in zip(self.tuple, other.tuple))
 
@@ -471,6 +499,14 @@ class Point4D:
     @property
     def tuple(self) -> Tuple[int, int, int, int]:
         return (self.x, self.y, self.z, self.w)
+
+    @classmethod
+    def loop(cls, x0, x1, y0, y1, z0, z1, w0, w1) -> Generator["Point4D", None, None]:
+        for w in range(w0, w1):
+            for z in range(z0, z1):
+                for y in range(y0, y1):
+                    for x in range(x0, x1):
+                        yield cls(x, y, z, w)
 
 
 def connected_region(

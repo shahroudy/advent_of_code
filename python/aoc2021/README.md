@@ -322,6 +322,21 @@ which uses the least-squares solution to a linear matrix equation: `numpy.linalg
 
 
 ## Day 20: [Trench Map](https://adventofcode.com/2021/day/20) &rarr; [Solution](./day20/d20.py)
+A cellular automaton puzzle on an infinite 2D grid.\
+We are provided with an enhancement algorithm (a string of 512 characters) and an initial image.\
+At each step, we need to find the binary value from the 9-neighborhood of each pixel, and then look
+up the corresponding value in the enhancement algorithm to get the new pixel value.\
+In part 1, we need to run this for 2 steps, and in part 2 for 50 steps.
+
+The key challenge in this puzzle is to handle the infinite grid for the puzzle input, for which the
+first value in the algorithm is `#` (on) and the last value is `.` (off), unlike the sample input.\
+This means that the infinite background will flip between `.` and `#` at each step.
+
+To handle this, we can keep track of the current background value and update it at each step based
+on the enhancement algorithm.\
+Also, setting the borders of the current image at each step needs to be done carefully, bacuase the
+image expands by one pixel in each direction at each step.
+
 ## Day 21: [Dirac Dice](https://adventofcode.com/2021/day/21) &rarr; [Solution](./day21/d21.py)
 ## Day 22: [Reactor Reboot](https://adventofcode.com/2021/day/22) &rarr; [Solution](./day22/d22.py)
 ## Day 23: [Amphipod](https://adventofcode.com/2021/day/23) &rarr; [Solution](./day23/d23.py)

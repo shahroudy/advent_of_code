@@ -1,79 +1,53 @@
-import os
-from myutils.file_reader import read_line_groups
+from pathlib import Path
+
+from myutils.geometry import Point
 from myutils.io_handler import get_input_data
+from myutils.utils import read_map_dict_of_sets_of_points
 
 
 class TrenchMap:
     def __init__(self, filename):
-        self.line_groups = read_line_groups(filename)
-        self.process()
+        algorithm_text, image_text = Path(filename).read_text().split("\n\n")
+        self.code = [ch == "#" for ch in algorithm_text]
+        image_dict, self.rows, self.cols = read_map_dict_of_sets_of_points(image_text)
+        self.init_image = image_dict["#"]
 
-    def process(self):
-        self.code = []
-        for ch in self.line_groups[0][0]:
-            self.code.append(1 if ch == "#" else 0)
+    def enhance(self, iterations):
+        image = self.init_image
+        top, bottom = 0, self.rows
+        left, right = 0, self.cols
+        default_value = 0
 
-        self.init_image = set()
-        row = 0
-        for line in self.line_groups[1]:
-            col = 0
-            for ch in line:
-                if ch == "#":
-                    self.init_image.add((row, col))
-                col += 1
-            if row == 0:
-                cols = col
-            col = 0
-            row += 1
-        rows = row
-
-        self.minrow, self.maxrow = 0, rows
-        self.mincol, self.maxcol = 0, cols
-
-        self.default_value = 0
-        self.mask9 = [[i, j] for i in range(-1, 2) for j in range(-1, 2)]
-
-    def enhance(self):
-        newimage = set()
-        for row in range(self.minrow - 1, self.maxrow + 1):
-            for col in range(self.mincol - 1, self.maxcol + 1):
-                sum = 0
-                for n in self.mask9:
-                    nr, nc = row + n[0], col + n[1]
-                    if self.minrow <= nr < self.maxrow and self.mincol <= nc < self.maxcol:
-                        pixel = 1 if (nr, nc) in self.image else 0
+        for _ in range(iterations):
+            output_image = set()
+            for p in Point.loop(left - 1, right + 1, top - 1, bottom + 1):
+                code = 0
+                for n in p.n9():
+                    if top <= n.y < bottom and left <= n.x < right:
+                        pixel = 1 if n in image else 0
                     else:
-                        pixel = self.default_value
-                    sum = sum * 2 + pixel
-                if self.code[sum]:
-                    newimage.add((row, col))
+                        pixel = default_value
+                    code = code * 2 + pixel
+                if self.code[code]:
+                    output_image.add(p)
+            image = output_image
 
-        if self.default_value:
-            self.default_value = self.code[-1]  # code for 111111111
-        else:
-            self.default_value = self.code[0]  # code for 000000000
+            top -= 1
+            bottom += 1
+            left -= 1
+            right += 1
 
-        self.minrow -= 1
-        self.maxrow += 1
-        self.mincol -= 1
-        self.maxcol += 1
-
-        self.image = newimage
-
-    def iterative_enhancement(self, times):
-        self.image = self.init_image.copy()
-        for _ in range(times):
-            self.enhance()
-        return len(self.image)
+            default_value = self.code[-1] if default_value else self.code[0]
+        return len(image)
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
 
-    test1 = TrenchMap("test1.txt")
-    assert test1.iterative_enhancement(2) == 35
-    assert test1.iterative_enhancement(50) == 3351
+    test1 = TrenchMap("sample1.txt")
+    assert test1.enhance(2) == 35
+    assert test1.enhance(50) == 3351
 
     trench_map = TrenchMap(data.input_file)
-    print(trench_map.iterative_enhancement(2))
-    print(trench_map.iterative_enhancement(50))
+    print(trench_map.enhance(2))
+    print(trench_map.enhance(50))

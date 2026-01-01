@@ -341,3 +341,19 @@ def test_day19():
     test1 = BeaconScanner(f"{input_folder}/aoc2021_day19.txt")
     assert test1.count_all_beacons() == 313
     assert test1.max_distance_between_scanners() == 10656
+
+
+def test_day20_samples():
+    from aoc2021.day20.d20 import TrenchMap
+
+    test1 = TrenchMap("./python/aoc2021/day20/sample1.txt")
+    assert test1.enhance(2) == 35
+    assert test1.enhance(50) == 3351
+
+
+def test_day20():
+    from aoc2021.day20.d20 import TrenchMap
+
+    test1 = TrenchMap(f"{input_folder}/aoc2021_day20.txt")
+    assert test1.enhance(2) == 4873
+    assert test1.enhance(50) == 16394
