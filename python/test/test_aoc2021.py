@@ -330,7 +330,7 @@ def test_day18():
 def test_day19_samples():
     from aoc2021.day19.d19 import BeaconScanner
 
-    test1 = BeaconScanner("./python/aoc2021/day19/test1.txt")
+    test1 = BeaconScanner("./python/aoc2021/day19/sample1.txt")
     assert test1.count_all_beacons() == 79
     assert test1.max_distance_between_scanners() == 3621
 
