@@ -357,3 +357,19 @@ def test_day20():
     test1 = TrenchMap(f"{input_folder}/aoc2021_day20.txt")
     assert test1.enhance(2) == 4873
     assert test1.enhance(50) == 16394
+
+
+def test_day21_samples():
+    from aoc2021.day21.d21 import DiracDice
+
+    test = DiracDice("./python/aoc2021/day21/sample1.txt")
+    assert test.deterministic_dice() == 739785
+    assert test.quantum_dice() == 444356092776315
+
+
+def test_day21():
+    from aoc2021.day21.d21 import DiracDice
+
+    puzzle = DiracDice(f"{input_folder}/aoc2021_day21.txt")
+    assert puzzle.deterministic_dice() == 412344
+    assert puzzle.quantum_dice() == 214924284932572

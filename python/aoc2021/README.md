@@ -338,6 +338,38 @@ Also, setting the borders of the current image at each step needs to be done car
 image expands by one pixel in each direction at each step.
 
 ## Day 21: [Dirac Dice](https://adventofcode.com/2021/day/21) &rarr; [Solution](./day21/d21.py)
+A puzzle of turn-based dice rolling game!\
+We have two pawns on a circular board of 10 positions (1-10), and the initial positions of the
+pawns are given in the input.\
+Each player rolls a dice three times and moves their pawn forward by the sum of the rolls.
+
+In part 1, the die is a 100-sided deterministic one i.e. it rolls 1,2,3,... \
+and each pawn rolls three times and moves forward by the sum of the rolls, and adds the new position
+to their score.\
+The game ends when one of the players reaches a score of at least 1000.\
+Implementing the simulation of this game is straightforward and efficient enough.
+
+But in part 2, the die is a quantum die that splits the universe into 3 new universes for each roll
+(with outcomes 1, 2, and 3).\
+The game goes on similarly, but the end game criteria is now 21 (or more) points.\
+And we need to find the number of universes where each player wins, and return the maximum of the
+two.\
+The brute-force simulation of all possible universes is not tractable here anymore!
+
+### Optimizations:
+* The "number of universes" gives us a clue, that Dynamic Programming can be used here.
+* We can model each step of the game as a state consisting of:
+  * positions of both players
+  * scores of both players
+  * whose turn it is, and
+  * how many universes are in this state.
+* Then, we can use a queue to process each state, and for each state, we can generate all the
+  possible next states based on the possible outcomes of the x3 quantum die rolls (3, 4, ..., 9).
+* One extra trick that improves the run-time in more than two orders of magnitude, is to keep the
+  counts of scenarios out of the state itself, so that we can aggregate the counts for the same
+  state together along the way!
+  * I used a `counter` dictionary for this purpose.
+
 ## Day 22: [Reactor Reboot](https://adventofcode.com/2021/day/22) &rarr; [Solution](./day22/d22.py)
 ## Day 23: [Amphipod](https://adventofcode.com/2021/day/23) &rarr; [Solution](./day23/d23.py)
 ## Day 24: [Arithmetic Logic Unit](https://adventofcode.com/2021/day/24) &rarr; [Solution](./day24/d24.py)

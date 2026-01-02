@@ -1,71 +1,61 @@
-import re
-from collections import defaultdict
-from itertools import permutations, product
+from collections import Counter, deque
+from itertools import product
 from pathlib import Path
 
 from myutils.io_handler import get_input_data
+from myutils.utils import find_all_re
 
 
 class DiracDice:
-    def __init__(self, player_1_start, player_2_start):
-        self.start_position = [player_1_start, player_2_start]
+    def __init__(self, filename):
+        self.init = list(map(int, find_all_re(r": (\d+)", Path(filename).read_text())))
 
     def deterministic_dice(self):
-        dice = 1
-        roll_counter = 0
+        positions = [i - 1 for i in self.init]
         scores = [0, 0]
-        pos = self.start_position.copy()
+        die = 0
         while True:
-            for player in [0, 1]:
-                for _ in range(3):
-                    pos[player] += dice
-                    while pos[player] > 10:
-                        pos[player] -= 10
-                    dice += 1
-                    roll_counter += 1
-                    if dice > 100:
-                        dice = 1
-                scores[player] += pos[player]
-                if scores[player] >= 1000:
-                    return scores[1 - player] * roll_counter
+            for turn in range(2):
+                positions[turn] = (positions[turn] + sum(range(die + 1, die + 4))) % 10
+                scores[turn] += positions[turn] + 1
+                die += 3
+                if scores[turn] >= 1000:
+                    return scores[1 - turn] * die
 
     def quantum_dice(self):
-        triple_roll_combinations = defaultdict(int)
-        for i, j, k in product(range(1, 4), repeat=3):
-            triple_roll_combinations[i + j + k] += 1
-
-        pos = self.start_position
-        score = [0, 0]
+        dice_sums = Counter([sum(ds) for ds in product([1, 2, 3], repeat=3)])
+        state = (self.init[0] - 1, self.init[1] - 1, 0, 0, 0)  # pos1, pos2, score1, score2, turn
+        counts = {state: 1}
+        queue = deque([state])
         wins = [0, 0]
-        states = [[*pos, *score, 1]]
-
-        while states:
-            for player in [0, 1]:
-                middle_states = list()
-                while states:
-                    curstate = states.pop()
-                    for d, dc in triple_roll_combinations.items():
-                        pos[0], pos[1], score[0], score[1], freq = curstate
-                        pos[player] += d
-                        if pos[player] > 10:
-                            pos[player] -= 10
-                        score[player] += pos[player]
-                        if score[player] >= 21:
-                            wins[player] += freq * dc
-                        else:
-                            middle_states.append([*pos, *score, dc * freq])
-                states = middle_states
+        while queue:
+            state = queue.popleft()
+            count = counts.pop(state)
+            pos1, pos2, score1, score2, turn = state
+            for move, ways in dice_sums.items():
+                np = ((pos1 if turn == 0 else pos2) + move) % 10
+                ns = (score1 if turn == 0 else score2) + np + 1
+                if ns >= 21:
+                    wins[turn] += count * ways
+                else:
+                    next = (np, pos2, ns, score2, 1) if turn == 0 else (pos1, np, score1, ns, 0)
+                    if next not in counts:
+                        queue.append(next)
+                        counts[next] = count * ways
+                    else:
+                        counts[next] += count * ways
         return max(wins)
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
-    test1 = DiracDice(4, 8)
-    assert test1.deterministic_dice() == 739785
-    assert test1.quantum_dice() == 444356092776315
 
-    nums = list(map(int, re.findall(r"\d+", Path(data.input_file).read_text())))
-    nums = nums[1::2]
-    dirac_dice = DiracDice(*nums)
-    print(dirac_dice.deterministic_dice())
-    print(dirac_dice.quantum_dice())
+    assert DiracDice("sample1.txt").deterministic_dice() == 739785
+    assert DiracDice("sample1.txt").quantum_dice() == 444356092776315
+
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = DiracDice(data.input_file)
+
+    print(puzzle.deterministic_dice())
+    print(puzzle.quantum_dice())
