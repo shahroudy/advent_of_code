@@ -373,3 +373,23 @@ def test_day21():
     puzzle = DiracDice(f"{input_folder}/aoc2021_day21.txt")
     assert puzzle.deterministic_dice() == 412344
     assert puzzle.quantum_dice() == 214924284932572
+
+
+def test_day22_samples():
+    from aoc2021.day22.d22 import ReactorReboot
+
+    test1 = ReactorReboot("./python/aoc2021/day22/sample1.txt")
+    assert test1.on_cube_count(is_init=True) == 39
+    test2 = ReactorReboot("./python/aoc2021/day22/sample2.txt")
+    assert test2.on_cube_count(is_init=True) == 590784
+    test3 = ReactorReboot("./python/aoc2021/day22/sample3.txt")
+    assert test3.on_cube_count(is_init=True) == 474140
+    assert test3.on_cube_count() == 2758514936282235
+
+
+def test_day22():
+    from aoc2021.day22.d22 import ReactorReboot
+
+    puzzle = ReactorReboot(f"{input_folder}/aoc2021_day22.txt")
+    assert puzzle.on_cube_count(is_init=True) == 543306
+    assert puzzle.on_cube_count() == 1285501151402480

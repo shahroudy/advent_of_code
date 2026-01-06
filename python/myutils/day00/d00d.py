@@ -14,7 +14,14 @@ from typing import override
 
 import numpy as np
 import scipy as sp
-from myutils.exrange import ExRange
+from myutils.exrange import (
+    ExRange,
+    range_includes,
+    range_is_included,
+    ranges_minus,
+    ranges_overlap,
+    ranges_sub_super_set,
+)
 from myutils.geometry import *
 from myutils.geometry import (
     Point,
@@ -44,6 +51,7 @@ from myutils.matrix import (
     tuple_matrix,
     vstack,
 )
+from myutils.pixel2d import Pixel2D, range2d_intersection, range2d_overlap
 from myutils.search import (
     Search,
     Search_All_Goals,
@@ -76,6 +84,7 @@ from myutils.utils import (
     recursive_split,
     save_image,
 )
+from myutils.voxel3d import Voxel3D, range3d_intersection, range3d_overlap
 from sympy import Symbol
 from sympy.solvers import solve
 

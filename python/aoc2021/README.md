@@ -371,6 +371,20 @@ The brute-force simulation of all possible universes is not tractable here anymo
   * I used a `counter` dictionary for this purpose.
 
 ## Day 22: [Reactor Reboot](https://adventofcode.com/2021/day/22) &rarr; [Solution](./day22/d22.py)
+A puzzle of handling 3D ranges (cuboids) and their unions and intersections.\
+We are provided with a list of commands to turn on or off cuboids in 3D space.\
+And find the final number of "on" cubes after executing all the commands.\
+In part 1, we only consider the cubes within the initialization region (`x,y,z` in `[-50, 50]`), and in part 2 we consider all cubes.\
+The brute-force simulation of all cubes is tractable for part 1, but not for part 2, since the 3D ranges are very large.
+
+### Optimizations:
+* First of all, coordinate compression is needed to reduce the size of the 3D space.
+* We cannot solve the whole part 2 problem in one step of coordinate compression, due to the computational complexity.
+  * So we need further simplifications of the problem.
+  * From top to bottom, we can process the "on" commands only, and for each command, we can find the overlapping cuboids on all the upcoming steps, and subtract them from the current
+    region. The volume of the remaining cuboids can be added to the total "on" cubes.
+  * To handle the subtraction of overlapping cuboids, I added a voxel3d class to my utility libraries.
+
 ## Day 23: [Amphipod](https://adventofcode.com/2021/day/23) &rarr; [Solution](./day23/d23.py)
 ## Day 24: [Arithmetic Logic Unit](https://adventofcode.com/2021/day/24) &rarr; [Solution](./day24/d24.py)
 ## Day 25: [Sea Cucumber](https://adventofcode.com/2021/day/25) &rarr; [Solution](./day25/d25.py)

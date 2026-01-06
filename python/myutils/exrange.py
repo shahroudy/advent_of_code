@@ -37,6 +37,12 @@ def ranges_minus(r1: range, r2: range):
     raise Exception("Unexpected case")
 
 
+def ranges_intersection(r1: range, r2: range):
+    if not ranges_overlap(r1, r2):
+        return None
+    return range(max(r1.start, r2.start), min(r1.stop, r2.stop))
+
+
 class ExRange:
     def __init__(self, *args):
         assert len(args) <= 2
@@ -120,13 +126,8 @@ class ExRange:
         new_ranges = []
         for r in self.ranges:
             for i in intersect_range.ranges:
-                if ranges_overlap(r, i):
-                    new_ranges.append(
-                        range(
-                            max(r.start, i.start),
-                            min(r.stop, i.stop),
-                        )
-                    )
+                if intersection := ranges_intersection(r, i):
+                    new_ranges.append(intersection)
         self.ranges = new_ranges
         self._sort_ranges()
 
