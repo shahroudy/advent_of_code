@@ -73,5 +73,6 @@
     // File hygiene
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true
+    "files.trimFinalNewlines": true,
+    "debug.console.collapseIdenticalLines": false
 }

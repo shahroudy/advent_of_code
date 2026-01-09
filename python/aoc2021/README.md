@@ -386,5 +386,17 @@ The brute-force simulation of all cubes is tractable for part 1, but not for par
   * To handle the subtraction of overlapping cuboids, I added a voxel3d class to my utility libraries.
 
 ## Day 23: [Amphipod](https://adventofcode.com/2021/day/23) &rarr; [Solution](./day23/d23.py)
+A puzzle of moving items (amphipods) from four stacks into their target stacks with minimum energy.\
+To do so, we have one row of hallway positions where amphipods can move to temporarily.\
+In part 1, each stack has two amphipods, and in part 2, each stack has four amphipods.\
+Each amphipod type has its own target stack and energy cost per move.
+
+To solve this puzzle, I used the `A*` search algorithm, implemented in my `Search` library as the
+`AStarSearch` class, for which running part 2 takes about 4 seconds on my machine (the more readable implementation).\
+For the heuristic function, I used the sum of the minimum energy needed for each amphipod to reach
+its closest target position, ignoring all other amphipods.\
+I believe I can further optimize my implementation (sacrificing readability) of this algorithm.\
+But is there any better algorithm for this puzzle? I don't know! :confused:
+
 ## Day 24: [Arithmetic Logic Unit](https://adventofcode.com/2021/day/24) &rarr; [Solution](./day24/d24.py)
 ## Day 25: [Sea Cucumber](https://adventofcode.com/2021/day/25) &rarr; [Solution](./day25/d25.py)

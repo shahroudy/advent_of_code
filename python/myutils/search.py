@@ -29,7 +29,7 @@ class Search:
 
     @abstractmethod
     def cost(self, state):
-        raise NotImplementedError
+        return state.cost
 
     @abstractmethod
     def heuristic(self, state):
@@ -37,7 +37,7 @@ class Search:
 
     @abstractmethod
     def get_result(self, state):
-        raise NotImplementedError
+        return state.cost
 
     @abstractmethod
     def state_core(self, state):

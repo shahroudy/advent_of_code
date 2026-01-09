@@ -98,13 +98,7 @@ class MySearch(Search):
     def is_goal(self, state):
         raise NotImplementedError
 
-    def cost(self, state):
-        raise NotImplementedError
-
     def heuristic(self, state):
-        raise NotImplementedError
-
-    def get_result(self, state):
         raise NotImplementedError
 
     def state_core(self, state):
@@ -119,6 +113,12 @@ class MySearch(Search):
             The immutable core state.
         """
         raise NotImplementedError
+
+    # def get_result(self, state): # implement here if it's not just state.cost
+    #     return state.cost
+
+    # def cost(self, state): # implement here if it's not just state.cost
+    #     return state.cost
 
     # def search(self, initial_state=None):
     #     raise NotImplementedError
@@ -141,11 +141,11 @@ class MapSearch(Search_Dijkstra):
                     continue
             yield self.State(n, steps + 1, cost + 1)
 
-    def cost(self, state):
-        return state.cost
-
     def state_core(self, state):
         return state.point
+
+    # def cost(self, state): # implement here if it's not just state.cost
+    #     raise NotImplementedError
 
     # def heuristic(self, state):
     #     return state.point.manhattan(self.goal)

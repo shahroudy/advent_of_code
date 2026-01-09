@@ -393,3 +393,19 @@ def test_day22():
     puzzle = ReactorReboot(f"{input_folder}/aoc2021_day22.txt")
     assert puzzle.on_cube_count(is_init=True) == 543306
     assert puzzle.on_cube_count() == 1285501151402480
+
+
+def test_day23_samples():
+    from aoc2021.day23.d23 import Amphipod
+
+    test1 = Amphipod("./python/aoc2021/day23/sample1.txt")
+    assert test1.search_minimum_energy(insert_extra=False) == 12521
+    assert test1.search_minimum_energy(insert_extra=True) == 44169
+
+
+def test_day23():
+    from aoc2021.day23.d23 import Amphipod
+
+    puzzle = Amphipod(f"{input_folder}/aoc2021_day23.txt")
+    assert puzzle.search_minimum_energy(insert_extra=False) == 14546
+    assert puzzle.search_minimum_energy(insert_extra=True) == 42308
