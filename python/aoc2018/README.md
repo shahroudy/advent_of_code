@@ -1,6 +1,15 @@
 # Advent of Code 2018
 
 ## Day 1: [Chronal Calibration](https://adventofcode.com/2018/day/1) &rarr; [Solution](./day01/d01.py)
+We are provided with a list of frequency changes and:
+in part 1 we need to calculate the resulting frequency after applying all changes, which is simply the sum of all the changes.\
+In part 2 we need to find the first frequency that is reached twice.\
+Warm up on:
+* list
+* sum(list)
+* set
+* itertools.cycle (to repeat the list indefinitely)
+
 ## Day 2: [Inventory Management System](https://adventofcode.com/2018/day/2) &rarr; [Solution](./day02/d02.py)
 ## Day 3: [No Matter How You Slice It](https://adventofcode.com/2018/day/3) &rarr; [Solution](./day03/d03.py)
 ## Day 4: [Repose Record](https://adventofcode.com/2018/day/4) &rarr; [Solution](./day04/d04.py)
@@ -61,7 +70,7 @@ The keys to solve this puzzle were:
 Since the input spans a large area, I had to save the state of the grid to a file and keep the file open in an editor to visualize the state, step by step.
 * To create extra samples to cover the corner cases easier.\
 The provided sample was too simple and did not cover corner cases happening in the input file.
-  
+
 ## Day 18: [Settlers of The North Pole](https://adventofcode.com/2018/day/18) &rarr; [Solution](./day18/d18.py)
 A cellular automaton problem.\
 Each acre (cell) changes its state based on the states of its neighbors.\

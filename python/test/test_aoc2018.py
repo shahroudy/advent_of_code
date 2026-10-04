@@ -10,6 +10,22 @@ from aoc2018.day18.d18 import SettlersOfTheNorthPole
 input_folder = os.environ.get("aoc_inputs")
 
 
+def test_day01_samples():
+    from aoc2018.day01.d01 import ChronalCalibration
+
+    test = ChronalCalibration("./python/aoc2018/day01/sample1.txt")
+    assert test.resulting_frequency() == 3
+    assert test.first_repeated_frequency() == 2
+
+
+def test_day01():
+    from aoc2018.day01.d01 import ChronalCalibration
+
+    puzzle = ChronalCalibration(f"{input_folder}/aoc2018_day01.txt")
+    assert puzzle.resulting_frequency() == 430
+    assert puzzle.first_repeated_frequency() == 462
+
+
 def test_day13_samples():
     test = MineCartMadness("./python/aoc2018/day13/sample1.txt")
     assert test.first_crash == (7, 3)
