@@ -11,6 +11,15 @@ Warm up on:
 * itertools.cycle (to repeat the list indefinitely)
 
 ## Day 2: [Inventory Management System](https://adventofcode.com/2018/day/2) &rarr; [Solution](./day02/d02.py)
+A string comparison problem where we want to find:
+- In part 1, a checksum which is the product of:
+  - the number of strings (box IDs) containing a letter exactly twice
+  - the number of strings (box IDs) containing a letter exactly three times
+- In part 2, the common letters between the only two correct box IDs that differ by exactly one character.
+
+In part 1, `collections.Counter` is useful to count the occurrences of each letter in a string.\
+In part 2, `itertools.combinations` can be useful to generate all pairs of box IDs. `zip` and `list` comprehension can be used to find the correct pair and their common letters.
+
 ## Day 3: [No Matter How You Slice It](https://adventofcode.com/2018/day/3) &rarr; [Solution](./day03/d03.py)
 ## Day 4: [Repose Record](https://adventofcode.com/2018/day/4) &rarr; [Solution](./day04/d04.py)
 ## Day 5: [Alchemical Reduction](https://adventofcode.com/2018/day/5) &rarr; [Solution](./day05/d05.py)

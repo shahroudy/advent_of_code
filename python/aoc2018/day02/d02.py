@@ -1,54 +1,38 @@
-import os
 from collections import Counter
-from myutils.file_reader import read_lines
+from itertools import combinations
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
 class InventoryManagementSystem:
     def __init__(self, filename):
-        self.lines = read_lines(filename)
+        self.box_ids = Path(filename).read_text().splitlines()
 
     def checksum(self):
-        two_counter = three_counter = 0
-        for line in self.lines:
-            has_two = False
-            has_three = False
-            counter = Counter(line)
-            for counter_values in counter.values():
-                if counter_values == 2:
-                    has_two = True
-                if counter_values == 3:
-                    has_three = True
-                if has_two and has_three:
-                    break
-            two_counter += has_two
-            three_counter += has_three
-        return two_counter * three_counter
+        count_2, count_3 = 0, 0
+        for id in self.box_ids:
+            counts = Counter(id)
+            count_2 += 2 in counts.values()
+            count_3 += 3 in counts.values()
+        return count_2 * count_3
 
-    def common_in_box_ids(self):
-        for line1 in self.lines:
-            for line2 in self.lines:
-                if line1 == line2:
-                    continue
-                diff = 0
-                common_code = []
-                for head in range(len(line1)):
-                    if line1[head] == line2[head]:
-                        common_code.append(line1[head])
-                    else:
-                        diff += 1
-                    if diff > 1:
-                        continue
-                if diff == 1:
-                    return "".join(common_code)
+    def common_letters(self):
+        for id1, id2 in combinations(self.box_ids, 2):
+            common = [c1 for (c1, c2) in zip(id1, id2) if c1 == c2]
+            if len(common) == len(id1) - 1:
+                return "".join(common)
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
 
-    test1 = InventoryManagementSystem("test1.txt")
-    assert test1.common_in_box_ids() == "fgij"
+    assert InventoryManagementSystem("sample1.txt").checksum() == 12
+    assert InventoryManagementSystem("sample2.txt").common_letters() == "fgij"
 
-    ims = InventoryManagementSystem(data.input_file)
-    print(ims.checksum())
-    print(ims.common_in_box_ids())
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = InventoryManagementSystem(data.input_file)
+
+    print(puzzle.checksum())
+    print(puzzle.common_letters())
