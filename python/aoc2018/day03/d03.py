@@ -1,49 +1,46 @@
-import os
-import re
-from collections import defaultdict
 from itertools import product
-from myutils.file_reader import read_lines
+from pathlib import Path
+
 from myutils.io_handler import get_input_data
+from myutils.utils import process_int_list
 
 
 class NoMatterHowYouSliceIt:
     def __init__(self, filename):
-        self.lines = read_lines(filename)
-        self.process()
+        self.claims = process_int_list(text=Path(filename).read_text())
+        self.calculate_overlapping_tiles()
 
-    def process(self):
-        self.claims = []
-        for line in self.lines:
-            nums = re.sub(r"\D", " ", line)
-            parts = list(map(int, nums.split()))
-            self.claims.append(parts)
-        self.claimed_count = defaultdict(int)
-        for claim in self.claims:
-            _, x, y, width, height = claim
-            for i in range(width):
-                for j in range(height):
-                    self.claimed_count[(x + i, y + j)] += 1
+    def calculate_overlapping_tiles(self):
+        seen_tiles = set()
+        self.overlapping_tiles = set()
+        for _, x, y, w, h in self.claims:
+            for tile in product(range(x, x + w), range(y, y + h)):
+                if tile in seen_tiles:
+                    self.overlapping_tiles.add(tile)
+                seen_tiles.add(tile)
 
-    def within_multiple_claims(self):
-        return sum([value >= 2 for value in self.claimed_count.values()])
+    def overlapping_area(self):
+        return len(self.overlapping_tiles)
 
-    def id_of_no_overlapping_claim(self):
-        for claim in self.claims:
-            number, x, y, width, height = claim
-            for i, j in product(range(width), range(height)):
-                if self.claimed_count[(x + i, y + j)] != 1:
+    def non_overlapping_claim_id(self):
+        for id, x, y, w, h in self.claims:
+            for tile in product(range(x, x + w), range(y, y + h)):
+                if tile in self.overlapping_tiles:
                     break
             else:
-                return number
+                return id
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
 
-    test1 = NoMatterHowYouSliceIt("test1.txt")
-    assert test1.within_multiple_claims() == 4
-    assert test1.id_of_no_overlapping_claim() == 3
+    test = NoMatterHowYouSliceIt("sample1.txt")
+    assert test.overlapping_area() == 4
+    assert test.non_overlapping_claim_id() == 3
+
+    print("Tests passed, starting with the puzzle")
 
     puzzle = NoMatterHowYouSliceIt(data.input_file)
-    print(puzzle.within_multiple_claims())
-    print(puzzle.id_of_no_overlapping_claim())
+
+    print(puzzle.overlapping_area())
+    print(puzzle.non_overlapping_claim_id())

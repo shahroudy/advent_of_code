@@ -36,6 +36,22 @@ def test_day02():
     assert puzzle.common_letters() == "pbykrmjmizwhxlqnasfgtycdv"
 
 
+def test_day03_samples():
+    from aoc2018.day03.d03 import NoMatterHowYouSliceIt
+
+    test = NoMatterHowYouSliceIt("./python/aoc2018/day03/sample1.txt")
+    assert test.overlapping_area() == 4
+    assert test.non_overlapping_claim_id() == 3
+
+
+def test_day03():
+    from aoc2018.day03.d03 import NoMatterHowYouSliceIt
+
+    puzzle = NoMatterHowYouSliceIt(f"{input_folder}/aoc2018_day03.txt")
+    assert puzzle.overlapping_area() == 113716
+    assert puzzle.non_overlapping_claim_id() == 742
+
+
 def test_day13_samples():
     from aoc2018.day13.d13 import MineCartMadness
 

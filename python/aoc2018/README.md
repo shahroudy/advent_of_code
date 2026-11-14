@@ -21,6 +21,13 @@ In part 1, `collections.Counter` is useful to count the occurrences of each lett
 In part 2, `itertools.combinations` can be useful to generate all pairs of box IDs. `zip` and `list` comprehension can be used to find the correct pair and their common letters.
 
 ## Day 3: [No Matter How You Slice It](https://adventofcode.com/2018/day/3) &rarr; [Solution](./day03/d03.py)
+We have a list of rectangles defined by their position and size.\
+In part 1, we need to find the area where the rectangles overlap.\
+In part 2, we need to find the rectangle that does not overlap with any other.\
+For today, the ad-hoc way of counting all the tiles covered by the rectangles works fine.\
+For part 1, one can keep track of all the seen tiles and the overlapping tiles in two separate sets.\
+For part 2, one can iterate through each rectangle and check if any of its tiles are in the overlapping set; the first rectangle that has no overlapping tiles is the non-overlapping one.
+
 ## Day 4: [Repose Record](https://adventofcode.com/2018/day/4) &rarr; [Solution](./day04/d04.py)
 ## Day 5: [Alchemical Reduction](https://adventofcode.com/2018/day/5) &rarr; [Solution](./day05/d05.py)
 ## Day 6: [Chronal Coordinates](https://adventofcode.com/2018/day/6) &rarr; [Solution](./day06/d06.py)
