@@ -79,8 +79,14 @@ def read_map_dict_of_sets_of_3D_points(text):
     return dict(sets), z + 1, y + 1, x + 1
 
 
-def read_ints(text: str):
-    return [int(n) for n in re.findall(r"[+-]?\d+", text)]
+def int_regex(accepted_signs="+-"):
+    if accepted_signs:
+        return rf"[{accepted_signs}]?\d+"
+    return r"\d+"
+
+
+def read_ints(text: str, accepted_signs="+-"):
+    return [int(n) for n in re.findall(int_regex(accepted_signs), text)]
 
 
 def read_line_groups(text: str):
@@ -91,25 +97,25 @@ def read_int_line_groups(text: str):
     return [[int(n) for n in re.split("\n", g)] for g in re.split("\n\n", text.strip())]
 
 
-def process_int_list(text: str):
+def process_int_list(text: str, accepted_signs="+-"):
     lines = text.splitlines()
-    return [list(map(int, re.findall(r"-?\d+", line))) for line in lines]
+    return [list(map(int, re.findall(int_regex(accepted_signs), line))) for line in lines]
 
 
-def process_int_int_dict(text: str):
+def process_int_int_dict(text: str, accepted_signs="+-"):
     lines = text.splitlines()
     inp = {}
     for line in lines:
-        parts = list(map(int, re.findall(r"-?\d+", line)))
+        parts = list(map(int, re.findall(int_regex(accepted_signs), line)))
         inp[parts[0]] = parts[1:]
     return inp
 
 
-def process_int_list_dict(text: str):
+def process_int_list_dict(text: str, accepted_signs="+-"):
     lines = text.splitlines()
     inp = {}
     for line in lines:
-        parts = list(map(int, re.findall(r"-?\d+", line)))
+        parts = list(map(int, re.findall(int_regex(accepted_signs), line)))
         inp[parts[0]] = parts[1:]
     return inp
 
@@ -124,10 +130,10 @@ def read_ranges(text: str, range_sep="\n", bounds_sep="-", end_inclusive=True):
     return ranges
 
 
-def read_points_per_line(text: str):
+def read_points_per_line(text: str, accepted_signs="+-"):
     points = []
     for line in text.splitlines():
-        nums = list(map(int, re.findall(r"-?\d+", line)))
+        nums = list(map(int, re.findall(int_regex(accepted_signs), line)))
         match len(nums):
             case 2:
                 points.append(Point(*nums))

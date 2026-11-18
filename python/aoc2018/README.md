@@ -29,6 +29,15 @@ For part 1, one can keep track of all the seen tiles and the overlapping tiles i
 For part 2, one can iterate through each rectangle and check if any of its tiles are in the overlapping set; the first rectangle that has no overlapping tiles is the non-overlapping one.
 
 ## Day 4: [Repose Record](https://adventofcode.com/2018/day/4) &rarr; [Solution](./day04/d04.py)
+We have a list of guard shifts and when did they sleep and wake up.\
+In part 1, we need to find the guard who sleeps the most and the minute they are most frequently asleep.\
+In part 2, we need to find the guard who is most frequently asleep on the same minute.\
+`collections.defaultdict` is useful to keep track of the minutes each guard is asleep.\
+Then to answer the two parts, one need to apply different steps of finding the max value in the dictionary of sleep records, using `max(d, key=...)`.
+
+### Bugs and issues:
+* The input records must be sorted before processing, as the code assumes chronological order of the guard shifts.
+
 ## Day 5: [Alchemical Reduction](https://adventofcode.com/2018/day/5) &rarr; [Solution](./day05/d05.py)
 ## Day 6: [Chronal Coordinates](https://adventofcode.com/2018/day/6) &rarr; [Solution](./day06/d06.py)
 ## Day 7: [The Sum of Its Parts](https://adventofcode.com/2018/day/7) &rarr; [Solution](./day07/d07.py)

@@ -52,6 +52,22 @@ def test_day03():
     assert puzzle.non_overlapping_claim_id() == 742
 
 
+def test_day04_samples():
+    from aoc2018.day04.d04 import ReposeRecord
+
+    test = ReposeRecord("./python/aoc2018/day04/sample1.txt")
+    assert test.sleeping_guard_strategy1() == 240
+    assert test.sleeping_guard_strategy2() == 4455
+
+
+def test_day04():
+    from aoc2018.day04.d04 import ReposeRecord
+
+    puzzle = ReposeRecord(f"{input_folder}/aoc2018_day04.txt")
+    assert puzzle.sleeping_guard_strategy1() == 12169
+    assert puzzle.sleeping_guard_strategy2() == 16164
+
+
 def test_day13_samples():
     from aoc2018.day13.d13 import MineCartMadness
 
