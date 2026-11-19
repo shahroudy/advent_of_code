@@ -39,6 +39,16 @@ Then to answer the two parts, one need to apply different steps of finding the m
 * The input records must be sorted before processing, as the code assumes chronological order of the guard shifts.
 
 ## Day 5: [Alchemical Reduction](https://adventofcode.com/2018/day/5) &rarr; [Solution](./day05/d05.py)
+We have an input polymer as a string of units (characters).\
+Each pair of adjacent units of the same type but opposite polarity (uppercase vs lowercase) will be destroyed in a reaction, and this process continues until no more reactions can occur.\
+In part 1, we need to fully react the polymer and find its length.\
+In part 2, we need to find the shortest possible polymer by removing all units of one type and then fully reacting the polymer.
+
+Part 1 can be solved in an ad-hoc way, but part 2 will take a long time that way.
+
+### Optimization:
+* As the reaction operation suggests, it can be implemented efficiently using a stack to keep track of the unit on top of the stack and react it with the incoming unit if they are of the same type but opposite polarity.
+
 ## Day 6: [Chronal Coordinates](https://adventofcode.com/2018/day/6) &rarr; [Solution](./day06/d06.py)
 ## Day 7: [The Sum of Its Parts](https://adventofcode.com/2018/day/7) &rarr; [Solution](./day07/d07.py)
 ## Day 8: [Memory Maneuver](https://adventofcode.com/2018/day/8) &rarr; [Solution](./day08/d08.py)

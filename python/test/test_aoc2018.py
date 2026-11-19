@@ -68,6 +68,22 @@ def test_day04():
     assert puzzle.sleeping_guard_strategy2() == 16164
 
 
+def test_day05_samples():
+    from python.aoc2018.day05.d05 import AlchemicalReduction
+
+    test = AlchemicalReduction("./python/aoc2018/day05/sample1.txt")
+    assert test.size_after_reactions() == 10
+    assert test.shortest_possible_polymer() == 4
+
+
+def test_day05():
+    from python.aoc2018.day05.d05 import AlchemicalReduction
+
+    puzzle = AlchemicalReduction(f"{input_folder}/aoc2018_day05.txt")
+    assert puzzle.size_after_reactions() == 10878
+    assert puzzle.shortest_possible_polymer() == 6874
+
+
 def test_day13_samples():
     from aoc2018.day13.d13 import MineCartMadness
 

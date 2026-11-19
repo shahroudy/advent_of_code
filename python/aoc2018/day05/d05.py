@@ -1,34 +1,38 @@
-import os
 from pathlib import Path
+
 from myutils.io_handler import get_input_data
 
 
 class AlchemicalReduction:
     def __init__(self, filename):
-        self.input = Path(filename).read_text().strip()
+        self.polymer = Path(filename).read_text().strip()
 
-    def size_after_reaction(self, removed_polymer=None):
-        stack = []
-        for polymer in self.input:
-            if polymer.upper() == removed_polymer:
-                continue
-            if stack and stack[-1].upper() == polymer.upper() and stack[-1] != polymer:
-                stack.pop()
+    def reacts(self, a, b):
+        return a != b and a.lower() == b.lower()
+
+    def size_after_reactions(self, remove=None):
+        result = []
+        for unit in [p for p in self.polymer if p.lower() != remove]:
+            if result and self.reacts(result[-1], unit):
+                result.pop()
             else:
-                stack.append(polymer)
-        return len(stack)
+                result.append(unit)
+        return len(result)
 
-    def min_size_after_elimination(self):
-        return min(self.size_after_reaction(removed_polymer=p) for p in set(self.input.upper()))
+    def shortest_possible_polymer(self):
+        all_units = set(self.polymer.lower())
+        return min(self.size_after_reactions(remove=unit) for unit in all_units)
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
 
-    test1 = AlchemicalReduction("test1.txt")
-    assert test1.size_after_reaction() == 10
-    assert test1.min_size_after_elimination() == 4
+    assert AlchemicalReduction("sample1.txt").size_after_reactions() == 10
+    assert AlchemicalReduction("sample1.txt").shortest_possible_polymer() == 4
 
-    alchemical_reduction = AlchemicalReduction(data.input_file)
-    print(alchemical_reduction.size_after_reaction())
-    print(alchemical_reduction.min_size_after_elimination())
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = AlchemicalReduction(data.input_file)
+
+    print(puzzle.size_after_reactions())
+    print(puzzle.shortest_possible_polymer())
