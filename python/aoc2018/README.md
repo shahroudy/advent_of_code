@@ -50,6 +50,16 @@ Part 1 can be solved in an ad-hoc way, but part 2 will take a long time that way
 * As the reaction operation suggests, it can be implemented efficiently using a stack to keep track of the unit on top of the stack and react it with the incoming unit if they are of the same type but opposite polarity.
 
 ## Day 6: [Chronal Coordinates](https://adventofcode.com/2018/day/6) &rarr; [Solution](./day06/d06.py)
+The first challenge of the year that needed some thinking.\
+We have an input list of coordinates on a 2D plane.\
+Each of these coordinates represents a point on the 2D plane, and each builds an area of points which are closer to it than to any other coordinate, considering Manhattan distance.\
+In part 1, we need to find the size of the largest area that isn't infinite.\
+An ad-hoc approach can solve part 1, but it requires careful handling to avoid counting infinite areas.\
+For that I simply check if a point is on the boundary of the grid to determine if its area is infinite.\
+In part 2, we need to find the size of the region containing all locations with a total distance to all coordinates less than a given limit.\
+The ad-hoc approach can solve part 2 as well, but if you limit the search to the bounding box defined by the minimum and maximum coordinates, it will work efficiently.\
+The input coordinates are defined in the way that the boundaries of the bounding box are far enough from the region of interest, ensuring that all relevant points are included within the bounding box.
+
 ## Day 7: [The Sum of Its Parts](https://adventofcode.com/2018/day/7) &rarr; [Solution](./day07/d07.py)
 ## Day 8: [Memory Maneuver](https://adventofcode.com/2018/day/8) &rarr; [Solution](./day08/d08.py)
 ## Day 9: [Marble Mania](https://adventofcode.com/2018/day/9) &rarr; [Solution](./day09/d09.py)

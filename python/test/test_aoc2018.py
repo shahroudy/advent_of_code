@@ -84,6 +84,22 @@ def test_day05():
     assert puzzle.shortest_possible_polymer() == 6874
 
 
+def test_day06_samples():
+    from aoc2018.day06.d06 import ChronalCoordinates
+
+    test = ChronalCoordinates("./python/aoc2018/day06/sample1.txt")
+    assert test.size_of_largest_area() == 17
+    assert test.area_of_the_region(32) == 16
+
+
+def test_day06():
+    from aoc2018.day06.d06 import ChronalCoordinates
+
+    puzzle = ChronalCoordinates(f"{input_folder}/aoc2018_day06.txt")
+    assert puzzle.size_of_largest_area() == 2917
+    assert puzzle.area_of_the_region() == 44202
+
+
 def test_day13_samples():
     from aoc2018.day13.d13 import MineCartMadness
 

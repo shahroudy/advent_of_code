@@ -1,82 +1,64 @@
-import os
+from collections import defaultdict
 from itertools import product
 from pathlib import Path
+
 from myutils.io_handler import get_input_data
+from myutils.utils import process_int_list
 
 
 class ChronalCoordinates:
     def __init__(self, filename):
-        self.lines = Path(filename).read_text().strip().split("\n")
-        self.mask4 = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-        self.process_lines()
+        self.coordinates = process_int_list(Path(filename).read_text())
+        self.xmin = min(p[0] for p in self.coordinates)
+        self.ymin = min(p[1] for p in self.coordinates)
+        self.xmax = max(p[0] for p in self.coordinates)
+        self.ymax = max(p[1] for p in self.coordinates)
 
-    def process_lines(self):
-        xs, ys = list(), list()
-        for line in self.lines:
-            x, y = map(int, line.split(", "))
-            xs.append(x)
-            ys.append(y)
+    def size_of_largest_area(self):
+        areas = defaultdict(list)
+        infinite_areas = set()
+        for x, y in product(range(self.xmin, self.xmax + 1), range(self.ymin, self.ymax + 1)):
+            min_dist = float("inf")
+            closest_points = []
+            for xc, yc in self.coordinates:
+                dist = abs(x - xc) + abs(y - yc)
+                if dist < min_dist:
+                    min_dist = dist
+                    closest_points = [(xc, yc)]
+                elif dist == min_dist:
+                    closest_points.append((xc, yc))
+            if len(closest_points) == 1:
+                p = closest_points[0]
+                areas[p].append((x, y))
+                if x in (self.xmin, self.xmax) or y in (self.ymin, self.ymax):
+                    infinite_areas.add(p)
+        return max((len(points) for area, points in areas.items() if area not in infinite_areas))
 
-        self.map = {(xs[i], ys[i]): i + 1 for i in range(len(xs))}
-        self.minx, self.maxx = min(xs), max(xs)
-        self.miny, self.maxy = min(ys), max(ys)
-
-    def largest_finite_area(self):
-        current_map = self.map.copy()
-        points_queue = current_map.copy()
-        areas = {n: 1 for n in self.map.values()}
-
-        expanded = True
-        while expanded:
-            expanded = False
-            iteration_points = dict()
-            for point, label in points_queue.items():
-                for direction in self.mask4:
-                    neighbour = (point[0] + direction[0], point[1] + direction[1])
-                    if neighbour not in current_map:
-                        if neighbour not in iteration_points:
-                            iteration_points[neighbour] = label
-                        elif iteration_points[neighbour] != label:  # equal distance to two points
-                            iteration_points[neighbour] = 0
-            if not iteration_points:
-                break
-            points_queue = dict()
-            for point, label in iteration_points.items():
-                current_map[point] = label
-                points_queue[point] = label
-                if (
-                    label > 0
-                    and self.minx <= point[0] <= self.maxx
-                    and self.miny <= point[1] <= self.maxy
-                ):
-                    if areas[label] > 0:
-                        areas[label] += 1
-                        expanded = True
-                else:
-                    areas[label] = -1
-
-        return max(areas.values())
-
-    def area_of_the_region(self, distance_limit=32):
-        point_count = 0
-        for i, j in product(range(self.minx, self.maxx), range(self.miny, self.maxy)):
-            sum_distance = 0
-            for point in self.map:
-                sum_distance += abs(i - point[0]) + abs(j - point[1])
-                if sum_distance >= distance_limit:
+    def area_of_the_region(self, distance_limit=10000):
+        area = 0
+        for q in product(
+            range(self.xmin, self.xmax + 1),
+            range(self.ymin, self.ymax + 1),
+        ):
+            dist_sum = 0
+            for p in self.coordinates:
+                dist_sum += abs(p[0] - q[0]) + abs(p[1] - q[1])
+                if dist_sum >= distance_limit:
                     break
-            if sum_distance < distance_limit:
-                point_count += 1
-        return point_count
+            else:
+                area += 1
+        return area
 
 
 if __name__ == "__main__":
     data = get_input_data(__file__)
 
-    test1 = ChronalCoordinates("test1.txt")
-    assert test1.largest_finite_area() == 17
-    assert test1.area_of_the_region() == 16
+    assert ChronalCoordinates("sample1.txt").size_of_largest_area() == 17
+    assert ChronalCoordinates("sample1.txt").area_of_the_region(32) == 16
 
-    chronal_coordinates = ChronalCoordinates(data.input_file)
-    print(chronal_coordinates.largest_finite_area())
-    print(chronal_coordinates.area_of_the_region(10000))
+    print("Tests passed, starting with the puzzle")
+
+    puzzle = ChronalCoordinates(data.input_file)
+
+    print(puzzle.size_of_largest_area())
+    print(puzzle.area_of_the_region())
